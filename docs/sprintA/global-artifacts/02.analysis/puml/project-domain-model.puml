@@ -1,5 +1,5 @@
 @startuml
-skinparam monochrome true
+'skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 'skinparam linetype ortho
@@ -8,11 +8,7 @@ skinparam classAttributeIconSize 0
 hide circle
 hide methods
 
-'title Domain Model
-
-'class Platform {
-'  -description
-'}
+title Domain Model
 
 class Organization {
     name
@@ -22,63 +18,147 @@ class Organization {
     email
 }
 
-class Task {
-    reference
-    description
-    informalDesc
-    technicalDesc
-    duration
-    cost
-}
-
-class Category {
-    description
-}
-
 class Employee {
     name
     email
-    position
     phone
 }
 
-class TechnicalSkill{
-    shortDescription
-    fullDescription
+class Collaborator {
+    job
+    skills
+
 }
 
-class ActivityArea{
-    shortDescription
-    fullDescription
+class Manager {
+    section
 }
 
-class FeatureTS{
-    mandatory
+class Skill {
+    skillName
+    skillDescription
 }
 
-'class User {
-'    name
-'    email
-'    password
-'}
-class PostalAddress{
-    street
-    zipCode
-    city
+class Job {
+    jobName
+    jobDescription
 }
-'Platform "1" -- "*" Organization : has registered >
-'Platform "1" -- "*" Category : defines >
-Organization "1" - "0..*" Employee : has >
-Organization "1" - "0..*" Task: owns >
-'Task "*" -- "1" Employee: created by >
-Employee "1" -- "*" Task : creates >
-'Employee "0..1" -- "1" User: acts as >
-Task "*" - "1" Category: cataloged as >
-TechnicalSkill "*" - "1" ActivityArea: regarding an >
 
-Category "*" - "*" TechnicalSkill :  : requires >
-(Category, TechnicalSkill) . FeatureTS
+class Vehicle {
+    plateNumber
+    brand
+    model
+    type
+    tare
+    grossWeight
+    currentKm
+    registerDate
+    acquisitionDate
+    maintenanceFrequency
+}
 
-Organization "1" -left "1" PostalAddress : located At >
+class Equipment {
+    equipmentName - to be confirmed
+    equipmentDescription - to be confirmed
+}
+
+class Calendar {
+    pendingTasks
+}
+
+
+class Tasks {
+    reference
+    taskDescription
+
+}
+
+class Teams {
+    teamMembers
+}
+
+class Parks {
+    location
+}
+
+class Portal {
+    httpAddress
+}
+
+class User {
+    name
+    email
+    password
+}
+
+class Reports {
+    type
+    date
+    park
+
+}
+
+class Comments {
+    commentDescription
+}
+
+class ReportFaults {
+    faultsDescription
+}
+
+class Malfunctions {
+    malfunctionDescription
+}
+
+
+
+Manager "1..*" --up "1..*" Employee: is a >
+Manager "1" -up "1" Portal: manages >
+Manager "1" --right "1..*" Job: creates >
+Manager "1" --right "*" Skill: creates >
+Manager "1" ---- "1" Calendar: manages >
+Manager "1" --- "*" Equipment: creates >
+Manager "1" -- "*" Vehicle: creates/manages >
+Manager "1" --left "*" Tasks: creates >
+Manager "1" -- "*" Teams: manages >
+
+
+
+
+User "1..*" - "*" Parks: uses >
+User "*" ----up "*" Reports: makes >
+
+Comments "1" -- "1" Reports: are >
+ReportFaults "1" -- "1" Reports: are >
+Malfunctions "1" -- "1" Reports: are >
+
+Teams "1" - "1" Parks: performs tasks in >
+Teams "1" - "1" Tasks: performs >
+
+
+Organization "1" -left "*" Parks: manages >
+Organization "1" -- "1..*" Employee : employs >
+
+
+Employee "1..*" -- "1..*" Collaborator: is a >
+
+Collaborator "1" --- "1" Job: has a >
+Collaborator "1" --down "*" Skill: has a set of >
+Collaborator "1..*" --down "1" Teams: integrates >
+
+
+
+Vehicle "1..*" - "1" Tasks: is attributed to >
+
+Equipment "1..*" -left "1" Tasks: is attributed to >
+
+Calendar "1" -left "*" Tasks: has >
+
+
+Tasks "1..*" -- "1..*" Parks: are performed in >
+
+
+
+Reports "*" -- "1" Portal: are submitted >
 
 @enduml

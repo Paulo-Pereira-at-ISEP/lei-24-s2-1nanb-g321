@@ -8,19 +8,27 @@ _Specifies functionalities that:
 
 (fill in here)
 
+>Business rules validation must be respected when recording and updating data.
+
+>All those who wish to use the application must be authenticated with a password of seven alphanumeric characters, including three capital letters and two digits.
+
 ## Usability
 
 _Evaluates the user interface. It has several subcategories,
 among them: error prevention; interface aesthetics and design; help and
 documentation; consistency and standards._
 
-(fill in here )
+>During the system development, the team must use Javadoc to generate useful documentation for Java code.
+
+
 
 ## Reliability
 
 _Refers to the integrity, compliance and interoperability of the software. The requirements to be considered are: frequency and severity of failure, possibility of recovery, possibility of prediction, accuracy, average time between failures._
 
 (fill in here )
+
+>The development team must implement unit tests for all methods, except for methods that implement Input/Output operations.
 
 ## Performance
 
@@ -36,6 +44,8 @@ configurability, installability, scalability and more._
 
 (fill in here )
 
+>The class structure is designed to allow easy maintenance and the addition of new features, following the best OO practices.
+
 ## +
 
 ### Design Constraints
@@ -43,6 +53,11 @@ configurability, installability, scalability and more._
 _Specifies or constraints the system design process. Examples may include: programming languages, software process, mandatory standards/patterns, use of development tools, class library, etc._
 
 (fill in here )
+>The application must be developed in Java language using the IntelliJ IDE or NetBeans.
+
+> All the images/figures produced during the software development process should be recorded in SVG format.
+
+>During the system development, the team must adopt best practices for identifying requirements, and for OO software analysis and design. 
 
 ### Implementation Constraints
 
@@ -52,12 +67,20 @@ database integrity, resource limits, operating system._
 
 (fill in here )
 
+>The application must support the English language.
+
+>During the system development, the team must adopt recognized coding standards (e.g., CamelCase).
+
+>The application should use object serialization to ensure data persistence between two runs of the application. 
+
 ### Interface Constraints
 
 _Specifies or constraints the features inherent to the interaction of the
 system being developed with other external systems._
 
 (fill in here )
+
+>The application’s graphical interface is to be developed in JavaFX 11.
 
 ### Physical Constraints
 

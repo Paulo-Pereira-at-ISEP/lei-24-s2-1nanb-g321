@@ -1,0 +1,69 @@
+# US01 - As a Human Resources Manager (HRM), I want to register skills that may be appointed to a collaborator. 
+
+
+## 1. Requirements Engineering
+
+### 1.1. User Story Description
+
+As a Human Resources Manager (HRM), I want to register skills in the system. These skills may be appointed to a new or existing collaborator, and they may be such as driving vehicles of different types (e.g. light, or heavy), operating machines such as backhoes or tractors, tree pruning, application of phytopharmaceuticals.
+
+### 1.2. Customer Specifications and Clarifications 
+
+**From the specifications document:**
+
+>	"An employee has a main occupation (job) and a set of skills that enable him to perform/take on certain tasks/responsibilities, for example, driving vehicles of different types (e.g. light, or heavy), operating machines such as backhoes or tractors; tree pruning; application of phytopharmaceuticals."
+
+>	"When creating multipurpose teams, the number of members and the set of skills that must be covered are crucial."
+
+>   These excerpts are important as they highlight the importance of the "skills" in the project as well they can indicate the dependencies involved with this user story.
+
+>   "US04 - As an HRM, I want to assign one or more skills to a collaborator." - This means that skills must stay registered in the system, so they can be accessed and assigned to a collaborator.
+
+**From the client clarifications:**
+
+> **Question:** Which data should be requested to the user?
+>
+> **Answer:** The main focus should be the "skill name", but a short description is also pertinent.
+
+> **Question:** Which fields are for mandatory fulfilment?
+>
+> **Answer:** The "skill name"
+
+### 1.3. Acceptance Criteria
+
+* **AC1:** Skill name must be filled in.
+* **AC2:** Prevention of duplicated skills must be enforced.
+* **AC3:** (In)Success message must be presented in the form of a message.
+
+### 1.4. Found out Dependencies
+
+* There is a dependency on "US04 - As an HRM, I want to assign one or more skills to a collaborator." as it is necessary to implement this US in order to assign the "skills".
+
+### 1.5 Input and Output Data
+
+**Input Data:**
+
+* Typed data:
+    * skill name
+    * skill description
+
+**Output Data:**
+
+* (In)Success message of the operation
+* List of existing skills
+
+### 1.6. System Sequence Diagram (SSD)
+
+**_Other alternatives might exist._**
+
+#### Alternative One
+
+![System Sequence Diagram - Alternative One](svg/us01-system-sequence-diagram-alternative-one.svg)
+
+#### Alternative Two
+
+![System Sequence Diagram - Alternative Two](svg/us01-system-sequence-diagram-alternative-two.svg)
+
+### 1.7 Other Relevant Remarks
+
+* "Skills" have a relation of "many" to 1 with "Collaborators"
