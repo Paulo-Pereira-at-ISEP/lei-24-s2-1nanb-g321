@@ -36,7 +36,9 @@ or bricklayer."
 * **AC3:** The Fundamental characteristics should be able to be altered or incremented through time.
 * **AC4:** A success or an error message must be presented at the end of the process.
 * **AC5:** The Tax Identification number must be an integer with nine digits.
-* **AC5:** All the numbers inserted by the HRM must be positive Integers.
+* **AC6:** All the numbers inserted by the HRM must be positive Integers.
+* **AC7:** The Birthdate must be validated to assure that the collaborator is over eighteen years old.
+
 
 
 ### 1.4. Found out Dependencies
