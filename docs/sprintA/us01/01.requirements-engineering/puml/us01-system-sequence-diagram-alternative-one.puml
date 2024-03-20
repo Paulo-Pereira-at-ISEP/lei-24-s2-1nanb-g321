@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - Alternative One
+title System Sequence Diagram (SSD)
 
 autonumber
 
@@ -21,10 +21,7 @@ activate HRM
     HRM -> System : types requested data
     activate System
 
-        System --> System : validates data
-    deactivate System
-
-        System --> HRM : shows skill data and requests confirmation
+        System --> HRM : validates data, shows skill data and requests confirmation
     deactivate System
 
     HRM -> System : confirms data

@@ -31,9 +31,9 @@ As a Human Resources Manager (HRM), I want to register skills in the system. The
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** Skill name must be filled in.
-* **AC2:** Prevention of duplicated skills must be enforced.
-* **AC3:** (In)Success message must be presented in the form of a message.
+* **AC1:** A Skill must be created.
+* **AC2:** All required fields must be filed in (i.e. Skill name).
+
 
 ### 1.4. Found out Dependencies
 
@@ -54,15 +54,7 @@ As a Human Resources Manager (HRM), I want to register skills in the system. The
 
 ### 1.6. System Sequence Diagram (SSD)
 
-**_Other alternatives might exist._**
-
-#### Alternative One
-
 ![System Sequence Diagram - Alternative One](svg/us01-system-sequence-diagram-alternative-one.svg)
-
-#### Alternative Two
-
-![System Sequence Diagram - Alternative Two](svg/us01-system-sequence-diagram-alternative-two.svg)
 
 ### 1.7 Other Relevant Remarks
 

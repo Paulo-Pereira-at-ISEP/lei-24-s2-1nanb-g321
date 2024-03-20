@@ -25,6 +25,14 @@ class Employee {
 }
 
 class Collaborator {
+    name
+    birthdate
+    admissionDate
+    address
+    mobileContact
+    emailContact
+    IDdocType
+    IDnumber
     job
     skills
 
@@ -114,8 +122,9 @@ class Malfunctions {
 
 Manager "1..*" --up "1..*" Employee: is a >
 Manager "1" -up "1" Portal: manages >
-Manager "1" --right "1..*" Job: creates >
-Manager "1" --right "*" Skill: creates >
+Manager "1" --right "1..*" Job: registers >
+Manager "1" --right "*" Skill: registers >
+Manager "1" --right "1..*" Collaborator: registers >
 Manager "1" ---- "1" Calendar: manages >
 Manager "1" --- "*" Equipment: creates >
 Manager "1" -- "*" Vehicle: creates/manages >
@@ -137,7 +146,7 @@ Teams "1" - "1" Tasks: performs >
 
 
 Organization "1" -left "*" Parks: manages >
-Organization "1" -- "1..*" Employee : employs >
+Organization "1" -- "1..*" Employee : has >
 
 
 Employee "1..*" -- "1..*" Collaborator: is a >
