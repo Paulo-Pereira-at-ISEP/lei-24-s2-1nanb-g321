@@ -124,15 +124,21 @@ An association is a relationship between instances of objects that indicates a r
 - etc.
 
 
-| Concept (A)  | Association |   Concept (B) |
-|--------------|:-----------:|--------------:|
-| Organisation |   manages   |         Parks |
-| Organisation |     has     |      Employee |
-| Employee     |    is a     |  Collaborator |
-| Manager      |    is a     |      Employee |
-| Manager      |  registers  |        Skills |
-| Manager      |  registers  |          Jobs |
-| Manager      |  registers  | Collaborators |
+| Concept (A)  |   Association   |              Concept (B) |
+|--------------|:---------------:|-------------------------:|
+| Organisation |     manages     |                    Parks |
+| Organisation |       has       |                 Employee |
+| Employee     |      is a       |             Collaborator |
+| Manager      |      is a       |                 Employee |
+| Manager      |    registers    |                   Skills |
+| Manager      |    registers    |                     Jobs |
+| Manager      |    registers    |                Equipment |
+| Manager      |    generates    |                    Teams |
+| Manager      |    registers    |                 Vehicles |
+| Manager      |    registers    |        Vehicle's checkup |
+| Manager      |      list       | Vehicles needing checkup |
+| Manager      |    registers    |            Collaborators |
+| Skills       | are assigned to |            Collaborators |
 
 
 
