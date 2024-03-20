@@ -126,7 +126,7 @@ Manager "1" --right "1..*" Job: registers >
 Manager "1" --right "*" Skill: registers >
 Manager "1" --right "1..*" Collaborator: registers >
 Manager "1" ---- "1" Calendar: manages >
-Manager "1" --- "*" Equipment: creates >
+Manager "1" --- "*" Equipment: registers >
 Manager "1" -- "*" Vehicle: creates/manages >
 Manager "1" --left "*" Tasks: creates >
 Manager "1" -- "*" Teams: manages >
@@ -152,7 +152,7 @@ Organization "1" -- "1..*" Employee : has >
 Employee "1..*" -- "1..*" Collaborator: is a >
 
 Collaborator "1" --- "1" Job: has a >
-Collaborator "1" --down "*" Skill: has a set of >
+Collaborator "1" --down "*" Skill: is assigned to <
 Collaborator "1..*" --down "1" Teams: integrates >
 
 
