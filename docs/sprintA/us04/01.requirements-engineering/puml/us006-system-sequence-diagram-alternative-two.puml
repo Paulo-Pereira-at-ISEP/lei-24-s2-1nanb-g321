@@ -11,9 +11,18 @@ actor "Human Resources\n Manager" as Employee
 participant ":System" as System
 
 activate Employee
+            Employee -> System : asks for a list of collaborators
+           activate System
 
+               System --> Employee : shows list of collaborators and ask to select one
+           deactivate System
+           Employee -> System : select a collaborator
+                      activate System
+
+                          System --> Employee : shows the selected collaborator
+                      deactivate System
    loop
-        Employee -> System : asks to assign skills to a collaborator
+        Employee -> System : asks to assign skills to the collaborator
             activate System
 
         System --> Employee : request skill name
@@ -22,7 +31,7 @@ activate Employee
    Employee -> System : terminates task
        activate System
 
-           System --> Employee : shows skills linked to a collaborator and ask confirmation
+           System --> Employee : shows skills linked to the collaborator and ask confirmation
        deactivate System
 
        Employee -> System : confirms data
