@@ -4,7 +4,7 @@
 
 ### 1.1. User Story Description
 
-As an FM, I wish to register a vehicle including Brand, Model, Type, Tare, Gross Weight, Current Km, Register Date, Acquisition Date, Maintenance/Checkup Frequency (in Kms).
+As an FM, I wish to register a vehicle new vehicle in system. This vehicle register need Brand, Model, Type, Tare, Gross Weight, Current Km, Register Date, Acquisition Date, Maintenance/Checkup Frequency (in Kms), Vehicle Registration (Plate number), number of passengers, number of doors, type of fuel, is it possible to trailer machines. FM updated vehicle's km weekly.
 
 ### 1.2. Customer Specifications and Clarifications 
 
@@ -51,7 +51,7 @@ As an FM, I wish to register a vehicle including Brand, Model, Type, Tare, Gross
     * Acquisition Date
     * Maintenance/Check-up Frequency (in Km)
     * Km in last Maintenance/Check-up --- 
-    * Vehicle Registration
+    * Vehicle Registration (Plate number)
     * number of passengers
     * number of door's
     * type of fuel
@@ -70,11 +70,11 @@ As an FM, I wish to register a vehicle including Brand, Model, Type, Tare, Gross
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us006-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram - Alternative One](svg/us06-system-sequence-diagram-alternative-one.svg)
 
 #### Alternative Two
 
-![System Sequence Diagram - Alternative Two](svg/us006-system-sequence-diagram-alternative-two.svg)
+![System Sequence Diagram - Alternative Two](svg/us06-system-sequence-diagram-alternative-two.svg)
 
 ### 1.7 Other Relevant Remarks
 

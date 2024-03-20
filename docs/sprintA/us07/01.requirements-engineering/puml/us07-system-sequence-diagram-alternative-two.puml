@@ -7,24 +7,24 @@ title System Sequence Diagram (SSD) - Alternative Two
 
 autonumber
 
-actor "Organization\nEmployee" as Employee
+actor "Fleet \nManager" as Employee
 participant ":System" as System
 
 activate Employee
 
-    Employee -> System : asks to create a new task
+    Employee -> System : asks to create a new vehicle's check up
     activate System
 
-        System --> Employee : shows task category list and asks to select one
+        System --> Employee : show list of vehicle's
     deactivate System
 
-    Employee -> System : selects a task category
+    Employee -> System : select vehicle
     activate System
 
-        System --> Employee : requests data (i.e. reference, designation, informal\ndescription, technical description, duration, cost)
+        System --> Employee : shows data from vehicle
     deactivate System
 
-    Employee -> System : types requested data
+    Employee -> System : type check up data
     activate System
 
         System --> Employee : shows all data and requests confirmation
@@ -33,6 +33,7 @@ activate Employee
     Employee -> System : confirms data
     activate System
 
-        System --> Employee : displays operation success
+        System --> Employee : displays operation success and show next check up KM
     deactivate System
+
 @enduml

@@ -5,7 +5,7 @@
 
 ### 1.1. User Story Description
 
-As an FM, I wish to register a vehicle’s check-up. 
+As an FM, I wish to register a vehicle’s check-up with date, Kms of vehicle and Plate.
 
 ### 1.2. Customer Specifications and Clarifications 
 
@@ -38,7 +38,7 @@ As an FM, I wish to register a vehicle’s check-up.
     * Kms of vehicle
 	
 * Selected data:
-    * vehicle registration
+    * vehicle registration (Plate)
 
 **Output Data:**
 
@@ -51,11 +51,11 @@ As an FM, I wish to register a vehicle’s check-up.
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us006-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram - Alternative One](svg/us07-system-sequence-diagram-alternative-one.svg)
 
 #### Alternative Two
 
-![System Sequence Diagram - Alternative Two](svg/us006-system-sequence-diagram-alternative-two.svg)
+![System Sequence Diagram - Alternative Two](svg/us07-system-sequence-diagram-alternative-two.svg)
 
 ### 1.7 Other Relevant Remarks
 

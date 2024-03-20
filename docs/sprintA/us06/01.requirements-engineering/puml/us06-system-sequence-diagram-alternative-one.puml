@@ -3,25 +3,19 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - Alternative Two
+title System Sequence Diagram (SSD) - Alternative One
 
 autonumber
 
-actor "Organization\nEmployee" as Employee
+actor "Fleet \nManager" as Employee
 participant ":System" as System
 
 activate Employee
 
-    Employee -> System : asks to create a new task
+    Employee -> System : asks to create a new vehicle
     activate System
 
-        System --> Employee : shows task category list and asks to select one
-    deactivate System
-
-    Employee -> System : selects a task category
-    activate System
-
-        System --> Employee : requests data (i.e. reference, designation, informal\ndescription, technical description, duration, cost)
+        System --> Employee : requests data (i.e. Brand, Model, Type, \nTare, Gross Weight, Current Km, Register Date, \nAcquisition Date, Maintenance/Checkup Frequency (in Kms), \nVehicle Registration (Plate number), number of passengers, \nnumber of doors, type of fuel)
     deactivate System
 
     Employee -> System : types requested data
@@ -35,4 +29,5 @@ activate Employee
 
         System --> Employee : displays operation success
     deactivate System
+
 @enduml
