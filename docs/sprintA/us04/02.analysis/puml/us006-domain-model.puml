@@ -12,22 +12,29 @@ hide methods
 
 'title Domain Model
 
-'class Platform {
-'  -description
-'}
-class Manager {
-    section
- }
 class Collaborator {
+    name
+    birthdate
+    admissionDate
+    address
+    mobileContact
+    emailContact
+    IDdocType
+    IDnumber
     job
     skills
+
 }
+
+class Manager {
+    section
+}
+
 class Skill {
     skillName
     skillDescription
 }
-Manager "1" -- "1" Collaborator: register a >
-
-'Employee "0..1" -- "1" User: acts as >
-Task "*" - "1" Category: cataloged as >
+Manager "1" --right "*" Skill: registers >
+Manager "1" --right "1..*" Collaborator: registers >
+Collaborator "1" --down "*" Skill: has a set of >
 @enduml
