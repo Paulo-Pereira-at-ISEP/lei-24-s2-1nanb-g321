@@ -35,9 +35,7 @@ or bricklayer."
 * **AC2:** A job must be chosen from the list of jobs available.
 * **AC3:** The Fundamental characteristics should be able to be altered or incremented through time.
 * **AC4:** A success or an error message must be presented at the end of the process.
-* **AC5:** The Tax Identification number must be an integer with nine digits.
-* **AC6:** All the numbers inserted by the HRM must be positive Integers.
-* **AC7:** The Birthdate must be validated to assure that the collaborator is over eighteen years old.
+* **AC5:** The Birthdate must be validated to assure that the collaborator is over eighteen years old.
 
 
 
@@ -65,12 +63,4 @@ or bricklayer."
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us006-system-sequence-diagram-alternative-one.svg)
-
-#### Alternative Two
-
-![System Sequence Diagram - Alternative Two](svg/us006-system-sequence-diagram-alternative-two.svg)
-
-### 1.7 Other Relevant Remarks
-
-* The created task stays in a "not published" state in order to distinguish from "published" tasks.
+![System Sequence Diagram - Alternative One](svg/us03-system-sequence-diagram-alternative-one.svg)
