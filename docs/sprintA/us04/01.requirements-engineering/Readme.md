@@ -11,8 +11,9 @@ As an HRM, I want to assign one or more skills, such as driving vehicles of diff
 
 **From the specifications document:**
 
->	"...driving vehicles of different types (e.g. light, or heavy), operating machines such as backhoes or tractors; tree pruning; application of phytopharmaceuticals."
-Those where the skills specified by the client.
+> "...driving vehicles of different types (e.g. light, or heavy), operating machines such as backhoes or tractors; tree pruning; application of phytopharmaceuticals."
+>
+> These are the skills specified by the client.
 >	
 
 **From the client clarifications:**
@@ -40,13 +41,17 @@ Those where the skills specified by the client.
 * Skill(s)
 
 **Output Data:**
-* (In)Success message 
-*  Message with skill linked to a collaborator
+* List of Collaborators
+* Chosen Collaborator
+* List of Skills 
+* Skills linked to a collaborator
+* Success or failure message and feedback in case of failure
+
 
 ### 1.6. System Sequence Diagram (SSD)
 
 **_Other alternatives might exist._**
 
-#### Alternative One
+#### SSD
 
 ![System Sequence Diagram - Alternative One](svg/us04-system-sequence-diagram.svg)

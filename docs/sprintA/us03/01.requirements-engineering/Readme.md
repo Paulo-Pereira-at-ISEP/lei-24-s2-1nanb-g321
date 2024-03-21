@@ -7,7 +7,7 @@
 ### 1.1. User Story Description
 
 As an HRM, I want to register a collaborator with a job, such as designer, estimator, gardener, electrician or bricklayer and fundamental
-characteristics like name, birthdate, ID number and contact.
+characteristics like name, tax identification number, birthdate, ID number, contacts and address.
 ### 1.2. Customer Specifications and Clarifications 
 
 **From the specifications document:**
@@ -30,7 +30,7 @@ or bricklayer."
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:**  AC1: name, birthdate, admission date, address, contact info (mobile and
+* **AC1:** Name, birthdate, admission date, address, contact info (mobile and
   email), ID doc type and respective number should be provided by HRM.
 * **AC2:** A job must be chosen from the list of jobs available.
 * **AC3:** The Fundamental characteristics should be able to be altered or incremented through time.
@@ -41,7 +41,7 @@ or bricklayer."
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on "US02 - As an HRM, I want to register a job." as there must be at least one job for the HRM to choose when register a collaborator.
+* There is a dependency on "US02 - As an HRM, I want to register a job." as there must be at least one job for the HRM to choose, when he registers a collaborator.
 
 ### 1.5 Input and Output Data
 
@@ -52,15 +52,17 @@ or bricklayer."
     * Birthdate 
     * ID Number
     * Contact
+    * Tax Identification Number
     * Profession
 
 **Output Data:**
-* (In)Success message 
+* List of jobs
+* Success or failure message and feedback in case of failure 
 
 ### 1.6. System Sequence Diagram (SSD)
 
 **_Other alternatives might exist._**
 
-#### Alternative One
+#### SSD
 
 ![System Sequence Diagram - Alternative One](svg/us03-system-sequence-diagram-alternative-one.svg)
