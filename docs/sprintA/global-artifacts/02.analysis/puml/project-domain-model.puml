@@ -70,8 +70,8 @@ class Equipment {
     equipmentDescription - to be confirmed
 }
 
-class Calendar {
-    pendingTasks
+class Agenda {
+    weeksTasks
 }
 
 
@@ -79,6 +79,10 @@ class Tasks {
     reference
     taskDescription
 
+}
+
+class PendingTasks{
+    pendingTasks
 }
 
 class Teams {
@@ -123,26 +127,27 @@ class Malfunctions {
 Manager "1..*" --up "1..*" Employee: is a >
 Manager "1" -up "1" Portal: manages >
 Manager "1" --right "1..*" Job: registers >
-Manager "1" --right "*" Skill: registers >
+Manager "1" --- "*" Skill: registers >
 Manager "1" --right "1..*" Collaborator: registers >
-Manager "1" ---- "1" Calendar: manages >
-Manager "1" --- "*" Equipment: registers >
+Manager "1" ---- "1" Agenda: manages >
+Manager "1" ---- "*" PendingTasks: manages >
+Manager "1" -- "*" Equipment: registers >
 Manager "1" -- "*" Vehicle: creates/manages >
 Manager "1" --left "*" Tasks: creates >
 Manager "1" -- "*" Teams: manages >
 
-
+Agenda "1" - "*" PendingTasks: gets tasks from >
 
 
 User "1..*" - "*" Parks: uses >
-User "*" ----up "*" Reports: makes >
+User "*" --up "*" Reports: makes >
 
 Comments "1" -- "1" Reports: are >
 ReportFaults "1" -- "1" Reports: are >
 Malfunctions "1" -- "1" Reports: are >
 
-Teams "1" - "1" Parks: performs tasks in >
-Teams "1" - "1" Tasks: performs >
+Teams "1" - "1" Parks: carry out tasks in >
+Teams "1" - "1" Tasks: carry out >
 
 
 Organization "1" -left "*" Parks: manages >
@@ -150,8 +155,8 @@ Organization "1" -- "1..*" Employee : has >
 
 
 Employee "1..*" -- "1..*" Collaborator: is a >
+Employee "1" --- "1" Job: has a >
 
-Collaborator "1" --- "1" Job: has a >
 Collaborator "1" --down "*" Skill: is assigned to <
 Collaborator "1..*" --down "1" Teams: integrates >
 
@@ -161,7 +166,7 @@ Vehicle "1..*" - "1" Tasks: is attributed to >
 
 Equipment "1..*" -left "1" Tasks: is attributed to >
 
-Calendar "1" -left "*" Tasks: has >
+Agenda "1" -left "*" Tasks: has >
 
 
 Tasks "1..*" -- "1..*" Parks: are performed in >

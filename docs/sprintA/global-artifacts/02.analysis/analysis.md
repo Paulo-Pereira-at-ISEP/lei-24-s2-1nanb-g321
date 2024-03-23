@@ -10,19 +10,30 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Business Transactions**
 
-* 
+* Tasks
 
 ---
 
 **Transaction Line Items**
 
-* 
+* Plant material
+* Urban furniture
+* Irrigation systems
+* Drinking fountains
+* Lightning systems
+* Rainwater conduction systems
+* Drainage systems
+* Vehicles?
+* Machines?
+* Equipment?
 
 ---
 
 **Product/Service related to a Transaction or Transaction Line Item**
 
-* 
+* Planning green spaces
+* Construction of green spaces
+* Maintenance of green spaces
 
 ---
 
@@ -34,67 +45,92 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Roles of People or Organizations**
 
-* 
+* Employee
+* Collaborators
+* Human Resources Manager
+* Vehicle and Equipment Fleet Manager
+* Green Spaces Manager
+* Green Spaces User
 
 ---
 
 **Places**
 
-* 
+* Green spaces
+* Gardens
+* Medium-sized parks
+* Large-sized parks
 
 ---
 
 **Noteworthy Events**
 
-* 
+* Carrying out tasks
 
 ---
 
 **Physical Objects**
 
-* 
+* Vehicles
+* Equipment
 
 ---
 
 **Descriptions of Things**
 
-* 
+* ?
+* Green Spaces for Collective Use
+* System Users
+* Machines
 
 ---
 
 **Catalogs**
 
-* 
+* Jobs
+* Skils
 
 ---
 
 **Containers**
 
-* 
+* Teams
+* Pending tasks (To-do list)
+* Agenda
+* Parks
+* Reports
 
 ---
 
 **Elements of Containers**
 
-* 
+* Collaborators
+* Tasks
+* Gardens
+* Medium-sized parks
+* Large-sized parks
+* Reported faults
+* Reported malfunctions
+* Comments
 
 ---
 
 **Organizations**
 
-* 
+* Musgo Sublime
 
 ---
 
 **Other External/Collaborating Systems**
 
-* 
+* Green Spaces User Portal
 
 ---
 
 **Records of finance, work, contracts, legal matters**
 
-* 
+* Pending tasks (To-do list)
+* Agenda
 
 ---
 
@@ -106,7 +142,10 @@ To identify domain conceptual classes, start by making a list of candidate conce
 
 **Documents mentioned/used to perform some work/**
 
-* 
+* Reported faults
+* Reported malfunctions
+* Comments
+
 
 ---
 
@@ -124,22 +163,36 @@ An association is a relationship between instances of objects that indicates a r
 - etc.
 
 
-| Concept (A)  |   Association   |              Concept (B) |
-|--------------|:---------------:|-------------------------:|
-| Organisation |     manages     |                    Parks |
-| Organisation |       has       |                 Employee |
-| Employee     |      is a       |             Collaborator |
-| Manager      |      is a       |                 Employee |
-| Manager      |    registers    |                   Skills |
-| Manager      |    registers    |                     Jobs |
-| Manager      |    registers    |                Equipment |
-| Manager      |    generates    |                    Teams |
-| Manager      |    registers    |                 Vehicles |
-| Manager      |    registers    |        Vehicle's checkup |
-| Manager      |      list       | Vehicles needing checkup |
-| Manager      |    registers    |            Collaborators |
-| Skills       | are assigned to |            Collaborators |
-
+| Concept (A)       |     Association      |               Concept (B) |
+|-------------------|:--------------------:|--------------------------:|
+| Organisation (MS) |       manages        |              Green spaces |
+| Organisation (MS) |         has          |                  Employee |
+| Employee          |         is a         |              Collaborator |
+| Manager           |         is a         |                  Employee |
+| Manager           |      registers       |                    Skills |
+| Manager           |      registers       |                      Jobs |
+| Manager           |      registers       |                 Equipment |
+| Manager           |       defines        |                     Teams |
+| Manager           |      registers       |                  Vehicles |
+| Manager           |      registers       |         Vehicle's checkup |
+| Manager           |         list         |  Vehicles needing checkup |
+| Manager           |       manages        |              Green spaces |
+| Manager           |      registers       |             Collaborators |
+| Skills            |   are assigned to    |             Collaborators |
+| Employee          |        has a         |                       Job |
+| Vehicles          |    are needed to     |                     Tasks |
+| Vehicles          |      transport       |      Equipment (to tasks) |
+| Collaborator      |     carries out      |                     Tasks |
+| Teams             | are associations of  | Employees (Collaborators) |
+| Teams             |      carry out       |                     Tasks |
+| Teams             |  carry out tasks in  |              Green spaces |
+| Agenda            | each entry defines a |                      Task |
+| Agenda (Task)     |    previously on     |                To-do list |
+| Tasks             |  are carried out in  |              Green spaces |
+| User              |         uses         |              Green Spaces |
+| User              |         post         |                  Comments |
+| User              |        report        |                    Faults |
+| User              |        report        |              Malfunctions |
 
 
 ## Domain Model
