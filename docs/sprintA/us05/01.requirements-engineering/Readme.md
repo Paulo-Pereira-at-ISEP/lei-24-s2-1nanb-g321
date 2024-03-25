@@ -82,7 +82,7 @@ As a Human Resources Manager, I want to streamline the creation of proposals for
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us05-system-sequence-diagram.svg)
+![System Sequence Diagram](svg/us05-system-sequence-diagram.svg)
 
 ### 1.7 Other Relevant Remarks
 

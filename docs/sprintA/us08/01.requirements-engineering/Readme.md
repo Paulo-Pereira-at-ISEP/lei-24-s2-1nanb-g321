@@ -66,7 +66,7 @@ No input data needed.
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us08-system-sequence-diagram.svg)
+![System Sequence Diagram](svg/us08-system-sequence-diagram.svg)
 
 ### 1.7 Other Relevant Remarks
 
