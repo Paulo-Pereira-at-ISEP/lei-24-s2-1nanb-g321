@@ -4,7 +4,7 @@
 
 ### 1.1. User Story Description
 
-As a Human Resources Manager, I want to generate a multipurpose team proposal automatically which collaborators need to have the set of skills to perform the tasks properly.
+As a Human Resources Manager, I want to streamline the creation of proposals for highly-functional, versatile teams which collaborators need to have the skill set to perform the tasks properly.
 
 ### 1.2. Customer Specifications and Clarifications
 
@@ -47,12 +47,13 @@ As a Human Resources Manager, I want to generate a multipurpose team proposal au
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** The team proposal needs to be generated automatically.
-* **AC2:** The teams need to have collaborators with the skills needed to perform the tasks.
-* **AC3:** When a team proposal is generated, HRM can reject the proposal, accept it, and/or edit the team.
-* **AC4:** Success or failure message must be presented in the form of a message.
-* **AC5:** In case of failure the system should provide information on the reason of the failure when generating a team automatically.
-* **AC6:** All required fields must be filled in.
+* **AC1:** The maximum team size and the set of skills need to be supplied by the HRM
+* **AC2:** The team proposal needs to be generated automatically.
+* **AC3:** The teams need to have collaborators with the skills needed to perform the tasks.
+* **AC4:** When a team proposal is generated, HRM can reject the proposal, accept it, and/or edit the team.
+* **AC5:** Success or failure message must be presented in the form of a message.
+* **AC6:** In case of failure the system should provide information on the reason of the failure when generating a team automatically.
+* **AC7:** All required fields (fields defined in topic 1.5) must be filled in.
 
 ### 1.4. Found out Dependencies
 
@@ -62,7 +63,7 @@ As a Human Resources Manager, I want to generate a multipurpose team proposal au
 
 **Input Data:**
 
-* Typed data:
+* Typed data [required fields]:
   * number of colaborators
   * maximum size of the team
   * description of the skills needed
@@ -81,11 +82,7 @@ As a Human Resources Manager, I want to generate a multipurpose team proposal au
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us006-system-sequence-diagram-alternative-one.svg)
-
-#### Alternative Two
-
-![System Sequence Diagram - Alternative Two](svg/us006-system-sequence-diagram-alternative-two.svg)
+![System Sequence Diagram - Alternative One](svg/us05-system-sequence-diagram.svg)
 
 ### 1.7 Other Relevant Remarks
 

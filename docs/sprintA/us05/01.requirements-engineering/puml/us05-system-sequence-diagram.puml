@@ -3,37 +3,46 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - Alternative One
+title System Sequence Diagram (SSD) - US05
 
 autonumber
 
-actor "Organization\nEmployee" as Employee
+actor "Human Resources\nManager" as Employee
 participant ":System" as System
 
 activate Employee
 
-    Employee -> System : asks to create a new task
+    Employee -> System : asks to generate a team proposal
     activate System
 
-        System --> Employee : requests data (i.e. reference, designation, informal\ndescription, technical description, duration, cost)
+        System --> Employee : requests data (i.e. number of colaborators, team max size, skills description)
     deactivate System
 
     Employee -> System : types requested data
     activate System
 
-        System --> Employee : shows task category list and asks to select one
-    deactivate System
-
-    Employee -> System : selects a task category
-    activate System
-
         System --> Employee : shows all data and requests confirmation
     deactivate System
+
+    alt accept proposal
 
     Employee -> System : confirms data
     activate System
 
-        System --> Employee : displays operation success
+        System --> Employee : displays operation success and presents the team generated
     deactivate System
+
+    end
+
+    alt reject proposal
+
+    Employee -> System : rejects data
+        activate System
+
+            System --> Employee : displays operation failure with information on the reason of the failure
+        deactivate System
+
+    end
+
 
 @enduml

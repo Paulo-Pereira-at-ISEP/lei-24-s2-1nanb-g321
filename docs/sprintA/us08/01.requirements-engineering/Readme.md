@@ -4,7 +4,7 @@
 
 ### 1.1. User Story Description
 
-As a Fleet Manager, I want to prompt the creation of a list generated automatically of the vehicles needing their check-up based on the amount of kilometers each of the vehicles has in the range of 200 to 300 kilometers.
+As a Fleet Manager, I want to prompt the creation of a list, generated automatically, of the vehicles needing their check-up, based on the amount of kilometers each of the vehicles has, within a defined range of kilometers. The list should include all the information about the vehicle like plate, brand, model, etc.
 
 ### 1.2. Customer Specifications and Clarifications
 
@@ -31,7 +31,7 @@ As a Fleet Manager, I want to prompt the creation of a list generated automatica
 
 > **Question:** What information will appear on the final list regarding the vehicle,besides the needing for check-up?
 >
-> **Answer:** Data that allow to identify the vehicle like Plate, brand and modle, as well as, the data that allowed to select/insert te vehicle in the list, number of kms, frequecny of checkup and the last checkup.
+> **Answer:** Data that allow to identify the vehicle like Plate, brand and model, as well as, the data that allowed to select/insert the vehicle in the list, number of kms, frequency of checkup and the last checkup.
 
 > **Question:** Can the vehicles get placed automatically on a list or the one listing has to be the FM?
 >
@@ -41,9 +41,9 @@ As a Fleet Manager, I want to prompt the creation of a list generated automatica
 
 * **AC1:** A list with the vehicles that need a check-up needs to be created automatically.
 * **AC2:** The list creation needs to be prompted by the FM.
-* **AC3:** The vehicles in the list have to be within the range of 200-300km.
-* **AC4:** The list needs to appear with data that allows to identify the vehicles().
-* **AC5:** All required fields must be filled in.
+* **AC3:** The list needs to be created with the information about the vehicles already gathered in the system.
+* **AC4:** The vehicles in the list have to be within the range of 200-300km.
+* **AC5:** The list needs to appear with data that allows to identify the vehicles.
 
 ### 1.4. Found out Dependencies
 
@@ -66,11 +66,7 @@ No input data needed.
 
 #### Alternative One
 
-![System Sequence Diagram - Alternative One](svg/us006-system-sequence-diagram-alternative-one.svg)
-
-#### Alternative Two
-
-![System Sequence Diagram - Alternative Two](svg/us006-system-sequence-diagram-alternative-two.svg)
+![System Sequence Diagram - Alternative One](svg/us08-system-sequence-diagram.svg)
 
 ### 1.7 Other Relevant Remarks
 
