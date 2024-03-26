@@ -35,10 +35,10 @@ As an FM, I wish to register a vehicle’s check-up with date, Kms of vehicle an
 
 * Typed data:
     * Date
-    * Kms of vehicle
+    * Kms of Vehicle
 	
 * Selected data:
-    * vehicle registration (Plate)
+    * Plate Number
 
 **Output Data:**
 
@@ -47,12 +47,8 @@ As an FM, I wish to register a vehicle’s check-up with date, Kms of vehicle an
 
 ### 1.6. System Sequence Diagram (SSD)
 
-**_Other alternatives might exist._**
-
-#### Alternative One
-
 ![System Sequence Diagram - Alternative One](svg/us07-system-sequence-diagram-alternative-one.svg)
 
 ### 1.7 Other Relevant Remarks
 
-* The created task stays in a "not published" state in order to distinguish from "published" tasks.
+* During Check-up updates vehicle data.

@@ -4,7 +4,7 @@
 
 ### 1.1. User Story Description
 
-As an FM, I wish to register a vehicle new vehicle in system. This vehicle register need Brand, Model, Type, Tare, Gross Weight, Current Km, Register Date, Acquisition Date, Maintenance/Checkup Frequency (in Kms), Vehicle Registration (Plate number), number of passengers, number of doors, type of fuel, is it possible to trailer machines. FM updated vehicle's km weekly.
+As an FM, I wish to register a vehicle new vehicle in system. This vehicle register need Brand, Model, Type, Tare, Gross Weight, Current Km, Register Date, Acquisition Date, Maintenance/Checkup Frequency (in Kms), Plate Number, Number of Passengers, Number of Doors, Fuel Type, Trailer Machines (Yes/No). FM updated vehicle's km weekly.
 
 ### 1.2. Customer Specifications and Clarifications 
 
@@ -44,22 +44,20 @@ As an FM, I wish to register a vehicle new vehicle in system. This vehicle regis
 * Typed data:
     * Brand
     * Model
+    * Type
     * Tare
     * Gross Weight
     * Current Km
     * Register Date
     * Acquisition Date
     * Maintenance/Check-up Frequency (in Km)
-    * Km in last Maintenance/Check-up --- 
+    * Plate Number
+    * Number of Passengers
+    * Number of Doors
+    * Fuel Type
+    * Trailer Machines (Yes/No)
+    * Km in last Maintenance/Check-up ---
     * Date of last Maintenance/Check-up ---
-    * Vehicle Registration (Plate number)
-    * number of passengers
-    * number of door's
-    * type of fuel
-    * is it possible to trailer machines (yes/no)
-	
-* Selected data:
-    * vehicle type
 
 **Output Data:**
 
@@ -67,12 +65,4 @@ As an FM, I wish to register a vehicle new vehicle in system. This vehicle regis
 
 ### 1.6. System Sequence Diagram (SSD)
 
-**_Other alternatives might exist._**
-
-#### Alternative One
-
 ![System Sequence Diagram - Alternative One](svg/us06-system-sequence-diagram-alternative-one.svg)
-
-### 1.7 Other Relevant Remarks
-
-* The created task stays in a "not published" state in order to distinguish from "published" tasks.
