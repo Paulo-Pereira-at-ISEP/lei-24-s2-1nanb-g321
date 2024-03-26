@@ -53,10 +53,6 @@ As an FM, I wish to register a vehicle’s check-up with date, Kms of vehicle an
 
 ![System Sequence Diagram - Alternative One](svg/us07-system-sequence-diagram-alternative-one.svg)
 
-#### Alternative Two
-
-![System Sequence Diagram - Alternative Two](svg/us07-system-sequence-diagram-alternative-two.svg)
-
 ### 1.7 Other Relevant Remarks
 
 * The created task stays in a "not published" state in order to distinguish from "published" tasks.

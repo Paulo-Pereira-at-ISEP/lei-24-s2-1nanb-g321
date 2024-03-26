@@ -51,6 +51,7 @@ As an FM, I wish to register a vehicle new vehicle in system. This vehicle regis
     * Acquisition Date
     * Maintenance/Check-up Frequency (in Km)
     * Km in last Maintenance/Check-up --- 
+    * Date of last Maintenance/Check-up ---
     * Vehicle Registration (Plate number)
     * number of passengers
     * number of door's
@@ -71,10 +72,6 @@ As an FM, I wish to register a vehicle new vehicle in system. This vehicle regis
 #### Alternative One
 
 ![System Sequence Diagram - Alternative One](svg/us06-system-sequence-diagram-alternative-one.svg)
-
-#### Alternative Two
-
-![System Sequence Diagram - Alternative Two](svg/us06-system-sequence-diagram-alternative-two.svg)
 
 ### 1.7 Other Relevant Remarks
 
