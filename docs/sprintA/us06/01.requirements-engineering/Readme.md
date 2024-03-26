@@ -52,12 +52,12 @@ As an FM, I wish to register a vehicle new vehicle in system. This vehicle regis
     * Acquisition Date
     * Maintenance/Check-up Frequency (in Km)
     * Plate Number
-    * Number of Passengers
-    * Number of Doors
+    * Passengers Number
+    * Doors Number
     * Fuel Type
     * Trailer Machines (Yes/No)
-    * Km in last Maintenance/Check-up ---
-    * Date of last Maintenance/Check-up ---
+    * Last Maintenance/Check-up (Km)
+    * Last Maintenance/Check-up (Date)
 
 **Output Data:**
 
