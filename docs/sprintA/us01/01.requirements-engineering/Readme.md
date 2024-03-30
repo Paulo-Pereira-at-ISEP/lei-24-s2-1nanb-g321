@@ -17,6 +17,10 @@ As a Human Resources Manager (HRM), I want to register skills in the system. The
 
 >   These excerpts are important as they highlight the importance of the "skills" in the project as well they can indicate the dependencies involved with this user story.
 
+> "Human Resources Manager (HRM) - a person who manages human resources and defines teams based on the needs of ongoing projects and the skills of the employees."
+ 
+> One again, this excerpt is of great importance, since the HRM will be the actor responsible for registering new skills as we are about to see in the next paragraph.
+
 >   "US04 - As an HRM, I want to assign one or more skills to a collaborator." - This means that skills must stay registered in the system, so they can be accessed and assigned to a collaborator.
 
 **From the client clarifications:**
@@ -37,7 +41,7 @@ As a Human Resources Manager (HRM), I want to register skills in the system. The
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on "US04 - As an HRM, I want to assign one or more skills to a collaborator." as it is necessary to implement this US in order to assign the "skills".
+* There is no dependencies of this US, however, "US04 - As an HRM, I want to assign one or more skills to a collaborator." will depend on this one as it is necessary to be implemented in order to assign the "skills".
 
 ### 1.5 Input and Output Data
 
