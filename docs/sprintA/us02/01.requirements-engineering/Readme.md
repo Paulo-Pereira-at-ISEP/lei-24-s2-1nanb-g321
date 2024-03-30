@@ -10,9 +10,13 @@ As a Human Resource Manager, I want to register a job. These can be designer, es
 
 **From the specifications document:**
 
->   "MS has a wide range of employees who carry out the most varied tasks in the context of managing green spaces. Some job examples are designer, estimator, gardener, electrician or bricklayer." - This highlights the context in witch "jobs" can be important, as well it gives examples of the jobs themselves.
+> "MS has a wide range of employees who carry out the most varied tasks in the context of managing green spaces. Some job examples are designer, estimator, gardener, electrician or bricklayer." - This highlights the context in witch "jobs" can be important, as well it gives examples of the jobs themselves.
+ 
+> "Human Resources Manager (HRM) - a person who manages human resources and defines teams based on the needs of ongoing projects and the skills of the employees."
 
->   "US03 - As an HRM, I want to register a collaborator with a job and fundamental characteristics." - This means that jobs must stay registered in the system, so they can be accessed when registering a new collaborator.
+> One again, this excerpt is of great importance, since the HRM will be the actor responsible for registering new jobs as we are about to see in the next paragraph.
+
+> "US03 - As an HRM, I want to register a collaborator with a job and fundamental characteristics." - This means that jobs must stay registered in the system, so they can be accessed when registering a new collaborator.
 
 **From the client clarifications:**
 
@@ -32,7 +36,7 @@ As a Human Resource Manager, I want to register a job. These can be designer, es
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on "US03 - As an HRM, I want to register a collaborator with a job and fundamental characteristics." as it is necessary to select the "job title" when creating a new collaborator.
+* There is no dependencies of this US, however, "US03 - As an HRM, I want to register a collaborator with a job and fundamental characteristics." will depend on this one as it is necessary to be implemented in order for the system to be able to provide "job title" options when creating a new collaborator.
 
 ### 1.5 Input and Output Data
 
