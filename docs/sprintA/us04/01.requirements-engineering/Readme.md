@@ -11,10 +11,24 @@ As an HRM, I want to assign one or more skills, such as driving vehicles of diff
 
 **From the specifications document:**
 
-> "...driving vehicles of different types (e.g. light, or heavy), operating machines such as backhoes or tractors; tree pruning; application of phytopharmaceuticals."
->
-> These are the skills specified by the client.
->	
+> "Thus, an employee has a main occupation (job) and
+a set of skills that enable him to perform/take on certain tasks/responsibilities, for example, driving vehicles of different types (e.g. light, or heavy), operating machines such
+as backhoes or tractors; tree pruning; application of agriculture phytopharmaceuticals."
+
+> This part of the specifications is important because
+we can find the skills specified by the client.
+
+>  " US01 - As a Human Resources Manager (HRM), I want to register skills that a
+collaborator may have." 
+
+> This means that Skills must be registered before, and stay registered, for the HRM to assign them to a collaborator.
+
+> "Human Resources Manager (HRM) - a person who manages human resources
+and defines teams based on the needs of ongoing projects and the skills of the
+employees."
+
+> The HRM is the actor responsible for assigning skills to a collaborator.  
+	
 
 **From the client clarifications:**
 
@@ -27,9 +41,8 @@ As an HRM, I want to assign one or more skills, such as driving vehicles of diff
 > **Answer:** 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** At least one "Skill" must be assigned.
-* **AC2:** The field "skills" should be able to be edited.
-* **AC3:** A message should appear, showing the skill that was assigned. 
+* **AC1:** The field "skills" should be able to be edited.
+* **AC3:** The skills selected must be assigned to a collaborator. 
 
 ### 1.4. Found out Dependencies
 
@@ -38,14 +51,11 @@ As an HRM, I want to assign one or more skills, such as driving vehicles of diff
 ### 1.5 Input and Output Data
 
 **Input Data:**
-* Skill(s)
+* Selected Skills
 
 **Output Data:**
-* List of Collaborators
-* Chosen Collaborator
-* List of Skills 
-* Skills linked to a collaborator
-* Success or failure message and feedback in case of failure
+* Collaboration data with the assigned skills
+
 
 
 ### 1.6. System Sequence Diagram (SSD)
