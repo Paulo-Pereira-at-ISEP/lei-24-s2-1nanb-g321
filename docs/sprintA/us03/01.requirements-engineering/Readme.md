@@ -14,9 +14,18 @@ characteristics like name, tax identification number, birthdate, ID number, cont
 
 >	"Some job examples are designer, estimator, gardener, electrician
 or bricklayer."
-- Jobs specified by the client.
  
->	
+>	In this part of the specifications we can find the jobs specified by the client.
+
+> "US02 - As an HRM, I want to register a job."
+
+> Before registering a collaborator with a job the job must be registered by the HRM.
+
+> "Human Resources Manager (HRM) - a person who manages human resources
+and defines teams based on the needs of ongoing projects and the skills of the
+employees."
+
+> The HRM is the actor responsible to register the collaborator with a job and fundamental characteristics. 
 
 **From the client clarifications:**
 
@@ -34,8 +43,7 @@ or bricklayer."
   email), ID doc type and respective number should be provided by HRM.
 * **AC2:** A job must be chosen from the list of jobs available.
 * **AC3:** The Fundamental characteristics should be able to be altered or incremented through time.
-* **AC4:** A success or an error message must be presented at the end of the process.
-* **AC5:** The Birthdate must be validated to assure that the collaborator is over eighteen years old.
+* **AC4:** The Birthdate must be validated to assure that the collaborator is over eighteen years old.
 
 
 
