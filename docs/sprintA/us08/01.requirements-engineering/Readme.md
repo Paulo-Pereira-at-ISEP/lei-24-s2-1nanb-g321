@@ -19,6 +19,12 @@ As a Fleet Manager, I want to prompt the creation of a list, generated automatic
 >   "This type of vehicle can only be for passengers or mixed, light or heavy, open box or closed vans or trucks."
 >   Types of vehicles to list.
 
+>   "US06 - As an FM, I wish to register a vehicle including Brand, Model, Type, Tare, Gross Weight, Current Km, Register Date, Acquisition Date, Maintenance/Checkup Frequency (in Kms)."
+>   The vehicles need to be registered to be listed.
+
+>   "US07 - As an FM, I wish to register a vehicle’s check-up."
+>   The vehicles that have a check-up registered will be on the list.
+
 **From the client clarifications:**
 
 > **Question:** What content do you want presented in the list?
@@ -42,8 +48,8 @@ As a Fleet Manager, I want to prompt the creation of a list, generated automatic
 * **AC1:** A list with the vehicles that need a check-up needs to be created automatically.
 * **AC2:** The list creation needs to be prompted by the FM.
 * **AC3:** The list needs to be created with the information about the vehicles already gathered in the system.
-* **AC4:** The vehicles in the list have to be within the range of 200-300km.
-* **AC5:** The list needs to appear with data that allows to identify the vehicles.
+* **AC4:** The vehicles in the list have to be within the range of 200-300km of reaching the inspection limit.
+* **AC5:** The list needs to appear with data that allows to identify the vehicles like Plate, brand and model, as well as, the data that allowed to select/insert the vehicle in the list, number of kms, frequency of checkup and the last checkup.
 
 ### 1.4. Found out Dependencies
 
@@ -62,12 +68,4 @@ No input data needed.
 
 ### 1.6. System Sequence Diagram (SSD)
 
-**_Other alternatives might exist._**
-
-#### Alternative One
-
 ![System Sequence Diagram](svg/us08-system-sequence-diagram.svg)
-
-### 1.7 Other Relevant Remarks
-
-* The created task stays in a "not published" state in order to distinguish from "published".
