@@ -7,10 +7,9 @@ _Specifies functionalities that:
 &nbsp; &nbsp; (ii) are not related to US/UC, namely: Audit, Reporting and Security._
 
 (fill in here)
+>Business rules validation are respected when recording and updating data.
 
->Business rules validation must be respected when recording and updating data.
-
->All those who wish to use the application must be authenticated with a password of seven alphanumeric characters, including three capital letters and two digits.
+>For all those who wish to use the application, authentication with a password of seven alphanumeric characters, including three capital letters and two digits is required.
 
 ## Usability
 
@@ -18,7 +17,9 @@ _Evaluates the user interface. It has several subcategories,
 among them: error prevention; interface aesthetics and design; help and
 documentation; consistency and standards._
 
->During the system development, the team must use Javadoc to generate useful documentation for Java code.
+>All operations present (un)success messages.
+
+>During the system development process Javadoc was used to generate useful documentation for Java code.
 
 
 
@@ -28,7 +29,9 @@ _Refers to the integrity, compliance and interoperability of the software. The r
 
 (fill in here )
 
->The development team must implement unit tests for all methods, except for methods that implement Input/Output operations.
+>Unit tests for all methods, except for methods that implement Input/Output operations were implemented by the development team.
+
+>Coverage report was generated using the JaCoCo plugin.
 
 ## Performance
 
@@ -44,7 +47,7 @@ configurability, installability, scalability and more._
 
 (fill in here )
 
->The class structure is designed to allow easy maintenance and the addition of new features, following the best OO practices.
+>The class structure was designed to allow easy maintenance and the addition of new features, following the best OO practices.
 
 ## +
 
@@ -53,25 +56,28 @@ configurability, installability, scalability and more._
 _Specifies or constraints the system design process. Examples may include: programming languages, software process, mandatory standards/patterns, use of development tools, class library, etc._
 
 (fill in here )
->The application must be developed in Java language using the IntelliJ IDE or NetBeans.
 
-> All the images/figures produced during the software development process should be recorded in SVG format.
+>The application was developed in Java language using the IntelliJ IDE.
 
->During the system development, the team must adopt best practices for identifying requirements, and for OO software analysis and design. 
+>All the images/figures produced during the software development process were recorded in SVG format.
+
+>During the system development, the dev team adopted the best practices for identifying requirements, and for OO software analysis and design. 
 
 ### Implementation Constraints
 
-_Specifies or constraints the code or construction of a system such
-such as: mandatory standards/patterns, implementation languages,
+_Specifies or constraints the code or construction of a system such as:
+mandatory standards/patterns, implementation languages,
 database integrity, resource limits, operating system._
 
 (fill in here )
 
->The application must support the English language.
+>The application supports the English language.
 
->During the system development, the team must adopt recognized coding standards (e.g., CamelCase).
+>During the system development, the team adopted recognized coding standards (e.g., CamelCase).
 
->The application should use object serialization to ensure data persistence between two runs of the application. 
+>The application uses object serialization to ensure data persistence between two runs of the application.
+
+>The unit tests should be implemented using the JUnit 5 framework. 
 
 ### Interface Constraints
 
@@ -80,7 +86,7 @@ system being developed with other external systems._
 
 (fill in here )
 
->The application’s graphical interface is to be developed in JavaFX 11.
+>The application’s graphical interface was developed in JavaFX 11.
 
 ### Physical Constraints
 
