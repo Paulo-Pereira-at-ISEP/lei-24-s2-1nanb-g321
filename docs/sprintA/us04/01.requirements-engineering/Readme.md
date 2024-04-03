@@ -42,7 +42,8 @@ employees."
 ### 1.3. Acceptance Criteria
 
 * **AC1:** The field "skills" should be able to be edited.
-* **AC3:** The skills selected must be assigned to a collaborator. 
+* **AC2:** Skills selected must be assigned to a collaborator.
+* **AC3:** Skills must be chosen from the list of skills already created.
 
 ### 1.4. Found out Dependencies
 

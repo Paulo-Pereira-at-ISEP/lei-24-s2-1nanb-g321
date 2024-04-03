@@ -44,6 +44,7 @@ employees."
 * **AC2:** A job must be chosen from the list of jobs available.
 * **AC3:** The Fundamental characteristics should be able to be altered or incremented through time.
 * **AC4:** The Birthdate must be validated to assure that the collaborator is over eighteen years old.
+* **AC5:** A new collaborator must be created.
 
 
 

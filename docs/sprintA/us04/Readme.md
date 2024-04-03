@@ -1,4 +1,4 @@
-# US006 - Create a Task 
+# US04 - As an HRM, I want to assign one or more skills to a collaborator.
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 
