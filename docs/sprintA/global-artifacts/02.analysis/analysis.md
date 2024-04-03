@@ -11,8 +11,9 @@ To identify domain conceptual classes, start by making a list of candidate conce
 **Business Transactions**
 
 * Tasks
+* Maintenance of urban parks
 
-----
+---
 
 **Transaction Line Items**
 
@@ -72,16 +73,17 @@ To identify domain conceptual classes, start by making a list of candidate conce
 **Physical Objects**
 
 * Vehicles
+* Machines
 * Equipment
 
 ---
 
 **Descriptions of Things**
 
-* ?
 * Green Spaces for Collective Use
 * System Users
 * Machines
+* Equipment
 
 ---
 
