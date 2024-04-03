@@ -136,7 +136,7 @@ Manager "1" --right "1..*" Collaborator: registers >
 Manager "1" ---- "1" Agenda: manages >
 Manager "1" ---- "*" PendingTasks: manages >
 Manager "1" -- "*" Equipment: registers >
-Manager "1" -- "*" Vehicle: creates/manages >
+Manager "1" -- "*" Vehicle: manages >
 Manager "1" --left "*" Tasks: creates >
 Manager "1" -- "*" Teams: manages >
 
