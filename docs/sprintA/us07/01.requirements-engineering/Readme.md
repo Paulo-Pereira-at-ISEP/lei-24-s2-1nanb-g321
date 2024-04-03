@@ -5,7 +5,7 @@
 
 ### 1.1. User Story Description
 
-As an FM, I wish to register a vehicle’s check-up with date, Kms of vehicle and Plate.
+As an FM, I wish to register a vehicle's check-up with date, Kms of vehicle and Plate.
 
 ### 1.2. Customer Specifications and Clarifications 
 
@@ -14,16 +14,20 @@ As an FM, I wish to register a vehicle’s check-up with date, Kms of vehicle an
 >	"Fleet Manager (FM) – a person who manages the fleet park, the machines, equipment and vehicles, ensuring their good condition and assigning them to the tasks to be carried out."
 >   FM ensuring vehicle's good condition by sending them for check-up.
 
+>  "US06 -  As an FM, I wish to register a vehicle including Brand, Model, Type, Tare, Gross Weight, Current Km, Register Date, Acquisition Date, Maintenance/Checkup Frequency (in Kms)"
+>  The registered vehicle needs to have the frequency of maintenance and the kms of the last maintenance.
+
 **From the client clarifications:**
 
 > **Question:** What do I need to record when checking the vehicle?
 >
-> **Answer:** Date, Kms of vehicle, Vehicle Registration.
+> **Answer:** Date, Kms of vehicle, Plate Number.
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** All required fields must be filled in. (client answered)
+* **AC1:** All required fields (fields defined in topic 1.5) must be filled in. (client answered)
 * **AC2:** (In)Success of the operation.
+* **AC3:** A vehicle's check-up will be registered.
 
 ### 1.4. Found out Dependencies
 

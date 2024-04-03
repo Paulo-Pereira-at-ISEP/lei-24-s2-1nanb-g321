@@ -4,7 +4,7 @@
 
 ### 1.1. User Story Description
 
-As an FM, I wish to register a vehicle new vehicle in system. This vehicle register need Brand, Model, Type, Tare, Gross Weight, Current Km, Register Date, Acquisition Date, Maintenance/Checkup Frequency (in Kms), Plate Number, Number of Passengers, Number of Doors, Fuel Type, Trailer Machines (Yes/No). FM updated vehicle's km weekly.
+As an FM, I wish to register a new vehicle in the system. The registered vehicle needs to have Brand, Model, Type, Tare, Gross Weight, Current Km, Register Date, Acquisition Date, Maintenance/Checkup Frequency (in Kms), Plate Number, Number of Passengers, Number of Doors, Fuel Type, Trailer Machines (Yes/No). FM updates vehicle's km weekly.
 
 ### 1.2. Customer Specifications and Clarifications 
 
@@ -20,7 +20,7 @@ As an FM, I wish to register a vehicle new vehicle in system. This vehicle regis
 
 > **Question:** What extra data will I need to record??
 >
-> **Answer:** Vehicle registration, number of passengers, number of doors, type of fuel, is it possible to trailer machines.
+> **Answer:** Plate Number, number of passengers, number of doors, type of fuel, is it possible to trailer machines.
 
 
 > **Question:** Who updates vehicle kilometers and how often?
@@ -29,9 +29,10 @@ As an FM, I wish to register a vehicle new vehicle in system. This vehicle regis
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** All required fields must be filled in. (i.e Brand, Model, Type, Tare, Gross Weight, Current Km, Register Date, )
+* **AC1:** All required fields (fields defined in topic 1.5) must be filled in. 
 * **AC2:** (In)Success of the operation.
-* **AC3:** Update of vehicle's Kms by FM weekly.
+* **AC3:** A new vehicle will be registered with all the required fields (fields defined in topic 1.5).
+* **AC4:** Update of vehicle's Kms by FM weekly.
 
 ### 1.4. Found out Dependencies
 
@@ -41,7 +42,7 @@ As an FM, I wish to register a vehicle new vehicle in system. This vehicle regis
 
 **Input Data:**
 
-* Typed data:
+* Typed data [required fields]:
     * Brand
     * Model
     * Type
