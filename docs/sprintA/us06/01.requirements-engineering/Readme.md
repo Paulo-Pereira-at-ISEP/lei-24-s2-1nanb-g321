@@ -29,7 +29,7 @@ As an FM, I wish to register a vehicle new vehicle in system. This vehicle regis
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** All required fields must be filled in.
+* **AC1:** All required fields must be filled in. (i.e Brand, Model, Type, Tare, Gross Weight, Current Km, Register Date, )
 * **AC2:** (In)Success of the operation.
 * **AC3:** Update of vehicle's Kms by FM weekly.
 
