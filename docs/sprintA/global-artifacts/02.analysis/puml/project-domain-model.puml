@@ -187,8 +187,8 @@ Collaborator "1..*" -- "1" Teams: integrates >
 
 
 Vehicle "1..*" -- "1" Tasks: is attributed to >
-Vehicle "1..*" -- "1" VehicleCheckup: is submitted to >
-Equipment "1..*" -- "1" Tasks: is attributed to >
+Vehicle "1" -- "1" VehicleCheckup: is submitted to >
+Equipment "0..*" -- "1" Tasks: is attributed to >
 
 Agenda "1" -- "*" Tasks: has >
 
