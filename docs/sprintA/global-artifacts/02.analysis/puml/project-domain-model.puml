@@ -19,9 +19,7 @@ class Organization {
 }
 
 class Employee {
-    name
-    email
-    phone
+
 }
 
 class Collaborator {
@@ -72,8 +70,8 @@ class Vehicle {
 }
 
 class Equipment {
-    equipmentName - to be confirmed
-    equipmentDescription - to be confirmed
+    equipmentName
+    equipmentDescription
 }
 
 class Agenda {
@@ -170,7 +168,7 @@ Collaborator "1..*" --down "1" Teams: integrates >
 
 Vehicle "1..*" - "1" Tasks: is attributed to >
 
-Equipment "1..*" -left "1" Tasks: is attributed to >
+Equipment "1..*" - "1" Tasks: is attributed to >
 
 Agenda "1" -left "*" Tasks: has >
 
