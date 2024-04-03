@@ -32,7 +32,7 @@ As a Human Resource Manager, I want to register a job. These can be designer, es
 
 * **AC1:** A Job must be created.
 * **AC2:** All required fields must be filed in (i.e. Job title).
-
+* **AC3:** When the job is added to the system, a message should be displayed.
 
 ### 1.4. Found out Dependencies
 
