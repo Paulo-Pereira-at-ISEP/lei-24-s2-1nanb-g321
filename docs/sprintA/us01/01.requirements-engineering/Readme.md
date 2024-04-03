@@ -37,6 +37,7 @@ As a Human Resources Manager (HRM), I want to register skills in the system. The
 
 * **AC1:** A Skill must be created.
 * **AC2:** All required fields must be filed in (i.e. Skill name).
+* **AC3:** When the skill is added to the system, a message should be displayed.
 
 
 ### 1.4. Found out Dependencies
