@@ -32,7 +32,8 @@ As a Human Resource Manager, I want to register a job. These can be designer, es
 
 * **AC1:** A Job must be created.
 * **AC2:** All required fields must be filed in (i.e. Job title).
-* **AC3:** When the job is added to the system, a message should be displayed.
+* **AC3:** The skill name must only contain letters.
+* **AC4:** When the job is added to the system, a message should be displayed.
 
 ### 1.4. Found out Dependencies
 
@@ -56,7 +57,3 @@ As a Human Resource Manager, I want to register a job. These can be designer, es
 
 
 ![System Sequence Diagram - Alternative One](svg/us02-system-sequence-diagram-alternative-one.svg)
-
-### 1.7 Other Relevant Remarks
-
-* "Job titles" have a relation of 1 to 1 with "Collaborators"
