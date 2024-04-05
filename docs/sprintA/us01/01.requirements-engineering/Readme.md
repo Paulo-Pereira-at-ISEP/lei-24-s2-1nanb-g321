@@ -37,7 +37,8 @@ As a Human Resources Manager (HRM), I want to register skills in the system. The
 
 * **AC1:** A Skill must be created.
 * **AC2:** All required fields must be filed in (i.e. Skill name).
-* **AC3:** When the skill is added to the system, a message should be displayed.
+* **AC3:** The skill name must only contain letters.
+* **AC4:** When the skill is added to the system, a message should be displayed.
 
 
 ### 1.4. Found out Dependencies
@@ -60,7 +61,3 @@ As a Human Resources Manager (HRM), I want to register skills in the system. The
 ### 1.6. System Sequence Diagram (SSD)
 
 ![System Sequence Diagram - Alternative One](svg/us01-system-sequence-diagram-alternative-one.svg)
-
-### 1.7 Other Relevant Remarks
-
-* "Skills" have a relation of "many" to 1 with "Collaborators"
