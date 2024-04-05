@@ -28,10 +28,6 @@ As a Human Resources Manager, I want to streamline the creation of proposals for
 >
 > **Answer:** The customer provides the max size of the team and a set of skills.
 
-> **Question:** Should teams be static?
->
-> **Answer:** No, we must be able to define teams without being static, and can be changed depending on the tasks.
-
 > **Question:** Is HRM responsible for each team?
 >
 > **Answer:** The HRM manages and defines the teams that will carry out the tasks associated with the park.
@@ -54,9 +50,9 @@ As a Human Resources Manager, I want to streamline the creation of proposals for
 * **AC2:** The team proposal needs to be generated automatically.
 * **AC3:** The teams need to have collaborators with the skills needed to perform the tasks.
 * **AC4:** When a team proposal is generated, HRM can reject the proposal or accept it.
-* **AC5:** Success or failure message must be presented in the form of a message.
-* **AC6:** In case of failure the system should provide information on the reason of the failure when generating a team automatically.
-* **AC7:** All required fields (fields defined in topic 1.5) must be filled in.
+* **AC5:** In case of failure the system should provide information on the reason of the failure when generating a team automatically.
+* **AC6:** All required fields (fields defined in topic 1.5) must be filled in.
+* **AC7:** When the HRM rejects the team proposal another team should be generated and validated by the HRM.
 
 ### 1.4. Found out Dependencies
 
