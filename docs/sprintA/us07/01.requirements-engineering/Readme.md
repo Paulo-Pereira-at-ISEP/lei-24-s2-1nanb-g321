@@ -25,9 +25,10 @@ As an FM, I wish to register a vehicle's check-up with date, Kms of vehicle and 
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** All required fields (fields defined in topic 1.5) must be filled in. (client answered)
-* **AC2:** (In)Success of the operation.
+* **AC1:** A vehicle's must be chosen from the list of vehicle's available.
+* **AC2:** All required fields (fields defined in topic 1.5) must be filled in.
 * **AC3:** A vehicle's check-up will be registered.
+* **AC4:** (In)Success of the operation.
 
 ### 1.4. Found out Dependencies
 
@@ -51,8 +52,8 @@ As an FM, I wish to register a vehicle's check-up with date, Kms of vehicle and 
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![System Sequence Diagram - Alternative One](svg/us07-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram - US07](svg/us07-system-sequence-diagram.svg)
 
 ### 1.7 Other Relevant Remarks
 
-* During Check-up updates vehicle data.
+* After the Check-up updates the vehicle data, if necessary.
