@@ -15,18 +15,34 @@ activate Employee
     Employee -> System : asks to generate a team proposal
     activate System
 
-        System --> Employee : requests data (i.e. number of colaborators, team max size, skills description)
+        System --> Employee : requests team max size
     deactivate System
 
     Employee -> System : types requested data
     activate System
 
-        System --> Employee : shows all data and requests confirmation
+        System --> Employee : shows list of skills for the HRM to choose
     deactivate System
+
+    Employee -> System : selects wanted skills
+        activate System
+
+
+    alt doesn't generate a team
+
+        System --> Employee : shows information on the reason of the failure
+            deactivate System
+
+    end
+
+    alt generates team
+
+    System --> Employee : shows team generated and requests confirmation
+        deactivate System
 
     alt accept proposal
 
-    Employee -> System : confirms data
+    Employee -> System : confirms team
     activate System
 
         System --> Employee : displays operation success and presents the team generated
@@ -36,13 +52,19 @@ activate Employee
 
     alt reject proposal
 
-    Employee -> System : rejects data
+    Employee -> System : rejects team
         activate System
 
-            System --> Employee : displays operation failure with information on the reason of the failure
+            System --> Employee : generates a new team and asks for validation
+        deactivate System
+    Employee -> System : accepts or rejects team
+        activate System
+
+            System --> Employee : displays message
         deactivate System
 
     end
 
+    end
 
 @enduml
