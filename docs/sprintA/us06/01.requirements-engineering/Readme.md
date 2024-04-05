@@ -30,8 +30,8 @@ As an FM, I wish to register a new vehicle in the system. The registered vehicle
 ### 1.3. Acceptance Criteria
 
 * **AC1:** All required fields (fields defined in topic 1.5) must be filled in. 
-* **AC2:** (In)Success of the operation.
-* **AC3:** A new vehicle will be registered with all the required fields (fields defined in topic 1.5).
+* **AC2:** A new vehicle will be registered.
+* **AC3:** (In)Success of the operation.
 * **AC4:** Update of vehicle's Kms by FM weekly.
 
 ### 1.4. Found out Dependencies
@@ -66,4 +66,4 @@ As an FM, I wish to register a new vehicle in the system. The registered vehicle
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![System Sequence Diagram - Alternative One](svg/us06-system-sequence-diagram-alternative-one.svg)
+![System Sequence Diagram - US06](svg/us06-system-sequence-diagram.svg)
