@@ -12,6 +12,15 @@ hide methods
 
 title Domain Model
 
+class VehicleFleetManager {
+
+}
+
+class VehicleCheckup{
+    dateOfCheckup
+    kmOfCheckup
+}
+
 class Manager {
     section
 }
@@ -30,5 +39,8 @@ class Vehicle {
 }
 
 Manager "1" -- "*" Vehicle: creates/manages >
+Manager "1" --up "1" VehicleFleetManager: is a >
+Vehicle "1" -- "1" VehicleCheckup: is submitted to >
+
 
 @enduml
