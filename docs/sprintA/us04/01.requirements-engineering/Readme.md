@@ -36,15 +36,11 @@ employees."
 >
 > **Answer:** They can be assigned throughout a collaborator career.
 
-> **Question:** 
->
-> **Answer:** 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** The field "skills" should be able to be edited.
-* **AC2:** Skills selected must be assigned to a collaborator.
-* **AC3:** Skills must be chosen from the list of skills already created.
-
+* **AC1:** Skills selected must be assigned to a collaborator.
+* **AC2:** Skills must be chosen from the list of skills already created.
+* **AC3:** At least one Skill must be assigned to a collaborator.
 ### 1.4. Found out Dependencies
 
 * There is a dependency on "US01 - As a Human Resources Manager (HRM), I want to register skills that may be appointed to a collaborator." as there must be at least one skill for the HRM to choose.
@@ -52,8 +48,9 @@ employees."
 ### 1.5 Input and Output Data
 
 **Input Data:**
-* Selected Skills
-
+* Selected data:
+    * Skill(s)
+  
 **Output Data:**
 * Collaboration data with the assigned skills
 
@@ -61,8 +58,5 @@ employees."
 
 ### 1.6. System Sequence Diagram (SSD)
 
-**_Other alternatives might exist._**
-
-#### SSD
 
 ![System Sequence Diagram - Alternative One](svg/us04-system-sequence-diagram.svg)

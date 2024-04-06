@@ -1,7 +1,3 @@
-# US03 - As an HRM, I want to register a collaborator with a job and fundamental characteristics.
- 
-
-
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
@@ -42,7 +38,6 @@ employees."
 * **AC1:** Name, birthdate, admission date, address, contact info (mobile and
   email), ID doc type and respective number should be provided by HRM.
 * **AC2:** A job must be chosen from the list of jobs available.
-* **AC3:** The Fundamental characteristics should be able to be altered or incremented through time.
 * **AC4:** The Birthdate must be validated to assure that the collaborator is over eighteen years old.
 * **AC5:** A new collaborator must be created.
 
@@ -65,13 +60,11 @@ employees."
     * Profession
 
 **Output Data:**
-* List of jobs
+
 * Success or failure message and feedback in case of failure 
 
 ### 1.6. System Sequence Diagram (SSD)
 
-**_Other alternatives might exist._**
 
-#### SSD
 
 ![System Sequence Diagram - Alternative One](svg/us03-system-sequence-diagram-alternative-one.svg)
