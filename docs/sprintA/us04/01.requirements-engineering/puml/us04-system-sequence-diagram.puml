@@ -19,14 +19,9 @@ activate Employee
            Employee -> System : select a collaborator
                       activate System
 
-                          System --> Employee : shows the selected collaborator
+                          System --> Employee : shows the list of skills
                       deactivate System
 
-        Employee -> System : asks for a list of skills
-            activate System
-
-        System --> Employee : shows the list of skills
-       deactivate System
 
    Employee -> System : choose one or more skills available for the collaborator
        activate System
