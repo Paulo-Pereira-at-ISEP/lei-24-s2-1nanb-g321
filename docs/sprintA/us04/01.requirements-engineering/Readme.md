@@ -40,7 +40,7 @@ employees."
 
 * **AC1:** Skills selected must be assigned to a collaborator.
 * **AC2:** Skills must be chosen from the list of skills already created.
-* **AC3:** At least one Skill must be assigned to a collaborator.
+* **AC3:** At least one Skill must be selected.
 ### 1.4. Found out Dependencies
 
 * There is a dependency on "US01 - As a Human Resources Manager (HRM), I want to register skills that may be appointed to a collaborator." as there must be at least one skill for the HRM to choose.

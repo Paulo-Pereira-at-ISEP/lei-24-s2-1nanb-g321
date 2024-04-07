@@ -38,8 +38,8 @@ employees."
 * **AC1:** Name, birthdate, admission date, address, contact info (mobile and
   email), ID doc type and respective number should be provided by HRM.
 * **AC2:** A job must be chosen from the list of jobs available.
-* **AC4:** The Birthdate must be validated to assure that the collaborator is over eighteen years old.
-* **AC5:** A new collaborator must be created.
+* **AC3:** The Birthdate must be validated to assure that the collaborator is over eighteen years old.
+* **AC4:** A new collaborator must be created.
 
 
 
@@ -58,9 +58,14 @@ employees."
     * Contact
     * Tax Identification Number
     * Profession
+  
+
+* Selected data:
+  * job
 
 **Output Data:**
 
+* Collaborator data with job and fundamental characteristics
 * Success or failure message and feedback in case of failure 
 
 ### 1.6. System Sequence Diagram (SSD)
