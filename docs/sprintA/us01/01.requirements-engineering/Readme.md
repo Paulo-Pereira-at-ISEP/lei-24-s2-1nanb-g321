@@ -43,7 +43,7 @@ As a Human Resources Manager (HRM), I want to register skills in the system. The
 
 ### 1.4. Found out Dependencies
 
-* There is no dependencies of this US, however, "US04 - As an HRM, I want to assign one or more skills to a collaborator." will depend on this one as it is necessary to be implemented in order to assign the "skills".
+* No dependencies were identified.
 
 ### 1.5 Input and Output Data
 
