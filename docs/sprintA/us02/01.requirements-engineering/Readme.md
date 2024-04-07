@@ -37,7 +37,7 @@ As a Human Resource Manager, I want to register a job. These can be designer, es
 
 ### 1.4. Found out Dependencies
 
-* There is no dependencies of this US, however, "US03 - As an HRM, I want to register a collaborator with a job and fundamental characteristics." will depend on this one as it is necessary to be implemented in order for the system to be able to provide "job title" options when creating a new collaborator.
+* No dependencies were identified.
 
 ### 1.5 Input and Output Data
 
