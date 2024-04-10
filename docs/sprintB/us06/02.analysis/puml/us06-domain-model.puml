@@ -1,0 +1,45 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+class Manager {
+    section
+}
+
+class VehicleFleetManager {
+
+}
+
+class Vehicle {
+    Brand
+    Model
+    Type
+    Tare
+    Gross Weight
+    Current Km
+    Register Date
+    Acquisition Date
+    Maintenance/Check-up Frequency (in Km)
+    Plate Number
+    Passengers Number
+    Doors Number
+    Fuel Type
+    Trailer Machines (Yes/No)
+    Last Maintenance/Check-up (Km)
+    Last Maintenance/Check-up (Date)
+}
+
+Manager "1" --- "*" Vehicle: creates/manages >
+Manager "1" --up "1" VehicleFleetManager: is a >
+
+
+
+@enduml

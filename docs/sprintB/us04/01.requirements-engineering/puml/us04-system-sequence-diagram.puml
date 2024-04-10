@@ -1,0 +1,40 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - US04
+
+autonumber
+
+actor "Human Resources\n Manager" as Employee
+participant ":System" as System
+
+activate Employee
+            Employee -> System : asks for a list of collaborators
+           activate System
+
+               System --> Employee : shows list of collaborators
+           deactivate System
+           Employee -> System : select a collaborator
+                      activate System
+
+                          System --> Employee : shows the list of skills
+                      deactivate System
+
+
+   Employee -> System : choose one or more skills available for the collaborator
+       activate System
+
+           System --> Employee : shows skills linked to the collaborator
+       deactivate System
+
+       Employee -> System : confirms data
+       activate System
+
+           System --> Employee : display success message
+       deactivate System
+
+
+    deactivate System
+@enduml
