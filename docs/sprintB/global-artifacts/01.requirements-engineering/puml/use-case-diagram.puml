@@ -15,7 +15,7 @@ left to right direction
 rectangle "System Actors" as actors {
     actor "Software Quality Assessment Team Manager" as QAM
     actor "Green Space Manager" as GSM
-    actor "Fleet Manager" as FM
+    actor "Vehicle and Equipment Fleet Manager" as VFM
     actor "Human Resource Manager" as HRM
 
 }
@@ -28,8 +28,8 @@ rectangle "Use Cases" as usecases{
     usecase "US14 - Run tests for inputs of variable size, to observe execution time of US13 algorithm." as UC14
     usecase "US13 - Obtain optimal pipeline routes" as UC13
     usecase "US12 - Import pipeline data from .csv file" as UC12
-    usecase "US11 - Obtain age group usage of a urban park" as UC11
-    usecase "US10 - Obtain user's preferences concerning equipment of a urban park" as UC10
+    usecase "US11 - Obtain age group usage of an urban park" as UC11
+    usecase "US10 - Obtain user's preferences concerning equipment of an urban park" as UC10
     usecase "US09 - Obtain the exact costs referring to water consumption of a specific green space" as UC09
     usecase "UC08 - List vehicles with pending maintenances" as UC08
     usecase "UC07 - Register vehicle maintenance" as UC07
@@ -46,9 +46,9 @@ rectangle "Use Cases" as usecases{
     HRM --> UC03
     HRM --> UC04
     HRM --> UC05
-    FM --> UC06
-    FM --> UC07
-    FM --> UC08
+    VFM --> UC06
+    VFM --> UC07
+    VFM --> UC08
     GSM --> UC09
     GSM --> UC10
     GSM --> UC11
