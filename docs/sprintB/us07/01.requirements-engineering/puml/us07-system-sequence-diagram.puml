@@ -7,24 +7,18 @@ title System Sequence Diagram (SSD) - US07
 
 autonumber
 
-actor "Fleet \nManager" as Employee
+actor "Vehicle and Equipment\nFleet Manager" as Employee
 participant ":System" as System
 
 activate Employee
 
-    Employee -> System : asks a list of vehicle's
+    Employee -> System : asks for a list of vehicles that need maintenance
     activate System
 
-        System --> Employee : show list of vehicle's
+        System --> Employee : show list of vehicles
     deactivate System
 
     Employee -> System : select vehicle
-    activate System
-
-        System --> Employee : shows data from vehicle
-    deactivate System
-
-    Employee -> System : ask to create a new check-up
     activate System
 
         System --> Employee : requests data (i.e. Date, Kms of vehicle)
