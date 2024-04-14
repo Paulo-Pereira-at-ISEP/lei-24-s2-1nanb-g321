@@ -1,4 +1,4 @@
-# US07 - As an FM, I wish to register a vehicle’s check-up.
+# US07 - As a VFM, I wish to register a vehicle’s maintenance.
 
 ## 2. Analysis
 
