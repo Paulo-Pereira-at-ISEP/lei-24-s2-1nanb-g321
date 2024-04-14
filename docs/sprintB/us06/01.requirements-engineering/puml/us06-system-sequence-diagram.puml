@@ -7,7 +7,7 @@ title System Sequence Diagram (SSD) - US06
 
 autonumber
 
-actor "Fleet \nManager" as Employee
+actor "Vehicle and Equipment\nFleet Manager" as Employee
 participant ":System" as System
 
 activate Employee
@@ -27,7 +27,7 @@ activate Employee
     Employee -> System : confirms data
     activate System
 
-        System --> Employee : displays operation success
+        System --> Employee : displays message with operation success
     deactivate System
 
 @enduml
