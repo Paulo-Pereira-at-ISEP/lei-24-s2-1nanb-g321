@@ -1,4 +1,5 @@
-# US08 -  As an FM, I want to list the vehicles needing the check-up.
+# US08 -  As a VFM, I want to list the vehicles needing the check-up.
+
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 
 [Analysis](02.analysis/Readme.md)
