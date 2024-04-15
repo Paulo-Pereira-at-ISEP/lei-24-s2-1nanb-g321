@@ -46,13 +46,14 @@ As a Human Resources Manager, I want to streamline the creation of proposals for
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** The maximum team size and the set of skills need to be supplied by the HRM
-* **AC2:** The team proposal needs to be generated automatically.
-* **AC3:** The teams need to have collaborators with the skills needed to perform the tasks.
-* **AC4:** When a team proposal is generated, HRM can reject the proposal or accept it.
-* **AC5:** In case of failure the system should provide information on the reason of the failure when generating a team automatically.
-* **AC6:** All required fields (fields defined in topic 1.5) must be filled in.
-* **AC7:** When the HRM rejects the team proposal another team should be generated and validated by the HRM.
+* **AC1:** The maximum team size needs to be supplied by the HRM.
+* **AC2:** The set of skills needs to be supplied by the HRM.
+* **AC3:** The team proposal needs to be generated automatically.
+* **AC4:** The teams need to have collaborators with the skills needed to perform the tasks.
+* **AC5:** When a team proposal is generated, HRM can reject the proposal or accept it.
+* **AC6:** In case of failure the system should provide information on the reason of the failure when generating a team automatically.
+* **AC7:** All required fields (fields defined in topic 1.5) must be filled in.
+* **AC8:** When the HRM rejects the team proposal another team should be generated and validated by the HRM.
 
 ### 1.4. Found out Dependencies
 
