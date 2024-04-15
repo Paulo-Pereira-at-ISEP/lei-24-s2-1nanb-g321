@@ -1,6 +1,5 @@
 # US08 - As a VFM, I want the system to produce a list (report) of vehicles needing maintenance.
 
-
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
@@ -47,10 +46,8 @@ As a Vehicle and Equipment Fleet Manager, I want to prompt the creation of a lis
 ### 1.3. Acceptance Criteria
 
 * **AC1:** A list with the vehicles that need a check-up needs to be created automatically.
-* **AC2:** The list creation needs to be prompted by the VFM.
-* **AC3:** The list needs to be created with the information about the vehicles already gathered in the system.
-* **AC4:** The vehicles in the list have to be within the range of 200-300km of reaching the inspection limit.
-* **AC5:** The list needs to appear with data that allows to identify the vehicles like Plate, brand and model, as well as, the data that allowed to select/insert the vehicle in the list, number of kms, frequency of checkup and the last checkup.
+* **AC2:** The list needs to be created with the information about the vehicles already gathered in the system and have to be within the range of 200-300km of reaching the inspection limit.
+* **AC3:** The list needs to appear with data that allows to identify the vehicles like Plate, brand and model, as well as, the data that allowed to select/insert the vehicle in the list, number of kms, frequency of checkup and the last checkup.
 
 ### 1.4. Found out Dependencies
 
