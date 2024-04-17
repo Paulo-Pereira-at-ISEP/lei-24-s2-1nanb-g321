@@ -1,4 +1,4 @@
-# US006 - Create a Task 
+# US06 -  As a VFM, I wish to register a vehicle including Brand, Model, Type, Tare Weight, Gross Weight, Current Km, Register Date, Acquisition Date, and Maintenance/Check-up Frequency (in km). 
 
 ## 3. Design - User Story Realization 
 
