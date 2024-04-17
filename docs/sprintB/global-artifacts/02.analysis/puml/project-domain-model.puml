@@ -156,9 +156,9 @@ Manager "1" -- "*" Equipment: registers >
 Manager "1" -- "*" Vehicle: manages >
 Manager "1" -- "*" Tasks: creates >
 Manager "1" -- "*" Teams: manages >
-Manager "1" --up "1" HumanResourcesManager: is a >
-Manager "1" --up "1" VehicleFleetManager: is a >
-Manager "1" --up "1" GreenSpacesManager: is a >
+Manager "1" --up "1..*" HumanResourcesManager: is a >
+Manager "1" --up "1..*" VehicleFleetManager: is a >
+Manager "1" --up "1..*" GreenSpacesManager: is a >
 
 Agenda "1" -- "*" PendingTasks: gets tasks from >
 
@@ -166,9 +166,9 @@ Agenda "1" -- "*" PendingTasks: gets tasks from >
 User "1..*" -- "*" Parks: uses >
 User "*" -- "*" Reports: makes >
 
-Comments "1" -- "1" Reports: are >
-ReportFaults "1" -- "1" Reports: are >
-Malfunctions "1" -- "1" Reports: are >
+Comments "*" -- "1" Reports: are >
+ReportFaults "*" -- "1" Reports: are >
+Malfunctions "*" -- "1" Reports: are >
 
 Teams "1" -- "1" Parks: carry out tasks in >
 Teams "1" -- "1" Tasks: carry out >
