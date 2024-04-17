@@ -9,6 +9,9 @@ skinparam classAttributeIconSize 0
 
 hide circle
 hide methods
+class HumanResourcesManager {
+
+}
 
 class Manager {
      section
@@ -19,6 +22,7 @@ class Skill {
     skillDescription
 }
 
+Manager "1" --up "1..*" HumanResourcesManager: is a >
 Manager "1" --- "*" Skill: registers >
 
 @enduml
