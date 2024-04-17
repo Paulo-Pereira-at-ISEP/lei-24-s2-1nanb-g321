@@ -7,6 +7,10 @@ left to right direction
 
 skinparam classAttributeIconSize 0
 
+class HumanResourcesManager {
+
+}
+
 class Manager {
     section
 }
@@ -17,6 +21,7 @@ class Job {
 }
 
 Manager "1" --- "1..*" Job: registers >
+Manager "1" --up "1..*" HumanResourcesManager: is a >
 
 hide circle
 hide methods
