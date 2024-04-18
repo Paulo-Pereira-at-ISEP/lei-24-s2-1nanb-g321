@@ -33,6 +33,6 @@ activate Employee
     Employee -> System : confirms data
     activate System
 
-        System --> Employee : displays operation success and \nshow next check-up KM
+        System --> Employee : displays operation success and \nshow next maintenance KM
     deactivate System
 @enduml
