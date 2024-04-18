@@ -1,3 +1,5 @@
+## US03 - As an HRM, I want to register a collaborator with a job and fundamental characteristics.
+
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
@@ -35,7 +37,8 @@ employees."
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** Name, birthdate, admission date, address, contact info (mobile and email), ID doc type and respective number should be provided by HRM.
+* **AC1:** AC1: name, birth date, admission date, address, contact info (mobile and email), taxpayer number, ID doc type, and respective
+  number should be provided by the HRM. The taxpayer identification number and the citizen card number should be valid.
 * **AC2:** A job must be chosen from the list of jobs available.
 * **AC3:** The Birthdate must be validated to assure that the collaborator is over eighteen years old.
 * **AC4:** A new collaborator must be created.

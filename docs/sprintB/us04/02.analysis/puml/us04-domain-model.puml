@@ -25,7 +25,9 @@ class Collaborator {
     skills
 
 }
+class HumanResourcesManager {
 
+}
 class Manager {
     section
 }
@@ -37,4 +39,5 @@ class Skill {
 Manager "1" --right "*" Skill: registers >
 Manager "1" --right "1..*" Collaborator: registers >
 Collaborator "1" --down "*" Skill: has a set of >
+Manager "1" --up "1..*" HumanResourcesManager: is a >
 @enduml
