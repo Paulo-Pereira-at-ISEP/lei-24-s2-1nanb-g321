@@ -26,16 +26,20 @@ class Manager {
 }
 
 class Vehicle {
-    plateNumber
-    brand
-    model
-    type
-    tare
-    grossWeight
-    currentKm
-    registerDate
-    acquisitionDate
-    maintenanceFrequency
+    Brand
+    Model
+    Type
+    Tare Weight
+    Gross Weight
+    Current Km
+    Register Date
+    Acquisition Date
+    Maintenance Frequency
+    Plate Number
+    Passengers Number
+    Doors Number
+    Fuel Type
+    Trailer Machines
 }
 
 Manager "1" -- "*" Vehicle: creates/manages >
