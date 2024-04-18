@@ -4,14 +4,14 @@
 
 ### 1.1. User Story Description
 
-As a Vehicle and Equipment Fleet Manager, I want to prompt the creation of a list, generated automatically, of the vehicles needing their check-up, based on the amount of kilometers each of the vehicles has, within a defined range of kilometers. The list should include all the information about the vehicle like plate, brand, model, etc.
+As a Vehicle and Equipment Fleet Manager, I want to prompt the creation of a list, generated automatically, of the vehicles needing maintenance, based on the amount of kilometers each of the vehicles has, within a defined range of kilometers. The list should include all the information about the vehicle like plate, brand, model, etc.
 
 ### 1.2. Customer Specifications and Clarifications
 
 **From the specifications document:**
 
 >	"Vehicle and Equipment Fleet Manager (VFM) – a person who manages the fleet park, the machines, equipment and vehicles, ensuring their good condition and assigning them to the tasks to be carried out."
->   Person who will list the vehicles who need the check-up.
+>   Person who will list the vehicles who need maintenance.
 
 >   "Vehicles are needed to carry out the tasks assigned to the teams as well as to transport machines and equipment."
 >   Uses of the vehicles.
@@ -45,7 +45,7 @@ As a Vehicle and Equipment Fleet Manager, I want to prompt the creation of a lis
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** A list with the vehicles that need a check-up needs to be created automatically.
+* **AC1:** A list with the vehicles that need maintenance needs to be created automatically.
 * **AC2:** The list needs to be created with the information about the vehicles already gathered in the system and have to be within the range of 200-300km of reaching the inspection limit.
 * **AC3:** The list needs to appear with data that allows to identify the vehicles like Plate, brand and model, as well as, the data that allowed to select/insert the vehicle in the list, number of kms, frequency of checkup and the last checkup.
 
@@ -62,7 +62,7 @@ No input data needed.
 
 **Output Data:**
 
-* List of the vehicles needing a check-up.
+* List of the vehicles needing maintenance.
 
 ### 1.6. System Sequence Diagram (SSD)
 
