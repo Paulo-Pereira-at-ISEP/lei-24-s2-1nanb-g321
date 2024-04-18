@@ -1,4 +1,4 @@
-# US08 -  As an FM, I want to list the vehicles needing the check-up.
+# US08 - As a VFM, I want the system to produce a list (report) of vehicles needing maintenance.
 
 ## 4. Tests 
 
