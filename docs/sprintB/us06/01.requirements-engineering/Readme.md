@@ -50,12 +50,12 @@ As an VFM, I wish to register a new vehicle in the system. The registered vehicl
     * Current Km
     * Register Date
     * Acquisition Date
-    * Maintenance/Check-up Frequency (in Km)
+    * Maintenance Frequency
     * Plate Number
     * Passengers Number
     * Doors Number
     * Fuel Type
-    * Trailer Machines (Yes/No)
+    * Trailer Machines
 
 **Output Data:**
 

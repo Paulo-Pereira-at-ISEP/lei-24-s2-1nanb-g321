@@ -22,23 +22,21 @@ class Vehicle {
     Brand
     Model
     Type
-    Tare
+    Tare Weight
     Gross Weight
     Current Km
     Register Date
     Acquisition Date
-    Maintenance/Check-up Frequency (in Km)
+    Maintenance Frequency
     Plate Number
     Passengers Number
     Doors Number
     Fuel Type
-    Trailer Machines (Yes/No)
-    Last Maintenance/Check-up (Km)
-    Last Maintenance/Check-up (Date)
+    Trailer Machines
 }
 
 Manager "1" --- "*" Vehicle: creates/manages >
-Manager "1" --up "1" VehicleFleetManager: is a >
+Manager "1" --up "1..*" VehicleFleetManager: is a >
 
 
 
