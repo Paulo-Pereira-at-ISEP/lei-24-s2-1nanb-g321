@@ -1,28 +1,27 @@
-# US006 - Create a Task 
+# US01 - As a Human Resources Manager (HRM), I want to register skills that may be appointed to a collaborator.
 
 ## 3. Design - User Story Realization 
 
 ### 3.1. Rationale
 
-_**Note that SSD - Alternative One is adopted.**_
 
-| Interaction ID | Question: Which class is responsible for... | Answer               | Justification (with patterns)                                                                                 |
-|:-------------  |:--------------------- |:---------------------|:--------------------------------------------------------------------------------------------------------------|
-| Step 1  		 |	... interacting with the actor? | CreateTaskUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
-| 			  		 |	... coordinating the US? | CreateTaskController | Controller                                                                                                    |
-| 			  		 |	... instantiating a new Task? | Organization         | Creator (Rule 1): in the DM Organization has a Task.                                                          |
-| 			  		 | ... knowing the user using the system?  | UserSession          | IE: cf. A&A component documentation.                                                                          |
-| 			  		 |							 | Organization         | IE: knows/has its own Employees                                                                               |
-| 			  		 |							 | Employee             | IE: knows its own data (e.g. email)                                                                           |
-| Step 2  		 |							 |                      |                                                                                                               |
-| Step 3  		 |	...saving the inputted data? | Task                 | IE: object created in step 1 has its own data.                                                                |
-| Step 4  		 |	...knowing the task categories to show? | System               | IE: Task Categories are defined by the Administrators.                                                        |
-| Step 5  		 |	... saving the selected category? | Task                 | IE: object created in step 1 is classified in one Category.                                                   |
-| Step 6  		 |							 |                      |                                                                                                               |              
-| Step 7  		 |	... validating all data (local validation)? | Task                 | IE: owns its data.                                                                                            | 
-| 			  		 |	... validating all data (global validation)? | Organization         | IE: knows all its tasks.                                                                                      | 
-| 			  		 |	... saving the created task? | Organization         | IE: owns all its tasks.                                                                                       | 
-| Step 8  		 |	... informing operation success?| CreateTaskUI         | IE: is responsible for user interactions.                                                                     | 
+
+| Interaction ID | Question: Which class is responsible for...                                      | Answer                | Justification (with patterns)                                                                                                                                                                       |
+|:---------------|:---------------------------------------------------------------------------------|:----------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1         | ... interacting with the actor                                                   | CreateSkillUI         | Pure Fabrication (there is no reason to assign this responsibility to any existing class in the Domain Model)                                                                                       |
+|                | ... instantiating the class tha handles the UI?                                  | CreateSkillUI         | Pure Fabrication                                                                                                                                                                                    |
+|                | ... coordinating the US?                                                         | CreateSkillController | Controller                                                                                                                                                                                          |
+| ???--->        | ... knowing the user using the system?                                           | UserSession           | IE: cf. A&A component documentation.                                                                                                                                                                |
+|                |                                                                                  | Organization          | IE: knows/has its own Employees                                                                                                                                                                     |
+|                |                                                                                  | Employee              | IE: knows its own data (e.g. email)                                                                                                                                                                 |
+| Step 2         | ... display the form for the actor to input data?                                | CreateSkillUI         | Pure Fabrication (interaction with the user, there is no reason for other class to have this responsibility)                                                                                        |
+| Step 3         | ... validating the inputted data?                                                | CreateSkillUI         | Pure Fabrication (validating only data types, business rules are validated in a more internal layer of the system)                                                                                  |
+|                | ... temporarily keeping the input data?                                          | CreateSkillUI         | Pure Fabrication (before passing the data to the CreateSkillController for further coordination)                                                                                                    |
+| Step 4         | ... showing all data and requesting confirmation?                                | CreateSkillUI         | Pure Fabrication (interaction with the user)                                                                                                                                                        |
+| Step 5         | ... creating the skill object?                                                   | SkillRepository       | Pure Fabrication / Creator (there is no reason for other class to have this responsibility / aggregates instances of Skills, and Skills are not specific to the Organization nor the Collaborators) |
+|                | ... validating (mandatory) data locally??                                        | Skill                 | Information Expert (should be responsible for validating its own data)                                                                                                                              |
+|                | ... adding the skill to a collection and globally validating duplicated records? | SkillRepository       | Information Expert (knows all the Skill instances)                                                                                                                                                  |
+| Step 6         | ... informing the operation success?                                             | CreateSkillUI         | Pure Fabrication                                                                                                                                                                                    |              
 
 ### Systematization ##
 
