@@ -23,8 +23,11 @@ activate HRM
 
             'requests the HRM to input data
             UI --> HRM : requestData (skillName, skillDescription)
+        deactivate UI
 
-            HRM -> UI : types data
+        HRM -> UI : types data
+
+        activate UI
 
             UI -> CTRL : validateSkillData(skillName, skillDescription)
             activate CTRL
