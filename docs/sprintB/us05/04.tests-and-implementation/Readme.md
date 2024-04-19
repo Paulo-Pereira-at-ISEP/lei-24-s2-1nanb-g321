@@ -1,4 +1,4 @@
-# US006 - Create a Task 
+# US05 - As an HRM, I want to generate a team proposal automatically
 
 ## 4. Tests 
 

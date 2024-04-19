@@ -6,7 +6,7 @@ skinparam shadowing false
 autonumber
 
 'hide footbox
-actor "Human Resources Manager" as HRM
+actor "Human Resources Manager" as ADM
 participant ":CreateTaskUI" as UI
 participant ":CreateTaskController" as CTRL
 participant ":Repositories" as RepositorySingleton

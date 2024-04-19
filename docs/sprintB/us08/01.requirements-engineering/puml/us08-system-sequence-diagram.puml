@@ -12,7 +12,7 @@ participant ":System" as System
 
 activate Employee
 
-    Employee -> System : asks to create a list of the vehicles that need check-up
+    Employee -> System : asks to create a list of the vehicles that need maintenance
     activate System
 
         System --> Employee : selects data from the listed vehicles and presents the list

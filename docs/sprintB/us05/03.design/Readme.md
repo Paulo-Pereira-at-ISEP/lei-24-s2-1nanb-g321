@@ -1,4 +1,4 @@
-# US006 - Create a Task 
+# US05 - As an HRM, I want to generate a team proposal automatically
 
 ## 3. Design - User Story Realization 
 
@@ -45,7 +45,7 @@ _**Note that SSD - Alternative Two is adopted.**_
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
-![Sequence Diagram - Full](svg/us006-sequence-diagram-full.svg)
+![Sequence Diagram - Full](svg/us05-sequence-diagram-full.svg)
 
 ### Split Diagrams
 

@@ -1,4 +1,4 @@
-# US08 -  As an FM, I want to list the vehicles needing the check-up.
+# US08 - As a VFM, I want the system to produce a list (report) of vehicles needing maintenance.
 
 ## 3. Design - User Story Realization 
 
@@ -45,7 +45,7 @@ _**Note that SSD - Alternative Two is adopted.**_
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
-![Sequence Diagram - Full](svg/us006-sequence-diagram-full.svg)
+![Sequence Diagram - Full](svg/us08-sequence-diagram-full.svg)
 
 ### Split Diagrams
 
