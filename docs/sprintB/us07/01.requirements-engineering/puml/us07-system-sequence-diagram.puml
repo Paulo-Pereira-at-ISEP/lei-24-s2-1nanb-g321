@@ -12,10 +12,10 @@ participant ":System" as System
 
 activate Employee
 
-    Employee -> System : asks to create a new vehicle maintenance
+    Employee -> System : asks for a list of vehicles that need maintenance
     activate System
 
-        System --> Employee : show list of vehicles and asks to select one
+        System --> Employee : show list of vehicles
     deactivate System
 
     Employee -> System : select vehicle

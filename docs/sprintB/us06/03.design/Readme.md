@@ -29,12 +29,13 @@ _**Note that SSD - Alternative One is adopted.**_
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
 * Organization
-* Vehicle
+* Task
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
-* CreateVehicleUI  
-* CreateVehicleController
+* CreateTaskUI  
+* CreateTaskController
+
 
 ## 3.2. Sequence Diagram (SD)
 
