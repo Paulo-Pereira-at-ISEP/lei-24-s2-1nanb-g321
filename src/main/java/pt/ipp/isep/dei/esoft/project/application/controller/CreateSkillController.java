@@ -4,7 +4,6 @@ import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.util.List;
-import java.util.Optional;
 
 public class CreateSkillController {
 
