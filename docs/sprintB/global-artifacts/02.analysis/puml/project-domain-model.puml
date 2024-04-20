@@ -31,6 +31,7 @@ class Collaborator {
     emailContact
     IDdocType
     IDnumber
+    taxNumber
     job
     skills
 
