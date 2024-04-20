@@ -1,0 +1,62 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+class CreateSkillController {
+    + CreateSkillController(possibly skillRepository)
+    + validateSkillData(skillName, skillDescription)
+
+}
+
+
+class CreateSkillUI {
+    +requestData(skillName, skillDescription)
+}
+
+
+class Employee{
+    -name:String
+    -birthdate:Date
+    -admissionDate:Date
+    -address
+    -mobileContact:String
+    -emailContact:String
+    -IDdocType:String
+    -IDnumber:String
+    -taxNumber:String
+    -job:Job
+
+}
+
+class Collaborator {
+    -listOfSkill:List<Job>
+}
+
+class Organization {
+    +createSkill(skillName, skillDescription)
+    +createJob(jobName, jobDescription)
+}
+
+
+class Skill {
+    -skillName:String
+    -skillDescription:String
+
+    +Skill(skillName, skillDescription)
+    +validateSkillData(skillName, skillDescription)
+}
+
+CreateSkillUI .> CreateSkillController
+Collaborator "1" ---> "*" Skill : has a set of
+CreateSkillController --->  Organization : createSkill
+Organization .> Skill : createSkill
+Collaborator --> Employee : is a
+
+@enduml
