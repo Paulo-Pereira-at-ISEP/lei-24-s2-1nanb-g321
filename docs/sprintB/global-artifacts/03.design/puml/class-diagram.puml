@@ -1,5 +1,7 @@
 @startuml
 skinparam classAttributeIconSize 0
+skinparam linetype polyline
+
 
 class ApplicationSession
 {
@@ -19,6 +21,71 @@ class "{NameOfUC}Controller" {
 
 class "{NameOfUC}UI" {
 }
+
+
+class CreateSkillController {
+    + CreateSkillController(possibly skillRepository)
+    + validateSkillData(skillName, skillDescription)
+
+}
+
+
+class CreateSkillUI {
+    +requestData(skillName, skillDescription)
+}
+
+
+class Employee{
+    -name:String
+    -birthdate:Date
+    -admissionDate:Date
+    -address
+    -mobileContact:String
+    -emailContact:String
+    -IDdocType:String
+    -IDnumber:String
+    -taxNumber:String
+    -job:Job
+
+}
+
+class Collaborator {
+    -listOfSkill:List<Job>
+}
+
+class Organization {
+    +createSkill(skillName, skillDescription)
+    +createJob(jobName, jobDescription)
+}
+
+
+class Skill {
+    -skillName:String
+    -skillDescription:String
+
+    +Skill(skillName, skillDescription)
+    +validateSkillData(skillName, skillDescription)
+}
+
+
+class Job {
+    -jobName:String
+    -jobDescription:String
+
+    +Job(jobName, jobDescription)
+    +validateJobData(jobName, jobDescription)
+}
+
+
+
+CreateSkillUI .> CreateSkillController
+Collaborator "1" ---> "*" Skill : has a set of
+Employee "1" ---> "1" Job : has a
+CreateSkillController --->  Organization : createSkill
+Organization .> Skill : createSkill
+Collaborator --> Employee : is a
+
+
 
 "{NameOfUC}UI" ..> "{NameOfUC}Controller"
 "{NameOfUC}Controller" ..> ApplicationSession
