@@ -3,11 +3,9 @@ package pt.ipp.isep.dei.esoft.project.ui;
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.ipp.isep.dei.esoft.project.domain.Organization;
+import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.TaskCategory;
-import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
-import pt.ipp.isep.dei.esoft.project.repository.OrganizationRepository;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-import pt.ipp.isep.dei.esoft.project.repository.TaskCategoryRepository;
+import pt.ipp.isep.dei.esoft.project.repository.*;
 
 public class Bootstrap implements Runnable {
 
@@ -16,6 +14,13 @@ public class Bootstrap implements Runnable {
         addTaskCategories();
         addOrganization();
         addUsers();
+        addSkills();
+    }
+
+    private void addSkills() {
+        SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
+        Skill skill = new Skill("Teste", "Teste");
+        skillRepository.add(skill);
     }
 
     private void addOrganization() {
@@ -30,7 +35,6 @@ public class Bootstrap implements Runnable {
 
     private void addTaskCategories() {
         //TODO: add bootstrap Task Categories here
-
         //get task category repository
         TaskCategoryRepository taskCategoryRepository = Repositories.getInstance().getTaskCategoryRepository();
         taskCategoryRepository.add(new TaskCategory("Analysis"));
