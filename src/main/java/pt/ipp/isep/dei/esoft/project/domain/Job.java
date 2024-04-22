@@ -1,7 +1,5 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-import java.util.regex.Pattern;
-
 public class Job {
     private String name;
     private String description;
@@ -16,8 +14,14 @@ public class Job {
         this.description = description;
     }
 
+    public static boolean contains(Job job) {
+        return job != null && job.getName() != null && job.getDescription() != null;
+    }
+
     private boolean isValidInput(String name) {
-        String regex = "^[a-zA-Z0-9_-]+$";
+        // Allow only letters and spaces
+        String regex = "^[a-zA-Z\\s]+$";
+        // Check if the input matches the regular expression
         return name.matches(regex);
     }
 
@@ -37,5 +41,9 @@ public class Job {
     @Override
     public String toString() {
         return name + " - " + description;
+    }
+
+    public Job clone() {
+        return new Job(this.name, this.description);
     }
 }
