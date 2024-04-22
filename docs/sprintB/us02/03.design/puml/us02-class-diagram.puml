@@ -17,6 +17,7 @@ class CreateJobController {
 
 
 class CreateJobUI {
+    +run()
     +requestData(jobName, jobDescription)
 }
 
@@ -54,8 +55,8 @@ class Job {
     +validateJobData(jobName, jobDescription)
 }
 
-CreateJobUI .> CreateJobController
 Employee "1" ---> "1" Job : has a
+CreateJobUI .> CreateJobController
 CreateJobController -->  Organization : createJob
 Organization .> Job : createJob
 Collaborator --> Employee : is a

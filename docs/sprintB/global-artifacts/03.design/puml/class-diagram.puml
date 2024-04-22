@@ -23,15 +23,33 @@ class "{NameOfUC}UI" {
 }
 
 
+
+
+class CreateJobUI {
+    +run()
+    +requestData(jobName, jobDescription)
+}
+
+
+
+
+
+class CreateSkillUI {
+    +run()
+    +requestData(skillName, skillDescription)
+}
+
+
 class CreateSkillController {
     + CreateSkillController(possibly skillRepository)
     + validateSkillData(skillName, skillDescription)
 
 }
 
+class CreateJobController {
+    + CreateJobController(possibly skillRepository)
+    + validateJobData(jobName, jobDescription)
 
-class CreateSkillUI {
-    +requestData(skillName, skillDescription)
 }
 
 
@@ -50,7 +68,7 @@ class Employee{
 }
 
 class Collaborator {
-    -listOfSkill:List<Job>
+    -listOfSkills:List<Job>
 }
 
 class Organization {
@@ -77,12 +95,18 @@ class Job {
 }
 
 
-
+CreateJobUI .> CreateJobController
 CreateSkillUI .> CreateSkillController
+
+CreateJobController -->  Organization : createJob
+CreateSkillController --->  Organization : createSkill
+
 Collaborator "1" ---> "*" Skill : has a set of
 Employee "1" ---> "1" Job : has a
-CreateSkillController --->  Organization : createSkill
+
 Organization .> Skill : createSkill
+Organization .> Job : createJob
+
 Collaborator --> Employee : is a
 
 
