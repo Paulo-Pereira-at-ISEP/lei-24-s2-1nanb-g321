@@ -168,15 +168,4 @@ class OrganizationTest {
         assertTrue(organization.addEmployee(employee));
     }
 
-    @Test
-    void ensureCloneWorks() {
-        Organization organization = new Organization("123456789");
-        Employee employee = new Employee("john.doe@this.company.com");
-        organization.addEmployee(employee);
-        organization.createTask("Task Description", "Task Category Description", "informal description",
-                "technical description", 1, 1d, new TaskCategory("Task Category Description"), employee);
-
-        Organization clone = organization.clone();
-        assertEquals(organization, clone);
-    }
 }

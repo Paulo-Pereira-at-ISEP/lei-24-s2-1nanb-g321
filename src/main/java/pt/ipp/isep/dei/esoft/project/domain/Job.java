@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.util.Objects;
 import java.util.regex.Pattern;
 
 public class Job {
@@ -33,7 +34,10 @@ public class Job {
     public void setDescription(String description) {
         this.description = description;
     }
-
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description);
+    }
     @Override
     public String toString() {
         return name + " - " + description;

@@ -12,7 +12,6 @@ public class Bootstrap implements Runnable {
     //Add some task categories to the repository as bootstrap
     public void run() {
         addTaskCategories();
-        addOrganization();
         addUsers();
         addSkills();
     }
@@ -23,15 +22,6 @@ public class Bootstrap implements Runnable {
         skillRepository.add(skill);
     }
 
-    private void addOrganization() {
-        //TODO: add organizations bootstrap here
-        //get organization repository
-        OrganizationRepository organizationRepository = Repositories.getInstance().getOrganizationRepository();
-        Organization organization = new Organization("This Company");
-        organization.addEmployee(new Employee("admin@this.app"));
-        organization.addEmployee(new Employee("employee@this.app"));
-        organizationRepository.add(organization);
-    }
 
     private void addTaskCategories() {
         //TODO: add bootstrap Task Categories here
@@ -49,14 +39,20 @@ public class Bootstrap implements Runnable {
     private void addUsers() {
         //TODO: add Authentication users here: should be created for each user in the organization
         AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
-        authenticationRepository.addUserRole(AuthenticationController.ROLE_ADMIN, AuthenticationController.ROLE_ADMIN);
-        authenticationRepository.addUserRole(AuthenticationController.ROLE_EMPLOYEE,
-                AuthenticationController.ROLE_EMPLOYEE);
-
-        authenticationRepository.addUserWithRole("Main Administrator", "admin@this.app", "admin",
-                AuthenticationController.ROLE_ADMIN);
-
-        authenticationRepository.addUserWithRole("Employee", "employee@this.app", "pwd",
-                AuthenticationController.ROLE_EMPLOYEE);
+        authenticationRepository.addUserRole("HRM", AuthenticationController.ROLE_HRM);
+        authenticationRepository.addUserRole("Collaborator", AuthenticationController.ROLE_Collaborator);
+        authenticationRepository.addUserRole("VFM", AuthenticationController.ROLE_VFM);
+        authenticationRepository.addUserRole("QAM", AuthenticationController.ROLE_QAM);
+        authenticationRepository.addUserRole("GSM", AuthenticationController.ROLE_GSM);
+        authenticationRepository.addUserWithRole("HRM", "HRM@this.app", "admin",
+                AuthenticationController.ROLE_HRM);
+        authenticationRepository.addUserWithRole("VFM", "VFM@this.app", "admin",
+                AuthenticationController.ROLE_VFM);
+        authenticationRepository.addUserWithRole("QAM", "QAM@this.app", "admin",
+                AuthenticationController.ROLE_QAM);
+        authenticationRepository.addUserWithRole("GSM", "GSM@this.app", "admin",
+                AuthenticationController.ROLE_GSM);
+        authenticationRepository.addUserWithRole("Collaborator", "colab@this.app", "admin",
+                AuthenticationController.ROLE_Collaborator);
     }
 }
