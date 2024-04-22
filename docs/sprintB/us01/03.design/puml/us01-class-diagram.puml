@@ -17,6 +17,7 @@ class CreateSkillController {
 
 
 class CreateSkillUI {
+    +run()
     +requestData(skillName, skillDescription)
 }
 
