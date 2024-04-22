@@ -4,13 +4,14 @@ import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.util.List;
+import java.util.Optional;
 
 public class CreateJobController {
 
-    private JobRepository jobRepository;
+    private JobsRepository jobsRepository;
 
-    public List<Job> getJobList() {
-        return jobRepository.getJobs();
+    public List<Job> jobs() {
+        return jobsRepository.getjobs();
     }
 
     public Job createJob(String name, String description) {

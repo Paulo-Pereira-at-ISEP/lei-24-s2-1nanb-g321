@@ -14,6 +14,7 @@ public class Organization {
     private String phone;
     private String email;
 
+
     /**
      * This method is the constructor of the organization.
      *
@@ -23,7 +24,7 @@ public class Organization {
     public Organization(String vatNumber) {
         this.vatNumber = vatNumber;
         employees = new ArrayList<>();
-        tasks = new ArrayList<>();
+        tasks = new ArrayList<Task>();
     }
 
     /**
@@ -79,7 +80,7 @@ public class Organization {
         boolean success = false;
         if (validate(task)) {
             // A clone of the task is added to the list of tasks, to avoid side effects and outside manipulation.
-            success = tasks.add(task.clone());
+            success = tasks.add(task);
         }
         return success;
 
@@ -111,6 +112,8 @@ public class Organization {
      * @param email The email to be checked.
      * @return True if the organization has an employee with the given email.
      */
+
+
     public boolean anyEmployeeHasEmail(String email) {
         boolean result = false;
         for (Employee employee : employees) {
@@ -147,6 +150,7 @@ public class Organization {
         return success;
     }
 
+
     private boolean validateEmployee(Employee employee) {
         return employeesDoNotContain(employee);
     }
@@ -156,22 +160,5 @@ public class Organization {
     }
 
     //Clone organization
-    public Organization clone() {
-        Organization clone = new Organization(this.vatNumber);
-        clone.name = (this.name);
-        clone.website = (this.website);
-        clone.phone = (this.phone);
-        clone.email = (this.email);
 
-        for (Employee in : this.employees) {
-            clone.employees.add(in.clone());
-        }
-
-
-        for (Task in : this.tasks) {
-            clone.tasks.add(in.clone());
-        }
-
-        return clone;
-    }
 }

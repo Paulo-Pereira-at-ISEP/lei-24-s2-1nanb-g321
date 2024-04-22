@@ -42,10 +42,10 @@ public class CreateJobUI implements Runnable {
 
     private void requestData() {
 
-        //Request the Job Name from the console
-        jobName = requestJobName();
+        //Request the Skill Name from the console
+        jobName = requestJobTitle();
 
-        //Request the Job Description from the console
+        //Request the Task Description from the console
         jobDescription = requestJobDescription();
     }
 
@@ -55,9 +55,9 @@ public class CreateJobUI implements Runnable {
         return input.nextLine();
     }
 
-    private String requestJobName() {
+    private String requestJobTitle() {
         Scanner input = new Scanner(System.in);
-        System.out.print("Job Name: ");
+        System.out.print("Job Title: ");
         return input.nextLine();
     }
 

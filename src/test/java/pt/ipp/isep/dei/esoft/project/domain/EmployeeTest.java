@@ -70,11 +70,5 @@ class EmployeeTest {
 
     }
 
-    @Test
-    void ensureCloneWorks() {
-        String email = "john.doe@this.company.com";
-        Employee employee = new Employee(email);
-        Employee clone = employee.clone();
-        assertEquals(employee, clone);
-    }
+
 }
