@@ -25,7 +25,7 @@ activate HRM
             UI --> HRM : requestData (skillName, skillDescription)
         deactivate UI
 
-        HRM -> UI : types data
+        HRM -> UI : types requested data
 
         activate UI
 
