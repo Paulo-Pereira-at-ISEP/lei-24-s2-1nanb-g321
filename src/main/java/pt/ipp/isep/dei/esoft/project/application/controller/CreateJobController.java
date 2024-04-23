@@ -8,10 +8,10 @@ import java.util.Optional;
 
 public class CreateJobController {
 
-    private JobsRepository jobsRepository;
+    private JobRepository jobRepository;
 
     public List<Job> jobs() {
-        return jobsRepository.getjobs();
+        return jobRepository.getJobs();
     }
 
     public Job createJob(String name, String description) {

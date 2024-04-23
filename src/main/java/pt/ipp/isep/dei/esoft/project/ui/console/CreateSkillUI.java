@@ -5,6 +5,7 @@ import pt.ipp.isep.dei.esoft.project.application.controller.CreateTaskController
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Task;
 import pt.ipp.isep.dei.esoft.project.domain.TaskCategory;
+import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,9 +19,10 @@ public class CreateSkillUI implements Runnable {
     private final CreateSkillController controller;
     private String skillName;
     private String skillDescription;
+    private SkillRepository skillRepository;
 
     public CreateSkillUI() {
-        controller = new CreateSkillController();
+        controller = new CreateSkillController(skillRepository);
     }
 
     private CreateSkillController getController() {
@@ -65,5 +67,7 @@ public class CreateSkillUI implements Runnable {
         System.out.print("Skill Name: ");
         return input.nextLine();
     }
+
+
 
 }

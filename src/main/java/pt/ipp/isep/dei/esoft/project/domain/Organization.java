@@ -160,5 +160,21 @@ public class Organization {
     }
 
     //Clone organization
+    public Organization clone() {
+        Organization clone = new Organization(this.vatNumber);
+        clone.name = (this.name);
+        clone.website = (this.website);
+        clone.phone = (this.phone);
+        clone.email = (this.email);
 
+        for (Employee in : this.employees) {
+            clone.employees.add(in.clone());
+        }
+
+        for (Task in : this.tasks) {
+            clone.tasks.add(in.clone());
+        }
+
+        return clone;
+    }
 }

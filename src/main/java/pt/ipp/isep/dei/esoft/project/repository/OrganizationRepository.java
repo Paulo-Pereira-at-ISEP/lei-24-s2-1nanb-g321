@@ -41,5 +41,28 @@ public class OrganizationRepository {
         return returnOrganization;
     }
 
+    public Optional<Organization> add(Organization organization) {
+
+        Optional<Organization> newOrganization = Optional.empty();
+        boolean operationSuccess = false;
+
+        if (validateOrganization(organization)) {
+            newOrganization = Optional.of(organization.clone());
+            operationSuccess = organizations.add(newOrganization.get());
+        }
+
+        if (!operationSuccess) {
+            newOrganization = Optional.empty();
+        }
+
+        return newOrganization;
+
+    }
+
+    private boolean validateOrganization(Organization organization) {
+        boolean isValid = !organizations.contains(organization);
+
+        return isValid;
+    }
 
 }
