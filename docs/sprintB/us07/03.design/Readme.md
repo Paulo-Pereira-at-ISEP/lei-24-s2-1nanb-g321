@@ -4,37 +4,36 @@
 
 ### 3.1. Rationale
 
-_**Note that SSD - Alternative One is adopted.**_
-
-| Interaction ID | Question: Which class is responsible for...  | Answer               | Justification (with patterns)                                                                                 |
-|:---------------|:---------------------------------------------|:---------------------|:--------------------------------------------------------------------------------------------------------------|
-| Step 1  	      | ... interacting with the actor?              | CreateTaskUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
-| 	              | ... coordinating the US?                     | CreateTaskController | Controller                                                                                                    |
-| 	              | ... instantiating a new Task?                | Organization         | Creator (Rule 1): in the DM Organization has a Task.                                                          |
-| 	              | ... knowing the user using the system?       | UserSession          | IE: cf. A&A component documentation.                                                                          |
-| 	              |                                              | Organization         | IE: knows/has its own Employees                                                                               |
-| 	              |                                              | Employee             | IE: knows its own data (e.g. email)                                                                           |
-| Step 2  	      |                                              |                      |                                                                                                               |
-| Step 3         | ...saving the inputted data?                 | Task                 | IE: object created in step 1 has its own data.                                                                |
-| Step 4  	      | ...knowing the task categories to show?      | System               | IE: Task Categories are defined by the Administrators.                                                        |
-| Step 5  	      | ... saving the selected category?            | Task                 | IE: object created in step 1 is classified in one Category.                                                   |
-| Step 6  	      |                                              |                      |                                                                                                               |              
-| Step 7  	      | ... validating all data (local validation)?  | Task                 | IE: owns its data.                                                                                            | 
-| 	              | ... validating all data (global validation)? | Organization         | IE: knows all its tasks.                                                                                      | 
-| 	              | ... saving the created task?                 | Organization         | IE: owns all its tasks.                                                                                       | 
-| Step 8  	      | ... informing operation success?             | CreateTaskUI         | IE: is responsible for user interactions.                                                                     | 
+| Interaction ID | Question: Which class is responsible for...                            | Answer                      | Justification (with patterns)                                                                                      |
+|:---------------|:-----------------------------------------------------------------------|:----------------------------|:-------------------------------------------------------------------------------------------------------------------|
+| Step 1         | ... instantiating the class tha handles the UI?                        | CreateMaintenanceUI         | Pure Fabrication                                                                                                   |
+|                | ... coordinating the US?                                               | CreateMaintenanceController | Controller                                                                                                         |
+|                | ... knowing the user using the system?                                 | UserSession                 | IE: cf. A&A component documentation.                                                                               |
+|                |                                                                        | Organization                | IE: knows/has its own Employees                                                                                    |
+|                |                                                                        | Employee                    | IE: knows its own data (e.g. email)                                                                                |
+| Step 2         | ... obtaining the vehicle list?                                        | VehicleRepository           | Information Expert                                                                                                 |
+|                | ... display the form for the actor to select data?                     | CreateMaintenanceUI         | Pure Fabrication (interaction with the user, there is no reason for other class to have this responsibility)       |
+| Step 3         | ... saving the selected vehicle?                                       | Vehicle                     | Pure Fabrication (interaction with the user, there is no reason for other class to have this responsibility)       |
+| Step 4         | ... display the form for the actor to input data?                      | CreateMaintenanceUI         | Pure Fabrication (interaction with the user, there is no reason for other class to have this responsibility)       |
+| Step 5         | ... validating the inputted data?                                      | CreateMaintenanceUI         | Pure Fabrication (validating only data types, business rules are validated in a more internal layer of the system) |
+|                | ... temporarily keeping the input data?                                | CreateMaintenanceUI         | Pure Fabrication (before passing the data to the CreateVehicleController for further coordination)                 |
+| Step 6         | ... displaying all the information before submitting?                  | CreateMaintenanceUI         | Pure Fabrication (interaction with the user)                                                                       |
+| Step 7         | ... creating the maintenance object?                                   | Organization                | Creator ()                                                                                                         |
+|                | ... validating data locally (mandatory data)??                         | Vehicle                     | Information Expert (should be responsible for validating its own data)                                             |
+|                | ... adding to a collection and globally validating duplicated records? | Organization                | Information Expert (knows all the Vehicle instances)                                                               |
+| Step 8         | ... informing the operation success?                                   | CreateMaintenanceUI         | Pure Fabrication                                                                                                   |              
 
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
 * Organization
-* Task
+* Vehicle
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
-* CreateTaskUI  
-* CreateTaskController
+* CreateMaintenanceUI
+* CreateMaintenanceController
 
 
 ## 3.2. Sequence Diagram (SD)
@@ -45,7 +44,7 @@ _**Note that SSD - Alternative Two is adopted.**_
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
-![Sequence Diagram - Full](svg/us006-sequence-diagram-full.svg)
+![Sequence Diagram - Full](svg/us07-sequence-diagram-full.svg)
 
 ### Split Diagrams
 
@@ -73,4 +72,4 @@ It uses Interaction Occurrence (a.k.a. Interaction Use).
 
 ## 3.3. Class Diagram (CD)
 
-![Class Diagram](svg/us006-class-diagram.svg)
+![Class Diagram](svg/us07-class-diagram.svg)
