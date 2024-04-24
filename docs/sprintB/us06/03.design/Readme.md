@@ -9,7 +9,7 @@
 | Step 1         | ... instantiating the class tha handles the UI?                             | CreateVehicleUI         | Pure Fabrication                                                                                                   |
 |                | ... obtaining the vehicle list?                                             | VehicleRepository       | Information Expert                                                                                                 |
 |                | ... coordinating the US?                                                    | CreateVehicleController | Controller                                                                                                         |
-| ???--->        | ... knowing the user using the system?                                      | UserSession             | IE: cf. A&A component documentation.                                                                               |
+|                | ... knowing the user using the system?                                      | UserSession             | IE: cf. A&A component documentation.                                                                               |
 |                |                                                                             | Organization            | IE: knows/has its own Employees                                                                                    |
 |                |                                                                             | Employee                | IE: knows its own data (e.g. email)                                                                                |
 | Step 2         | ... display the form for the actor to input data?                           | CreateVehicleUI         | Pure Fabrication (interaction with the user, there is no reason for other class to have this responsibility)       |
@@ -41,7 +41,7 @@ _**Note that SSD - Alternative Two is adopted.**_
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
-![Sequence Diagram - Full](svg/us006-sequence-diagram-full.svg)
+![Sequence Diagram - Full](svg/us06-sequence-diagram-full.svg)
 
 ### Split Diagrams
 
@@ -69,4 +69,4 @@ It uses Interaction Occurrence (a.k.a. Interaction Use).
 
 ## 3.3. Class Diagram (CD)
 
-![Class Diagram](svg/us006-class-diagram.svg)
+![Class Diagram](svg/us06-class-diagram.svg)

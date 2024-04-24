@@ -1,0 +1,108 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+class ApplicationSession
+{
+    + static getInstance()
+    + getCurrentSession()
+}
+
+class UserSession
+{
+    + getUserEmail()
+}
+
+class Employee {
+    - **a complementar estes atributos**
+}
+
+class Vehicle {
+    - String brand
+    - String model
+    - String type
+    - Integer tareWeight
+    - Integer grossWeight
+    - Integer currenteKm
+    - Date registerDate
+    - Date acquisitionDate
+    - Integer maintenanceFrequency
+    - String plateNumber
+    - Integer passengersNumber
+    - Integer doorsNumber
+    - String fuelType
+    - Boolean trailerMachines
+
+    + Vehicle(brand, model, type, tare weight, \ngross weight, current km,register date, \nacquisition date, maintenance frequency, \nplate number, passengers number,\ndoors number, fuel type, trailer machines)
+}
+
+class Organization {
+    - **String name**
+    - **String vatNumber**
+    - **String website**
+    - **String phone**
+    - **String email**
+
+    - addVehicle(vehicle)
+    - validateVehicle(vehicle)
+    + anyEmployeeHasEmail(email)
+    + Organization(**Inserir atributos acima**)
+    + createVehicle(brand, model, type, tare weight, \ngross weight, current km,register date, \nacquisition date, maintenance frequency, \nplate number, passengers number,\ndoors number, fuel type, trailer machines)
+    - getEmployeeByEmail(email)
+}
+
+class OrganizationRepository {
+    + getOrganizationByEmployeeEmail(email)
+}
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getOrganizationRepository()
+}
+
+class CreateVehicleController {
+    + CreateVehicleController(organizationRepository)
+    + getTaskCategories()
+    + createVehicle(**userEmail**, brand, model, type, tare weight, \ngross weight, current km,register date, \nacquisition date, maintenance frequency, \nplate number, passengers number,\ndoors number, fuel type, trailer machines)
+    - getEmployeeFromSession()
+}
+
+note right of CreateVehicleController
+    - userEmail is obtained
+    from the user session
+end note
+
+class CreateVehicleUI {
+}
+
+Repositories -> Repositories : instance
+ApplicationSession -> ApplicationSession : instance
+
+CreateVehicleUI .> CreateVehicleController
+
+CreateVehicleController .> Repositories : repositories
+
+CreateVehicleController ..> OrganizationRepository : organizationRepository
+
+Repositories --> "1" OrganizationRepository
+
+OrganizationRepository --> "*" Organization
+ApplicationSession --> "1" UserSession : userSession
+
+CreateVehicleController ..> "1" Organization : organization
+CreateVehicleController ..> ApplicationSession
+CreateVehicleController ..> UserSession
+Organization "1" --> "*" Vehicle : register
+Vehicle --> Employee : createdBy
+
+Organization --> "*" Employee : employs
+
+@enduml
