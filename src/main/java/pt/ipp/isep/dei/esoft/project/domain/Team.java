@@ -2,19 +2,19 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 
-public class Teams {
+public class Team {
     private String teamMembers;
     private int teamSize;
     public SkillRepository listOfSkills;
 
-    public Teams(String teamMembers, int teamSize, SkillRepository listOfSkills) {
+    public Team(String teamMembers, int teamSize, SkillRepository listOfSkills) {
         this.teamMembers = teamMembers;
         this.teamSize = teamSize;
         this.listOfSkills = listOfSkills;
     }
 
     public String toString(){
-        return teamMembers + "\t" + teamSize + "\t" + listOfSkills;
+        return "Team Members: " + teamMembers + "\nTeam Size: " + teamSize + "\nSkills: " + listOfSkills;
     }
 
     public int getTeamSize() {
