@@ -95,21 +95,21 @@ class Agenda {
 }
 
 
-class Tasks {
+class Task {
     reference
     taskDescription
 
 }
 
-class PendingTasks{
-    pendingTasks
+class PendingTask{
+    pendingTask
 }
 
-class Teams {
+class Team {
     teamMembers
 }
 
-class Parks {
+class Park {
     location
 }
 
@@ -153,27 +153,27 @@ Manager "1" -- "1" Agenda: manages >
 Manager "1" -- "*" PendingTasks: manages >
 Manager "1" -- "*" Equipment: registers >
 Manager "1" -- "*" Vehicle: manages >
-Manager "1" -- "*" Tasks: creates >
+Manager "1" -- "*" Task: creates >
 Manager "1" -- "*" Teams: manages >
 Manager "1" --up "1..*" HumanResourcesManager: is a >
 Manager "1" --up "1..*" VehicleFleetManager: is a >
 Manager "1" --up "1..*" GreenSpacesManager: is a >
 
-Agenda "1" -- "*" PendingTasks: gets tasks from >
+Agenda "1" -- "*" PendingTask: gets tasks from >
 
 
-User "1..*" -- "*" Parks: uses >
+User "1..*" -- "*" Park: uses >
 User "*" -- "*" Reports: makes >
 
 Comments "*" -- "1" Reports: are >
 ReportFaults "*" -- "1" Reports: are >
 Malfunctions "*" -- "1" Reports: are >
 
-Teams "1" -- "1" Parks: carry out tasks in >
-Teams "1" -- "1" Tasks: carry out >
+Team "1" -- "1" Park: carry out tasks in >
+Team "1" -- "1" Task: carry out >
 
 
-Organization "1" -- "*" Parks: manages >
+Organization "1" -- "*" Park: manages >
 Organization "1" -- "1..*" Employee : has >
 
 
@@ -181,18 +181,18 @@ Employee "1..*" -- "1..*" Collaborator: is a >
 Employee "1" -- "1" Job: has a >
 
 Collaborator "1" -- "*" Skill: is assigned to <
-Collaborator "1..*" -- "1" Teams: integrates >
+Collaborator "1..*" -- "1" Team: integrates >
 
 
 
-Vehicle "1..*" -- "1" Tasks: is attributed to >
+Vehicle "1..*" -- "1" Task: is attributed to >
 Vehicle "1" -- "1" VehicleCheckup: is submitted to >
-Equipment "0..*" -- "1" Tasks: is attributed to >
+Equipment "0..*" -- "1" Task: is attributed to >
 
-Agenda "1" -- "*" Tasks: has >
+Agenda "1" -- "*" Task: has >
 
 
-Tasks "1..*" -- "1..*" Parks: are performed in >
+Task "1..*" -- "1..*" Park: are performed in >
 
 
 
