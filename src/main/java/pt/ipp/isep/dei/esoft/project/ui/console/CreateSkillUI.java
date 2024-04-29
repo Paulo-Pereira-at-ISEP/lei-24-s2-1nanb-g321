@@ -1,14 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
-import pt.ipp.isep.dei.esoft.project.application.controller.CreateSkillController;
-import pt.ipp.isep.dei.esoft.project.application.controller.CreateTaskController;
+import pt.ipp.isep.dei.esoft.project.application.controller.SkillController;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
-import pt.ipp.isep.dei.esoft.project.domain.Task;
-import pt.ipp.isep.dei.esoft.project.domain.TaskCategory;
 import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.Scanner;
 
 /**
@@ -16,16 +11,16 @@ import java.util.Scanner;
  */
 public class CreateSkillUI implements Runnable {
 
-    private final CreateSkillController controller;
+    private final SkillController controller;
     private String skillName;
     private String skillDescription;
     private SkillRepository skillRepository;
 
     public CreateSkillUI() {
-        controller = new CreateSkillController(skillRepository);
+        controller = new SkillController(skillRepository);
     }
 
-    private CreateSkillController getController() {
+    private SkillController getController() {
         return controller;
     }
 

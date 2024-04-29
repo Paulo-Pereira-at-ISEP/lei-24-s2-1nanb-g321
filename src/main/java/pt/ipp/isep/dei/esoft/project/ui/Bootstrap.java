@@ -37,7 +37,7 @@ public class Bootstrap implements Runnable {
 
     private void addSkills() {
         SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
-        Skill skill = new Skill("Skill", "Primeira Skill");
+        Skill skill = new Skill("Skill", "PrimeiraSkill");
 
         skillRepository.add(skill);
     }

@@ -1,8 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
-import pt.ipp.isep.dei.esoft.project.domain.Organization;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
-import pt.ipp.isep.dei.esoft.project.domain.TaskCategory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +9,18 @@ import java.util.Optional;
 public class SkillRepository {
 
     private final List<Skill> skills;
-    public SkillRepository() { skills = new ArrayList<>();}
+
+    public SkillRepository() {
+        this.skills = new ArrayList<>();
+    }
+
+    public void addSkill(Skill skill) {
+        skills.add(skill);
+    }
+
+    public List<Skill> getAllSkills() {
+        return new ArrayList<>(skills);
+    }
 
     private boolean validateSkill(Skill skill) {
         boolean isValid = !Skill.contains(skill);
