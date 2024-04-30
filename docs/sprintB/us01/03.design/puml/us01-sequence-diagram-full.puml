@@ -10,8 +10,11 @@ autonumber
 actor "Human Resource Manager" as HRM
 participant ":CreateSkillUI" as UI
 participant ":CreateSkillController" as CTRL
-participant "Skill" as SKILL
-participant "Organization" as ORG
+participant ":Repositories" as RepositorySingleton
+participant "repositories\n:Repositories" as PLAT
+participant "skillCategoryRepository:\nSkillCategoryRepository" as SkillRepository
+participant ":Skill" as SKILL
+participant ":HRManager" as MNGR
 
 activate HRM
 
@@ -21,6 +24,8 @@ activate HRM
             'create CTRL
             UI -> CTRL** : create
 
+
+
             'requests the HRM to input data
             UI --> HRM : requestData (skillName, skillDescription)
         deactivate UI
@@ -29,22 +34,20 @@ activate HRM
 
         activate UI
 
-            UI -> CTRL : validateSkillData(skillName, skillDescription)
+            UI -> UI : validateSkillData(skillName, skillDescription)
+
+            UI -> CTRL : createSkill(skillName, skillDescription)
             activate CTRL
-                'inserted data validation
 
+                CTRL -> RepositorySingleton : getInstance()
 
-                CTRL -> SKILL : validateSkillData(skillName, skillDescription)
+                activate RepositorySingleton
 
-                activate SKILL
+                    RepositorySingleton --> CTRL : repositories
 
-                    SKILL -> CTRL : true
+                deactivate RepositorySingleton
 
-                deactivate SKILL
-
-                CTRL -> UI : true
-
-                deactivate CTRL
+            deactivate CTRL
 
                 UI -> HRM : validates data, shows skill data and requests confirmation
 
@@ -59,15 +62,20 @@ activate HRM
         UI -> CTRL : createSkill(skillName, skillDescription)
         activate CTRL
 
-            CTRL -> ORG : createSkill(skillName, skillDescription)
+            CTRL -> MNGR : createSkill(skillName, skillDescription)
 
-            activate ORG
 
-                ORG -> ORG : addSkill(skill)
+            'CTRL -> SkillRepository : getSkill()
+            'activate SkillRepository
+            '    SkillRepository --> CTRL : skillList
+            'deactivate SkillRepository
+            activate MNGR
 
-                ORG -> CTRL : skill
+                MNGR -> MNGR : addSkill(skill)
 
-            deactivate ORG
+                MNGR -> CTRL : skill
+
+            deactivate MNGR
 
             CTRL -> UI : skill
 
