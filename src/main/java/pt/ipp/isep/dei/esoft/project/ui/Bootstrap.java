@@ -4,10 +4,7 @@ import pt.ipp.isep.dei.esoft.project.application.controller.authorization.Authen
 import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.ipp.isep.dei.esoft.project.domain.Organization;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
-import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
-import pt.ipp.isep.dei.esoft.project.repository.OrganizationRepository;
-import pt.ipp.isep.dei.esoft.project.repository.Repositories;
-import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
+import pt.ipp.isep.dei.esoft.project.repository.*;
 
 public class Bootstrap implements Runnable {
 
@@ -22,7 +19,7 @@ public class Bootstrap implements Runnable {
         //TODO: add organizations bootstrap here
         //get organization repository
         OrganizationRepository organizationRepository = Repositories.getInstance().getOrganizationRepository();
-        Organization organization = new Organization("This Company");
+        Organization organization = new Organization("Musgo Sublime"); //nome da empresa
 
         //---------------Eliminar posteriormente------------------------
         organization.addEmployee(new Employee("admin@this.app"));
@@ -40,7 +37,7 @@ public class Bootstrap implements Runnable {
 
     private void addSkills() {
         SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
-        Skill skill = new Skill("Skill", "Primeira Skill");
+        Skill skill = new Skill("Skill", "PrimeiraSkill");
 
         skillRepository.add(skill);
     }
