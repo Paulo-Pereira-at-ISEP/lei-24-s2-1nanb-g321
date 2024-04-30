@@ -17,7 +17,7 @@ public class CreateSkillUI implements Runnable {
     private SkillRepository skillRepository;
 
     public CreateSkillUI() {
-        controller = new SkillController(skillRepository);
+        controller = new SkillController();
     }
 
     private SkillController getController() {
@@ -33,7 +33,7 @@ public class CreateSkillUI implements Runnable {
     }
 
     private void submitData() {
-        Skill skill = getController().createSkill(skillName, skillDescription);
+        Skill skill = controller.createSkill(skillName, skillDescription);
 
         if (skill != null) {
             System.out.println("\nSkill successfully created!");

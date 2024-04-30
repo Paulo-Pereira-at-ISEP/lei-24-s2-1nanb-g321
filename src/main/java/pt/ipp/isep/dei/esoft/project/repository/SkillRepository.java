@@ -23,7 +23,7 @@ public class SkillRepository {
     }
 
     private boolean validateSkill(Skill skill) {
-        boolean isValid = !Skill.contains(skill);
+        boolean isValid = !skills.contains(skill);
         return isValid;
     }
 
