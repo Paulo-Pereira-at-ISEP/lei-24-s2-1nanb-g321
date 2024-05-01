@@ -74,6 +74,8 @@ public class CreateJobController {
 
         Job newJob = new Job(name, description);
 
+        jobRepository.add(newJob);
+
         return newJob;
     }
 }

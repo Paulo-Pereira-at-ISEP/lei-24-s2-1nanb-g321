@@ -68,24 +68,7 @@ public class CreateJobUI implements Runnable {
         return input.nextLine();
     }
 
-    private String displayAndSelectJob() {
-        //Display the list of task categories
-        List<Job> jobs = controller.getAllJobs();
 
-        int listSize = jobs.size();
-        int answer = -1;
-
-        Scanner input = new Scanner(System.in);
-
-        while (answer < 1 || answer > listSize) {
-            displayJobsOptions(jobs);
-            System.out.print("Select a job: ");
-            answer = input.nextInt();
-        }
-
-        String description = jobs.get(answer - 1).getDescription();
-        return description;
-    }
     private void displayJobsOptions(List<Job> jobs) {
         //display the task categories as a menu with number options to select
         int i = 1;
