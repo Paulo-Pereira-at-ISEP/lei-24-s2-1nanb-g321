@@ -46,7 +46,7 @@ public class CreateEmployeeUI implements Runnable {
         if (employee     != null) {
             System.out.println("\nEmployee successfully registered!");
         } else {
-            System.out.println("\nJob not created!");
+            System.out.println("\nEmployee not created!");
         }
     }
 
@@ -125,4 +125,4 @@ public class CreateEmployeeUI implements Runnable {
         return input.nextLine();
     }
 
-}
+    }

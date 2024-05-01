@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Employee;
+import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 
 import java.util.ArrayList;
@@ -14,28 +15,30 @@ public class EmployeeRepository {
         boolean isValid = !Employee.contains(employee);
         return isValid;
     }
-
+    public void addEmployee(Employee employee) {
+        employees.add(employee);
+    }
     public List<Employee> getEmployees() {
         return new ArrayList<>(employees); // Return a copy
     }
 
     public Optional<Employee> add(Employee employee) {
+        Optional<Employee> newEmployee = Optional.empty();
+        boolean operationSuccess = false;
 
         if (validateEmployee(employee)) {
-            // Create a new Employee object with constructor (assuming a copy constructor)
-            Employee newEmployee = new Employee(employee.getName(), employee.getDateOfBirth(),
-                    employee.getAdmissionDate(), employee.getAddress(),
-                    employee.getMobile(), employee.getEmail(),
-                    employee.getIdDocType(), employee.getDocTypeNumber(),
-                    employee.getTaxPayerIdNumber(), employee.getRole());
+            newEmployee = Optional.of(employee.clone());
 
-            employees.add(newEmployee);
-            return Optional.of(newEmployee);
+            operationSuccess = employees.add(newEmployee.get());
         }
-        return Optional.empty();
+        if (!operationSuccess) {
+            newEmployee = Optional.empty();
+        }
+        return newEmployee;
     }
 
     public void saveEmployee(Employee employee) {
+
     }
 
     public List<Employee> getEmployee() {

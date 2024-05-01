@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.ui;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.Employee;
+import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Organization;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.repository.*;
@@ -13,6 +14,7 @@ public class Bootstrap implements Runnable {
         addOrganization();
         addUsers();
         addSkills();
+        addJobs();
     }
 
     private void addOrganization() {
@@ -41,6 +43,13 @@ public class Bootstrap implements Runnable {
 
         skillRepository.add(skill);
     }
+    private void addJobs() {
+        JobRepository jobRepository = Repositories.getInstance().getJobRepository();
+
+        jobRepository.add(new Job("Jardineiro", "part-time"));
+    }
+
+
 
     private void addUsers() {
         //TODO: add Authentication users here: should be created for each user in the organization

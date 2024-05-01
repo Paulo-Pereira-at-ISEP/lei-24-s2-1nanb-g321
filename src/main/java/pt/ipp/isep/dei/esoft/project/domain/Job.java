@@ -6,7 +6,7 @@ public class Job {
 
     public Job(String name, String description) {
         // Check if the provided name and description are valid
-        if (!isValidInput(name) || !isValidInput(description)){
+        if (!isValidInput(name) && !isValidInput(description)){
             // Throw an exception if either name or description contains special characters or digits
             throw new IllegalArgumentException("The name and description of the job cannot contain special characters or digits.");
         }
@@ -15,8 +15,9 @@ public class Job {
     }
 
     public static boolean contains(Job job) {
-        return job != null && job.getName() != null && job.getDescription() != null;
+        return job.getName() != null;
     }
+
 
     private boolean isValidInput(String name) {
         // Allow only letters and spaces
@@ -25,23 +26,14 @@ public class Job {
         return name.matches(regex);
     }
 
-    public String getName() {
-        return name;
-    }
-    public String getDescription() {
-        return description;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public void setDescription(String description) {
-        this.description = description;
-    }
+    public String getName() {return name;}
+    public String getDescription() {return description;}
+    public void setName(String name) {this.name = name;}
+    public void setDescription(String description) {this.description = description;}
+
 
     @Override
-    public String toString() {
-        return name + " - " + description;
-    }
+    public String toString() {return name + " - " + description;}
 
     public Job clone() {
         return new Job(this.name, this.description);

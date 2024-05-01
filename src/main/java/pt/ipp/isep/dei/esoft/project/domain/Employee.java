@@ -68,11 +68,6 @@ public class Employee {
     }
 
     //boolean to make employee manager
-    public boolean makeEmployeeManager() {
-        // Implement logic to promote employee to manager (consider using a separate Manager class)
-        this.role = "Manager"; // Placeholder for now
-        return true;
-    }
 
     //checks if two employees are equal based on their email addresses.
     @Override

@@ -1,7 +1,11 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateJobController;
+
 import pt.ipp.isep.dei.esoft.project.domain.Job;
+
+import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
+
 
 import java.util.Scanner;
 
@@ -13,6 +17,7 @@ public class CreateJobUI implements Runnable {
     private final CreateJobController controller;
     private String jobName;
     private String jobDescription;
+    private JobRepository jobRepository;
 
     public CreateJobUI() {
         controller = new CreateJobController();
@@ -31,7 +36,7 @@ public class CreateJobUI implements Runnable {
     }
 
     private void submitData() {
-        Job job = getController().createJob(jobName, jobDescription);
+        Job job = controller.createJob(jobName, jobDescription);
 
         if (job != null) {
             System.out.println("\nJob successfully created!");
@@ -43,7 +48,7 @@ public class CreateJobUI implements Runnable {
     private void requestData() {
 
         //Request the Skill Name from the console
-        jobName = requestJobTitle();
+        jobName = requestJobName();
 
         //Request the Task Description from the console
         jobDescription = requestJobDescription();
@@ -55,10 +60,12 @@ public class CreateJobUI implements Runnable {
         return input.nextLine();
     }
 
-    private String requestJobTitle() {
+    private String requestJobName() {
         Scanner input = new Scanner(System.in);
-        System.out.print("Job Title: ");
+        System.out.print("Job Name: ");
         return input.nextLine();
     }
+
+
 
 }
