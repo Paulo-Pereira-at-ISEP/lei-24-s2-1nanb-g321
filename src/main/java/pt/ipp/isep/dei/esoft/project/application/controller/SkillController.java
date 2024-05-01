@@ -74,6 +74,8 @@ public class SkillController {
 
         Skill newSkill = new Skill(name, description);
 
+        skillRepository.add(newSkill);
+
         return newSkill;
     }
 }

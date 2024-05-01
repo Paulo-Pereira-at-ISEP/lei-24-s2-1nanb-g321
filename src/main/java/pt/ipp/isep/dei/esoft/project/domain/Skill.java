@@ -4,6 +4,7 @@ public class Skill {
     private String name;
     private String description;
 
+    //private Employee manager;
     public Skill(String name, String description) {
         // Check if the provided name and description are valid
         if (!isValidInput(name) && !isValidInput(description)){
