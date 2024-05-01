@@ -4,9 +4,11 @@ import pt.ipp.isep.dei.esoft.project.application.controller.CreateJobController;
 
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 
+import pt.ipp.isep.dei.esoft.project.domain.TaskCategory;
 import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
 
 
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -66,6 +68,31 @@ public class CreateJobUI implements Runnable {
         return input.nextLine();
     }
 
+    private String displayAndSelectJob() {
+        //Display the list of task categories
+        List<Job> jobs = controller.getAllJobs();
 
+        int listSize = jobs.size();
+        int answer = -1;
+
+        Scanner input = new Scanner(System.in);
+
+        while (answer < 1 || answer > listSize) {
+            displayJobsOptions(jobs);
+            System.out.print("Select a job: ");
+            answer = input.nextInt();
+        }
+
+        String description = jobs.get(answer - 1).getDescription();
+        return description;
+    }
+    private void displayJobsOptions(List<Job> jobs) {
+        //display the task categories as a menu with number options to select
+        int i = 1;
+        for (Job job : jobs) {
+            System.out.println("  " + i + " - " + job.getDescription());
+            i++;
+        }
+    }
 
 }

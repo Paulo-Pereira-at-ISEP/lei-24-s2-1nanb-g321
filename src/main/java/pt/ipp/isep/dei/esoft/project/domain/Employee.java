@@ -13,6 +13,7 @@ public class Employee {
     private int docTypeNumber;
     private int taxPayerIdNumber;
     private String role;
+    private Job job;
 
     //constructor
     public Employee (String nome,LocalDate dateOfBirth,LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, String role) {
@@ -26,6 +27,19 @@ public class Employee {
         this.docTypeNumber = docTypeNumber;
         this.taxPayerIdNumber = taxPayerIdNumber;
         this.role = role;
+    }
+    public Employee (String nome,LocalDate dateOfBirth,LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, String role, Job job) {
+        this.name = nome;
+        this.dateOfBirth = dateOfBirth;
+        this.admissionDate = admissionDate;
+        this.address = morada;
+        this.mobile = telemovel;
+        this.email = email;
+        this.idDocType = idDocType;
+        this.docTypeNumber = docTypeNumber;
+        this.taxPayerIdNumber = taxPayerIdNumber;
+        this.role = role;
+        this.job = job;
     }
     public Employee (String email){
         this.email = email;

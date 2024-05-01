@@ -22,7 +22,7 @@ public class ListSkillUI implements Runnable {
     }
 
     private void listSkills() {
-        Skill[] skills = skillController.getAllSkills().toArray(new Skill[0]);
+        List<Skill> skills = skillController.getAllSkills();
         System.out.println("Habilidades cadastradas:");
         for (Skill skill : skills) {
             System.out.println("Nome: " + skill.getName());
