@@ -98,4 +98,8 @@ public class CreateEmployeeController {
 
         return employee;
     }
+
+    public List<Employee> getAllEmployees() {
+        return employeeRepository.getEmployee();
+    }
 }
