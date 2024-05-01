@@ -1,6 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
+import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.repository.TeamRepository;
+
+import java.util.List;
 
 public class GenerateTeamController {
 
@@ -10,7 +13,7 @@ public class GenerateTeamController {
         return teamRepository.getTeam();
     }
 
-    public Team createTeam(int teamSize, listOfSkills) {
+    public Team generateTeam(int teamSize, listOfSkills) {
 
         Team team = new Team(teamSize, listOfSkills);
 
