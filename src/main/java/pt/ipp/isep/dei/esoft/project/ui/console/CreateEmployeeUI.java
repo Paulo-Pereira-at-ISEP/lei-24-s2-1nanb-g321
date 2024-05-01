@@ -2,9 +2,11 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateEmployeeController;
 import pt.ipp.isep.dei.esoft.project.domain.Employee;
+import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.repository.EmployeeRepository;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -24,6 +26,8 @@ public class CreateEmployeeUI implements Runnable {
     private int taxPayerIdNumber;
     private String role;
 
+    private Job job;
+
     public CreateEmployeeUI() {
         controller = new CreateEmployeeController();
     }
@@ -41,9 +45,9 @@ public class CreateEmployeeUI implements Runnable {
     }
 
     private void submitData() {
-        Employee employee = getController().createEmployee(name, dateOfBirth, admissionDate,address,mobile,email,idDocType,docTypeNumber,taxPayerIdNumber,role);
+        Employee employee = getController().createEmployee(name, dateOfBirth, admissionDate, address, mobile, email, idDocType, docTypeNumber, taxPayerIdNumber, role, job);
 
-        if (employee     != null) {
+        if (employee != null) {
             System.out.println("\nEmployee successfully registered!");
         } else {
             System.out.println("\nEmployee not created!");
@@ -62,6 +66,7 @@ public class CreateEmployeeUI implements Runnable {
         docTypeNumber = requestEmployeeIdentificationDocumentNumber();
         taxPayerIdNumber = requestEmployeeTaxPayerNumber();
         role = requestEmployeeRole();
+        job = displayAndSelectJob();
 
     }
 
@@ -125,4 +130,31 @@ public class CreateEmployeeUI implements Runnable {
         return input.nextLine();
     }
 
+    private Job displayAndSelectJob() {
+        //Display the list of task categories
+        List<Job> jobs = controller.getAllJobs();
+
+        int listSize = jobs.size();
+        int answer = -1;
+
+        Scanner input = new Scanner(System.in);
+
+        while (answer < 1 || answer > listSize) {
+            displayJobsOptions(jobs);
+            System.out.print("Select a job: ");
+            answer = input.nextInt();
+        }
+
+        return jobs.get(answer - 1);
     }
+
+    private void displayJobsOptions(List<Job> jobs) {
+        //display the task categories as a menu with number options to select
+        int i = 1;
+        for (Job job : jobs) {
+            System.out.println("  " + i + " - " + job.getName());
+            i++;
+        }
+    }
+
+}
