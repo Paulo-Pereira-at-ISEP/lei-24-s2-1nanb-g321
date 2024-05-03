@@ -11,10 +11,23 @@ actor "Human Resource Manager" as HRM
 participant ":CreateJobUI" as UI
 participant ":CreateJobController" as CTRL
 participant ":Repositories" as REPO_SINGLETON
+
+
+
 participant "repositories\n:Repositories" as GEN_REPO_INSTANCE
+
+
 participant "jobRepository:\nJobRepository" as JOB_REPO_INSTANCE
 participant ":Job" as JOB
 'participant ":HRManager" as MNGR
+
+
+note right of REPO_SINGLETON
+    - Singleton is
+    in use
+end note
+
+
 
 activate HRM
 
@@ -55,15 +68,25 @@ activate HRM
 
             UI -> UI : validateJobData(jobName, jobDescription)
 
+
+
             UI -> CTRL : validateJob(jobName, jobDescription)
             activate CTRL
 
+                CTRL -> CTRL : getEmployeeFromSession()
+                note right of CTRL
+                    - This method will get the current logged-in HRM.
+                    - The returned object (of type Employee) will be
+                    argument of the next method as the creator.
+                end note
 
-                CTRL -> JOB_REPO_INSTANCE : createJob(jobName, jobDescription)
+                |||
+
+                CTRL -> JOB_REPO_INSTANCE : createJob(jobName, jobDescription, creator)
 
                 activate JOB_REPO_INSTANCE
 
-                    JOB_REPO_INSTANCE -> JOB : Job(jobName, jobDescription)
+                    JOB_REPO_INSTANCE -> JOB : Job(jobName, jobDescription, creator)
 
                     activate JOB
 
