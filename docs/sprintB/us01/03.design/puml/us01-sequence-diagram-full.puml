@@ -12,9 +12,15 @@ participant ":CreateSkillUI" as UI
 participant ":CreateSkillController" as CTRL
 participant ":Repositories" as REPO_SINGLETON
 participant "repositories\n:Repositories" as GEN_REPO_INSTANCE
-participant "skillRepository:\nSkillRepository" as SKILL_REPO_INSTANCE
+participant "skillRepository\n:SkillRepository" as SKILL_REPO_INSTANCE
 participant ":Skill" as SKILL
 'participant ":HRManager" as MNGR
+
+note right of REPO_SINGLETON
+    - Singleton is
+    in use
+end note
+
 
 activate HRM
 
@@ -58,13 +64,20 @@ activate HRM
             UI -> CTRL : validateSkill(skillName, skillDescription)
             activate CTRL
 
+                CTRL -> CTRL : getEmployeeFromSession()
+                note right of CTRL
+                    - This method will get the current logged-in HRM.
+                    - The returned object (of type Employee) will be
+                    argument of the next method as the creator.
+                end note
+                |||
 
-                CTRL -> SKILL_REPO_INSTANCE : createSkill(skillName, skillDescription)
+                CTRL -> SKILL_REPO_INSTANCE : createSkill(skillName, skillDescription, creator)
 
 
                 activate SKILL_REPO_INSTANCE
 
-                    SKILL_REPO_INSTANCE -> SKILL : Skill(skillName, skillDescription)
+                    SKILL_REPO_INSTANCE -> SKILL : Skill(skillName, skillDescription, creator)
 
                     activate SKILL
 
