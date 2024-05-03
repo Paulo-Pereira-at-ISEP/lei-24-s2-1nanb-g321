@@ -10,8 +10,9 @@ skinparam classAttributeIconSize 0
 'left to right direction
 
 class CreateSkillController {
-    + CreateSkillController(possibly skillRepository)
+    + CreateSkillController(skillRepository)
     + validateSkillData(skillName, skillDescription)
+    + addSkillToRepo(newSkill)
 
 }
 
@@ -34,17 +35,27 @@ class Employee{
     -taxNumber:String
     -job:Job
 
+    +Employee (String nome,LocalDate dateOfBirth,\nLocalDate admissionDate, String morada, int telemovel,\nString email, String idDocType, int docTypeNumber,\nint taxPayerIdNumber, String role, Job job)
 }
 
-class Collaborator {
-    -listOfSkill:List<Job>
+class Repositories{
+    - instance:Repositories
+    - skillRepository:SkillRepository
+    - jobRepository:JobRepository
+    - employeeRepository:EmployeeRepository
+
+
+    + getInstance()
+    + getSkillRepository()
+    + getJobRepository()
+    + getEmployeeRepository()
 }
 
-class Organization {
-    +createSkill(skillName, skillDescription)
-    +createJob(jobName, jobDescription)
+class SkillRepository{
+    + createSkill(skillName, skillDescription)
+    + validateSkill(newSkill)
+    + addSkill(newSkill)
 }
-
 
 class Skill {
     -skillName:String
@@ -54,10 +65,11 @@ class Skill {
     +validateSkillData(skillName, skillDescription)
 }
 
-CreateSkillUI .> CreateSkillController
-Collaborator "1" ---> "*" Skill : has a set of
-CreateSkillController --->  Organization : createSkill
-Organization .> Skill : createSkill
-Collaborator --> Employee : is a
+CreateSkillUI ..> CreateSkillController
+
+CreateSkillController -->  Repositories : getInstance
+Repositories ..> SkillRepository : create
+SkillRepository ..> Skill : createSkill
+Employee --> Skill : has a set of
 
 @enduml
