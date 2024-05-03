@@ -25,9 +25,11 @@ class "{NameOfUC}UI" {
 
 
 class CreateJobController {
+    -getEmployeeFromSession()
     + CreateJobController(jobRepository)
     + validateJobData(jobName, jobDescription)
     + addJobToRepo(newJob)
+
 
 }
 
@@ -58,16 +60,18 @@ class Repositories{
     - skillRepository:JobRepository
     - jobRepository:JobRepository
     - employeeRepository:EmployeeRepository
+    - authenticationRepository:AuthenticationRepository
 
 
     + getInstance()
     + getSkillRepository()
     + getJobRepository()
     + getEmployeeRepository()
+    + getAuthenticationRepository()
 }
 
 class JobRepository{
-    + createJob(jobName, jobDescription)
+    + createJob(jobName, jobDescription, creator)
     + validateJob(newJob)
     + addJob(newJob)
 }
@@ -75,13 +79,15 @@ class JobRepository{
 class Job {
     -jobName:String
     -jobDescription:String
+    -creator:Employee
 
-    +Job(jobName, jobDescription)
-    +validateJobData(jobName, jobDescription)
+    +Job(jobName, jobDescription, creator)
+    +validateJobData(jobName, jobDescription, creator)
 }
 
 
 class CreateSkillController {
+    - getEmployeeFromSession()
     + CreateSkillController(skillRepository)
     + validateSkillData(skillName, skillDescription)
     + addSkillToRepo(newSkill)
@@ -97,7 +103,7 @@ class CreateSkillUI {
 
 
 class SkillRepository{
-    + createSkill(skillName, skillDescription)
+    + createSkill(skillName, skillDescription, creator)
     + validateSkill(newSkill)
     + addSkill(newSkill)
 }
@@ -105,27 +111,28 @@ class SkillRepository{
 class Skill {
     -skillName:String
     -skillDescription:String
+    -creator:Employee
 
-    +Skill(skillName, skillDescription)
-    +validateSkillData(skillName, skillDescription)
+    +Skill(skillName, skillDescription, creator)
+    +validateSkillData(skillName, skillDescription, creator)
 }
 
 
 
 CreateJobUI ..> CreateJobController
 
-CreateJobController -->  Repositories : getInstance
-Repositories ..> JobRepository : create
+CreateJobController "1" --> "1" Repositories : getInstance
+Repositories "1" ..> "1" JobRepository : create
 JobRepository ..> Job : createJob
-Employee --> Job : has a
+Employee "1" --> "1" Job : has a
 
 
 CreateSkillUI ..> CreateSkillController
 
-CreateSkillController -->  Repositories : getInstance
-Repositories ..> SkillRepository : create
+CreateSkillController "1" --> "1" Repositories : getInstance
+Repositories "1" ..> "1" SkillRepository : create
 SkillRepository ..> Skill : createSkill
-Employee --> Skill : has a set of
+Employee "1" --> "0..*" Skill : has a set of
 
 
 "{NameOfUC}UI" ..> "{NameOfUC}Controller"
