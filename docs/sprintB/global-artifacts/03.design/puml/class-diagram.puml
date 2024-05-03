@@ -24,33 +24,19 @@ class "{NameOfUC}UI" {
 
 
 
+class CreateJobController {
+    + CreateJobController(jobRepository)
+    + validateJobData(jobName, jobDescription)
+    + addJobToRepo(newJob)
+
+}
+
 
 class CreateJobUI {
     +run()
     +requestData(jobName, jobDescription)
 }
 
-
-
-
-
-class CreateSkillUI {
-    +run()
-    +requestData(skillName, skillDescription)
-}
-
-
-class CreateSkillController {
-    + CreateSkillController(possibly skillRepository)
-    + validateSkillData(skillName, skillDescription)
-
-}
-
-class CreateJobController {
-    + CreateJobController(possibly skillRepository)
-    + validateJobData(jobName, jobDescription)
-
-}
 
 
 class Employee{
@@ -63,28 +49,28 @@ class Employee{
     -IDdocType:String
     -IDnumber:String
     -taxNumber:String
-    -job:Job
 
+    +Employee (String nome,LocalDate dateOfBirth,\nLocalDate admissionDate, String morada, int telemovel,\nString email, String idDocType, int docTypeNumber,\nint taxPayerIdNumber, String role, Job job)
 }
 
-class Collaborator {
-    -listOfSkills:List<Job>
+class Repositories{
+    - instance:Repositories
+    - skillRepository:JobRepository
+    - jobRepository:JobRepository
+    - employeeRepository:EmployeeRepository
+
+
+    + getInstance()
+    + getSkillRepository()
+    + getJobRepository()
+    + getEmployeeRepository()
 }
 
-class Organization {
-    +createSkill(skillName, skillDescription)
-    +createJob(jobName, jobDescription)
+class JobRepository{
+    + createJob(jobName, jobDescription)
+    + validateJob(newJob)
+    + addJob(newJob)
 }
-
-
-class Skill {
-    -skillName:String
-    -skillDescription:String
-
-    +Skill(skillName, skillDescription)
-    +validateSkillData(skillName, skillDescription)
-}
-
 
 class Job {
     -jobName:String
@@ -95,20 +81,51 @@ class Job {
 }
 
 
-CreateJobUI .> CreateJobController
-CreateSkillUI .> CreateSkillController
+class CreateSkillController {
+    + CreateSkillController(skillRepository)
+    + validateSkillData(skillName, skillDescription)
+    + addSkillToRepo(newSkill)
 
-CreateJobController -->  Organization : createJob
-CreateSkillController --->  Organization : createSkill
+}
 
-Collaborator "1" ---> "*" Skill : has a set of
-Employee "1" ---> "1" Job : has a
 
-Organization .> Skill : createSkill
-Organization .> Job : createJob
+class CreateSkillUI {
+    +run()
+    +requestData(skillName, skillDescription)
+}
 
-Collaborator --> Employee : is a
 
+
+class SkillRepository{
+    + createSkill(skillName, skillDescription)
+    + validateSkill(newSkill)
+    + addSkill(newSkill)
+}
+
+class Skill {
+    -skillName:String
+    -skillDescription:String
+
+    +Skill(skillName, skillDescription)
+    +validateSkillData(skillName, skillDescription)
+}
+
+
+
+CreateJobUI ..> CreateJobController
+
+CreateJobController -->  Repositories : getInstance
+Repositories ..> JobRepository : create
+JobRepository ..> Job : createJob
+Employee --> Job : has a
+
+
+CreateSkillUI ..> CreateSkillController
+
+CreateSkillController -->  Repositories : getInstance
+Repositories ..> SkillRepository : create
+SkillRepository ..> Skill : createSkill
+Employee --> Skill : has a set of
 
 
 "{NameOfUC}UI" ..> "{NameOfUC}Controller"
