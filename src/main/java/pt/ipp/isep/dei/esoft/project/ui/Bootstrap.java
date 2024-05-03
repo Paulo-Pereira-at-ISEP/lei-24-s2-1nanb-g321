@@ -7,6 +7,8 @@ import pt.ipp.isep.dei.esoft.project.domain.Organization;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
+import java.time.LocalDate;
+
 public class Bootstrap implements Runnable {
 
     //Add some task categories to the repository as bootstrap
@@ -46,6 +48,12 @@ public class Bootstrap implements Runnable {
         JobRepository jobRepository = Repositories.getInstance().getJobRepository();
 
         jobRepository.add(new Job("Jardineiro", "part-time"));
+    }
+
+    private void addEmployee() {
+        EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
+
+        employeeRepository.add(new Employee("Alfredo", LocalDate.of(2000,12,04),LocalDate.of(2008,10,02), "Rua da casa", 912345678, "coisa@sapo.pt", "CC", 12345678, 123456789, "Administor", new Job("Jardineiro","part-time")));
     }
 
 

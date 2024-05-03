@@ -28,7 +28,16 @@ public class Employee {
         this.taxPayerIdNumber = taxPayerIdNumber;
         this.role = role;
     }
-    public Employee (String nome,LocalDate dateOfBirth,LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, String role, Job job) {
+
+    public Job getJob() {
+        return job;
+    }
+
+    public void setJob(Job job) {
+        this.job = job;
+    }
+
+    public Employee (String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, String role, Job job) {
         this.name = nome;
         this.dateOfBirth = dateOfBirth;
         this.admissionDate = admissionDate;
@@ -173,6 +182,8 @@ public class Employee {
     public boolean hasEmail(String email) {
         return false;
     }
+
+
 
 /**
  * Clone method.
