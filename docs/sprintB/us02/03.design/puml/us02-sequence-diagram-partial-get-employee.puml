@@ -1,0 +1,69 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+
+
+'hide footbox
+participant ":CreateJobController" as CTRL
+participant ":Repositories" as REPO_SINGLETON
+participant "repositories\n:Repositories" as GEN_REPO_INSTANCE
+participant "authenticationRepository\n:AuthenticationRepository" as AUTH_REPO_INSTANCE
+participant "authenticationFacade\n:AuthFacade" as AUTH_FACADE_INSTANCE
+participant "userSession\n:UserSession" as USR_SESSION_INSTANCE
+
+
+autonumber 11
+-> CTRL : getEmployeeFromSession()
+autonumber 11.1
+activate CTRL
+
+    group Get Employee
+
+        CTRL -> REPO_SINGLETON : getInstance()
+
+        activate REPO_SINGLETON
+
+            REPO_SINGLETON --> CTRL : repositories
+
+        deactivate REPO_SINGLETON
+
+        CTRL -> GEN_REPO_INSTANCE : getAuthenticationRepository()
+
+        activate GEN_REPO_INSTANCE
+
+        GEN_REPO_INSTANCE --> CTRL : authenticationRepository
+
+        deactivate GEN_REPO_INSTANCE
+
+        CTRL -> AUTH_REPO_INSTANCE : getCurrentUserSession()
+
+        activate AUTH_REPO_INSTANCE
+
+        AUTH_REPO_INSTANCE -> AUTH_FACADE_INSTANCE : getCurrentUserSession()
+
+        activate AUTH_FACADE_INSTANCE
+
+        AUTH_FACADE_INSTANCE --> AUTH_REPO_INSTANCE :  userSession
+
+        deactivate AUTH_FACADE_INSTANCE
+
+        AUTH_REPO_INSTANCE --> CTRL : userSession
+
+        deactivate AUTH_REPO_INSTANCE
+
+        CTRL -> USR_SESSION_INSTANCE : getUserId()
+
+        activate USR_SESSION_INSTANCE
+
+        USR_SESSION_INSTANCE --> CTRL : email
+
+        deactivate USR_SESSION_INSTANCE
+
+    end
+
+    <-- CTRL : Employee(email)
+deactivate CTRL
+
+@enduml
