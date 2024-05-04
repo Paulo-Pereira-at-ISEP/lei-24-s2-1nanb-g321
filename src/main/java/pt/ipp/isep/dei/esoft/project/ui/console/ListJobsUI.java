@@ -25,11 +25,15 @@ public class ListJobsUI implements Runnable {
 
     private void listJobs() {
         List<Job> jobs = jobController.getAllJobs();
+
         System.out.println("Registered Jobs:");
+        int counter = 1;
         for (Job job : jobs) {
-            System.out.println("Title: " + job.getName());
-            System.out.println("Description: " + job.getDescription());
+
+            System.out.println("[" + counter + "]   Title: " + job.getName());
+            System.out.println("      Description: " + job.getDescription());
             System.out.println("-------------------------");
+            counter++;
         }
     }
 }

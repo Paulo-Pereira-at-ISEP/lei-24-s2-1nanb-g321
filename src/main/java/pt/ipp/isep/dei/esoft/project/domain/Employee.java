@@ -108,7 +108,7 @@ public class Employee {
     //method that provides a string representation of an employee’s detail
     @Override
     public String toString() {
-        return "Collaboator: " + name + "\nBirth date: "+ dateOfBirth + "\nAdmission Date: " + admissionDate + "\nAddress: " + address + "\nMobile: "
+        return "Collaborator: " + name + "\nBirth date: "+ dateOfBirth + "\nAdmission Date: " + admissionDate + "\nAddress: " + address + "\nMobile: "
                 + mobile + "\nE-mail: " + email + "\nDocument: " + idDocType + "\nID number: " + docTypeNumber + "\nTax payer ID: " + taxPayerIdNumber +
                 "\nJob: ";
         //+ "\nSkill(s): " + skill;

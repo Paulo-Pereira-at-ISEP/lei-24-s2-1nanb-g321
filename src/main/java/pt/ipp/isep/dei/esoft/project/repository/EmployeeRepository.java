@@ -1,48 +1,58 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Employee;
-import pt.ipp.isep.dei.esoft.project.domain.Job;
-import pt.ipp.isep.dei.esoft.project.domain.Skill;
+
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class EmployeeRepository {
-    private final List<Employee> employees = new ArrayList<>();
 
-    private boolean validateEmployee(Employee employee) {
-        boolean isValid = !Employee.contains(employee);
-        return isValid;
+    private final List<Employee> employees;
+
+    public EmployeeRepository() {
+        this.employees = new ArrayList<>();
     }
+
     public void addEmployee(Employee employee) {
         employees.add(employee);
     }
+
+    public List<Employee> getAllEmployees() {
+        return new ArrayList<>(employees);
+    }
+
+    private boolean validateEmployee(Employee employee) {
+        boolean isValid = !employees.contains(employee);
+        return isValid;
+    }
+
+    /**
+     * This method returns a defensive (immutable) copy of the list of skills.
+     *
+     * @return The list of skills.
+     */
     public List<Employee> getEmployees() {
-        return new ArrayList<>(employees); // Return a copy
+        //This is a defensive copy, so that the repository cannot be modified from the outside.
+        return List.copyOf(employees);
     }
 
     public Optional<Employee> add(Employee employee) {
+
         Optional<Employee> newEmployee = Optional.empty();
         boolean operationSuccess = false;
 
         if (validateEmployee(employee)) {
             newEmployee = Optional.of(employee.clone());
-
             operationSuccess = employees.add(newEmployee.get());
         }
+
         if (!operationSuccess) {
             newEmployee = Optional.empty();
         }
+
         return newEmployee;
-    }
-
-    public void saveEmployee(Employee employee) {
-
-    }
-
-    public List<Employee> getEmployee() {
-        return List.copyOf(employees);
 
     }
 }

@@ -32,10 +32,6 @@ public class ListEmployeeUI implements Runnable {
         controller = new CreateEmployeeController();
     }
 
-    private CreateEmployeeController getController() {
-        return controller;
-    }
-
     public void run() {
         System.out.println("\n\n--- List Employees ------------------------");
         listEmployees();
@@ -43,20 +39,23 @@ public class ListEmployeeUI implements Runnable {
 
     private void listEmployees() {
         List<Employee> employees = controller.getAllEmployees();
-        System.out.println("Registered Jobs:");
+        System.out.println("Registered Employees:");
+        int counter = 1;
         for (Employee employee: employees) {
-            System.out.println("Name: " + employee.getName());
-            System.out.println("Birth Date: " + employee.getDateOfBirth());
-            System.out.println("Admission Date: " + employee.getAdmissionDate());
-            System.out.println("Address: " + employee.getAddress());
-            System.out.println("Mobile: " + employee.getMobile());
-            System.out.println("Email: " + employee.getEmail());
-            System.out.println("ID: " + employee.getIdDocType());
-            System.out.println("ID Number: " + employee.getDocTypeNumber());
-            System.out.println("Tax Payer Number: " + employee.getTaxPayerIdNumber());
-            System.out.println("Role: " + employee.getRole());
-            System.out.println("Job: " + employee.getJob());
-            System.out.println("-------------------------");
+            System.out.println("[" + counter + "] ");
+            System.out.println("    Name: " + employee.getName());
+            System.out.println("    Birth Date: " + employee.getDateOfBirth());
+            System.out.println("    Admission Date: " + employee.getAdmissionDate());
+            System.out.println("    Address: " + employee.getAddress());
+            System.out.println("    Mobile: " + employee.getMobile());
+            System.out.println("    Email: " + employee.getEmail());
+            System.out.println("    ID: " + employee.getIdDocType());
+            System.out.println("    ID Number: " + employee.getDocTypeNumber());
+            System.out.println("    Tax Payer Number: " + employee.getTaxPayerIdNumber());
+            System.out.println("    Role: " + employee.getRole());
+            System.out.println("    Job: " + employee.getJob());
+            System.out.println("-----------------------------");
+            counter++;
         }
     }
 

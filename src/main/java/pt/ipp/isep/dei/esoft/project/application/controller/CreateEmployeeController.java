@@ -82,7 +82,7 @@ public class CreateEmployeeController {
         return authenticationRepository;
     }
     public List<Employee> employee() {
-        return employeeRepository.getEmployee();
+        return employeeRepository.getEmployees();
     }
 
     public List<Job> getAllJobs(){
@@ -100,6 +100,6 @@ public class CreateEmployeeController {
     }
 
     public List<Employee> getAllEmployees() {
-        return employeeRepository.getEmployee();
+        return employeeRepository.getEmployees();
     }
 }

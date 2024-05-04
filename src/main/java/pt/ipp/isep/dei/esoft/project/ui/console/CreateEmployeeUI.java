@@ -45,7 +45,7 @@ public class CreateEmployeeUI implements Runnable {
     }
 
     private void submitData() {
-        Employee employee = getController().createEmployee(name, dateOfBirth, admissionDate, address, mobile, email, idDocType, docTypeNumber, taxPayerIdNumber, role, job);
+        Employee employee = controller.createEmployee(name, dateOfBirth, admissionDate, address, mobile, email, idDocType, docTypeNumber, taxPayerIdNumber, role, job);
 
         if (employee != null) {
             System.out.println("\nEmployee successfully registered!");
@@ -94,7 +94,7 @@ public class CreateEmployeeUI implements Runnable {
         ler = input.nextLine();
 
         } while(!isValidString(ler));
-        return input.nextLine();
+        return ler;
         }
 
     private String requestEmployeeBirthDate() {
@@ -115,7 +115,7 @@ public class CreateEmployeeUI implements Runnable {
             System.out.print("Address: ");
             ler= input.nextLine();
 
-        return input.nextLine();
+        return ler;
     }
 
     private int requestEmployeeMobile() {
@@ -123,9 +123,8 @@ public class CreateEmployeeUI implements Runnable {
         int ler;
                     System.out.print("Mobile: ");
                     ler= input.nextInt();
+        return ler;
 
-
-        return input.nextInt();
     }
 
     private String requestEmployeeEmail() {
