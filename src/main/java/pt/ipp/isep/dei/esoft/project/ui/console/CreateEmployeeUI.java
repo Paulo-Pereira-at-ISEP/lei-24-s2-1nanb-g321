@@ -69,16 +69,37 @@ public class CreateEmployeeUI implements Runnable {
         job = displayAndSelectJob();
 
     }
-
+    private static boolean isValidString(String inputString) {
+        if (inputString.isEmpty()) {
+            System.out.println("Error: Input cannot be empty.");
+            return false;
+        } else if (!inputString.matches("[a-zA-Z]+")) {
+            System.out.println("Error: Input must contain only letters.");
+            return false;
+        }
+        return true;
+    }
+    private static boolean isValidInteger(int inputInt) {
+        if (inputInt < 0) {
+            System.out.println("Error: Input cannot be negative.");
+            return false;
+        }
+        return true;
+    }
     private String requestEmployeeName() {
         Scanner input = new Scanner(System.in);
-        System.out.print("Employee Name: ");
+        String ler;
+        do {
+            System.out.print("Employee Name: " );
+        ler = input.nextLine();
+
+        } while(!isValidString(ler));
         return input.nextLine();
-    }
+        }
 
     private String requestEmployeeBirthDate() {
         Scanner input = new Scanner(System.in);
-        System.out.print("Birth Date: ");
+        System.out.print("Birth Date (YYYY-MM-DD): ");
         return input.nextLine();
     }
 
@@ -90,13 +111,20 @@ public class CreateEmployeeUI implements Runnable {
 
     private String requestEmployeeAddress() {
         Scanner input = new Scanner(System.in);
-        System.out.print("Address: ");
+        String ler;
+            System.out.print("Address: ");
+            ler= input.nextLine();
+
         return input.nextLine();
     }
 
     private int requestEmployeeMobile() {
         Scanner input = new Scanner(System.in);
-        System.out.print("Mobile: ");
+        int ler;
+                    System.out.print("Mobile: ");
+                    ler= input.nextInt();
+
+
         return input.nextInt();
     }
 
@@ -108,9 +136,11 @@ public class CreateEmployeeUI implements Runnable {
 
     private String requestEmployeeIdentificationDocumentType() {
         Scanner input = new Scanner(System.in);
-        System.out.print("Identification Document Type: ");
-        return input.nextLine();
-    }
+        do {
+            System.out.print("Identification Document Type: ");
+            return input.nextLine();
+        }while(!isValidString(input.nextLine()));
+        }
 
     private int requestEmployeeIdentificationDocumentNumber() {
         Scanner input = new Scanner(System.in);

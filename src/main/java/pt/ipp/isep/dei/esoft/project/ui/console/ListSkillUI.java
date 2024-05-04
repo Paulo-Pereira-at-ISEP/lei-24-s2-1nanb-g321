@@ -23,7 +23,7 @@ public class ListSkillUI implements Runnable {
 
     private void listSkills() {
         List<Skill> skills = skillController.getAllSkills();
-        System.out.println("Habilidades cadastradas:");
+        System.out.println("Skills Registadas:");
         for (Skill skill : skills) {
             System.out.println("Nome: " + skill.getName());
             System.out.println("Descrição: " + skill.getDescription());
