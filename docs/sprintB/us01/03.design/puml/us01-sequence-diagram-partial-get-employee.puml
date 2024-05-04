@@ -15,9 +15,9 @@ participant "repositories\n:Repositories" as PLAT
 participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
 participant "organization\n:Organization" as ORG
 
-autonumber 14
+autonumber 11
 -> CTRL : getEmployeeFromSession()
-autonumber 14.1
+autonumber 11.1
 activate CTRL
 
     group Get Employee

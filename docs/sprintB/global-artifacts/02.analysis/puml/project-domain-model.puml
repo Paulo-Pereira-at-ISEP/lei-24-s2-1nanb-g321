@@ -146,8 +146,8 @@ class Malfunctions {
 
 Manager "1..*" -- "1..*" Employee: is a >
 Manager "1" -- "1" Portal: manages >
-Manager "1" --up "1..*" Job: registers >
-Manager "1" -- "*" Skill: registers >
+Manager "1" --up "1..*" Job:  is registered by <
+Manager "1" -- "*" Skill: is registered by <
 Manager "1" -- "1..*" Collaborator: registers >
 Manager "1" -- "1" Agenda: manages >
 Manager "1" -- "*" PendingTask: manages >

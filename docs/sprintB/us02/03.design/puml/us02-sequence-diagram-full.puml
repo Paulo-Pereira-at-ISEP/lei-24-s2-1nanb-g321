@@ -10,43 +10,107 @@ autonumber
 actor "Human Resource Manager" as HRM
 participant ":CreateJobUI" as UI
 participant ":CreateJobController" as CTRL
-participant "Job" as JOB
-participant "Organization" as ORG
+participant ":Repositories" as REPO_SINGLETON
+
+
+
+participant "repositories\n:Repositories" as GEN_REPO_INSTANCE
+
+
+participant "jobRepository:\nJobRepository" as JOB_REPO_INSTANCE
+participant ":Job" as JOB
+'participant ":HRManager" as MNGR
+
+
+note right of REPO_SINGLETON
+    - Singleton is
+    in use
+end note
+
+
 
 activate HRM
 
-        HRM -> UI : asks to create a new Skill
+        HRM -> UI : asks to create a new Job
 
         activate UI
             'create CTRL
             UI -> CTRL** : create
 
+            activate CTRL
+
+                CTRL -> REPO_SINGLETON : getInstance()
+
+                activate REPO_SINGLETON
+
+                    REPO_SINGLETON --> CTRL : repositories
+
+                deactivate REPO_SINGLETON
+
+                CTRL -> GEN_REPO_INSTANCE : getJobRepository()
+
+                activate GEN_REPO_INSTANCE
+
+                    GEN_REPO_INSTANCE --> CTRL : jobRepository
+
+                deactivate GEN_REPO_INSTANCE
+
+            deactivate CTRL
+
+
             'requests the HRM to input data
             UI --> HRM : requestData (jobName, jobDescription)
-deactivate UI
+        deactivate UI
+
+        HRM -> UI : types requested data
+
+        activate UI
+
+            UI -> UI : validateJobData(jobName, jobDescription)
 
 
-            HRM -> UI : types data
-activate UI
 
-            UI -> CTRL : validateJobData(jobName, jobDescription)
+            UI -> CTRL : validateJob(jobName, jobDescription)
             activate CTRL
-                'inserted data validation
 
+                CTRL -> CTRL : getEmployeeFromSession()
+                note right of CTRL
+                    - This method will get the current logged-in HRM.
+                    - The returned object (of type Employee) will be
+                    argument of the next method as the creator.
+                end note
 
-                CTRL -> JOB : validateJobData(jobName, jobDescription)
+                |||
 
-                activate JOB
+                CTRL -> JOB_REPO_INSTANCE : createJob(jobName, jobDescription, creator)
 
-                    JOB -> CTRL : true
+                activate JOB_REPO_INSTANCE
 
-                deactivate JOB
+                    JOB_REPO_INSTANCE -> JOB : Job(jobName, jobDescription, creator)
 
-                CTRL -> UI : true
+                    activate JOB
 
-                deactivate CTRL
+                        JOB --> JOB_REPO_INSTANCE : newJob
 
-                UI -> HRM : validates data, shows job data and requests confirmation
+                    deactivate JOB
+
+                    JOB_REPO_INSTANCE --> CTRL : newJob
+
+                deactivate JOB_REPO_INSTANCE
+
+                CTRL -> JOB_REPO_INSTANCE : validateJob(newJob)
+
+                activate JOB_REPO_INSTANCE
+
+                    JOB_REPO_INSTANCE --> CTRL : true
+
+                deactivate JOB_REPO_INSTANCE
+
+            CTRL --> UI : newJob
+
+            deactivate CTRL
+
+                UI -> HRM : shows job data and requests confirmation
 
 
 
@@ -56,20 +120,20 @@ activate UI
     HRM -> UI : confirms data
     activate UI
 
-        UI -> CTRL : createJob(jobName, jobDescription)
+        UI -> CTRL : addJobToRepo(newJob)
+
         activate CTRL
 
-            CTRL -> ORG : createJob(jobName, jobDescription)
 
-            activate ORG
+            CTRL -> JOB_REPO_INSTANCE : addJob(newJob)
 
-                ORG -> ORG : addJob(job)
+            activate JOB_REPO_INSTANCE
 
-                ORG -> CTRL : job
+                JOB_REPO_INSTANCE --> CTRL : addedJob
 
-            deactivate ORG
+            deactivate JOB_REPO_INSTANCE
 
-            CTRL -> UI : job
+            CTRL --> UI : addedJob
 
         deactivate CTRL
 

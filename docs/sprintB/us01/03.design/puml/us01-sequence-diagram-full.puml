@@ -10,11 +10,17 @@ autonumber
 actor "Human Resource Manager" as HRM
 participant ":CreateSkillUI" as UI
 participant ":CreateSkillController" as CTRL
-participant ":Repositories" as RepositorySingleton
-participant "repositories\n:Repositories" as PLAT
-participant "skillRepository:\nSkillRepository" as SkillRepository
+participant ":Repositories" as REPO_SINGLETON
+participant "repositories\n:Repositories" as GEN_REPO_INSTANCE
+participant "skillRepository\n:SkillRepository" as SKILL_REPO_INSTANCE
 participant ":Skill" as SKILL
 'participant ":HRManager" as MNGR
+
+note right of REPO_SINGLETON
+    - Singleton is
+    in use
+end note
+
 
 activate HRM
 
@@ -26,21 +32,21 @@ activate HRM
 
             activate CTRL
 
-                CTRL -> RepositorySingleton : getInstance()
+                CTRL -> REPO_SINGLETON : getInstance()
 
-                activate RepositorySingleton
+                activate REPO_SINGLETON
 
-                    RepositorySingleton --> CTRL : repositories
+                    REPO_SINGLETON --> CTRL : repositories
 
-                deactivate RepositorySingleton
+                deactivate REPO_SINGLETON
 
-                CTRL -> PLAT : getSkillRepository()
+                CTRL -> GEN_REPO_INSTANCE : getSkillRepository()
 
-                activate PLAT
+                activate GEN_REPO_INSTANCE
 
-                    PLAT --> CTRL : skillRepository
+                    GEN_REPO_INSTANCE --> CTRL : skillRepository
 
-                deactivate PLAT
+                deactivate GEN_REPO_INSTANCE
 
             deactivate CTRL
 
@@ -58,28 +64,44 @@ activate HRM
             UI -> CTRL : validateSkill(skillName, skillDescription)
             activate CTRL
 
+                CTRL -> CTRL : getEmployeeFromSession()
+                note right of CTRL
+                    - This method will get the current logged-in HRM.
+                    - The returned object (of type Employee) will be
+                    argument of the next method as the creator.
+                end note
+                |||
 
-                CTRL -> SKILL : createSkill(skillName, skillDescription)
+                CTRL -> SKILL_REPO_INSTANCE : createSkill(skillName, skillDescription, creator)
 
-                activate SKILL
 
-                    SKILL --> CTRL : newSkill
+                activate SKILL_REPO_INSTANCE
 
-                deactivate SKILL
+                    SKILL_REPO_INSTANCE -> SKILL : Skill(skillName, skillDescription, creator)
 
-                CTRL -> SkillRepository : validateSkill(newSkill)
+                    activate SKILL
 
-                activate SkillRepository
+                        SKILL --> SKILL_REPO_INSTANCE : newSkill
 
-                    SkillRepository --> CTRL : true
+                    deactivate SKILL
 
-                deactivate SkillRepository
+                    SKILL_REPO_INSTANCE --> CTRL : newSkill
+
+                deactivate SKILL_REPO_INSTANCE
+
+                CTRL -> SKILL_REPO_INSTANCE : validateSkill(newSkill)
+
+                activate SKILL_REPO_INSTANCE
+
+                    SKILL_REPO_INSTANCE --> CTRL : true
+
+                deactivate SKILL_REPO_INSTANCE
 
             CTRL --> UI : newSkill
 
             deactivate CTRL
 
-                UI -> HRM : validates data, shows skill data and requests confirmation
+                UI -> HRM : shows skill data and requests confirmation
 
 
 
@@ -94,17 +116,15 @@ activate HRM
         activate CTRL
 
 
-            CTRL -> SkillRepository : addSkillToRepo(newSkill)
+            CTRL -> SKILL_REPO_INSTANCE : addSkill(newSkill)
 
-            activate SkillRepository
+            activate SKILL_REPO_INSTANCE
 
-                SkillRepository -> SkillRepository : addSkill(newSkill)
+                SKILL_REPO_INSTANCE --> CTRL : addedSkill
 
-                SkillRepository -> CTRL : addedSkill
+            deactivate SKILL_REPO_INSTANCE
 
-            deactivate SkillRepository
-
-            CTRL -> UI : addedSkill
+            CTRL --> UI : addedSkill
 
         deactivate CTRL
 

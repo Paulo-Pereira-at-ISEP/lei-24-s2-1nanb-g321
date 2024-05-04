@@ -10,8 +10,9 @@ skinparam classAttributeIconSize 0
 'left to right direction
 
 class CreateJobController {
-    + CreateJobController(possibly skillRepository)
+    + CreateJobController(jobRepository)
     + validateJobData(jobName, jobDescription)
+    + addJobToRepo(newJob)
 
 }
 
@@ -20,6 +21,7 @@ class CreateJobUI {
     +run()
     +requestData(jobName, jobDescription)
 }
+
 
 
 class Employee{
@@ -32,20 +34,29 @@ class Employee{
     -IDdocType:String
     -IDnumber:String
     -taxNumber:String
-    -job:Job
+    -skils:List<Job>
 
+    +Employee (String nome,LocalDate dateOfBirth,\nLocalDate admissionDate, String morada, int telemovel,\nString email, String idDocType, int docTypeNumber,\nint taxPayerIdNumber, String role, Job job)
 }
 
-class Collaborator {
-    -listOfSkill:List<Job>
+class Repositories{
+    - instance:Repositories
+    - skillRepository:JobRepository
+    - jobRepository:JobRepository
+    - employeeRepository:EmployeeRepository
+
+
+    + getInstance()
+    + getSkillRepository()
+    + getJobRepository()
+    + getEmployeeRepository()
 }
 
-class Organization {
-    +createSkill(skillName, skillDescription)
-    +createJob(jobName, jobDescription)
+class JobRepository{
+    + createJob(jobName, jobDescription)
+    + validateJob(newJob)
+    + addJob(newJob)
 }
-
-
 
 class Job {
     -jobName:String
@@ -55,10 +66,11 @@ class Job {
     +validateJobData(jobName, jobDescription)
 }
 
-Employee "1" ---> "1" Job : has a
-CreateJobUI .> CreateJobController
-CreateJobController -->  Organization : createJob
-Organization .> Job : createJob
-Collaborator --> Employee : is a
+CreateJobUI ..> CreateJobController
+
+CreateJobController -->  Repositories : getInstance
+Repositories ..> JobRepository : create
+JobRepository ..> Job : createJob
+Employee --> Job : has a
 
 @enduml
