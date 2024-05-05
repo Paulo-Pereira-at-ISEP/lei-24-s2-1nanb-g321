@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 import pt.ipp.isep.dei.esoft.project.application.controller.SkillController;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
+import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.util.Scanner;
 
@@ -53,13 +54,27 @@ public class CreateSkillUI implements Runnable {
 
     private String requestSkillDescription() {
         Scanner input = new Scanner(System.in);
-        System.out.print("Skill Description: ");
-        return input.nextLine();
+        String ler;
+        do {
+            System.out.print("Skill Description: ");
+            ler = input.nextLine();
+            if (!Utils.isValidInput(ler)){
+                System.out.print("Skill Description must only contain letters.\n");
+            }
+        } while(!Utils.isValidInput(ler));
+        return ler;
     }
 
     private String requestSkillName() {
         Scanner input = new Scanner(System.in);
-        System.out.print("Skill Name: ");
-        return input.nextLine();
+        String ler;
+        do {
+            System.out.print("Skill Name: ");
+            ler = input.nextLine();
+            if (!Utils.isValidInput(ler)){
+                System.out.print("Skill Name must only contain letters.\n");
+            }
+        } while(!Utils.isValidInput(ler));
+        return ler;
     }
 }

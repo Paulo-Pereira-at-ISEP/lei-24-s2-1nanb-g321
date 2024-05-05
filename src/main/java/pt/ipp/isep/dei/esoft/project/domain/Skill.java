@@ -36,6 +36,11 @@ public class Skill {
     @Override
     public String toString() {return name + " - " + description;}
 
+    /**
+     * Clone method.
+     *
+     * @return A clone of the current instance.
+     */
     public Skill clone() {
         return new Skill(this.name, this.description);
     }
