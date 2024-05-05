@@ -3,25 +3,39 @@ skinparam classAttributeIconSize 0
 skinparam linetype polyline
 
 
-class ApplicationSession
-{
-  +static getInstance()
-  +getCurrentSession()
+class AuthenticationRepository{
+    - authenticationFacade:AuthFacade
+    + doLogin(email, pwd)
+    + doLogout()
+    + getCurrentUserSession()
+    + addUserRole(id, description)
+    + addUserWithRole(name, email, pwd, roleId)
 }
 
-class UserSession
-{
-  +isLoggedInWithRole(USER_ROLE)
+class AuthFacade{
+    ...
+    getCurrentUserSession()
 }
 
-class "{NameOfUC}Controller" {
-    + {NameOfUC}Controller()
-    + methodX(...)
+
+class Repositories{
+    - instance:Repositories
+    - skillRepository:JobRepository
+    - jobRepository:JobRepository
+    - employeeRepository:EmployeeRepository
+    - vehicleRepository:VehicleRepository
+    - authenticationRepository:AuthenticationRepository
+
+
+    + getInstance()
+    + getSkillRepository()
+    + getJobRepository()
+    + getVehicleRepository()
+    + getEmployeeRepository()
+    + getAuthenticationRepository()
 }
 
-class "{NameOfUC}UI" {
-}
-
+'------------------         UI             ----------------------
 
 class MainMenuUI{
     run()
@@ -42,20 +56,95 @@ class VFMUI{
     run()
 }
 
-class CreateJobController {
-    -getEmployeeFromSession()
-    + CreateJobController(jobRepository)
-    + validateJobData(jobName, jobDescription)
-    + addJobToRepo(newJob)
 
 
+
+
+class CreateSkillUI {
+    +run()
+    +requestData(skillName, skillDescription)
+    +submitData()
 }
-
 
 class CreateJobUI {
     +run()
     +requestData(jobName, jobDescription)
     +submitData()
+}
+
+class CreateVehicleUI {
+    +run()
+    +requestData(skillName, skillDescription)
+    +submitData()
+}
+
+
+'------------------         CONTROLLERS             ----------------------
+
+class CreateSkillController {
+    - getEmployeeFromSession()
+    + CreateSkillController(skillRepository)
+    + validateSkillData(skillName, skillDescription)
+    + addSkillToRepo(newSkill)
+
+}
+
+class CreateJobController {
+    -getEmployeeFromSession()
+    + CreateJobController(jobRepository)
+    + createJob(jobName, jobDescription)
+}
+
+
+class CreateVehicleController {
+    -getEmployeeFromSession()
+    + CreateVehicleController(vehicleRepository)
+    + createVehicle(brand, model, type, tareWeight, grossWeight,\n currentKm, registerDate,acquisitionDate, maintenanceFrequencyInKm,\n plateNumber, numOfPassengers, numOfDoors, fuelType,\n trailerMachinesAble)
+}
+
+
+'------------------         REPOS             ----------------------
+
+class SkillRepository{
+    + createSkill(skillName, skillDescription, creator)
+    + validateSkill(newSkill)
+    + addSkill(newSkill)
+}
+
+
+class JobRepository{
+    + createJob(jobName, jobDescription, creator)
+    + validateJob(newJob)
+    + addJob(newJob)
+}
+
+
+class VehicleRepository{
+    + createVehicle(brand, model, type, tareWeight, grossWeight,\n currentKm, registerDate,acquisitionDate, maintenanceFrequencyInKm,\n plateNumber, numOfPassengers, numOfDoors, fuelType,\n trailerMachinesAble)
+    + validateVehicle(newVehicle)
+    + addVehicle(newVehicle)
+}
+
+
+'------------------         MODELS             ----------------------
+
+class Skill {
+    -skillName:String
+    -skillDescription:String
+    -creator:Employee
+
+    +Skill(skillName, skillDescription, creator)
+    +validateSkillData(skillName, skillDescription, creator)
+}
+
+
+class Job {
+    -jobName:String
+    -jobDescription:String
+    -creator:Employee
+
+    +Job(jobName, jobDescription, creator)
+    +validateJobData(jobName, jobDescription, creator)
 }
 
 
@@ -74,96 +163,93 @@ class Employee{
     +Employee (String nome,LocalDate dateOfBirth,\nLocalDate admissionDate, String morada, int telemovel,\nString email, String idDocType, int docTypeNumber,\nint taxPayerIdNumber, String role, Job job)
 }
 
-class Repositories{
-    - instance:Repositories
-    - skillRepository:JobRepository
-    - jobRepository:JobRepository
-    - employeeRepository:EmployeeRepository
-    - authenticationRepository:AuthenticationRepository
 
-
-    + getInstance()
-    + getSkillRepository()
-    + getJobRepository()
-    + getEmployeeRepository()
-    + getAuthenticationRepository()
-}
-
-class JobRepository{
-    + createJob(jobName, jobDescription, creator)
-    + validateJob(newJob)
-    + addJob(newJob)
-}
-
-class Job {
-    -jobName:String
-    -jobDescription:String
+class Vehicle{
+    -brand:String
+    -model:String
+    -vehicleType:String
+    -tareWeight:int
+    -grossWeight:int
+    -currentKm:int
+    -registerDate:Date
+    -acquisitionDate:Date
+    -maintenanceFrequencyInKm:int
+    -plateNumber:String
+    -numOfPassengers:int
+    -numOfDoors:int
+    -fuelType:String
+    -trailerMachinesAble:boolean
     -creator:Employee
 
-    +Job(jobName, jobDescription, creator)
-    +validateJobData(jobName, jobDescription, creator)
-}
-
-
-class CreateSkillController {
-    - getEmployeeFromSession()
-    + CreateSkillController(skillRepository)
-    + validateSkillData(skillName, skillDescription)
-    + addSkillToRepo(newSkill)
-
-}
-
-
-class CreateSkillUI {
-    +run()
-    +requestData(skillName, skillDescription)
-    +submitData()
+    + Vehicle(brand, model, type, tareWeight, grossWeight,\n currentKm, registerDate,acquisitionDate, maintenanceFrequencyInKm,\n plateNumber, numOfPassengers, numOfDoors, fuelType,\n trailerMachinesAble, creator)
 }
 
 
 
-class SkillRepository{
-    + createSkill(skillName, skillDescription, creator)
-    + validateSkill(newSkill)
-    + addSkill(newSkill)
-}
 
-class Skill {
-    -skillName:String
-    -skillDescription:String
-    -creator:Employee
 
-    +Skill(skillName, skillDescription, creator)
-    +validateSkillData(skillName, skillDescription, creator)
-}
+
+
+
+
+
+
+
+
+
+
+AuthenticationRepository --> AuthFacade : getCurrentUserSession
 
 
 MainMenuUI ..> AuthenticationUI: creates
 
+
 AuthenticationUI ..> HRMUI : creates
 AuthenticationUI ..> VFMUI : creates
+
 
 HRMUI ..> CreateSkillUI : creates
 HRMUI ..> CreateJobUI : creates
 
-CreateJobUI ..> CreateJobController
+
+VFMUI ..> CreateVehicleUI : creates
+
+
+CreateSkillController --> AuthenticationRepository : getCurretUserSession
+CreateJobController --> AuthenticationRepository : getCurretUserSession
+CreateVehicleController --> AuthenticationRepository : getCurrentUserSession
+
 
 CreateJobController "1" --> "1" Repositories : getInstance
-Repositories "1" ..> "1" JobRepository : create
-JobRepository ..> Job : createJob
-Employee "1" --> "1" Job : has a
-
-
-CreateSkillUI ..> CreateSkillController
-
 CreateSkillController "1" --> "1" Repositories : getInstance
+CreateVehicleController "1" --> "1" Repositories : getInstance
+
+
+CreateJobUI ..> CreateJobController
+CreateSkillUI ..> CreateSkillController
+CreateVehicleUI ..> CreateVehicleController
+
+
 Repositories "1" ..> "1" SkillRepository : create
+Repositories "1" ..> "1" JobRepository : create
+Repositories "1" ..> "1" VehicleRepository : create
+
+
+
+CreateSkillController --> SkillRepository : createSkill
+CreateJobController --> JobRepository : createJob
+CreateVehicleController --> VehicleRepository : createVehicle
+
+
 SkillRepository ..> Skill : createSkill
+JobRepository ..> Job : createJob
+VehicleRepository ..> Vehicle : createVehicle
+
+
+Employee "1" --> "1" Job : has a
 Employee "1" --> "0..*" Skill : has a set of
 
 
-"{NameOfUC}UI" ..> "{NameOfUC}Controller"
-"{NameOfUC}Controller" ..> ApplicationSession
-"{NameOfUC}Controller" ..> UserSession
+
 
 @enduml
