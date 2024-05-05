@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateJobController;
-import pt.ipp.isep.dei.esoft.project.application.controller.SkillController;
+import pt.ipp.isep.dei.esoft.project.application.controller.CreateSkillController;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 

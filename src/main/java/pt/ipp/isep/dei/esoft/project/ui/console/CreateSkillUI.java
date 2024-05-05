@@ -1,10 +1,15 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
-import pt.ipp.isep.dei.esoft.project.application.controller.SkillController;
+import pt.ipp.isep.dei.esoft.project.application.controller.CreateJobController;
+import pt.ipp.isep.dei.esoft.project.application.controller.CreateSkillController;
+import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
+import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
+
 import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -12,16 +17,16 @@ import java.util.Scanner;
  */
 public class CreateSkillUI implements Runnable {
 
-    private final SkillController controller;
+    private final CreateSkillController controller;
     private String skillName;
     private String skillDescription;
-    //private SkillRepository skillRepository;
+    private SkillRepository skillRepository;
 
     public CreateSkillUI() {
-        controller = new SkillController();
+        controller = new CreateSkillController();
     }
 
-    private SkillController getController() {
+    private CreateSkillController getController() {
         return controller;
     }
 
@@ -34,7 +39,7 @@ public class CreateSkillUI implements Runnable {
     }
 
     private void submitData() {
-        Skill skill = getController().createSkill(skillName, skillDescription);
+        Skill skill = controller.createSkill(skillName, skillDescription);
 
         if (skill != null) {
             System.out.println("\nSkill successfully created!");
@@ -58,23 +63,26 @@ public class CreateSkillUI implements Runnable {
         do {
             System.out.print("Skill Description: ");
             ler = input.nextLine();
-            if (!Utils.isValidInput(ler)){
+            if (!Utils.isValidInput(ler)) {
                 System.out.print("Skill Description must only contain letters.\n");
             }
-        } while(!Utils.isValidInput(ler));
+        } while (!Utils.isValidInput(ler));
         return ler;
     }
 
     private String requestSkillName() {
         Scanner input = new Scanner(System.in);
         String ler;
+
         do {
             System.out.print("Skill Name: ");
             ler = input.nextLine();
-            if (!Utils.isValidInput(ler)){
+            if (!Utils.isValidInput(ler)) {
                 System.out.print("Skill Name must only contain letters.\n");
             }
-        } while(!Utils.isValidInput(ler));
+        } while (!Utils.isValidInput(ler));
         return ler;
     }
 }
+
+

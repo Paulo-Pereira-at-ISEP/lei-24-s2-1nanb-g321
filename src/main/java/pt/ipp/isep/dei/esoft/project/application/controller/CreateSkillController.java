@@ -6,23 +6,23 @@ import pt.isep.lei.esoft.auth.domain.model.Email;
 
 import java.util.List;
 
-public class SkillController {
+public class CreateSkillController {
 
     private SkillRepository skillRepository;
     private OrganizationRepository organizationRepository;
     private AuthenticationRepository authenticationRepository;
 
     //Repository instances are obtained from the Repositories class
-    public SkillController() {
+    public CreateSkillController() {
         getOrganizationRepository();
         getSkillRepository();
         getAuthenticationRepository();
     }
 
     //Allows receiving the repositories as parameters for testing purposes
-    public SkillController(OrganizationRepository organizationRepository,
-                           SkillRepository skillRepository,
-                           AuthenticationRepository authenticationRepository) {
+    public CreateSkillController(OrganizationRepository organizationRepository,
+                               SkillRepository skillRepository,
+                               AuthenticationRepository authenticationRepository) {
         this.organizationRepository = organizationRepository;
         this.skillRepository = skillRepository;
         this.authenticationRepository = authenticationRepository;
@@ -62,7 +62,7 @@ public class SkillController {
         return new Employee(email.getEmail());
     }
 
-    public SkillController(SkillRepository skillRepository) {
+    public CreateSkillController(SkillRepository skillRepository) {
         this.skillRepository = skillRepository;
     }
 

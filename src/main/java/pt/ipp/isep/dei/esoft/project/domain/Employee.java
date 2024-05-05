@@ -14,6 +14,8 @@ public class Employee {
     private int taxPayerIdNumber;
     private String role;
     private Job job;
+    private Skill skill;
+
 
     //constructor
     public Employee (String nome,LocalDate dateOfBirth,LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, String role) {
@@ -28,6 +30,14 @@ public class Employee {
         this.taxPayerIdNumber = taxPayerIdNumber;
         this.role = role;
         this.job = new Job("Nenhum", "Sem descrição");
+        this.skill = new Skill("Nenhum", "Nenhum");
+    }
+    public Skill getSkill() {
+        return skill;
+    }
+
+    public void setSkill(Skill skill) {
+        this.skill = skill;
     }
 
     public Job getJob() {
@@ -39,6 +49,20 @@ public class Employee {
     }
 
     public Employee (String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, String role, Job job) {
+        this.name = nome;
+        this.dateOfBirth = dateOfBirth;
+        this.admissionDate = admissionDate;
+        this.address = morada;
+        this.mobile = telemovel;
+        this.email = email;
+        this.idDocType = idDocType;
+        this.docTypeNumber = docTypeNumber;
+        this.taxPayerIdNumber = taxPayerIdNumber;
+        this.role = role;
+        this.job = job;
+        this.skill = skill;
+    }
+    public Employee (String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, String role, Job job, Skill skill) {
         this.name = nome;
         this.dateOfBirth = dateOfBirth;
         this.admissionDate = admissionDate;
@@ -192,6 +216,6 @@ public class Employee {
  * @return A clone of the current instance.
  */
     public Employee clone() {
-    return new Employee(this.name, this.dateOfBirth, this.admissionDate, this.address, this.mobile, this.email, this.idDocType, this.docTypeNumber, this.taxPayerIdNumber, this.role, this.job);
+    return new Employee(this.name, this.dateOfBirth, this.admissionDate, this.address, this.mobile, this.email, this.idDocType, this.docTypeNumber, this.taxPayerIdNumber, this.role, this.job, this.skill);
     }
 }

@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateEmployeeController;
 import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
+import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.repository.EmployeeRepository;
 
 import java.time.LocalDate;
@@ -27,6 +28,7 @@ public class CreateEmployeeUI implements Runnable {
     private String role;
 
     private Job job;
+    private Skill skill;
 
     public CreateEmployeeUI() {
         controller = new CreateEmployeeController();
@@ -45,7 +47,7 @@ public class CreateEmployeeUI implements Runnable {
     }
 
     private void submitData() {
-        Employee employee = controller.createEmployee(name, dateOfBirth, admissionDate, address, mobile, email, idDocType, docTypeNumber, taxPayerIdNumber, role, job);
+        Employee employee = controller.createEmployee(name, dateOfBirth, admissionDate, address, mobile, email, idDocType, docTypeNumber, taxPayerIdNumber, role, job, skill);
 
         if (employee != null) {
             System.out.println("\nEmployee successfully registered!");
@@ -67,6 +69,8 @@ public class CreateEmployeeUI implements Runnable {
         taxPayerIdNumber = requestEmployeeTaxPayerNumber();
         role = requestEmployeeRole();
         job = displayAndSelectJob();
+        skill = displayAndSelectSkill();
+
 
     }
     private static boolean isValidString(String inputString) {
@@ -185,5 +189,32 @@ public class CreateEmployeeUI implements Runnable {
             i++;
         }
     }
+    private Skill displayAndSelectSkill() {
+        //Display the list of task categories
+        List<Skill> skills = controller.getAllSkills();
+
+        int listSize = skills.size();
+        int answer = -1;
+
+        Scanner input = new Scanner(System.in);
+
+        do {
+            displaySkillsOptions(skills);
+            System.out.print("Select a Skill: ");
+            answer = input.nextInt();
+            return skills.get(answer - 1);
+        } while (answer != 0);
+
+    }
+    private void displaySkillsOptions(List<Skill> skills) {
+        //display the task categories as a menu with number options to select
+        int i = 1;
+        for (Skill skill : skills) {
+            System.out.println("  " + i + " - " + skill.getDescription());
+            i++;
+        }
+    }
+
+
 
 }
