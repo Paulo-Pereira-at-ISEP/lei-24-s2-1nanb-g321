@@ -7,6 +7,7 @@ import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.repository.EmployeeRepository;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -28,7 +29,7 @@ public class CreateEmployeeUI implements Runnable {
     private String role;
 
     private Job job;
-    private Skill skill;
+    private ArrayList<Skill> skill;
 
     public CreateEmployeeUI() {
         controller = new CreateEmployeeController();
@@ -189,9 +190,9 @@ public class CreateEmployeeUI implements Runnable {
             i++;
         }
     }
-    private Skill displayAndSelectSkill() {
+    private ArrayList<Skill> displayAndSelectSkill() {
         //Display the list of task categories
-        List<Skill> skills = controller.getAllSkills();
+        ArrayList<Skill> skills = controller.getAllSkills();
 
         int listSize = skills.size();
         int answer = -1;
@@ -202,9 +203,11 @@ public class CreateEmployeeUI implements Runnable {
             displaySkillsOptions(skills);
             System.out.print("Select a Skill: ");
             answer = input.nextInt();
-            return skills.get(answer - 1);
+            if (answer > 0) {
+                skills.add(skills.get(answer - 1));
+            }
         } while (answer != 0);
-
+        return skills;
     }
     private void displaySkillsOptions(List<Skill> skills) {
         //display the task categories as a menu with number options to select

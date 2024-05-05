@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Employee {
     private String name;
@@ -14,9 +16,11 @@ public class Employee {
     private int taxPayerIdNumber;
     private String role;
     private Job job;
-    private Skill skill;
+    private List<Skill> skill;
 
-
+public Employee(List<Skill> skill){
+ this.skill = skill;
+}
     //constructor
     public Employee (String nome,LocalDate dateOfBirth,LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, String role) {
         this.name = nome;
@@ -30,13 +34,13 @@ public class Employee {
         this.taxPayerIdNumber = taxPayerIdNumber;
         this.role = role;
         this.job = new Job("Nenhum", "Sem descrição");
-        this.skill = new Skill("Nenhum", "Nenhum");
+        this.skill = new ArrayList<>();
     }
-    public Skill getSkill() {
+    public List<Skill> getSkill() {
         return skill;
     }
 
-    public void setSkill(Skill skill) {
+    public void setSkill(List<Skill> skill) {
         this.skill = skill;
     }
 
@@ -48,7 +52,7 @@ public class Employee {
         this.job = job;
     }
 
-    public Employee (String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, String role, Job job) {
+    public Employee (String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, String role, Job job, List<Skill> skill) {
         this.name = nome;
         this.dateOfBirth = dateOfBirth;
         this.admissionDate = admissionDate;
@@ -60,9 +64,9 @@ public class Employee {
         this.taxPayerIdNumber = taxPayerIdNumber;
         this.role = role;
         this.job = job;
-        this.skill = skill;
+        this.skill = new ArrayList<>();
     }
-    public Employee (String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, String role, Job job, Skill skill) {
+    public Employee (String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, String role, Job job) {
         this.name = nome;
         this.dateOfBirth = dateOfBirth;
         this.admissionDate = admissionDate;

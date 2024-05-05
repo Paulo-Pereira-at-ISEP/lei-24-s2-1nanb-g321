@@ -6,6 +6,7 @@ import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CreateEmployeeController {
@@ -90,12 +91,12 @@ public class CreateEmployeeController {
     public List<Job> getAllJobs(){
         return jobRepository.getAllJobs();
     }
-    public List<Skill> getAllSkills() {
+    public ArrayList<Skill> getAllSkills() {
         return skillRepository.getAllSkills();
     }
 
     public Employee createEmployee(String name, LocalDate birthdate, LocalDate admissionDate, String adress,
-                                   int mobile, String email, String docType, int docNumber, int taxPayerId, String role, Job job, Skill skill) {
+                                   int mobile, String email, String docType, int docNumber, int taxPayerId, String role, Job job, ArrayList<Skill> skill) {
 
         Employee employee = new Employee(name, birthdate, admissionDate, adress, mobile, email, docType, docNumber, taxPayerId, role, job, skill);
 
