@@ -68,9 +68,24 @@ activate HRM
 
             UI -> UI : validateJobData(jobName, jobDescription)
 
+            note right of UI
+            - This kind of validation consists only in
+            ensuring that the correct data type (characters only)
+            is inserted.
+            end note
 
+            deactivate CTRL
 
-            UI -> CTRL : validateJob(jobName, jobDescription)
+            UI --> HRM : shows job data and requests confirmation
+
+        deactivate UI
+
+            HRM -> UI : confirms data
+
+        activate UI
+
+            UI -> CTRL : createJob(jobName, jobDescription)
+
             activate CTRL
 
                 CTRL -> CTRL : getEmployeeFromSession()
@@ -78,62 +93,36 @@ activate HRM
                     - This method will get the current logged-in HRM.
                     - The returned object (of type Employee) will be
                     argument of the next method as the creator.
+                    - Explained in more detail in a partial diagram.
                 end note
 
                 |||
 
-                CTRL -> JOB_REPO_INSTANCE : createJob(jobName, jobDescription, creator)
+                CTRL -> JOB : Job(jobName, jobDescription, creator)
+
+                activate JOB
+
+                JOB --> CTRL : newJob
+
+                deactivate JOB
+
+                CTRL -> JOB_REPO_INSTANCE : add(newJob)
 
                 activate JOB_REPO_INSTANCE
 
-                    JOB_REPO_INSTANCE -> JOB : Job(jobName, jobDescription, creator)
+                    JOB_REPO_INSTANCE -> JOB_REPO_INSTANCE : validateJob(newJob)
 
-                    activate JOB
-
-                        JOB --> JOB_REPO_INSTANCE : newJob
-
-                    deactivate JOB
+                    note right of JOB_REPO_INSTANCE
+                    - Explained in more detail
+                    in a partial diagram.
+                    end note
 
                     JOB_REPO_INSTANCE --> CTRL : newJob
 
                 deactivate JOB_REPO_INSTANCE
 
-                CTRL -> JOB_REPO_INSTANCE : validateJob(newJob)
-
-                activate JOB_REPO_INSTANCE
-
-                    JOB_REPO_INSTANCE --> CTRL : true
-
-                deactivate JOB_REPO_INSTANCE
-
             CTRL --> UI : newJob
 
-            deactivate CTRL
-
-                UI -> HRM : shows job data and requests confirmation
-
-
-
-        deactivate UI
-
-
-    HRM -> UI : confirms data
-    activate UI
-
-        UI -> CTRL : addJobToRepo(newJob)
-
-        activate CTRL
-
-
-            CTRL -> JOB_REPO_INSTANCE : addJob(newJob)
-
-            activate JOB_REPO_INSTANCE
-
-                JOB_REPO_INSTANCE --> CTRL : addedJob
-
-            deactivate JOB_REPO_INSTANCE
-
-            CTRL --> UI : addedJob
 
         deactivate CTRL
 
