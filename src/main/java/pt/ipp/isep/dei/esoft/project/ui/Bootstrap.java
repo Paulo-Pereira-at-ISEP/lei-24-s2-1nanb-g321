@@ -8,6 +8,8 @@ import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Bootstrap implements Runnable {
 
@@ -43,18 +45,26 @@ public class Bootstrap implements Runnable {
     private void addSkills() {
         SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
 
-        skillRepository.add(new Skill("Skill", "PrimeiraSkill"));
+        skillRepository.add(new Skill("Light Vehicle Driver", "Drives light vehicles"));
+        skillRepository.add(new Skill("Heavy Vehicle Driver", "Drives heavy vehicles"));
+        skillRepository.add(new Skill("Machine Operator", "Operating machines such as backhoes or tractors"));
+        skillRepository.add(new Skill("Tree Pruner", "Tree pruning"));
+        skillRepository.add(new Skill("Driver Light", "Application of agriculture phytopharmaceuticals"));
     }
     private void addJobs() {
         JobRepository jobRepository = Repositories.getInstance().getJobRepository();
 
-        jobRepository.add(new Job("Jardineiro", "part-time"));
+        jobRepository.add(new Job("Designer", "Creates plans and ideas for products or visuals or experiences"));
+        jobRepository.add(new Job("Budget Manager", "Plans and tracks company spending"));
+        jobRepository.add(new Job("Gardener", "Garden maintenance"));
+        jobRepository.add(new Job("Electrician", "Installs and maintains and fixes electrical systems in buildings"));
+        jobRepository.add(new Job("Bricklayer", "Builds walls and structures by laying bricks with mortar"));
     }
 
     private void addEmployee() {
         EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
 
-        employeeRepository.add(new Employee("Alfredo", LocalDate.of(2000,12,04),LocalDate.of(2008,10,02), "Rua da casa", 912345678, "coisa@sapo.pt", "CC", 12345678, 123456789, "Administor", new Job("Jardineiro","part-time")));
+        employeeRepository.add(new Employee("Alfredo da Fonte", LocalDate.of(2000,12,04),LocalDate.of(2008,10,02), "Rua da casa", 912345678, "coisa@sapo.pt", "CC", 12345678, 123456789, "Administrator", new Job("Gardener","Garden maintenance")));
     }
 
 

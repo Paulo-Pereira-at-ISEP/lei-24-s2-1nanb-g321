@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
-import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class SkillRepository {
         skills.add(skill);
     }
 
-    public List<Skill> getAllSkills() {
+    public ArrayList<Skill> getAllSkills() {
         return new ArrayList<>(skills);
     }
 
