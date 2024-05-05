@@ -35,6 +35,12 @@ public class Job {
     @Override
     public String toString() {return name + " - " + description;}
 
+
+    /**
+     * Clone method.
+     *
+     * @return A clone of the current instance.
+     */
     public Job clone() {
         return new Job(this.name, this.description);
     }

@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateJobController;
-import pt.ipp.isep.dei.esoft.project.application.controller.SkillController;
+import pt.ipp.isep.dei.esoft.project.application.controller.CreateSkillController;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 
@@ -25,11 +25,15 @@ public class ListJobsUI implements Runnable {
 
     private void listJobs() {
         List<Job> jobs = jobController.getAllJobs();
+
         System.out.println("Registered Jobs:");
+        int counter = 1;
         for (Job job : jobs) {
-            System.out.println("Title: " + job.getName());
-            System.out.println("Description: " + job.getDescription());
+
+            System.out.println("[" + counter + "]   Title: " + job.getName());
+            System.out.println("      Description: " + job.getDescription());
             System.out.println("-------------------------");
+            counter++;
         }
     }
 }

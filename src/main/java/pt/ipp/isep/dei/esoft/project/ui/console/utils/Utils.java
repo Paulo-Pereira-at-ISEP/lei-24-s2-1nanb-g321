@@ -133,4 +133,11 @@ public class Utils {
 
         return value - 1;
     }
+
+    public static boolean isValidInput(String name) {
+        // Allow only letters and spaces
+        String regex = "^[a-zA-Z\\s]+$";
+        // Check if the input matches the regular expression
+        return name.matches(regex);
+    }
 }

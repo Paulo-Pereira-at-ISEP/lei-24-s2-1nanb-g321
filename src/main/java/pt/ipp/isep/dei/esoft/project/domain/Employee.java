@@ -14,6 +14,8 @@ public class Employee {
     private int taxPayerIdNumber;
     private String role;
     private Job job;
+    private Skill skill;
+
 
     //constructor
     public Employee (String nome,LocalDate dateOfBirth,LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, String role) {
@@ -27,6 +29,15 @@ public class Employee {
         this.docTypeNumber = docTypeNumber;
         this.taxPayerIdNumber = taxPayerIdNumber;
         this.role = role;
+        this.job = new Job("Nenhum", "Sem descrição");
+        this.skill = new Skill("Nenhum", "Nenhum");
+    }
+    public Skill getSkill() {
+        return skill;
+    }
+
+    public void setSkill(Skill skill) {
+        this.skill = skill;
     }
 
     public Job getJob() {
@@ -38,6 +49,20 @@ public class Employee {
     }
 
     public Employee (String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, String role, Job job) {
+        this.name = nome;
+        this.dateOfBirth = dateOfBirth;
+        this.admissionDate = admissionDate;
+        this.address = morada;
+        this.mobile = telemovel;
+        this.email = email;
+        this.idDocType = idDocType;
+        this.docTypeNumber = docTypeNumber;
+        this.taxPayerIdNumber = taxPayerIdNumber;
+        this.role = role;
+        this.job = job;
+        this.skill = skill;
+    }
+    public Employee (String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, String role, Job job, Skill skill) {
         this.name = nome;
         this.dateOfBirth = dateOfBirth;
         this.admissionDate = admissionDate;
@@ -108,7 +133,7 @@ public class Employee {
     //method that provides a string representation of an employee’s detail
     @Override
     public String toString() {
-        return "Collaboator: " + name + "\nBirth date: "+ dateOfBirth + "\nAdmission Date: " + admissionDate + "\nAddress: " + address + "\nMobile: "
+        return "Collaborator: " + name + "\nBirth date: "+ dateOfBirth + "\nAdmission Date: " + admissionDate + "\nAddress: " + address + "\nMobile: "
                 + mobile + "\nE-mail: " + email + "\nDocument: " + idDocType + "\nID number: " + docTypeNumber + "\nTax payer ID: " + taxPayerIdNumber +
                 "\nJob: ";
         //+ "\nSkill(s): " + skill;
@@ -191,9 +216,6 @@ public class Employee {
  * @return A clone of the current instance.
  */
     public Employee clone() {
-    return new Employee(this.email);
+    return new Employee(this.name, this.dateOfBirth, this.admissionDate, this.address, this.mobile, this.email, this.idDocType, this.docTypeNumber, this.taxPayerIdNumber, this.role, this.job, this.skill);
+    }
 }
-
-}
-
-

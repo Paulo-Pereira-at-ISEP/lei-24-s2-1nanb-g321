@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
+import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.time.LocalDate;
@@ -28,10 +29,11 @@ public class CreateEmployeeController {
     //Allows receiving the repositories as parameters for testing purposes
     public CreateEmployeeController(OrganizationRepository organizationRepository,
                                JobRepository jobRepository,
-                               AuthenticationRepository authenticationRepository) {
+                               AuthenticationRepository authenticationRepository, SkillRepository skillRepository) {
         this.organizationRepository = organizationRepository;
         this.jobRepository = jobRepository;
         this.authenticationRepository = authenticationRepository;
+        this.skillRepository = skillRepository;
     }
 
     private EmployeeRepository getEmployeeRepository() {
@@ -82,17 +84,20 @@ public class CreateEmployeeController {
         return authenticationRepository;
     }
     public List<Employee> employee() {
-        return employeeRepository.getEmployee();
+        return employeeRepository.getEmployees();
     }
 
     public List<Job> getAllJobs(){
         return jobRepository.getAllJobs();
     }
+    public List<Skill> getAllSkills() {
+        return skillRepository.getAllSkills();
+    }
 
     public Employee createEmployee(String name, LocalDate birthdate, LocalDate admissionDate, String adress,
-                                   int mobile, String email, String docType, int docNumber, int taxPayerId, String role, Job job) {
+                                   int mobile, String email, String docType, int docNumber, int taxPayerId, String role, Job job, Skill skill) {
 
-        Employee employee = new Employee(name, birthdate, admissionDate, adress, mobile, email, docType, docNumber, taxPayerId, role, job);
+        Employee employee = new Employee(name, birthdate, admissionDate, adress, mobile, email, docType, docNumber, taxPayerId, role, job, skill);
 
         employeeRepository.add(employee);
 
@@ -100,6 +105,6 @@ public class CreateEmployeeController {
     }
 
     public List<Employee> getAllEmployees() {
-        return employeeRepository.getEmployee();
+        return employeeRepository.getEmployees();
     }
 }

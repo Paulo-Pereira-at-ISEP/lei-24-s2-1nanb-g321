@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateEmployeeController;
 import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
+import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.repository.EmployeeRepository;
 
 import java.time.LocalDate;
@@ -27,6 +28,7 @@ public class CreateEmployeeUI implements Runnable {
     private String role;
 
     private Job job;
+    private Skill skill;
 
     public CreateEmployeeUI() {
         controller = new CreateEmployeeController();
@@ -45,7 +47,7 @@ public class CreateEmployeeUI implements Runnable {
     }
 
     private void submitData() {
-        Employee employee = getController().createEmployee(name, dateOfBirth, admissionDate, address, mobile, email, idDocType, docTypeNumber, taxPayerIdNumber, role, job);
+        Employee employee = controller.createEmployee(name, dateOfBirth, admissionDate, address, mobile, email, idDocType, docTypeNumber, taxPayerIdNumber, role, job, skill);
 
         if (employee != null) {
             System.out.println("\nEmployee successfully registered!");
@@ -67,18 +69,41 @@ public class CreateEmployeeUI implements Runnable {
         taxPayerIdNumber = requestEmployeeTaxPayerNumber();
         role = requestEmployeeRole();
         job = displayAndSelectJob();
+        skill = displayAndSelectSkill();
+
 
     }
-
+    private static boolean isValidString(String inputString) {
+        if (inputString.isEmpty()) {
+            System.out.println("Error: Input cannot be empty.");
+            return false;
+        } else if (!inputString.matches("[a-zA-Z]+")) {
+            System.out.println("Error: Input must contain only letters.");
+            return false;
+        }
+        return true;
+    }
+    private static boolean isValidInteger(int inputInt) {
+        if (inputInt < 0) {
+            System.out.println("Error: Input cannot be negative.");
+            return false;
+        }
+        return true;
+    }
     private String requestEmployeeName() {
         Scanner input = new Scanner(System.in);
-        System.out.print("Employee Name: ");
-        return input.nextLine();
-    }
+        String ler;
+        do {
+            System.out.print("Employee Name: " );
+        ler = input.nextLine();
+
+        } while(!isValidString(ler));
+        return ler;
+        }
 
     private String requestEmployeeBirthDate() {
         Scanner input = new Scanner(System.in);
-        System.out.print("Birth Date: ");
+        System.out.print("Birth Date (YYYY-MM-DD): ");
         return input.nextLine();
     }
 
@@ -90,14 +115,20 @@ public class CreateEmployeeUI implements Runnable {
 
     private String requestEmployeeAddress() {
         Scanner input = new Scanner(System.in);
-        System.out.print("Address: ");
-        return input.nextLine();
+        String ler;
+            System.out.print("Address: ");
+            ler= input.nextLine();
+
+        return ler;
     }
 
     private int requestEmployeeMobile() {
         Scanner input = new Scanner(System.in);
-        System.out.print("Mobile: ");
-        return input.nextInt();
+        int ler;
+                    System.out.print("Mobile: ");
+                    ler= input.nextInt();
+        return ler;
+
     }
 
     private String requestEmployeeEmail() {
@@ -108,9 +139,11 @@ public class CreateEmployeeUI implements Runnable {
 
     private String requestEmployeeIdentificationDocumentType() {
         Scanner input = new Scanner(System.in);
-        System.out.print("Identification Document Type: ");
-        return input.nextLine();
-    }
+        do {
+            System.out.print("Identification Document Type: ");
+            return input.nextLine();
+        }while(!isValidString(input.nextLine()));
+        }
 
     private int requestEmployeeIdentificationDocumentNumber() {
         Scanner input = new Scanner(System.in);
@@ -156,5 +189,32 @@ public class CreateEmployeeUI implements Runnable {
             i++;
         }
     }
+    private Skill displayAndSelectSkill() {
+        //Display the list of task categories
+        List<Skill> skills = controller.getAllSkills();
+
+        int listSize = skills.size();
+        int answer = -1;
+
+        Scanner input = new Scanner(System.in);
+
+        do {
+            displaySkillsOptions(skills);
+            System.out.print("Select a Skill: ");
+            answer = input.nextInt();
+            return skills.get(answer - 1);
+        } while (answer != 0);
+
+    }
+    private void displaySkillsOptions(List<Skill> skills) {
+        //display the task categories as a menu with number options to select
+        int i = 1;
+        for (Skill skill : skills) {
+            System.out.println("  " + i + " - " + skill.getDescription());
+            i++;
+        }
+    }
+
+
 
 }
