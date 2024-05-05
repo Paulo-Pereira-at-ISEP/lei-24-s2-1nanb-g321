@@ -14,9 +14,9 @@ participant "authenticationFacade\n:AuthFacade" as AUTH_FACADE_INSTANCE
 participant "userSession\n:UserSession" as USR_SESSION_INSTANCE
 
 
-autonumber 11
+autonumber 13
 -> CTRL : getEmployeeFromSession()
-autonumber 11.1
+autonumber 13.1
 activate CTRL
 
     group Get Employee

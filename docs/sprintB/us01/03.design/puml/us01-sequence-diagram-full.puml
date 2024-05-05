@@ -11,15 +11,22 @@ actor "Human Resource Manager" as HRM
 participant ":CreateSkillUI" as UI
 participant ":CreateSkillController" as CTRL
 participant ":Repositories" as REPO_SINGLETON
+
+
+
 participant "repositories\n:Repositories" as GEN_REPO_INSTANCE
-participant "skillRepository\n:SkillRepository" as SKILL_REPO_INSTANCE
+
+
+participant "skillRepository:\nSkillRepository" as SKILL_REPO_INSTANCE
 participant ":Skill" as SKILL
 'participant ":HRManager" as MNGR
+
 
 note right of REPO_SINGLETON
     - Singleton is
     in use
 end note
+
 
 
 activate HRM
@@ -61,70 +68,61 @@ activate HRM
 
             UI -> UI : validateSkillData(skillName, skillDescription)
 
-            UI -> CTRL : validateSkill(skillName, skillDescription)
+            note right
+            - This kind of validation consists only in
+            ensuring that the correct data type (characters only)
+            is inserted.
+            end note
+
+            deactivate CTRL
+
+            UI --> HRM : shows skill data and requests confirmation
+
+        deactivate UI
+
+            HRM -> UI : confirms data
+
+        activate UI
+
+            UI -> CTRL : createSkill(skillName, skillDescription)
+
             activate CTRL
 
                 CTRL -> CTRL : getEmployeeFromSession()
-                note right of CTRL
+                note right
                     - This method will get the current logged-in HRM.
                     - The returned object (of type Employee) will be
                     argument of the next method as the creator.
+                    - Explained in more detail in a partial diagram.
                 end note
+
                 |||
 
-                CTRL -> SKILL_REPO_INSTANCE : createSkill(skillName, skillDescription, creator)
+                CTRL -> SKILL : Skill(skillName, skillDescription, creator)
 
+                activate SKILL
+
+                SKILL --> CTRL : newSkill
+
+                deactivate SKILL
+
+                CTRL -> SKILL_REPO_INSTANCE : add(newSkill)
 
                 activate SKILL_REPO_INSTANCE
 
-                    SKILL_REPO_INSTANCE -> SKILL : Skill(skillName, skillDescription, creator)
+                    SKILL_REPO_INSTANCE -> SKILL_REPO_INSTANCE : validateSkill(newSkill)
 
-                    activate SKILL
-
-                        SKILL --> SKILL_REPO_INSTANCE : newSkill
-
-                    deactivate SKILL
+                    note right
+                    - Explained in more detail
+                    in a partial diagram.
+                    end note
 
                     SKILL_REPO_INSTANCE --> CTRL : newSkill
 
                 deactivate SKILL_REPO_INSTANCE
 
-                CTRL -> SKILL_REPO_INSTANCE : validateSkill(newSkill)
-
-                activate SKILL_REPO_INSTANCE
-
-                    SKILL_REPO_INSTANCE --> CTRL : true
-
-                deactivate SKILL_REPO_INSTANCE
-
             CTRL --> UI : newSkill
 
-            deactivate CTRL
-
-                UI -> HRM : shows skill data and requests confirmation
-
-
-
-        deactivate UI
-
-
-    HRM -> UI : confirms data
-    activate UI
-
-        UI -> CTRL : addSkillToRepo(newSkill)
-
-        activate CTRL
-
-
-            CTRL -> SKILL_REPO_INSTANCE : addSkill(newSkill)
-
-            activate SKILL_REPO_INSTANCE
-
-                SKILL_REPO_INSTANCE --> CTRL : addedSkill
-
-            deactivate SKILL_REPO_INSTANCE
-
-            CTRL --> UI : addedSkill
 
         deactivate CTRL
 

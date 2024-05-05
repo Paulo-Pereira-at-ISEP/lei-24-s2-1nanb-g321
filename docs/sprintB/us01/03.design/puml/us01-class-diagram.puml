@@ -10,9 +10,13 @@ skinparam classAttributeIconSize 0
 'left to right direction
 
 class CreateSkillController {
+    -skillRepository:SkillRepository
+    -authenticationRepository:AuthenticationRepository
+
+
+    -getEmployeeFromSession()
     + CreateSkillController(skillRepository)
-    + validateSkillData(skillName, skillDescription)
-    + addSkillToRepo(newSkill)
+    + createSkill(skillName, skillDescription)
 
 }
 
@@ -20,6 +24,9 @@ class CreateSkillController {
 class CreateSkillUI {
     +run()
     +requestData(skillName, skillDescription)
+    +submitData()
+    +requestSkillDescription()
+    +requestSkillName()
 }
 
 
@@ -43,16 +50,18 @@ class Repositories{
     - skillRepository:SkillRepository
     - jobRepository:JobRepository
     - employeeRepository:EmployeeRepository
+    -authenticationRepository:AuthenticationRepository
 
 
     + getInstance()
     + getSkillRepository()
     + getJobRepository()
     + getEmployeeRepository()
+    + getAuthenticationRepository()
 }
 
 class SkillRepository{
-    + createSkill(skillName, skillDescription)
+    + getSkills()
     + validateSkill(newSkill)
     + addSkill(newSkill)
 }
@@ -60,6 +69,8 @@ class SkillRepository{
 class Skill {
     -skillName:String
     -skillDescription:String
+    -employeeWithSkill:Employee
+    -creator:Employee
 
     +Skill(skillName, skillDescription)
     +validateSkillData(skillName, skillDescription)
@@ -70,6 +81,6 @@ CreateSkillUI ..> CreateSkillController
 CreateSkillController -->  Repositories : getInstance
 Repositories ..> SkillRepository : create
 SkillRepository ..> Skill : createSkill
-Employee --> Skill : has a set of
+Employee <-- Skill : is atributed to
 
 @enduml
