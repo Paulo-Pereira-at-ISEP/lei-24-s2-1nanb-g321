@@ -27,6 +27,7 @@ public class Employee {
         this.docTypeNumber = docTypeNumber;
         this.taxPayerIdNumber = taxPayerIdNumber;
         this.role = role;
+        this.job = new Job("Nenhum", "Sem descrição");
     }
 
     public Job getJob() {
@@ -191,9 +192,8 @@ public class Employee {
  * @return A clone of the current instance.
  */
     public Employee clone() {
-    return new Employee(this.email);
+
+    return new Employee(this.name, this.dateOfBirth, this.admissionDate, this.address, this.mobile, this.email, this.idDocType, this.docTypeNumber, this.taxPayerIdNumber, this.role, this.job);
 }
 
 }
-
-

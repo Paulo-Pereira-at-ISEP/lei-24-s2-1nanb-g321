@@ -46,12 +46,9 @@ public class SkillRepository {
             newSkill = Optional.of(skill.clone());
             operationSuccess = skills.add(newSkill.get());
         }
-
         if (!operationSuccess) {
             newSkill = Optional.empty();
         }
-
         return newSkill;
-
     }
 }

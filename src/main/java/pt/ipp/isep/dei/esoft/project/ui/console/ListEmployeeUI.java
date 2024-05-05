@@ -7,26 +7,13 @@ import pt.ipp.isep.dei.esoft.project.repository.EmployeeRepository;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Scanner;
 
 /**
  * Create Skill UI (console). This option is only available for administrators for demonstration purposes.
  */
 public class ListEmployeeUI implements Runnable {
-    private EmployeeRepository employeeRepository;
-    private final CreateEmployeeController controller;
-    private String name;
-    private LocalDate dateOfBirth;
-    private LocalDate admissionDate;
-    private String address;
-    private int mobile;
-    private String email;
-    private String idDocType;
-    private int docTypeNumber;
-    private int taxPayerIdNumber;
-    private String role;
 
-    private Job job;
+    private final CreateEmployeeController controller;
 
     public ListEmployeeUI() {
         controller = new CreateEmployeeController();
@@ -58,5 +45,4 @@ public class ListEmployeeUI implements Runnable {
             counter++;
         }
     }
-
 }

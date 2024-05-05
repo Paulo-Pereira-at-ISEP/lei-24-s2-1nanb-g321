@@ -13,6 +13,7 @@ public class Bootstrap implements Runnable {
 
     //Add some task categories to the repository as bootstrap
     public void run() {
+        addEmployee();
         addOrganization();
         addUsers();
         addSkills();

@@ -38,7 +38,7 @@ public class CreateJobUI implements Runnable {
     }
 
     private void submitData() {
-        Job job = controller.createJob(jobName, jobDescription);
+        Job job = getController().createJob(jobName, jobDescription);
 
         if (job != null) {
             System.out.println("\nJob successfully created!");
