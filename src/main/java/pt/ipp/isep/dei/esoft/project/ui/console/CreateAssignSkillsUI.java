@@ -10,51 +10,52 @@ import java.util.Scanner;
 
 
 public class CreateAssignSkillsUI implements Runnable {
-        private Employee employee;
-        private final CreateSkillController skillController;
+    private Employee employee;
+    private final CreateSkillController skillController;
     private String skillName;
     private String skillDescription;
 
-        public CreateAssignSkillsUI() {
-            skillController = new CreateSkillController();
+    public CreateAssignSkillsUI() {
+        skillController = new CreateSkillController();
+    }
+
+    public void run() {
+        System.out.println("\n\n--- Assign a skill to a collaborator ------------------------");
+
+        requestData();
+
+        submitData();
+    }
+
+    private void submitData() {
+        Skill skill = skillController.createSkill(skillName, skillDescription);
+
+        if (employee != null) {
+            System.out.println("\nSkills successfully assigned!");
+        } else {
+            System.out.println("\nNo skills selected!");
         }
+    }
 
-        public void run() {
-            System.out.println("\n\n--- Assign a skill to a collaborator ------------------------");
-
-            requestData();
-
-            submitData();
-        }
-
-        private void submitData() {
-            Skill skill = skillController.createSkill(skillName, skillDescription);
-
-            if (employee != null) {
-                System.out.println("\nSkills successfully assigned!");
-            } else {
-                System.out.println("\nNo skills selected!");
-            }
-        }
-
-        private void requestData() {
+    private void requestData() {
         displayAndSelectEmployee();
         displayAndSelectSkill();
+    }
+
+    private void listSkills() {
+        List<Skill> skills = skillController.getAllSkills();
+
+        System.out.println("Registered Jobs:");
+        int counter = 1;
+        for (Skill skill : skills) {
+
+            System.out.println("[" + counter + "]   Title: " + skill.getName());
+            System.out.println("      Description: " + skill.getDescription());
+            System.out.println("-------------------------");
+            counter++;
         }
+    }
 
-        private void listSkills() {
-            List<Skill> skills = skillController.getAllSkills();
-
-            System.out.println("Registered Jobs:");
-            int counter = 1;
-            for (Skill skill : skills) {
-
-                System.out.println("[" + counter + "]   Title: " + skill.getName());
-                System.out.println("      Description: " + skill.getDescription());
-                System.out.println("-------------------------");
-                counter++;
-            }
-        }
     private Employee displayAndSelectEmployee() {
         //Display the list of task categories
         List<Employee> employees = skillController.getAllEmployees();

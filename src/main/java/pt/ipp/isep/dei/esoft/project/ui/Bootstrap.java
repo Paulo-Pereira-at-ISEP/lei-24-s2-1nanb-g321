@@ -8,18 +8,17 @@ import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.ArrayList;
 
 public class Bootstrap implements Runnable {
 
     //Add some task categories to the repository as bootstrap
     public void run() {
-        addEmployee();
         addOrganization();
         addUsers();
         addSkills();
         addJobs();
+        addEmployee();
     }
 
     private void addOrganization() {
@@ -64,10 +63,8 @@ public class Bootstrap implements Runnable {
     private void addEmployee() {
         EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
 
-        employeeRepository.add(new Employee("Alfredo da Fonte", LocalDate.of(2000,12,04),LocalDate.of(2008,10,02), "Rua da casa", 912345678, "coisa@sapo.pt", "CC", 12345678, 123456789, "Administrator", new Job("Gardener","Garden maintenance")));
+        employeeRepository.add(new Employee("Alfredo da Fonte", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "coisa@sapo.pt", "CC", 12345678, 123456789, "Administrator", new Job("Gardener", "Garden maintenance"), new ArrayList<>(){{add(new Skill("Light Vehicle Driver","Drives light vehicles"));add(new Skill("Tree Pruner","Tree pruning"));}} ));
     }
-
-
 
     private void addUsers() {
         //TODO: add Authentication users here: should be created for each user in the organization

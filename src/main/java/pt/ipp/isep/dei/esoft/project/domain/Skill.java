@@ -4,10 +4,19 @@ public class Skill {
     private String name;
     private String description;
 
-    //private Employee manager;
     public Skill(String name, String description) {
         this.name = name;
         this.description = description;
+    }
+
+    public Skill(String name) {
+        this.name = name;
+        this.description = "Default skill";
+    }
+
+    public Skill() {
+        this.name = "Default skill";
+        this.description = "Default skill";
     }
 
     public static boolean contains(Skill skill) {
@@ -18,7 +27,6 @@ public class Skill {
     public String getDescription() {return description;}
     public void setName(String name) {this.name = name;}
     public void setDescription(String description) {this.description = description;}
-
 
     @Override
     public String toString() {return name + " - " + description;}

@@ -1,16 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
-import pt.ipp.isep.dei.esoft.project.application.controller.CreateTaskController;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateVehicleController;
-import pt.ipp.isep.dei.esoft.project.domain.Task;
-import pt.ipp.isep.dei.esoft.project.domain.TaskCategory;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.Scanner;
 
-public class CreateVehicleUI {
+public class CreateVehicleUI implements Runnable{
 
 
     private final CreateVehicleController controller;

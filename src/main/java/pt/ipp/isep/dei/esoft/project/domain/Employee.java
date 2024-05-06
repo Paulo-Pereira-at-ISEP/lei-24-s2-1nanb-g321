@@ -16,9 +16,9 @@ public class Employee {
     private int taxPayerIdNumber;
     private String role;
     private Job job;
-    private List<Skill> skill;
+    private ArrayList<Skill> skill;
 
-public Employee(List<Skill> skill){
+public Employee(ArrayList<Skill> skill){
  this.skill = skill;
 }
     //constructor
@@ -36,23 +36,8 @@ public Employee(List<Skill> skill){
         this.job = new Job("Nenhum", "Sem descrição");
         this.skill = new ArrayList<>();
     }
-    public List<Skill> getSkill() {
-        return skill;
-    }
 
-    public void setSkill(List<Skill> skill) {
-        this.skill = skill;
-    }
-
-    public Job getJob() {
-        return job;
-    }
-
-    public void setJob(Job job) {
-        this.job = job;
-    }
-
-    public Employee (String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, String role, Job job, List<Skill> skill) {
+    public Employee (String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, String role, Job job, ArrayList<Skill> skill) {
         this.name = nome;
         this.dateOfBirth = dateOfBirth;
         this.admissionDate = admissionDate;
@@ -64,7 +49,7 @@ public Employee(List<Skill> skill){
         this.taxPayerIdNumber = taxPayerIdNumber;
         this.role = role;
         this.job = job;
-        this.skill = new ArrayList<>();
+        this.skill = skill;
     }
     public Employee (String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, String role, Job job) {
         this.name = nome;
@@ -88,21 +73,7 @@ public Employee(List<Skill> skill){
     }
 
 
-    public LocalDate getDateOfBirth() {
-        return dateOfBirth;
-    }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public LocalDate getAdmissionDate() {
-        return admissionDate;
-    }
-
-    public void setAdmissionDate(LocalDate admissionDate) {
-        this.admissionDate = admissionDate;
-    }
 
 
 
@@ -139,10 +110,8 @@ public Employee(List<Skill> skill){
     public String toString() {
         return "Collaborator: " + name + "\nBirth date: "+ dateOfBirth + "\nAdmission Date: " + admissionDate + "\nAddress: " + address + "\nMobile: "
                 + mobile + "\nE-mail: " + email + "\nDocument: " + idDocType + "\nID number: " + docTypeNumber + "\nTax payer ID: " + taxPayerIdNumber +
-                "\nJob: ";
-        //+ "\nSkill(s): " + skill;
+                "\nJob: "+ "\nSkill(s): " + skill;
     }
-
 
     public String getName() {
         return name;
@@ -150,6 +119,22 @@ public Employee(List<Skill> skill){
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public LocalDate getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(LocalDate dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public LocalDate getAdmissionDate() {
+        return admissionDate;
+    }
+
+    public void setAdmissionDate(LocalDate admissionDate) {
+        this.admissionDate = admissionDate;
     }
 
     public String getAddress() {
@@ -176,20 +161,20 @@ public Employee(List<Skill> skill){
         this.email = email;
     }
 
-    public int getDocTypeNumber() {
-        return docTypeNumber;
-    }
-
-    public void setDocTypeNumber(int docTypeNumber) {
-        this.docTypeNumber = docTypeNumber;
-    }
-
     public String getIdDocType() {
         return idDocType;
     }
 
     public void setIdDocType(String idDocType) {
         this.idDocType = idDocType;
+    }
+
+    public int getDocTypeNumber() {
+        return docTypeNumber;
+    }
+
+    public void setDocTypeNumber(int docTypeNumber) {
+        this.docTypeNumber = docTypeNumber;
     }
 
     public int getTaxPayerIdNumber() {
@@ -208,11 +193,26 @@ public Employee(List<Skill> skill){
         this.role = role;
     }
 
-    public boolean hasEmail(String email) {
-        return false;
+    public Job getJob() {
+        return job;
+    }
+
+    public void setJob(Job job) {
+        this.job = job;
+    }
+
+    public List<Skill> getSkill() {
+        return skill;
+    }
+
+    public void setSkill(ArrayList<Skill> skill) {
+        this.skill = skill;
     }
 
 
+    public boolean hasEmail(String email) {
+        return false;
+    }
 
 /**
  * Clone method.
