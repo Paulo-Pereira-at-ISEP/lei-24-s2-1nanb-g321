@@ -28,8 +28,6 @@ public class CreateAssignSkillsUI implements Runnable {
     }
 
     private void submitData() {
-        Skill skill = skillController.createSkill(skillName, skillDescription);
-
         if (employee != null) {
             System.out.println("\nSkills successfully assigned!");
         } else {
