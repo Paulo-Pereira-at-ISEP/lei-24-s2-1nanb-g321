@@ -193,6 +193,7 @@ public class CreateEmployeeUI implements Runnable {
     private ArrayList<Skill> displayAndSelectSkill() {
         //Display the list of task categories
         ArrayList<Skill> skills = controller.getAllSkills();
+        ArrayList<Skill> selectedSkills = new ArrayList<>();
 
         int listSize = skills.size();
         int answer = -1;
@@ -203,11 +204,11 @@ public class CreateEmployeeUI implements Runnable {
             displaySkillsOptions(skills);
             System.out.print("Select a Skill: ");
             answer = input.nextInt();
-            if (answer > 0) {
-                skills.add(skills.get(answer - 1));
+            if (answer > 0 && answer <= listSize) {
+                selectedSkills.add(skills.get(answer - 1));
             }
         } while (answer != 0);
-        return skills;
+        return selectedSkills;
     }
     private void displaySkillsOptions(List<Skill> skills) {
         //display the task categories as a menu with number options to select

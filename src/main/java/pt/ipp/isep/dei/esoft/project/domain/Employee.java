@@ -209,6 +209,9 @@ public Employee(ArrayList<Skill> skill){
         this.skill = skill;
     }
 
+    public void addSkill(ArrayList<Skill> skill){
+        this.skill.addAll(skill);
+    }
 
     public boolean hasEmail(String email) {
         return false;
