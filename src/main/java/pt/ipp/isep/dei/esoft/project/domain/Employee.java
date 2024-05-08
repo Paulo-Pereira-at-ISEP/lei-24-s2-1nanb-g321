@@ -1,10 +1,14 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Employee {
+    private static final String PASSWORD_DEFAULT="admin";
+
     private String name;
     private LocalDate dateOfBirth;
     private LocalDate admissionDate;
@@ -14,30 +18,18 @@ public class Employee {
     private String idDocType;
     private int docTypeNumber;
     private int taxPayerIdNumber;
-    private String role;
+
     private Job job;
     private ArrayList<Skill> skill;
+
+    private String role;
+    private String password;
 
 public Employee(ArrayList<Skill> skill){
  this.skill = skill;
 }
-    //constructor
-    public Employee (String nome,LocalDate dateOfBirth,LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, String role) {
-        this.name = nome;
-        this.dateOfBirth = dateOfBirth;
-        this.admissionDate = admissionDate;
-        this.address = morada;
-        this.mobile = telemovel;
-        this.email = email;
-        this.idDocType = idDocType;
-        this.docTypeNumber = docTypeNumber;
-        this.taxPayerIdNumber = taxPayerIdNumber;
-        this.role = role;
-        this.job = new Job("Nenhum", "Sem descrição");
-        this.skill = new ArrayList<>();
-    }
 
-    public Employee (String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, String role, Job job, ArrayList<Skill> skill) {
+    public Employee (String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, Job job, ArrayList<Skill> skill, String role, String password) {
         this.name = nome;
         this.dateOfBirth = dateOfBirth;
         this.admissionDate = admissionDate;
@@ -47,11 +39,13 @@ public Employee(ArrayList<Skill> skill){
         this.idDocType = idDocType;
         this.docTypeNumber = docTypeNumber;
         this.taxPayerIdNumber = taxPayerIdNumber;
-        this.role = role;
         this.job = job;
         this.skill = skill;
+        this.role = role;
+        this.password = password;
     }
-    public Employee (String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, String role, Job job) {
+
+    public Employee (String nome,LocalDate dateOfBirth,LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber) {
         this.name = nome;
         this.dateOfBirth = dateOfBirth;
         this.admissionDate = admissionDate;
@@ -61,9 +55,43 @@ public Employee(ArrayList<Skill> skill){
         this.idDocType = idDocType;
         this.docTypeNumber = docTypeNumber;
         this.taxPayerIdNumber = taxPayerIdNumber;
-        this.role = role;
-        this.job = job;
+        this.job = new Job("Nenhum", "Sem descrição");
+        this.skill = new ArrayList<>();
+        this.role = AuthenticationController.ROLE_Collaborator;
+        this.password = PASSWORD_DEFAULT;
     }
+
+    public Employee (String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, Job job, ArrayList<Skill> skill) {
+        this.name = nome;
+        this.dateOfBirth = dateOfBirth;
+        this.admissionDate = admissionDate;
+        this.address = morada;
+        this.mobile = telemovel;
+        this.email = email;
+        this.idDocType = idDocType;
+        this.docTypeNumber = docTypeNumber;
+        this.taxPayerIdNumber = taxPayerIdNumber;
+        this.job = job;
+        this.skill = skill;
+        this.role = AuthenticationController.ROLE_Collaborator;
+        this.password = PASSWORD_DEFAULT;
+    }
+
+    public Employee (String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, Job job) {
+        this.name = nome;
+        this.dateOfBirth = dateOfBirth;
+        this.admissionDate = admissionDate;
+        this.address = morada;
+        this.mobile = telemovel;
+        this.email = email;
+        this.idDocType = idDocType;
+        this.docTypeNumber = docTypeNumber;
+        this.taxPayerIdNumber = taxPayerIdNumber;
+        this.job = job;
+        this.role = AuthenticationController.ROLE_Collaborator;
+        this.password = PASSWORD_DEFAULT;
+    }
+
     public Employee (String email){
         this.email = email;
     }
@@ -71,11 +99,6 @@ public Employee(ArrayList<Skill> skill){
     public static boolean contains(Employee employee) {
         return employee != null && employee.getEmail() != null && employee.getDateOfBirth() != null;
     }
-
-
-
-
-
 
     public void getEmployee(String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, String role){
         this.name = nome;
@@ -110,7 +133,7 @@ public Employee(ArrayList<Skill> skill){
     public String toString() {
         return "Collaborator: " + name + "\nBirth date: "+ dateOfBirth + "\nAdmission Date: " + admissionDate + "\nAddress: " + address + "\nMobile: "
                 + mobile + "\nE-mail: " + email + "\nDocument: " + idDocType + "\nID number: " + docTypeNumber + "\nTax payer ID: " + taxPayerIdNumber +
-                "\nJob: "+ "\nSkill(s): " + skill;
+                "\nJob: "+ job + "\nSkill(s): " + skill;
     }
 
     public String getName() {
@@ -185,14 +208,6 @@ public Employee(ArrayList<Skill> skill){
         this.taxPayerIdNumber = taxPayerIdNumber;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public Job getJob() {
         return job;
     }
@@ -213,6 +228,22 @@ public Employee(ArrayList<Skill> skill){
         this.skill.addAll(skill);
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getPassword() { return password; }
+
+    public void setPassword(String password) { this.password = password; }
+
+    public static String setPasswordDefault(){
+        return PASSWORD_DEFAULT;
+    }
+
     public boolean hasEmail(String email) {
         return false;
     }
@@ -223,6 +254,6 @@ public Employee(ArrayList<Skill> skill){
  * @return A clone of the current instance.
  */
     public Employee clone() {
-    return new Employee(this.name, this.dateOfBirth, this.admissionDate, this.address, this.mobile, this.email, this.idDocType, this.docTypeNumber, this.taxPayerIdNumber, this.role, this.job, this.skill);
+    return new Employee(this.name, this.dateOfBirth, this.admissionDate, this.address, this.mobile, this.email, this.idDocType, this.docTypeNumber, this.taxPayerIdNumber, this.job, this.skill, this.role, this.password);
     }
 }

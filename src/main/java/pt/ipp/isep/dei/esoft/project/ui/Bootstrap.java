@@ -9,16 +9,19 @@ import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Bootstrap implements Runnable {
+
+    List<Employee> m_Employees;
 
     //Add some task categories to the repository as bootstrap
     public void run() {
         addOrganization();
-        addUsers();
         addSkills();
         addJobs();
         addEmployee();
+        addUsers();
     }
 
     private void addOrganization() {
@@ -26,7 +29,7 @@ public class Bootstrap implements Runnable {
         //get organization repository
         OrganizationRepository organizationRepository = Repositories.getInstance().getOrganizationRepository();
         Organization organization = new Organization("Musgo Sublime"); //nome da empresa
-
+/*
         //---------------Eliminar posteriormente------------------------
         organization.addEmployee(new Employee("admin@this.app"));
         organization.addEmployee(new Employee("employee@this.app"));
@@ -38,6 +41,8 @@ public class Bootstrap implements Runnable {
         organization.addEmployee(new Employee("GSM@this.app"));
         organization.addEmployee(new Employee("colab@this.app"));
 
+
+ */
         organizationRepository.add(organization);
     }
 
@@ -63,12 +68,20 @@ public class Bootstrap implements Runnable {
     private void addEmployee() {
         EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
 
-        employeeRepository.add(new Employee("Alfredo da Fonte", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "coisa@sapo.pt", "CC", 12345678, 123456789, "Administrator", new Job("Gardener", "Garden maintenance"), new ArrayList<>(){{add(new Skill("Light Vehicle Driver","Drives light vehicles"));add(new Skill("Tree Pruner","Tree pruning"));}} ));
+        employeeRepository.add(new Employee("HRM", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "HRM@this.app", "CC", 12345678, 123456789, new Job("Manager HR", "Human Resources"),new ArrayList<>(){{add(new Skill("Manager","Manages"));}}, AuthenticationController.ROLE_HRM, Employee.setPasswordDefault()));
+        employeeRepository.add(new Employee("VFM", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "VFM@this.app", "CC", 12345678, 123456789, new Job("Manager VF", "Vehicle Fleet"),new ArrayList<>(){{add(new Skill("Manager","Manages"));}}, AuthenticationController.ROLE_VFM, Employee.setPasswordDefault()));
+        employeeRepository.add(new Employee("GSM", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "GSM@this.app", "CC", 12345678, 123456789, new Job("Manager GS", "Green Spaces"),new ArrayList<>(){{add(new Skill("Manager","Manages"));}}, AuthenticationController.ROLE_GSM, Employee.setPasswordDefault()));
+        employeeRepository.add(new Employee("QAM", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "QAM@this.app", "CC", 12345678, 123456789, new Job("Manager QA", "Software Quality Assessment Team"),new ArrayList<>(){{add(new Skill("Manager","Manages"));}}, AuthenticationController.ROLE_QAM, Employee.setPasswordDefault()));
+
+        employeeRepository.add(new Employee("Alfredo", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "alfredo@this.app", "CC", 12345678, 123456789, new Job("Gardener", "Garden maintenance"), new ArrayList<>(){{add(new Skill("Light Vehicle Driver","Drives light vehicles"));}} ));
+
+        m_Employees = employeeRepository.getAllEmployees();
     }
 
     private void addUsers() {
         //TODO: add Authentication users here: should be created for each user in the organization
         AuthenticationRepository authenticationRepository = Repositories.getInstance().getAuthenticationRepository();
+
         //---------------Eliminar posteriormente------------------------
         authenticationRepository.addUserRole(AuthenticationController.ROLE_ADMIN, AuthenticationController.ROLE_ADMIN);
         authenticationRepository.addUserRole(AuthenticationController.ROLE_EMPLOYEE, AuthenticationController.ROLE_EMPLOYEE);
@@ -79,7 +92,7 @@ public class Bootstrap implements Runnable {
         authenticationRepository.addUserRole(AuthenticationController.ROLE_QAM, AuthenticationController.ROLE_QAM);
         authenticationRepository.addUserRole(AuthenticationController.ROLE_GSM, AuthenticationController.ROLE_GSM);
         authenticationRepository.addUserRole(AuthenticationController.ROLE_Collaborator, AuthenticationController.ROLE_Collaborator);
-
+/*
         //---------------Eliminar posteriormente------------------------
         authenticationRepository.addUserWithRole("Main Administrator", "admin@this.app", "admin",
                 AuthenticationController.ROLE_ADMIN);
@@ -97,5 +110,28 @@ public class Bootstrap implements Runnable {
                 AuthenticationController.ROLE_GSM);
         authenticationRepository.addUserWithRole("Collaborator", "colab@this.app", "admin",
                 AuthenticationController.ROLE_Collaborator);
+ */
+        for (Employee employee : m_Employees) {
+            if (employee.getRole().equals(AuthenticationController.ROLE_HRM)) {
+                authenticationRepository.addUserWithRole(employee.getName(),employee.getEmail(), employee.getPassword(),
+                        AuthenticationController.ROLE_HRM);
+            }
+            else if (employee.getRole().equals(AuthenticationController.ROLE_VFM)) {
+                authenticationRepository.addUserWithRole(employee.getName(),employee.getEmail(), employee.getPassword(),
+                        AuthenticationController.ROLE_VFM);
+            }
+            else if (employee.getRole().equals(AuthenticationController.ROLE_QAM)) {
+                authenticationRepository.addUserWithRole(employee.getName(),employee.getEmail(), employee.getPassword(),
+                        AuthenticationController.ROLE_QAM);
+            }
+            else if (employee.getRole().equals(AuthenticationController.ROLE_GSM)) {
+                authenticationRepository.addUserWithRole(employee.getName(),employee.getEmail(), employee.getPassword(),
+                        AuthenticationController.ROLE_GSM);
+            }
+            else {
+                authenticationRepository.addUserWithRole(employee.getName(),employee.getEmail(), employee.getPassword(),
+                        AuthenticationController.ROLE_Collaborator);
+            }
+        }
     }
 }

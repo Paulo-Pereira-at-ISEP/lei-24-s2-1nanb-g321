@@ -96,9 +96,9 @@ public class CreateEmployeeController {
     }
 
     public Employee createEmployee(String name, LocalDate birthdate, LocalDate admissionDate, String adress,
-                                   int mobile, String email, String docType, int docNumber, int taxPayerId, String role, Job job, ArrayList<Skill> skill) {
+                                   int mobile, String email, String docType, int docNumber, int taxPayerId, Job job, ArrayList<Skill> skill) {
 
-        Employee employee = new Employee(name, birthdate, admissionDate, adress, mobile, email, docType, docNumber, taxPayerId, role, job, skill);
+        Employee employee = new Employee(name, birthdate, admissionDate, adress, mobile, email, docType, docNumber, taxPayerId, job, skill);
 
         employeeRepository.add(employee);
 

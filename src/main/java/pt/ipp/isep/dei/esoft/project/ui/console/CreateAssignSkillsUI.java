@@ -75,7 +75,7 @@ public class CreateAssignSkillsUI implements Runnable {
         //display the task categories as a menu with number options to select
         int i = 1;
         for (Employee employee : employees) {
-            System.out.println("  " + i + " - " + employee.getName());
+            System.out.println("  " + i + " - " + employee.getName() + " - " + employee.getEmail());
             i++;
         }
     }
@@ -91,6 +91,7 @@ public class CreateAssignSkillsUI implements Runnable {
 
         do {
             displaySkillsOptions(skills);
+            System.out.println("  0 - Exit");
             System.out.print("Select a Skill: ");
             answer = input.nextInt();
             if (answer > 0 && answer <= listSize) {

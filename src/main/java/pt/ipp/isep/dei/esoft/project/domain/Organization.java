@@ -14,13 +14,13 @@ public class Organization {
     private String phone;
     private String email;
 
-
     /**
      * This method is the constructor of the organization.
      *
      * @param vatNumber The vat number of the organization. This is the identity of the organization, therefore it
      *                  cannot be changed.
      */
+
     public Organization(String vatNumber) {
         this.vatNumber = vatNumber;
         employees = new ArrayList<>();
