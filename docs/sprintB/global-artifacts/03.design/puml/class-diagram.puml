@@ -72,11 +72,48 @@ class CreateJobUI {
     +submitData()
 }
 
+class CreateEmployeeUI {
+    +run()
+    +requestData()
+    +displayAndSelectJob()
+    +submitData()
+}
+
+class CreateAssignSkillsUI {
+    +run()
+    +requestData()
+    +displayAndSelectEmployee()
+    +displayAndSelectSkill()
+    +submitData()
+}
+
+class GenerateTeamUI {
+    +run()
+    +requestData()
+    +displayAndSelectSkills()
+    +requestTeamSize()
+    +submitData()
+}
+
+
 class CreateVehicleUI {
     +run()
     +requestData(skillName, skillDescription)
     +submitData()
 }
+
+class RegisterVehicleMaintenanceUI {
+    +run()
+    +requestData()
+    +submitData()
+}
+
+class VehiclesNeedingMaintenanceUI {
+    +run()
+    +listVehiclesNeedingMaintenance(vehicles, vehicleMaintenances)
+}
+
+
 
 
 '------------------         CONTROLLERS             ----------------------
@@ -86,6 +123,9 @@ class CreateSkillController {
     + CreateSkillController(skillRepository)
     + validateSkillData(skillName, skillDescription)
     + addSkillToRepo(newSkill)
+    + getAllSkills()
+    + getAllEmployees()
+    + addSkillToEmployee(skill, employee)
 
 }
 
@@ -95,11 +135,37 @@ class CreateJobController {
     + createJob(jobName, jobDescription)
 }
 
+class CreateEmployeeController {
+    +getAllJobs()
+    +getAllSkills()
+    +createEmployee(name, birthdate, admissionDate,\n adress, mobile, email, docType, docNumber,\n taxPayerId, job, skill)
+    +getAllEmployees()
+}
+
+class GenerateTeamController {
+    +getAllSkills()
+    +getAllEmployees()
+    +generateTeam(teamMaxSize, teamMinSize, skills)
+    +createTeam(team)
+}
+
 
 class CreateVehicleController {
     -getEmployeeFromSession()
     + CreateVehicleController(vehicleRepository)
     + createVehicle(brand, model, type, tareWeight, grossWeight,\n currentKm, registerDate,acquisitionDate, maintenanceFrequencyInKm,\n plateNumber, numOfPassengers, numOfDoors, fuelType,\n trailerMachinesAble)
+}
+
+
+class RegisterVehicleMaintenanceController {
+    +getAllVehicles()
+    +registerVehicleMaintenance(vehicle, date, km)
+}
+
+class VehiclesNeedingMaintenanceController {
+    +getAllVehicles()
+    +getAllVehicleMaintenances()
+    +listVehiclesNeedingMaintenance(vehicleMaintenances)
 }
 
 
@@ -119,10 +185,28 @@ class JobRepository{
 }
 
 
+class EmployeeRepository{
+    + add(employee)
+    + getAllEmployees()
+    + validateEmployee(employee)
+    + getEmployees()
+}
+
+class TeamRepository{
+    + add(team)
+    + getTeams()
+}
+
 class VehicleRepository{
     + createVehicle(brand, model, type, tareWeight, grossWeight,\n currentKm, registerDate,acquisitionDate, maintenanceFrequencyInKm,\n plateNumber, numOfPassengers, numOfDoors, fuelType,\n trailerMachinesAble)
     + validateVehicle(newVehicle)
     + addVehicle(newVehicle)
+}
+
+
+class VehicleMaintenanceRepository{
+    +add(vehicleMaintenance)
+    +validateVehicleMaintenance(vehicleMaintenance)
 }
 
 
@@ -163,6 +247,13 @@ class Employee{
     +Employee (String nome,LocalDate dateOfBirth,\nLocalDate admissionDate, String morada, int telemovel,\nString email, String idDocType, int docTypeNumber,\nint taxPayerIdNumber, String role, Job job)
 }
 
+class Team{
+    -teamMaxSize:int
+    -teamMinSize:int
+    -listOfSkills:List<Skill>
+    -employees:List<Employee>
+    +generateTeam(teamMaxSize, teamMinSize,\n listOfSkills, employees)
+}
 
 class Vehicle{
     -brand:String
@@ -184,72 +275,104 @@ class Vehicle{
     + Vehicle(brand, model, type, tareWeight, grossWeight,\n currentKm, registerDate,acquisitionDate, maintenanceFrequencyInKm,\n plateNumber, numOfPassengers, numOfDoors, fuelType,\n trailerMachinesAble, creator)
 }
 
+class VehicleMaintenance{
+    - date:Date
+    - kmsOfVehicle:int
+    - vehicle:Vehicle
+}
 
 
 
+'Relationships
+
+AuthenticationRepository "1" --> "1" AuthFacade : getCurrentUserSession
 
 
 
+MainMenuUI "1" ..> "1" AuthenticationUI: create
 
 
 
+AuthenticationUI "1" ..> "1" HRMUI : create
+AuthenticationUI "1" ..> "1" VFMUI : create
 
 
 
+HRMUI "1" ..> "1" CreateSkillUI : create
+HRMUI "1" ..> "1" CreateJobUI : create
+HRMUI "1" ..> "1" CreateEmployeeUI : create
+HRMUI "1" ..> "1" CreateAssignSkillsUI : create
+HRMUI "1" ..> "1" GenerateTeamUI : create
 
 
-AuthenticationRepository --> AuthFacade : getCurrentUserSession
+
+VFMUI "1" ..> "1" CreateVehicleUI : create
+VFMUI "1" ..> "1" RegisterVehicleMaintenanceUI : create
 
 
-MainMenuUI ..> AuthenticationUI: creates
+
+CreateSkillController "1" --> "1" AuthenticationRepository : getCurretUserSession
+CreateJobController "1" --> "1" AuthenticationRepository : getCurretUserSession
+CreateVehicleController "1" --> "1" AuthenticationRepository : getCurrentUserSession
 
 
-AuthenticationUI ..> HRMUI : creates
-AuthenticationUI ..> VFMUI : creates
 
-
-HRMUI ..> CreateSkillUI : creates
-HRMUI ..> CreateJobUI : creates
-
-
-VFMUI ..> CreateVehicleUI : creates
-
-
-CreateSkillController --> AuthenticationRepository : getCurretUserSession
-CreateJobController --> AuthenticationRepository : getCurretUserSession
-CreateVehicleController --> AuthenticationRepository : getCurrentUserSession
-
-
-CreateJobController "1" --> "1" Repositories : getInstance
 CreateSkillController "1" --> "1" Repositories : getInstance
+CreateJobController "1" --> "1" Repositories : getInstance
+CreateEmployeeController "1" --> "1" Repositories : getInstance
+GenerateTeamController "1" --> "1" Repositories : getInstance
 CreateVehicleController "1" --> "1" Repositories : getInstance
+RegisterVehicleMaintenanceController "1" --> "1" Repositories : getInstance
 
 
-CreateJobUI ..> CreateJobController
-CreateSkillUI ..> CreateSkillController
-CreateVehicleUI ..> CreateVehicleController
+
+CreateSkillUI "1" ..> "1" CreateSkillController : create
+CreateJobUI "1" ..> "1" CreateJobController : create
+CreateEmployeeUI "1" ..> "1" CreateEmployeeController : create
+CreateAssignSkillsUI "1" ..> "1" CreateSkillController : create
+GenerateTeamUI "1" ..> "1" GenerateTeamController : create
+CreateVehicleUI "1" ..> "1" CreateVehicleController : create
+RegisterVehicleMaintenanceUI "1" ..> "1" RegisterVehicleMaintenanceController : create
+
 
 
 Repositories "1" ..> "1" SkillRepository : create
 Repositories "1" ..> "1" JobRepository : create
+Repositories "1" ..> "1" EmployeeRepository : create
+Repositories "1" ..> "1" TeamRepository : create
 Repositories "1" ..> "1" VehicleRepository : create
+Repositories "1" ..> "1" VehicleMaintenanceRepository : create
 
 
 
-CreateSkillController --> SkillRepository : createSkill
-CreateJobController --> JobRepository : createJob
-CreateVehicleController --> VehicleRepository : createVehicle
+CreateSkillController "1" --> "1" SkillRepository : createSkill
+CreateJobController "1" --> "1" JobRepository : createJob
+CreateEmployeeController "1" --> "1" EmployeeRepository : createEmployee
+GenerateTeamController "1" --> "1" TeamRepository : addTeam
+CreateVehicleController "1" --> "1" VehicleRepository : createVehicle
+RegisterVehicleMaintenanceController "1" --> "1" VehicleMaintenanceRepository : registerVehicleMaintenance
 
 
-SkillRepository ..> Skill : createSkill
-JobRepository ..> Job : createJob
-VehicleRepository ..> Vehicle : createVehicle
+
+SkillRepository "1" ..> "0..*" Skill : createSkill
+JobRepository "1" ..> "1..*" Job : createJob
+EmployeeRepository "1" ..> "0..*" Employee : createEmployee
+VehicleRepository "1" ..> "0..*" Vehicle : createVehicle
+VehicleMaintenanceRepository "1" ..> "0..*" VehicleMaintenance : createMaintenance
+
 
 
 Employee "1" --> "1" Job : has a
 Employee "1" --> "0..*" Skill : has a set of
 
 
+
+'from the US03
+CreateEmployeeController "1" --> "1" SkillRepository : getAllSkils
+CreateEmployeeController "1" --> "1" JobRepository : getAllJobs
+
+'from the US05
+GenerateTeamController --> Team : generateTeam
 
 
 @enduml
