@@ -1,27 +1,34 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.repository.EmployeeRepository;
 import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 
-public class Team {
-    private String teamMembers;
-    private int teamSize;
-    public SkillRepository listOfSkills;
+import java.util.*;
 
-    public Team(String teamMembers, int teamSize, SkillRepository listOfSkills) {
-        this.teamMembers = teamMembers;
-        this.teamSize = teamSize;
+public class Team {
+    private int teamMaxSize;
+    private int teamMinSize;
+    private ArrayList<Skill> listOfSkills;
+    private List<EmployeeRepository> employeeRepository;
+
+
+    public Team(int teamMinSize, int teamMaxSize, ArrayList<Skill> listOfSkills) {
+        this.teamMaxSize = teamMaxSize;
+        this.teamMinSize = teamMinSize;
         this.listOfSkills = listOfSkills;
     }
 
-    public String toString(){
-        return "Team Members: " + teamMembers + "\nTeam Size: " + teamSize + "\nSkills: " + listOfSkills;
+    public String toString() {
+        return "Team Members: " + "\nTeam Size: " + "\nSkills: " + listOfSkills;
     }
 
-    public int getTeamSize() {
-        return teamSize;
+    /**
+     * Clone method.
+     *
+     * @return A clone of the current instance.
+     */
+    public Team clone() {
+        return new Team(this.teamMinSize, this.teamMaxSize, this.listOfSkills);
     }
 
-    public void setTeamSize(int teamSize) {
-        this.teamSize = teamSize;
-    }
 }

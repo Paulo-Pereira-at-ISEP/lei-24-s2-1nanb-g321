@@ -69,8 +69,8 @@ public class CreateAssignSkillsUI implements Runnable {
             answer = input.nextInt();
             return employees.get(answer - 1);
         } while(answer < 0 || answer > listSize);
-
     }
+
     private void displayEmployeesOptions(List<Employee> employees) {
         //display the task categories as a menu with number options to select
         int i = 1;
@@ -79,6 +79,7 @@ public class CreateAssignSkillsUI implements Runnable {
             i++;
         }
     }
+
     private ArrayList<Skill> displayAndSelectSkill() {
         //Display the list of task categories
         List<Skill> skills = skillController.getAllSkills();

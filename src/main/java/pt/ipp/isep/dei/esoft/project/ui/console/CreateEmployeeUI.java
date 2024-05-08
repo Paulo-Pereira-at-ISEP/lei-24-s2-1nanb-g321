@@ -177,6 +177,7 @@ public class CreateEmployeeUI implements Runnable {
             i++;
         }
     }
+
     private ArrayList<Skill> displayAndSelectSkill() {
         //Display the list of task categories
         ArrayList<Skill> skills = controller.getAllSkills();

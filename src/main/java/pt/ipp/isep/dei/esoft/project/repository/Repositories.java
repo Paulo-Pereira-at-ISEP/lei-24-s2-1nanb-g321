@@ -8,7 +8,7 @@ public class Repositories {
     private final AuthenticationRepository authenticationRepository;
     private final SkillRepository skillRepository;
     private final JobRepository jobRepository;
-
+    private final TeamRepository teamRepository;
     private final EmployeeRepository employeeRepository;
 
     private Repositories() {
@@ -18,6 +18,7 @@ public class Repositories {
         skillRepository = new SkillRepository();
         jobRepository = new JobRepository();
         employeeRepository = new EmployeeRepository();
+        teamRepository = new TeamRepository();
     }
 
     public static Repositories getInstance() {
@@ -51,5 +52,9 @@ public class Repositories {
 
     public EmployeeRepository getEmployeeRepository() {
         return employeeRepository;
+    }
+
+    public TeamRepository getTeamRepository() {
+        return teamRepository;
     }
 }

@@ -256,4 +256,5 @@ public Employee(ArrayList<Skill> skill){
     public Employee clone() {
     return new Employee(this.name, this.dateOfBirth, this.admissionDate, this.address, this.mobile, this.email, this.idDocType, this.docTypeNumber, this.taxPayerIdNumber, this.job, this.skill, this.role, this.password);
     }
+
 }

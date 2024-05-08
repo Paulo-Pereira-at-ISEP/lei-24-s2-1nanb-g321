@@ -1,5 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.repository.EmployeeRepository;
+
+import java.util.Comparator;
+
 public class Skill {
     private String name;
     private String description;
@@ -39,4 +43,5 @@ public class Skill {
     public Skill clone() {
         return new Skill(this.name, this.description);
     }
+
 }

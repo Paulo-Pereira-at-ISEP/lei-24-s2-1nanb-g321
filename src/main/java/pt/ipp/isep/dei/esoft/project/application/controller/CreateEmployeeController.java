@@ -91,6 +91,7 @@ public class CreateEmployeeController {
     public List<Job> getAllJobs(){
         return jobRepository.getAllJobs();
     }
+
     public ArrayList<Skill> getAllSkills() {
         return skillRepository.getAllSkills();
     }
