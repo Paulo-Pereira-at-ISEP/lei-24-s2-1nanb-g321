@@ -85,7 +85,10 @@ public class GenerateTeamController {
 
         Team team = new Team(teamMaxSize, teamMinSize, skills);
 
+        //team.generateTeam()
+
         teamRepository.add(team);
+
 
         return team;
     }
