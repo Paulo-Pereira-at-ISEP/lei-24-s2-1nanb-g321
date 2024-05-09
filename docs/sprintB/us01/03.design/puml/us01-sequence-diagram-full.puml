@@ -68,11 +68,7 @@ activate HRM
 
             UI -> UI : validateSkillData(skillName, skillDescription)
 
-            note right
-            - This kind of validation consists only in
-            ensuring that the correct data type (characters only)
-            is inserted.
-            end note
+
 
             deactivate CTRL
 
@@ -89,12 +85,7 @@ activate HRM
             activate CTRL
 
                 CTRL -> CTRL : getEmployeeFromSession()
-                note right
-                    - This method will get the current logged-in HRM.
-                    - The returned object (of type Employee) will be
-                    argument of the next method as the creator.
-                    - Explained in more detail in a partial diagram.
-                end note
+
 
                 |||
 
@@ -112,10 +103,6 @@ activate HRM
 
                     SKILL_REPO_INSTANCE -> SKILL_REPO_INSTANCE : validateSkill(newSkill)
 
-                    note right
-                    - Explained in more detail
-                    in a partial diagram.
-                    end note
 
                     SKILL_REPO_INSTANCE --> CTRL : newSkill
 

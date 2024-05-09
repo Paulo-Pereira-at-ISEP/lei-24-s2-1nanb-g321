@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
+import jdk.jshell.execution.Util;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateEmployeeController;
 import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
@@ -115,15 +116,24 @@ public class CreateEmployeeUI implements Runnable {
     private int requestEmployeeMobile() {
         Scanner input = new Scanner(System.in);
         int ler;
-        System.out.print("Mobile: ");
-        ler= input.nextInt();
-        return ler;
+
+            System.out.print("Mobile: ");
+
+                return input.nextInt();
+
     }
 
     private String requestEmployeeEmail() {
         Scanner input = new Scanner(System.in);
         System.out.print("E-mail: ");
-        return input.nextLine();
+        String ler = input.nextLine();
+        if(!Utils.isValidEmail(ler)) {
+            System.out.println("E-mail is invalid.");
+            System.out.print("E-mail: ");
+                ler = input.nextLine();
+
+        }
+        return ler;
     }
 
     private String requestEmployeeIdentificationDocumentType() {
@@ -148,8 +158,14 @@ public class CreateEmployeeUI implements Runnable {
     private int requestEmployeeTaxPayerNumber() {
         Scanner input = new Scanner(System.in);
         System.out.print("Tax Payer Number: ");
-        return input.nextInt();
+        int ler = input.nextInt();
+        while (Utils.hasNineDigits(input.nextLine())){
+            System.out.println("Tax Payer Number must have 9 digits.");
+            ler = input.nextInt();
+        }
+        return ler;
     }
+
 
     private Job displayAndSelectJob() {
         //Display the list of task categories
@@ -203,7 +219,7 @@ public class CreateEmployeeUI implements Runnable {
         //display the task categories as a menu with number options to select
         int i = 1;
         for (Skill skill : skills) {
-            System.out.println("  " + i + " - " + skill.getDescription());
+            System.out.println("  " + i + " - " + skill.getName());
             i++;
         }
     }

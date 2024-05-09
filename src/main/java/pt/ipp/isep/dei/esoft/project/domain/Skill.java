@@ -44,4 +44,14 @@ public class Skill {
         return new Skill(this.name, this.description);
     }
 
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (!(o instanceof Skill)) {
+            return false;
+        }
+        Skill skill = (Skill) o;
+        return name.equals(skill.name);
+    }
 }

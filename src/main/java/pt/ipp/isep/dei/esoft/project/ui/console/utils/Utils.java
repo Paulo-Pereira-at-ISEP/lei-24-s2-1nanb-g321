@@ -133,11 +133,47 @@ public class Utils {
 
         return value - 1;
     }
+    public static boolean hasNineDigits(String input) {
+        if (input == null || input.isEmpty()) {
+            return false; // Handle empty input
+        }
+        return input.length() == 9 && input.matches("[0-9]+"); // Check only digits
+    }
 
     public static boolean isValidInput(String name) {
         // Allow only letters and spaces
         String regex = "^[a-zA-Z\\s]+$";
         // Check if the input matches the regular expression
         return name.matches(regex);
+    }
+    public static boolean hasAtSymbol(String input) {
+        if (input == null || input.isEmpty()) {
+            return false; // Empty or null string doesn't contain "@"
+        }
+        return input.indexOf('@') != -1;
+    }
+    public static boolean isValidEmail(String email) {
+        if (email == null || email.isEmpty()) {
+            return false; // Empty or null string is not a valid email
+        }
+
+        // Check for presence of "@" and "."
+        int atIndex = email.indexOf('@');
+        if (atIndex < 0 || atIndex == 0 || atIndex == email.length() - 1) {
+            return false; // "@" must be between characters, not at start/end
+        }
+        int dotIndex = email.lastIndexOf('.');
+        if (dotIndex < atIndex || dotIndex == email.length() - 1) {
+            return false; // "." must be after "@" and not at the end
+        }
+
+        // Basic check for username and domain length (adjust as needed)
+        if (email.length() - atIndex - 1 < 2 || email.length() - dotIndex - 1 < 2) {
+            return false; // Username and domain should each have at least 2 characters
+        }
+
+        // You can add further checks here for complex validation (e.g., regex)
+
+        return true; // Passed basic checks, potentially valid
     }
 }

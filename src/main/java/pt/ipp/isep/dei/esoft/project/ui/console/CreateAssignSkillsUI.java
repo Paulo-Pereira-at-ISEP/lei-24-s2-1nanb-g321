@@ -37,7 +37,7 @@ public class CreateAssignSkillsUI implements Runnable {
 
     private void requestData() {
         employee = displayAndSelectEmployee();
-        employee.addSkill(displayAndSelectSkill());
+        employee.addSkill(displayAndSelectSkill(employee));
     }
 
     private void listSkills() {
@@ -80,15 +80,19 @@ public class CreateAssignSkillsUI implements Runnable {
         }
     }
 
-    private ArrayList<Skill> displayAndSelectSkill() {
+    private ArrayList<Skill> displayAndSelectSkill(Employee employee) {
         //Display the list of task categories
         List<Skill> skills = skillController.getAllSkills();
         ArrayList<Skill> selectedSkills = new ArrayList<>();
-
+        List<Skill> skillsAvailable = employee.getSkill();
         int listSize = skills.size();
         int answer = -1;
 
         Scanner input = new Scanner(System.in);
+
+        for (Skill skill : skillsAvailable) {
+            skills.remove(skill);
+        }
 
         do {
             displaySkillsOptions(skills);
@@ -106,7 +110,7 @@ public class CreateAssignSkillsUI implements Runnable {
         //display the task categories as a menu with number options to select
         int i = 1;
         for (Skill skill : skills) {
-            System.out.println("  " + i + " - " + skill.getDescription());
+            System.out.println("  " + i + " - " + skill.getName());
             i++;
         }
     }
