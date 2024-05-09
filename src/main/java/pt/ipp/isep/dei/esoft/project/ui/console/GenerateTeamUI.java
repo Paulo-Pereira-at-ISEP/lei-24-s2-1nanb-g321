@@ -46,7 +46,9 @@ public class GenerateTeamUI implements Runnable {
 
         //Request the Team Size from the console
         teamMaxSize = requestTeamSize("Max");
-        teamMinSize = requestTeamSize("Min");
+        do {
+            teamMinSize = requestTeamSize("Min");
+        } while (teamMinSize > teamMaxSize);
         skills = displayAndSelectSkill();
     }
 
@@ -68,6 +70,7 @@ public class GenerateTeamUI implements Runnable {
 
         do {
             displaySkillsOptions(skills);
+            System.out.println("  0 - Exit");
             System.out.print("Select a Skill: ");
             answer = input.nextInt();
             if (answer > 0 && answer <= listSize) {

@@ -206,6 +206,7 @@ public class CreateEmployeeUI implements Runnable {
 
         do {
             displaySkillsOptions(skills);
+            System.out.println("  0 - Exit");
             System.out.print("Select a Skill: ");
             answer = input.nextInt();
             if (answer > 0 && answer <= listSize) {
