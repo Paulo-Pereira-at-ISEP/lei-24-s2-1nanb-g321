@@ -51,6 +51,9 @@ public class RegisterVehicleMaintenanceController {
     }
 
     public VehicleMaintenance registerVehicleMaintenance(Vehicle vehicle, Date date, int km){
+
+        //VehicleMaintenance vehicleMaintenance=new VehicleMaintenance();
+        //vehicleRepository.add(vehicleMaintenance);
         return null;
     }
 

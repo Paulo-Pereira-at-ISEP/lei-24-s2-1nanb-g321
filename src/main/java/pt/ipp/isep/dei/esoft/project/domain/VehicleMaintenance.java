@@ -39,6 +39,11 @@ public class VehicleMaintenance {
         this.vehicle = vehicle;
     }
 
+    public boolean needsMaintenance (){
+        //fazer a operação necessária para verificar se necessita de manutenção
+        return false;
+    }
+
     public VehicleMaintenance clone(){
         return new VehicleMaintenance(this.date, this.kmsOfVehicle, this.vehicle);
     }
