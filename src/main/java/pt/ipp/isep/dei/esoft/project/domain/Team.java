@@ -11,8 +11,7 @@ public class Team {
     private ArrayList<Skill> listOfSkills;
     private List<EmployeeRepository> employeeRepository;
 
-
-    public Team(int teamMinSize, int teamMaxSize, ArrayList<Skill> listOfSkills) {
+    public Team(int teamMinSize, int teamMaxSize, ArrayList<Skill> skills) {
         this.teamMaxSize = teamMaxSize;
         this.teamMinSize = teamMinSize;
         this.listOfSkills = listOfSkills;
