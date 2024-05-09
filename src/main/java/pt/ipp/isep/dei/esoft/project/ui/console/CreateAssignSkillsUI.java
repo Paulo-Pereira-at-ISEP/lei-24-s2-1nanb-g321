@@ -81,18 +81,27 @@ public class CreateAssignSkillsUI implements Runnable {
     }
 
     private ArrayList<Skill> displayAndSelectSkill(Employee employee) {
+        Scanner input = new Scanner(System.in);
+
         //Display the list of task categories
-        List<Skill> skills = skillController.getAllSkills();
+        List<Skill> skills = new ArrayList<>(List.copyOf(skillController.getAllSkills()));
         ArrayList<Skill> selectedSkills = new ArrayList<>();
-        List<Skill> skillsAvailable = employee.getSkill();
+
+        //skils from the selected employee
+        List<Skill> employeeSkills = employee.getSkills();
+
+
+
+        //remove sills that the employee already has
+        for (Skill skill : employeeSkills) {
+            skills.remove(skill);
+        }
+
+
+
         int listSize = skills.size();
         int answer = -1;
 
-        Scanner input = new Scanner(System.in);
-
-        for (Skill skill : skillsAvailable) {
-            skills.remove(skill);
-        }
 
         do {
             displaySkillsOptions(skills);
@@ -101,6 +110,8 @@ public class CreateAssignSkillsUI implements Runnable {
             answer = input.nextInt();
             if (answer > 0 && answer <= listSize) {
                 selectedSkills.add(skills.get(answer - 1));
+                skills.remove(answer-1);
+                listSize--;
             }
         } while (answer != 0);
         return selectedSkills;

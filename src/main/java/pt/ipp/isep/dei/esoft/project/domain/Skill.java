@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
 import pt.ipp.isep.dei.esoft.project.repository.EmployeeRepository;
 
 import java.util.Comparator;
+import java.util.Objects;
 
 public class Skill {
     private String name;
@@ -54,4 +55,10 @@ public class Skill {
         Skill skill = (Skill) o;
         return name.equals(skill.name);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, description);
+    }
+
 }

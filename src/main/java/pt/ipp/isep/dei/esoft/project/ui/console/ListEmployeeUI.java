@@ -2,10 +2,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateEmployeeController;
 import pt.ipp.isep.dei.esoft.project.domain.Employee;
-import pt.ipp.isep.dei.esoft.project.domain.Job;
-import pt.ipp.isep.dei.esoft.project.repository.EmployeeRepository;
 
-import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -41,7 +38,7 @@ public class ListEmployeeUI implements Runnable {
             System.out.println("    Tax Payer Number: " + employee.getTaxPayerIdNumber());
             System.out.println("    Role: " + employee.getRole());
             System.out.println("    Job: " + employee.getJob());
-            System.out.println("    Skills: " + employee.getSkill());
+            System.out.println("    Skills: " + employee.getSkills());
             System.out.println("-----------------------------");
             counter++;
         }

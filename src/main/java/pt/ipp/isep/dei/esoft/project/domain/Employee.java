@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Employee {
-    private static final String PASSWORD_DEFAULT="admin";
+    private static final String PASSWORD_DEFAULT = "admin";
 
     private String name;
     private LocalDate dateOfBirth;
@@ -20,16 +20,16 @@ public class Employee {
     private int taxPayerIdNumber;
 
     private Job job;
-    private ArrayList<Skill> skill;
+    private ArrayList<Skill> skills;
 
     private String role;
     private String password;
 
-public Employee(ArrayList<Skill> skill){
- this.skill = skill;
-}
+    public Employee(ArrayList<Skill> skills) {
+        this.skills = skills;
+    }
 
-    public Employee (String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, Job job, ArrayList<Skill> skill, String role, String password) {
+    public Employee(String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, Job job, ArrayList<Skill> skills, String role, String password) {
         this.name = nome;
         this.dateOfBirth = dateOfBirth;
         this.admissionDate = admissionDate;
@@ -40,12 +40,12 @@ public Employee(ArrayList<Skill> skill){
         this.docTypeNumber = docTypeNumber;
         this.taxPayerIdNumber = taxPayerIdNumber;
         this.job = job;
-        this.skill = skill;
+        this.skills = skills;
         this.role = role;
         this.password = password;
     }
 
-    public Employee (String nome,LocalDate dateOfBirth,LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber) {
+    public Employee(String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber) {
         this.name = nome;
         this.dateOfBirth = dateOfBirth;
         this.admissionDate = admissionDate;
@@ -56,12 +56,12 @@ public Employee(ArrayList<Skill> skill){
         this.docTypeNumber = docTypeNumber;
         this.taxPayerIdNumber = taxPayerIdNumber;
         this.job = new Job("Nenhum", "Sem descrição");
-        this.skill = new ArrayList<>();
+        this.skills = new ArrayList<>();
         this.role = AuthenticationController.ROLE_Collaborator;
         this.password = PASSWORD_DEFAULT;
     }
 
-    public Employee (String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, Job job, ArrayList<Skill> skill) {
+    public Employee(String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, Job job, ArrayList<Skill> skills) {
         this.name = nome;
         this.dateOfBirth = dateOfBirth;
         this.admissionDate = admissionDate;
@@ -72,12 +72,12 @@ public Employee(ArrayList<Skill> skill){
         this.docTypeNumber = docTypeNumber;
         this.taxPayerIdNumber = taxPayerIdNumber;
         this.job = job;
-        this.skill = skill;
+        this.skills = skills;
         this.role = AuthenticationController.ROLE_Collaborator;
         this.password = PASSWORD_DEFAULT;
     }
 
-    public Employee (String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, Job job) {
+    public Employee(String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, Job job) {
         this.name = nome;
         this.dateOfBirth = dateOfBirth;
         this.admissionDate = admissionDate;
@@ -92,7 +92,7 @@ public Employee(ArrayList<Skill> skill){
         this.password = PASSWORD_DEFAULT;
     }
 
-    public Employee (String email){
+    public Employee(String email) {
         this.email = email;
     }
 
@@ -100,7 +100,7 @@ public Employee(ArrayList<Skill> skill){
         return employee != null && employee.getEmail() != null && employee.getDateOfBirth() != null;
     }
 
-    public void getEmployee(String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, String role){
+    public void getEmployee(String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, String role) {
         this.name = nome;
         this.dateOfBirth = dateOfBirth;
         this.admissionDate = admissionDate;
@@ -131,9 +131,9 @@ public Employee(ArrayList<Skill> skill){
     //method that provides a string representation of an employee’s detail
     @Override
     public String toString() {
-        return "Collaborator: " + name + "\nBirth date: "+ dateOfBirth + "\nAdmission Date: " + admissionDate + "\nAddress: " + address + "\nMobile: "
+        return "Collaborator: " + name + "\nBirth date: " + dateOfBirth + "\nAdmission Date: " + admissionDate + "\nAddress: " + address + "\nMobile: "
                 + mobile + "\nE-mail: " + email + "\nDocument: " + idDocType + "\nID number: " + docTypeNumber + "\nTax payer ID: " + taxPayerIdNumber +
-                "\nJob: "+ job + "\nSkill(s): " + skill;
+                "\nJob: " + job + "\nSkill(s): " + skills;
     }
 
     public String getName() {
@@ -216,16 +216,21 @@ public Employee(ArrayList<Skill> skill){
         this.job = job;
     }
 
-    public List<Skill> getSkill() {
-        return skill;
+    public List<Skill> getSkills() {
+        return skills;
     }
 
-    public void setSkill(ArrayList<Skill> skill) {
-        this.skill = skill;
+    public void setSkills(ArrayList<Skill> skills) {
+        this.skills = skills;
     }
 
-    public void addSkill(ArrayList<Skill> skill){
-        this.skill.addAll(skill);
+    public void addSkill(ArrayList<Skill> skills) {
+
+        for (Skill s : skills){
+            if (!this.skills.contains(s))
+                this.skills.add(s);
+        }
+
     }
 
     public String getRole() {
@@ -236,11 +241,15 @@ public Employee(ArrayList<Skill> skill){
         this.role = role;
     }
 
-    public String getPassword() { return password; }
+    public String getPassword() {
+        return password;
+    }
 
-    public void setPassword(String password) { this.password = password; }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-    public static String setPasswordDefault(){
+    public static String setPasswordDefault() {
         return PASSWORD_DEFAULT;
     }
 
@@ -248,13 +257,13 @@ public Employee(ArrayList<Skill> skill){
         return false;
     }
 
-/**
- * Clone method.
- *
- * @return A clone of the current instance.
- */
+    /**
+     * Clone method.
+     *
+     * @return A clone of the current instance.
+     */
     public Employee clone() {
-    return new Employee(this.name, this.dateOfBirth, this.admissionDate, this.address, this.mobile, this.email, this.idDocType, this.docTypeNumber, this.taxPayerIdNumber, this.job, this.skill, this.role, this.password);
+        return new Employee(this.name, this.dateOfBirth, this.admissionDate, this.address, this.mobile, this.email, this.idDocType, this.docTypeNumber, this.taxPayerIdNumber, this.job, this.skills, this.role, this.password);
     }
 
 }
