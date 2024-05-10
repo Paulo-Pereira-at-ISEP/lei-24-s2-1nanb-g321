@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.GenerateTeamController;
+import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
 
@@ -15,6 +16,7 @@ public class GenerateTeamUI implements Runnable {
     private int teamMaxSize;
     private int teamMinSize;
     private ArrayList<Skill> skills;
+    private List<Employee> employees;
 
     public GenerateTeamUI() {
         controller = new GenerateTeamController();
@@ -33,7 +35,7 @@ public class GenerateTeamUI implements Runnable {
     }
 
     private void submitData() {
-        Team team = getController().generateTeam(teamMaxSize, teamMinSize, skills);
+        Team team = controller.generateTeam(teamMaxSize, teamMinSize, skills);
 
         if (team != null) {
             System.out.println("\nTeam successfully generated!");
@@ -50,6 +52,7 @@ public class GenerateTeamUI implements Runnable {
             teamMinSize = requestTeamSize("Min");
         } while (teamMinSize > teamMaxSize);
         skills = displayAndSelectSkill();
+
     }
 
     private int requestTeamSize(String type) {
@@ -58,8 +61,10 @@ public class GenerateTeamUI implements Runnable {
         return input.nextInt();
     }
 
+
+
     private ArrayList<Skill> displayAndSelectSkill() {
-        //Display the list of task categories
+        //Display the list of skills
         ArrayList<Skill> skills = controller.getAllSkills();
         ArrayList<Skill> selectedSkills = new ArrayList<>();
 
@@ -88,5 +93,4 @@ public class GenerateTeamUI implements Runnable {
             i++;
         }
     }
-
 }
