@@ -43,12 +43,15 @@ public class Team {
         }
 
         int[] employeeTaxPayerId = new int[employees.size()];
+
         for (Employee employee : employees) {
             employeeTaxPayerId[employees.indexOf(employee)] = employee.getTaxPayerIdNumber();
         }
 
 
-        for (Employee employee : employees) {}
+
+
+
         for (int i = 1; i < scores.length; i++) {
             if (scores[i] > scores[i - 1]) {
                 int posicaoAnterior = i - 1;

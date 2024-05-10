@@ -17,8 +17,9 @@ participant ":Repositories" as singleton
 participant "repositories\n:Repositories" as rep
 
 
-participant "skillRepository:\nEmployeeRepository" as skillRep
-participant ":Skill" as SKILL
+participant "SkillRepository:\nEmployeeRepository" as skillRep
+participant "EmployeeRepository:\nEmployeeRepository" as employeeRep
+participant ":Employee" as Employee
 
 activate HRM
 
