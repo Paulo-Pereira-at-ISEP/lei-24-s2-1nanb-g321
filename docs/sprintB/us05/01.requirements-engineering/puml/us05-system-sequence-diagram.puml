@@ -27,16 +27,6 @@ activate Employee
     Employee -> System : selects wanted skills
         activate System
 
-
-    alt doesn't generate a team
-
-        System --> Employee : shows information on the reason of the failure
-            deactivate System
-
-    end
-
-    alt generates team
-
     System --> Employee : shows team generated and requests confirmation
         deactivate System
 
@@ -62,8 +52,6 @@ activate Employee
 
             System --> Employee : displays message
         deactivate System
-
-    end
 
     end
 

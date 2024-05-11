@@ -81,14 +81,4 @@ public class CreateJobUI implements Runnable {
         return ler;
     }
 
-
-    private void displayJobsOptions(List<Job> jobs) {
-        //display the task categories as a menu with number options to select
-        int i = 1;
-        for (Job job : jobs) {
-            System.out.println("  " + i + " - " + job.getDescription());
-            i++;
-        }
-    }
-
 }

@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -16,7 +17,7 @@ public class Utils {
 
     static public String readLineFromConsole(String prompt) {
         try {
-            System.out.print("\n" + prompt);
+            System.out.print(prompt);
 
             InputStreamReader converter = new InputStreamReader(System.in);
             BufferedReader in = new BufferedReader(converter);
@@ -133,25 +134,42 @@ public class Utils {
 
         return value - 1;
     }
-    public static boolean hasNineDigits(String input) {
+
+    public static boolean hasXDigits(Integer number, int digits) {
+
+        if (number == null || digits < 0) {
+            throw new IllegalArgumentException("Invalid input: number cannot be null and digits must be non-negative");
+        }
+        if (number == 0 && digits == 1) {
+            return true; // Special case: 0 has 1 digit
+        }
+        if (number < 0) {
+            number = Math.abs(number); // Consider only the positive value
+        }
+        return String.valueOf(number).length() == digits;
+    }
+    /*
+    public static boolean hasXDigits(String input, int numero) {
         if (input == null || input.isEmpty()) {
             return false; // Handle empty input
         }
-        return input.length() == 9 && input.matches("[0-9]+"); // Check only digits
+        return input.length() == numero && input.matches("[0-" +numero+ "]+"); // Check only digits
     }
-
+*/
     public static boolean isValidInput(String name) {
         // Allow only letters and spaces
         String regex = "^[a-zA-Z\\s]+$";
         // Check if the input matches the regular expression
         return name.matches(regex);
     }
+
     public static boolean hasAtSymbol(String input) {
         if (input == null || input.isEmpty()) {
             return false; // Empty or null string doesn't contain "@"
         }
         return input.indexOf('@') != -1;
     }
+
     public static boolean isValidEmail(String email) {
         if (email == null || email.isEmpty()) {
             return false; // Empty or null string is not a valid email
@@ -176,4 +194,13 @@ public class Utils {
 
         return true; // Passed basic checks, potentially valid
     }
+
+    public static boolean isAtLeast18YearsOld (LocalDate input) {
+
+        LocalDate today = LocalDate.now(); // Get current date
+        LocalDate eighteenYearsAgo = today.minusYears(18); // Calculate date 18 years ago
+
+        return input.isBefore(eighteenYearsAgo);
+    }
+
 }

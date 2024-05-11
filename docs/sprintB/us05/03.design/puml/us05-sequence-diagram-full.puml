@@ -6,175 +6,107 @@ skinparam shadowing false
 autonumber
 
 'hide footbox
-actor "Human Resources Manager" as ADM
-participant ":CreateTaskUI" as UI
-participant ":CreateTaskController" as CTRL
-participant ":Repositories" as RepositorySingleton
-participant "repositories\n:Repositories" as PLAT
-participant "taskCategoryRepository:\nTaskCategoryRepository" as TaskCategoryRepository
-participant ":ApplicationSession" as _APP
-participant "appSession\n:ApplicationSession" as APP
-participant "currentSession\n:UserSession" as SESSAO
-participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
-participant "organization\n:Organization" as ORG
-participant "task\n:Task" as TAREFA
 
-activate ADM
+actor "Human Resource Manager" as HRM
+participant ":GenerateTeamUI" as UI
+participant ":GenerateTeamController" as controller
+participant ":Repositories" as singleton
+participant "repositories\n:Repositories" as rep
+participant "TeamRepository:\nTeamRepository" as teamRep
+participant "Team" as Team
 
-        ADM -> UI : asks to create a new task
+note right of singleton
+    - Singleton is
+    in use
+end note
+
+activate HRM
+
+        HRM -> UI : asks to generate a team proposal
 
         activate UI
+            'create controller
+            UI -> controller** : create
 
-'            UI --> ADM : requests data (reference, description,  informal \n description, technical description, duration, cost)
-            'create CTRL
-            UI -> CTRL** : create
+            activate controller
 
-            UI -> CTRL : getTaskCategories()
-            activate CTRL
+                controller-> singleton : getInstance()
 
-                CTRL -> RepositorySingleton : getInstance()
-                activate RepositorySingleton
+                activate singleton
 
-                    RepositorySingleton --> CTRL: repositories
-                deactivate RepositorySingleton
+                    singleton --> controller : repositories
 
-                CTRL -> PLAT : getTaskCategoryRepository()
-                activate PLAT
+                deactivate singleton
 
-                    PLAT --> CTRL: taskCategoryRepository
-                deactivate PLAT
+                controller -> rep : getEmployeeRepository()
 
-                CTRL -> TaskCategoryRepository : getTaskCategories()
-                activate TaskCategoryRepository
+                activate rep
 
-                    TaskCategoryRepository --> CTRL : taskCategoryList
-                deactivate TaskCategoryRepository
 
-                CTRL --> UI : taskCategoryList
-            deactivate CTRL
+                    rep --> controller : employeeRep
 
-            UI --> ADM : shows task category list\n and asks to sleect one
+                deactivate rep
+
+
+
+
+            'requests the HRM to input data
+            UI --> HRM : requestData (team maximum size and minimum size)
         deactivate UI
 
-    ADM -> UI : selects a task category
-    activate UI
+        HRM -> UI : types requested data
 
-        UI --> ADM : requests data
+activate UI
+
+        activate rep
+
+            controller -> rep : getSkillRepository()
+            rep -> controller : skillRepository
+        deactivate rep
+
+
+            controller --> UI : getAllSkills()
+            deactivate controller
+
+loop
+            UI --> HRM : shows list of skills and asks to select one
+
+            HRM -> UI : selects skill
+end
+           UI -> controller : create Team
+                   deactivate UI
+
+            activate controller
+
+
+                controller -> Team : Team
+
+                activate Team
+
+                Team --> controller : newTeam
+
+                deactivate Team
+
+                controller -> teamRep : add (newTeam )
+
+                activate teamRep
+
+                    teamRep -> teamRep : validateteam(newTeam)
+
+
+                    teamRep --> controller : newTeam
+
+                deactivate teamRep
+
+            controller --> UI : newTeam
+
+
+        deactivate controller
+activate UI
+        UI -> HRM : displays success operation
+
     deactivate UI
 
-    ADM -> UI : types requested data (reference, description, \ninformal description, technical description,\nduration, cost)
-    activate UI
-
-        UI --> ADM : shows selected category and requested data
-    deactivate UI
-
-    ADM -> UI : submits data
-    activate UI
-
-        UI -> CTRL : createTask(reference,\ndescription,\ninformalDescription,\ntechnicalDescription,\nduration, cost,\ntaskCategoryDescription)
-        activate CTRL
-
-            CTRL -> CTRL : getTaskCategoryByDescription(taskCategoryDescription)
-            activate CTRL
-
-                CTRL -> RepositorySingleton : getInstance()
-                activate RepositorySingleton
-
-                    RepositorySingleton --> CTRL: repositories
-                deactivate RepositorySingleton
-
-                CTRL -> PLAT : getTaskCategoryRepository()
-                activate PLAT
-
-                    PLAT -> CTRL : taskCategoryRepository
-                deactivate PLAT
-
-                CTRL -> TaskCategoryRepository : getTaskCategoryByDescription(taskCategoryDescription)
-                activate TaskCategoryRepository
-
-                    TaskCategoryRepository --> CTRL : taskCategory
-                deactivate TaskCategoryRepository
-                    CTRL --> CTRL : taskCategory
-            deactivate CTRL
-
-            |||
-            CTRL -> CTRL : getEmployeeFromSession()
-            activate CTRL
-
-                CTRL -> _APP: getInstance()
-                activate _APP
-                    _APP -> CTRL: appSession
-                deactivate _APP
-
-
-                CTRL -> APP: getCurrentSession()
-                activate APP
-
-                    APP --> CTRL: currentSession
-                deactivate APP
-
-                CTRL -> SESSAO: email = getUserEmail()
-                activate SESSAO
-
-                    SESSAO --> CTRL: email
-                deactivate SESSAO
-
-
-                CTRL -> PLAT: getOrganizationRepository(email)
-                activate PLAT
-
-                    PLAT --> CTRL: organizationRepository
-                deactivate PLAT
-
-
-                CTRL -> OrganizationRepository: getOrganizationByEmployeeEmail(email)
-                activate OrganizationRepository
-
-                    loop [for each organization
-                        OrganizationRepository -> ORG : anyEmployeeHasEmail(email)
-                        activate ORG
-
-                             ORG --> OrganizationRepository : true/false
-                        deactivate ORG
-                    end
-                    OrganizationRepository --> CTRL : organization
-                deactivate OrganizationRepository
-
-                CTRL -> ORG: getEmployeeByEmail(email)
-                activate ORG
-
-                    ORG --> CTRL : employee
-                deactivate ORG
-
-                CTRL --> CTRL : employee
-            deactivate CTRL
-
-            |||
-            CTRL -> ORG: createTask(employee, reference, description,\ninformalDescription, technicalDescription,\nduration, cost, , taskCategory, employee)
-            activate ORG
-
-                ORG -> TAREFA**: create(employee, reference, description,\ninformalDescription, technicalDescription,\nduration, cost, taskCategory, employee)
-                ORG -> ORG: addTask (task)
-
-
-                activate ORG
-                    ORG -> ORG: validateTask(task)
-                    activate ORG
-                        ORG --> ORG
-                    deactivate ORG
-
-                    ORG --> ORG
-                deactivate ORG
-
-                ORG --> CTRL : task
-
-            deactivate ORG
-
-            CTRL --> UI: task
-            deactivate CTRL
-            UI --> ADM: displays operation success
-    deactivate UI
-
-deactivate ADM
+deactivate HRM
 
 @enduml

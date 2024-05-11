@@ -23,15 +23,15 @@ participant ":Employee" as Employee
 
 activate HRM
 
-        HRM -> UI : asks to register a new employee
+        HRM -> UI : asks for a list of employees
 
         activate UI
             'create CTRL
             UI -> controller** : create
 
-            activate CTRL
+            activate controller
 
-                CTRL -> singleton : getInstance()
+                  controller -> singleton : getInstance()
 
                 activate singleton
 
@@ -46,63 +46,46 @@ activate HRM
                     rep --> controller : EmployeeRepository
 
                 deactivate rep
+                    controller --> employeeRep : getAllEmployees()
+                    employeeRep --> controller : getAllEmployees()
+                    controller --> UI: getAllEmployees()
+
 
             deactivate controller
 
 
             'requests the HRM to input data
-            UI --> HRM : requestData (name, birthDate, admissionDate, adress, email, mobile, docIdType, docIdNum, TaxPayerNum)
-        deactivate UI
-
-        HRM -> UI : types requested data
-
-        activate UI
-
-            UI -> UI : validateEmployeeData(name, birthDate, admissionDate, adress, email, mobile, docIdType, docIdNum, TaxPayerNum)
+            UI --> HRM : shows list of employees
 
 
-            deactivate controller
+        HRM -> UI : selects employee
 
-            UI --> HRM : shows Employee data and requests confirmation
 
-        deactivate UI
 
-            HRM -> UI : confirms data
+            UI -> controller : asks for list of skills
 
-        activate UI
-
-            UI -> controller : createEmployee(name, birthDate, admissionDate, adress, email, mobile, docIdType, docIdNum, TaxPayerNum)
-
+           deactivate UI
             activate controller
 
+            controller --> skillRep : getAllSkills()
+            skillRep --> controller : getAllSkills()
+            controller --> UI : getAllSkills()
+            activate UI
 
-                controller -> Employee : Employee(name, birthDate, admissionDate, adress, email, mobile, docIdType, docIdNum, TaxPayerNum)
-
-                activate Employee
-
-                Employee --> controller : newEmployee
-
-                deactivate Employee
-
-                controller -> EmployeeRepository : add(newEmployee)
-
-                activate EmployeeRepository
-
-                    EmployeeRepository -> EmployeeRepository : validateEmployee(newEmployee)
+            UI --> HRM : shows list of skills
 
 
-                    EmployeeRepository --> controller : newEmployee
+            HRM --> UI : selects skills
 
-                deactivate EmployeeRepository
+            Ui --> UI : validates data
 
-            controller --> UI : newEmployee
+           UI --> HRM : shows data
 
+           HRM --> UI :confirms data
 
-        deactivate controller
+           UI --> controller : employeeWithSkills
+deactivate UI
 
-        UI -> HRM : displays success operation
-
-    deactivate UI
 
 deactivate HRM
 
