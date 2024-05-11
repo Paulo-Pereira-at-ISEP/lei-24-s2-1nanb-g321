@@ -92,7 +92,7 @@ public class GenerateTeamUI implements Runnable {
         //display the task categories as a menu with number options to select
         int i = 1;
         for (Skill skill : skills) {
-            System.out.println("  " + i + " - " + skill.getDescription());
+            System.out.println("  " + i + " - " + skill.getName());
             i++;
         }
     }

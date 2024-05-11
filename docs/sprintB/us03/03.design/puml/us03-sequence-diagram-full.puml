@@ -10,7 +10,8 @@ autonumber
 actor "Human Resource Manager" as HRM
 participant ":CreateEmployeelUI" as UI
 participant ":CreateEmployeelController" as controller
-participant ":Repositories" as singleton
+participant "repositories\n:Repositories" as rep
+participant "JobRepository:\nEmployeeRepository" as jobRep
 participant ":Organization" as org
 participant ":Employee" as Employee
 
@@ -26,27 +27,29 @@ activate HRM
 
             activate controller
 
-                controller-> singleton : getInstance()
-
-                activate singleton
-
-                    singleton --> controller : repositories
-
-                deactivate singleton
-
-                controller -> org : getAllEmployees()
+                controller-> rep : getInstance()
 
                 activate org
 
+                    rep --> controller : instance
 
-                    org --> controller : employeeRep
-                    controller --> Employee : Employee()
+
+
+                controller -> org : Employees()
+
+
+
+
+                    org --> controller : employees
+                    deactivate org
+                    controller --> Employee : createEmployee()
                     activate Employee
 
                     Employee --> controller : Employee()
 
                     deactivate Employee
-                    deactivate rep
+                    deactivate controller
+
 
 
 
@@ -59,18 +62,20 @@ activate HRM
 
         activate UI
 
-            UI -> UI : validateEmployeeData(name, birthDate, admissionDate, adress, email, mobile, docIdType, docIdNum, TaxPayerNum)
-        activate rep
+            UI --> UI : validateEmployeeData(name, birthDate, admissionDate, adress, email, mobile, docIdType, docIdNum, TaxPayerNum)
+        activate org
+            UI --> controller : asks for a list of jobs
 
-            controller -> rep : getJobRepository()
-            rep --> controller : jobRepository
-            controller --> JobRep : getAllJobs()
-            activate JobRep
-            JobRep --> controller : getAllJobs()
-            deactivate JobRep
-        deactivate rep
 
-            controller --> UI : getAllJobs()
+            activate controller
+
+            controller --> rep : getAllJobs()
+
+            org --> controller : jobs
+
+            deactivate org
+
+            controller --> UI : Jobs()
 
             UI --> HRM : shows list of jobs and asks to select one
 
@@ -80,7 +85,7 @@ activate HRM
 
                    deactivate UI
 
-            activate controller
+
 
 
                 controller -> Employee : Employee(name, birthDate, admissionDate, adress, email, mobile, docIdType, docIdNum, TaxPayerNum)
@@ -91,25 +96,24 @@ activate HRM
 
                 deactivate Employee
 
-                controller -> EmployeeRepository : add(newEmployee)
+                controller -> org : add(newEmployee)
 
-                activate EmployeeRepository
+                activate org
 
-                    EmployeeRepository -> EmployeeRepository : validateEmployee(newEmployee)
+                    org -> org : validateEmployee(newEmployee)
 
+                    org --> controller : newEmployee
 
-                    EmployeeRepository --> controller : newEmployee
-
-                deactivate EmployeeRepository
+                deactivate org
 
             controller --> UI : newEmployee
 
 
         deactivate controller
-activate UI
-        UI -> HRM : displays success operation
+        activate UI
+         UI -> HRM : displays success operation
 
-    deactivate UI
+     deactivate UI
 
 deactivate HRM
 
