@@ -52,14 +52,14 @@ This diagram shows the full sequence of interactions between the classes involve
 
 The following partial diagrams are displayed to better illustrate the interactions between the classes for the reference notes of the full diagram.
 
-
-**Get Employee from session**
+**Get Employee From Session**
 
 ![Sequence Diagram - Partial - Create Task](svg/us01-sequence-diagram-partial-get-employee.svg)
 
 **Validate Skill**
 
 ![Sequence Diagram - Partial - Get Employee](svg/us01-sequence-diagram-partial-validate-skill.svg)
+
 ## 3.3. Class Diagram (CD)
 
 ![Class Diagram](svg/us01-class-diagram.svg)
