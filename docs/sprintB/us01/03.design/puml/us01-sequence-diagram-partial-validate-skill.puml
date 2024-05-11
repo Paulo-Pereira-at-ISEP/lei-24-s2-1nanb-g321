@@ -7,18 +7,19 @@ participant "skillRepository:\nSkillRepository" as SKILL_REPO_INSTANCE
 
 
 
-autonumber 16
+autonumber 18
 -> SKILL_REPO_INSTANCE : validateSkill(newSkill)
 
-autonumber 16.1
+autonumber 18.1
 activate SKILL_REPO_INSTANCE
     group Validate Skill
 
         SKILL_REPO_INSTANCE -> SKILL_REPO_INSTANCE: !contains(newSkill)
 
+        SKILL_REPO_INSTANCE -> SKILL_REPO_INSTANCE: add(newSkill)
+
     end
 
-    autonumber 17
     <-- SKILL_REPO_INSTANCE : true
 deactivate SKILL_REPO_INSTANCE
 
