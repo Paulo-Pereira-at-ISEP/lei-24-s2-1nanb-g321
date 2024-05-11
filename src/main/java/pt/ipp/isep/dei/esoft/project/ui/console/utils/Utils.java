@@ -138,8 +138,15 @@ public class Utils {
         return value - 1;
     }
 
+    /**
+     * Checks if a given number has a specified number of digits.
+     *
+     * @param number The number to check.
+     * @param digits The number of digits to check for.
+     * @return {@code true} if the number has the specified number of digits, {@code false} otherwise.
+     * @throws IllegalArgumentException if the number is null or if the number of digits is negative.
+     */
     public static boolean hasXDigits(Integer number, int digits) {
-
         if (number == null || digits < 0) {
             throw new IllegalArgumentException("Invalid input: number cannot be null and digits must be non-negative");
         }
@@ -151,14 +158,13 @@ public class Utils {
         }
         return String.valueOf(number).length() == digits;
     }
-    /*
-    public static boolean hasXDigits(String input, int numero) {
-        if (input == null || input.isEmpty()) {
-            return false; // Handle empty input
-        }
-        return input.length() == numero && input.matches("[0-" +numero+ "]+"); // Check only digits
-    }
-*/
+
+    /**
+     * Checks if a given string contains only letters and spaces.
+     *
+     * @param name The string to check.
+     * @return {@code true} if the string contains only letters and spaces, {@code false} otherwise.
+     */
     public static boolean isValidInput(String name) {
         // Allow only letters and spaces
         String regex = "^[a-zA-Z\\s]+$";
@@ -166,13 +172,12 @@ public class Utils {
         return name.matches(regex);
     }
 
-    public static boolean hasAtSymbol(String input) {
-        if (input == null || input.isEmpty()) {
-            return false; // Empty or null string doesn't contain "@"
-        }
-        return input.indexOf('@') != -1;
-    }
-
+    /**
+     * Checks if a given string is a valid email address.
+     *
+     * @param email The string to check.
+     * @return {@code true} if the string is a valid email address, {@code false} otherwise.
+     */
     public static boolean isValidEmail(String email) {
         if (email == null || email.isEmpty()) {
             return false; // Empty or null string is not a valid email
@@ -198,68 +203,123 @@ public class Utils {
         return true; // Passed basic checks, potentially valid
     }
 
-    public static boolean isAtLeast18YearsOld (LocalDate input) {
+    /**
+     * Checks if a given date represents someone who is at least 18 years old.
+     *
+     * @param input The date to check.
+     * @return {@code true} if the date represents someone who is at least 18 years old, {@code false} otherwise.
+     */
+    public static boolean isAtLeast18YearsOld(LocalDate input) {
+        LocalDate today = LocalDate.now(); // Get the current date
+        LocalDate eighteenYearsAgo = today.minusYears(18); // Calculate the date 18 years ago
 
-        LocalDate today = LocalDate.now(); // Get current date
-        LocalDate eighteenYearsAgo = today.minusYears(18); // Calculate date 18 years ago
-
+        // Check if the input date is before the date 18 years ago
         return input.isBefore(eighteenYearsAgo);
     }
 
-    public static boolean isMobileNumberCorrect (String mobileNumber) {
+    /**
+     * Checks if a mobile phone number is in the correct format.
+     *
+     * @param mobileNumber The mobile phone number to check.
+     * @return {@code true} if the mobile phone number is in the correct format, {@code false} otherwise.
+     */
+    public static boolean isMobileNumberCorrect(String mobileNumber) {
+        // Check if mobileNumber is null or empty
         if (mobileNumber == null || mobileNumber.isEmpty()) {
             return false;
         }
+
+        // Check if mobileNumber matches the format: starts with '9' followed by 8 digits
         return mobileNumber.matches("^9[0-9]{8}$");
     }
 
+    /**
+     * Validates a Portuguese NIF (Número de Identificação Fiscal) number.
+     *
+     * @param number The NIF number to validate.
+     * @return {@code true} if the NIF number is valid, {@code false} otherwise.
+     */
     public static boolean isValidNIF(String number) {
-        final int max=9;
-        //check if is numeric and has 9 numbers
-        if (!number.matches("[0-9]+") || number.length()!=max) return false;
-        int checkSum=0;
-        //calculate checkSum
-        for (int i=0; i<max-1; i++){
-            checkSum+=(number.charAt(i)-'0')*(max-i);
+        final int max = 9;
+
+        // Check if the number is numeric and has 9 digits
+        if (!number.matches("[0-9]+") || number.length() != max)
+            return false;
+
+        int checkSum = 0;
+
+        // Calculate checkSum
+        for (int i = 0; i < max - 1; i++) {
+            checkSum += (number.charAt(i) - '0') * (max - i);
         }
-        int checkDigit=11-(checkSum % 11);
-        //if checkDigit is higher than 9 set it to zero
-        if (checkDigit>9) checkDigit=0;
-        //compare checkDigit with the last number of NIF
-        return checkDigit==number.charAt(max-1)-'0';
+
+        int checkDigit = 11 - (checkSum % 11);
+
+        // If checkDigit is greater than 9, set it to zero
+        if (checkDigit > 9)
+            checkDigit = 0;
+
+        // Compare checkDigit with the last digit of NIF
+        return checkDigit == number.charAt(max - 1) - '0';
     }
 
+    /**
+     * Parses a date string and checks if it's in the correct format and represents a valid date.
+     *
+     * @param dateInput The date string to parse.
+     * @return {@code true} if the date string is in the correct format and represents a valid date, {@code false} otherwise.
+     */
     public static boolean parseDate(String dateInput) {
-        // Expressões regulares para verificar o formato da data
+        // Regular expressions to check the date format
         Pattern pattern = Pattern.compile("^\\d{4}[-/]\\d{2}[-/]\\d{2}$");
         Matcher matcher = pattern.matcher(dateInput);
 
         if (matcher.matches()) {
-            // Formatar a data corretamente
+            // Format the date correctly
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
             try {
-                // Parse da data
+                // Parse the date
                 LocalDate date = LocalDate.parse(dateInput.replace("/", "-"), formatter);
-                // Verificar se o mês e o dia estão dentro dos limites corretos
+                // Check if the month and day are within correct limits
                 int year = date.getYear();
                 int month = date.getMonthValue();
                 int day = date.getDayOfMonth();
-                // Verificar o mês
+                // Check the month
                 if (month < 1 || month > 12) {
-                    return false; // Mês inválido
+                    return false; // Invalid month
                 }
-                // Verificar o dia
+                // Check the day
                 if (day < 1 || day > date.lengthOfMonth()) {
-                    return false; // Dia inválido
+                    return false; // Invalid day
                 }
-                // Se chegou até aqui, a data é válida
+                // If it reaches here, the date is valid
                 return true;
             } catch (Exception e) {
-                // Se houver algum erro na conversão, a data é inválida
+                // If there's any conversion error, the date is invalid
                 return false;
             }
         } else {
             return false;
         }
     }
+
+    /**
+     * Prompts the user for input and validates that the input contains only letters.
+     *
+     * @param prompt The prompt message to display to the user.
+     * @param errorMessage The error message to display if the input is invalid.
+     * @return The validated input containing only letters.
+     */
+    public static String requestOnlyLetters(String prompt, String errorMessage) {
+        String input;
+        do {
+            input = Utils.readLineFromConsole(prompt); // Prompt user for input
+            assert input != null; // Ensure input is not null
+            if (!Utils.isValidInput(input)) {
+                System.out.print(errorMessage); // Print error message if input is invalid
+            }
+        } while (!Utils.isValidInput(input)); // Continue prompting until valid input is provided
+        return input; // Return the validated input containing only letters
+    }
+
 }

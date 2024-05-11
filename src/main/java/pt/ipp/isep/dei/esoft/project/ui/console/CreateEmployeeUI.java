@@ -14,7 +14,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 /**
- * Create Skill UI (console). This option is only available for administrators for demonstration purposes.
+ * Create Employee UI (console). This option is only available for administrators for demonstration purposes.
  */
 public class CreateEmployeeUI implements Runnable {
     private final CreateEmployeeController controller;
@@ -73,136 +73,194 @@ public class CreateEmployeeUI implements Runnable {
     }
 
 
+    /**
+     * Prompts the user to input an employee name and validates the input.
+     * The input is considered valid if it contains only letters.
+     *
+     * @return The validated employee name.
+     */
     private String requestEmployeeName() {
         String input;
         do {
-            input = Utils.readLineFromConsole("Employee Name: ");
-            assert input != null;
+            input = Utils.readLineFromConsole("Employee Name: "); // Prompt user for employee name
+            assert input != null; // Ensure input is not null
             if (!Utils.isValidInput(input)){
-                System.out.print("Employee Name must only contain letters.\n");
+                System.out.print("Employee Name must only contain letters.\n"); // Print error message if input is invalid
             }
-        } while(!Utils.isValidInput(input));
-        return input;
+        } while(!Utils.isValidInput(input)); // Loop until a valid employee name is input
+        return input; // Return the validated employee name
     }
 
+    /**
+     * Prompts the user to input an employee birth date and validates the input.
+     * The input is considered valid if it is in the format "YYYY-MM-DD" and represents
+     * a date where the employee is at least 18 years old.
+     *
+     * @return The validated employee birth date.
+     */
     private String requestEmployeeBirthDate() {
         boolean validDate = false;
-        String input="";
+        String input = "";
         while (!validDate) {
             try {
-                input = (Utils.readLineFromConsole("Birth Date: "));
-                validDate = Utils.parseDate(input);
+                input = (Utils.readLineFromConsole("Birth Date: ")); // Prompt user for birth date
+                validDate = Utils.parseDate(input); // Validate the input date format
                 if (validDate) {
                     assert input != null;
-                    if(!Utils.isAtLeast18YearsOld(LocalDate.parse(input))){
-                        System.out.println("The Employee must be 18 years old or higher.");
+                    if (!Utils.isAtLeast18YearsOld(LocalDate.parse(input))) {
+                        System.out.println("The Employee must be 18 years old or higher."); // Print error if employee is not at least 18 years old
                         validDate = false;
                     }
                 } else {
-                    System.out.println("Invalid date format (YYYY-MM-DD).");
+                    System.out.println("Invalid date format (YYYY-MM-DD)."); // Print error if input date format is invalid
                 }
             } catch (DateTimeParseException e) {
-                System.out.println("Error: Invalid date format.");
+                System.out.println("Error: Invalid date format."); // Print error if there's an exception parsing the date
             }
         }
-        return input;
+        return input; // Return the validated employee birth date
     }
 
-    private String requestEmployeeAdmissionDate () {
+    /**
+     * Prompts the user to input an employee admission date and validates the input.
+     * The input is considered valid if it is in the format "YYYY-MM-DD".
+     *
+     * @return The validated employee admission date.
+     */
+    private String requestEmployeeAdmissionDate() {
         boolean validDate = false;
-        String input="";
+        String input = "";
         while (!validDate) {
             try {
-                input = (Utils.readLineFromConsole("Admission Date: "));
-                validDate = Utils.parseDate(input);
+                input = (Utils.readLineFromConsole("Admission Date: ")); // Prompt user for admission date
+                validDate = Utils.parseDate(input); // Validate the input date format
                 if (!validDate) {
-                    System.out.println("Invalid date format (YYYY-MM-DD).");
+                    System.out.println("Invalid date format (YYYY-MM-DD)."); // Print error if input date format is invalid
                 }
             } catch (DateTimeParseException e) {
-                System.out.println("Error: Invalid date format.");
+                System.out.println("Error: Invalid date format."); // Print error if there's an exception parsing the date
             }
         }
-        return input;
+        return input; // Return the validated employee admission date
     }
 
-    private String requestEmployeeAddress () {
-        return (Utils.readLineFromConsole("Address: "));
+    /**
+     * Prompts the user to input an employee address.
+     *
+     * @return The input employee address.
+     */
+    private String requestEmployeeAddress() {
+        return (Utils.readLineFromConsole("Address: ")); // Prompt user for address and return the input
     }
 
+    /**
+     * Prompts the user to input an employee mobile number and validates the input.
+     * The input is considered valid if it is a 9-digit number starting with '9'.
+     *
+     * @return The validated employee mobile number.
+     */
     private int requestEmployeeMobile() {
         boolean validNumber = false;
         int number = 0;
         while (!validNumber) {
             try {
-                number = Integer.parseInt(Objects.requireNonNull(Utils.readLineFromConsole("Mobile Number: ")));
-                validNumber = Utils.isMobileNumberCorrect(String.valueOf(number));
+                number = Integer.parseInt(Objects.requireNonNull(Utils.readLineFromConsole("Mobile Number: "))); // Prompt user for mobile number and parse to integer
+                validNumber = Utils.isMobileNumberCorrect(String.valueOf(number)); // Validate the input mobile number
             } catch (NumberFormatException e) {
-                System.out.println("Error: Enter numbers only");
+                System.out.println("Error: Enter numbers only"); // Print error if input is not a valid number
             }
             if (!validNumber) {
-                System.out.println("Nine digits and start with 9.");
+                System.out.println("Nine digits and start with 9."); // Print error if input mobile number is invalid
             }
         }
-        return number;
+        return number; // Return the validated employee mobile number
     }
 
-    private String requestEmployeeEmail () {
-        String input;
-        do{
-            input = Objects.requireNonNull(Utils.readLineFromConsole("Email: ")).toLowerCase();
-            if(!Utils.isValidEmail(input)){
-                System.out.println("Email address must be a valid email address.");
-            }
-        }while(!Utils.isValidEmail(input));
-        return input;
-    }
-
-    private String requestEmployeeIdentificationDocumentType () {
+    /**
+     * Prompts the user to input an employee email address and validates the input.
+     * The input is considered valid if it is a correctly formatted email address.
+     *
+     * @return The validated employee email address.
+     */
+    private String requestEmployeeEmail() {
         String input;
         do {
-            input = Utils.readLineFromConsole("Identification Document Type: ");
-            assert input != null;
-            if (!Utils.isValidInput(input)) {
-                System.out.print("Identification Document Type must only contain letters.\n");
+            input = Objects.requireNonNull(Utils.readLineFromConsole("Email: ")).toLowerCase(); // Prompt user for email address and convert to lowercase
+            if (!Utils.isValidEmail(input)) {
+                System.out.println("Email address must be a valid email address."); // Print error if input email address is invalid
             }
-        } while (!Utils.isValidInput(input));
-        return input;
+        } while (!Utils.isValidEmail(input)); // Continue prompting until a valid email address is input
+        return input; // Return the validated employee email address
+    }
+
+    /**
+     * Prompts the user to input the type of employee identification document and validates the input.
+     * The input is considered valid if it contains only letters.
+     *
+     * @return The validated employee identification document type.
+     */
+    private String requestEmployeeIdentificationDocumentType() {
+        String input;
+        do {
+            input = Utils.readLineFromConsole("Identification Document Type: "); // Prompt user for identification document type
+            assert input != null; // Ensure input is not null
+            if (!Utils.isValidInput(input)) {
+                System.out.print("Identification Document Type must only contain letters.\n"); // Print error if input is invalid
+            }
+        } while (!Utils.isValidInput(input)); // Continue prompting until a valid identification document type is input
+        return input; // Return the validated employee identification document type
     }
 
     private int requestEmployeeIdentificationDocumentNumber () {
         return Utils.readIntegerFromConsole("Identification Document Number: ");
     }
 
-    private int requestEmployeeTaxPayerNumber () {
+    /**
+     * Prompts the user to input an employee tax payer number and validates the input.
+     * The input is considered valid if it is a valid Portuguese NIF (Número de Identificação Fiscal).
+     *
+     * @return The validated employee tax payer number.
+     */
+    private int requestEmployeeTaxPayerNumber() {
         String input;
         do {
-            input = Utils.readLineFromConsole("Tax Payer Number: ");
-            assert input != null;
+            input = Utils.readLineFromConsole("Tax Payer Number: "); // Prompt user for tax payer number
+            assert input != null; // Ensure input is not null
             if (!Utils.isValidNIF(input)){
-                System.out.print("Invalid Tax Payer Number.\n");
+                System.out.print("Invalid Tax Payer Number.\n"); // Print error if input is invalid
             }
-        } while(!Utils.isValidNIF(input));
-        return Integer.parseInt(input);
+        } while(!Utils.isValidNIF(input)); // Continue prompting until a valid tax payer number is input
+        return Integer.parseInt(input); // Return the validated employee tax payer number
     }
 
-    private Job displayAndSelectJob () {
-        //Display the list of task categories
+    /**
+     * Displays the list of available jobs and allows the user to select one.
+     *
+     * @return The selected job.
+     */
+    private Job displayAndSelectJob() {
+        // Retrieve the list of available jobs
         List<Job> jobs = controller.getAllJobs();
         int listSize = jobs.size();
         int answer = -1;
 
         Scanner input = new Scanner(System.in);
         while (answer < 1 || answer > listSize) {
-            displayJobsOptions(jobs);
+            displayJobsOptions(jobs); // Display the list of available jobs
             System.out.print("Select a job: ");
-            answer = input.nextInt();
+            answer = input.nextInt(); // Prompt user to select a job
         }
 
-        return jobs.get(answer - 1);
+        return jobs.get(answer - 1); // Return the selected job
     }
 
-    private void displayJobsOptions (List < Job > jobs) {
-        //display the task categories as a menu with number options to select
+    /**
+     * Displays the list of job options as a menu with numbered options to select.
+     *
+     * @param jobs The list of jobs to display.
+     */
+    private void displayJobsOptions(List<Job> jobs) {
+        // Display the task categories as a menu with number options to select
         int i = 1;
         for (Job job : jobs) {
             System.out.println("  " + i + " - " + job.getName());
@@ -210,31 +268,42 @@ public class CreateEmployeeUI implements Runnable {
         }
     }
 
-    private ArrayList<Skill> displayAndSelectSkill () {
+    /**
+     * Displays the list of available skills and allows the user to select multiple skills.
+     * The user can exit the selection process by entering '0'.
+     *
+     * @return The list of selected skills.
+     */
+    private ArrayList<Skill> displayAndSelectSkill() {
         Scanner input = new Scanner(System.in);
 
-        //Display the list of task categories
+        // Display the list of task categories
         List<Skill> skills = new ArrayList<>(List.copyOf(controller.getAllSkills()));
         ArrayList<Skill> selectedSkills = new ArrayList<>();
         int listSize = skills.size();
         int answer = -1;
 
         do {
-            displaySkillsOptions(skills);
+            displaySkillsOptions(skills); // Display the list of available skills
             System.out.println("  0 - Exit");
             System.out.print("Select a Skill: ");
-            answer = input.nextInt();
+            answer = input.nextInt(); // Prompt user to select a skill or exit
             if (answer > 0 && answer <= listSize) {
                 selectedSkills.add(skills.get(answer - 1));
-                skills.remove(answer-1);
+                skills.remove(answer - 1);
                 listSize--;
             }
-        } while (answer != 0);
-        return selectedSkills;
+        } while (answer != 0); // Continue the selection process until the user exits
+        return selectedSkills; // Return the list of selected skills
     }
 
-    private void displaySkillsOptions (List < Skill > skills) {
-        //display the task categories as a menu with number options to select
+    /**
+     * Displays the list of skill options as a menu with numbered options to select.
+     *
+     * @param skills The list of skills to display.
+     */
+    private void displaySkillsOptions(List<Skill> skills) {
+        // Display the skill categories as a menu with number options to select
         int i = 1;
         for (Skill skill : skills) {
             System.out.println("  " + i + " - " + skill.getName());

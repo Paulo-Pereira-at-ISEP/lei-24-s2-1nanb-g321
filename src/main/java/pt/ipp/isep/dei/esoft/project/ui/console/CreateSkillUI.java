@@ -1,16 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
-import pt.ipp.isep.dei.esoft.project.application.controller.CreateJobController;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateSkillController;
-import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
-import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
 
 import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
-
-import java.util.List;
-import java.util.Scanner;
 
 /**
  * Create Skill UI (console). This option is only available for administrators for demonstration purposes.
@@ -57,31 +51,24 @@ public class CreateSkillUI implements Runnable {
         skillDescription = requestSkillDescription();
     }
 
+    /**
+     * Prompts the user to input a skill description and validates the input.
+     * The input is considered valid if it contains only letters.
+     *
+     * @return The validated skill description.
+     */
     private String requestSkillDescription() {
-        Scanner input = new Scanner(System.in);
-        String ler;
-        do {
-            System.out.print("Skill Description: ");
-            ler = input.nextLine();
-            if (!Utils.isValidInput(ler)) {
-                System.out.print("Skill Description must only contain letters.\n");
-            }
-        } while (!Utils.isValidInput(ler));
-        return ler;
+        return Utils.requestOnlyLetters("Skill Description: ", "Skill Description must only contain letters.\n");
     }
 
+    /**
+     * Prompts the user to input a skill name and validates the input.
+     * The input is considered valid if it contains only letters.
+     *
+     * @return The validated skill name.
+     */
     private String requestSkillName() {
-        Scanner input = new Scanner(System.in);
-        String ler;
-
-        do {
-            System.out.print("Skill Name: ");
-            ler = input.nextLine();
-            if (!Utils.isValidInput(ler)) {
-                System.out.print("Skill Name must only contain letters.\n");
-            }
-        } while (!Utils.isValidInput(ler));
-        return ler;
+        return Utils.requestOnlyLetters("Skill Name: ", "Skill Name must only contain letters.\n");
     }
 }
 
