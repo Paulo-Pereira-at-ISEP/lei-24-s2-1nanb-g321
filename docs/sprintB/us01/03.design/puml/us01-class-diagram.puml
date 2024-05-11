@@ -66,6 +66,10 @@ class SkillRepository{
     + addSkill(newSkill)
 }
 
+class AuthenticationRepository{
+    + getEmployeeFromSession()
+}
+
 class Skill {
     -skillName:String
     -skillDescription:String
@@ -76,11 +80,14 @@ class Skill {
     +validateSkillData(skillName, skillDescription)
 }
 
-CreateSkillUI ..> CreateSkillController
-CreateSkillController -->  Repositories : getInstance
-Repositories ..> SkillRepository : create
+CreateSkillUI "1" ..> "1" CreateSkillController
+
+CreateSkillController "1" --> "1" Repositories : getInstance
+
+Repositories "1" ..> "1" SkillRepository : create
 
 CreateSkillController --> Employee : createSkill
+CreateSkillController "1" --> "1" AuthenticationRepository : getCurrentUserSession
 
 Employee ..>Skill
 
