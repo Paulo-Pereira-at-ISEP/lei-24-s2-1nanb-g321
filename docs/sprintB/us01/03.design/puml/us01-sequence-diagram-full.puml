@@ -12,7 +12,10 @@ participant ": CreateSkillUI" as UI
 participant ": CreateSkillController" as CTRL
 participant ": Repositories" as ORG_SINGLETON
 participant "repositories\n: Repositories" as ORG_INSTANCE
+participant "skillRepository:\nSkillRepository" as SKILL_REPO_INSTANCE
 participant "employee\n: Employee" as MNGR
+participant "authenticationRepository\n:AuthenticationRepository" as AUTH_REPO
+participant "userSession\n:UserSessoin" as USR_SESSION
 participant ": Skill" as SKILL
 
 
