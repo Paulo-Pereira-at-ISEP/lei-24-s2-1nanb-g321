@@ -74,17 +74,16 @@ public class CreateEmployeeUI implements Runnable {
 
 
     private String requestEmployeeName() {
-        Scanner input = new Scanner(System.in);
-        String ler;
+        String input;
         do {
-            System.out.print("Employee Name: ");
-            ler = input.nextLine();
-            if (!Utils.isValidInput(ler)){
+            input = Utils.readLineFromConsole("Employee Name: ");
+            assert input != null;
+            if (!Utils.isValidInput(input)){
                 System.out.print("Employee Name must only contain letters.\n");
             }
-        } while(!Utils.isValidInput(ler));
-        return ler;
-        }
+        } while(!Utils.isValidInput(input));
+        return input;
+    }
 
     private String requestEmployeeBirthDate() {
         String ler;
