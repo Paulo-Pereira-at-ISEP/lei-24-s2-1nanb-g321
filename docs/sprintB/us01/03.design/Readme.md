@@ -53,24 +53,13 @@ This diagram shows the full sequence of interactions between the classes involve
 The following partial diagrams are displayed to better illustrate the interactions between the classes for the reference notes of the full diagram.
 
 
-![Sequence Diagram - split](svg/us006-sequence-diagram-split.svg)
-
-**Get Task Category List Partial SD**
-
-![Sequence Diagram - Partial - Get Task Category List](svg/us006-sequence-diagram-partial-get-task-category-list.svg)
-
-**Get Task Category Object**
-
-![Sequence Diagram - Partial - Get Task Category Object](svg/us006-sequence-diagram-partial-get-task-category.svg)
-
-**Get Employee**
-
-![Sequence Diagram - Partial - Get Employee](svg/us01-sequence-diagram-partial-validate-skill.svg)
-
-**Create Task**
+**Get Employee from session**
 
 ![Sequence Diagram - Partial - Create Task](svg/us01-sequence-diagram-partial-get-employee.svg)
 
+**Validate Skill**
+
+![Sequence Diagram - Partial - Get Employee](svg/us01-sequence-diagram-partial-validate-skill.svg)
 ## 3.3. Class Diagram (CD)
 
 ![Class Diagram](svg/us01-class-diagram.svg)
