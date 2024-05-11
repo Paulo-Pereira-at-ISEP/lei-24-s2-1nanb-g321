@@ -38,19 +38,192 @@
 
 ## <a id="feat"></a> Features
 [top](#top)
-1. Register Skills | Human Resources Manager
 
-2. Register Jobs | Human Resources Manager
+![Main Menu](user-manual%20multimedia/MainMenu.png)
 
-3. Register Collaborators | Human Resources Manager
+In the Main Menu is where the user can login to get access to the rest of the features and where the user can get to know the development team.
 
-4. Assign Skills to a Collaborator | Human Resources Manager
+## I. Human Resources Manager Features
+[top](#top)
 
-5. Generate team proposal automatically | Human Resources Manager
+![HRMLogin](user-manual%20multimedia/HRMLogin.png)
 
-6. Register Vehicle | Vehicle and Equipment Fleet Manager
+Each user must be logged in to have access to each role's options.
 
-7. Register Vehicle Maintenance | Vehicle and Equipment Fleet Manager
+### 1. Register Skills
 
-8. List vehicles with pending maintenances | Vehicle and Equipment Fleet Manager
+**Access:**
 
+![CreateSkill](user-manual%20multimedia/CreateSkill.png)
+
+Choose option number 1 (1 - Create Skill) from the HRM MENU.
+
+**Registration Process:**
+
+![CreateSkillProcess](CreateSkillProcess.png)
+
+Enter the skill name (e.g., Project Management, Software Development).
+
+Provide a detailed description of the skill.
+
+If followed correctly skill will be successfully created!
+
+### 2. List Skills
+
+**Access:**
+
+![ListSkills](user-manual%20multimedia/ListSkills.png)
+
+Choose option number 2 (2 - List Skills) from the HRM MENU.
+
+**Viewing List:**
+
+![ListSkillsPresented](user-manual%20multimedia/ListSkillsPresented.png)
+
+A list with all skills available and their descriptions will be presented.
+
+### 3. Register Jobs
+
+**Access:**
+
+![CreateJob](user-manual%20multimedia/CreateJob.png)
+
+Choose option number 3 (3 - Create Job) from the HRM MENU.
+
+**Registration Process:**
+
+![CreateJobProcess](user-manual%20multimedia/CreateJobProcess.png)
+
+Enter the job title (e.g., Marketing Manager, Software Engineer).
+
+Provide a detailed description of the job.
+
+If followed correctly job will be successfully created!
+
+### 4. List Job
+
+**Access:**
+
+![ListJobs](user-manual%20multimedia/ListJobs.png)
+
+Choose option number 4 (4 - List Job) from the HRM MENU.
+
+**Viewing List:**
+
+![ListJobsPresented](user-manual%20multimedia/ListJobsPresented.png)
+
+A list with all jobs available and their descriptions will be presented.
+
+### 5. Register Collaborators (Employees)
+
+**Access:**
+
+![RegisterCollaborator](user-manual%20multimedia/RegisterCollaborator.png)
+
+Choose option number 5 (5 - Create Job) from the HRM MENU.
+
+**Registration Process:**
+
+![RegisterCollaboratorProcess](user-manual%20multimedia/RegisterCollaboratorProcess.png)
+
+Enter the employee's details (name, contact information, etc.).
+
+Select the job to be attributed from the list.
+
+Select the skills to be attributed from the list.
+
+If followed correctly collaborator will be successfully registered!
+
+### 6. List Collaborator
+
+**Access:**
+
+![ListCollaborators](user-manual%20multimedia/ListCollaborators.png)
+
+Choose option number 6 (6 - List Collaborator) from the HRM MENU.
+
+**Viewing List:**
+
+![ListCollaboratorsPresented](user-manual%20multimedia/ListCollaboratorsPresented.png)
+
+A list with all collaborators available and their information will be presented.
+
+### 7. Assign Skills to a Collaborator
+
+**Access:**
+
+![AssignSkillsToCollaborator](user-manual%20multimedia/AssignSkillsToCollaborator.png)
+
+Choose option number 7 (7 - Assign one or more skills to a collaborator) from the HRM MENU.
+
+**Assigning Skills:**
+
+![AssignSkillsToCollaboratorProcess](user-manual%20multimedia/AssignSkillsToCollaboratorProcess.png)
+
+Choose the desired collaborator.
+
+Select the skills to be attributed from the list.
+
+If followed correctly collaborator will get the desired skills on his profile!
+
+### 8. Generate Team Proposal Automatically
+
+
+**Access:**
+
+![GenerateTeamProposal](user-manual%20multimedia/GenerateTeamProposal.png)
+
+Choose option number 8 (8 - Generate a team proposal) from the HRM MENU.
+
+**Generating Proposal:**
+
+![GenerateTeamProposalProccess](user-manual%20multimedia/GenerateTeamProposalProccess.png)
+
+Enter the team details (Team Maximum Size, Team Minimum Size).
+
+Choose desired skills that the employees of the team need to have.
+
+If followed correctly and there were available employess with the desired skills the team will be successfully generated and the employees on the team will be displyed along with their information.
+
+## II. Vehicle and Equipment Fleet Manager Features
+[top](#top)
+
+![VFMLogin](user-manual%20multimedia/VFMLogin.png)
+
+Each user must be logged in to have access to each role's options.
+
+### 1. Register Vehicle
+
+**Access:**
+
+![RegisterVehicle](user-manual%20multimedia/RegisterVehicle.png)
+
+Choose option number 1 (1 - Create Vehicle) from the VFM MENU.
+
+**Registration Process:**
+
+Not developed.
+
+### 2. Register Vehicle Maintenance
+
+**Access:**
+
+![RegisterVehicleMaintenance](user-manual%20multimedia/RegisterVehicleMaintenance.png)
+
+Choose option number 2 (2 - Register Maintenance of Vehicle) from the VFM MENU.
+
+**Registration Process:**
+
+Not developed.
+
+### 3. List Vehicles with Pending Maintenance
+
+**Access:**
+
+![ListVehiclesWithPendingMaintenances](user-manual%20multimedia/ListVehiclesWithPendingMaintenances.png)
+
+Choose option number 3 (3 - List Vehicle who needs Maintenance) from the VFM MENU.
+
+**Viewing List:**
+
+Not developed.
