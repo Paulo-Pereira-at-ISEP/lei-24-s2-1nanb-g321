@@ -1,14 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateJobController;
-import pt.ipp.isep.dei.esoft.project.application.controller.CreateSkillController;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
-import pt.ipp.isep.dei.esoft.project.domain.Skill;
 
 import java.util.List;
 
 /**
- * Create Skill UI (console). This option is only available for administrators for demonstration purposes.
+ * List Jobs UI (console). This option is only available for administrators for demonstration purposes.
  */
 public class ListJobsUI implements Runnable {
 
@@ -23,6 +21,9 @@ public class ListJobsUI implements Runnable {
         listJobs();
     }
 
+    /**
+     * Lists all registered jobs along with their details.
+     */
     private void listJobs() {
         List<Job> jobs = jobController.getAllJobs();
 

@@ -2,22 +2,17 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateJobController;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
-import pt.ipp.isep.dei.esoft.project.repository.JobRepository;
 
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
-import java.util.List;
-import java.util.Scanner;
-
 /**
- * Create Skill UI (console). This option is only available for administrators for demonstration purposes.
+ * Create Job UI (console). This option is only available for administrators for demonstration purposes.
  */
 public class CreateJobUI implements Runnable {
 
     private final CreateJobController controller;
     private String jobName;
     private String jobDescription;
-    private JobRepository jobRepository;
 
     public CreateJobUI() {
         controller = new CreateJobController();
@@ -54,31 +49,23 @@ public class CreateJobUI implements Runnable {
         jobDescription = requestJobDescription();
     }
 
+    /**
+     * Prompts the user to input a job description and validates the input.
+     * The input is considered valid if it contains only letters.
+     *
+     * @return The validated job description.
+     */
     private String requestJobDescription() {
-        Scanner input = new Scanner(System.in);
-        String ler;
-        do {
-            System.out.print("Job Description: ");
-            ler = input.nextLine();
-            if (!Utils.isValidInput(ler)){
-                System.out.print("Job Description must only contain letters.\n");
-            }
-        } while(!Utils.isValidInput(ler));
-        return ler;
+        return Utils.requestOnlyLetters("Job Description: ", "Job Description must only contain letters.\n");
     }
 
+    /**
+     * Prompts the user to input a job name and validates the input.
+     * The input is considered valid if it contains only letters.
+     *
+     * @return The validated job name.
+     */
     private String requestJobName() {
-        Scanner input = new Scanner(System.in);
-        String ler;
-
-        do {
-            System.out.print("Job Name: ");
-            ler = input.nextLine();
-            if (!Utils.isValidInput(ler)){
-                System.out.print("Job Name must only contain letters.\n");
-            }
-        } while(!Utils.isValidInput(ler));
-        return ler;
+        return Utils.requestOnlyLetters("Job Name: ", "Job Name must only contain letters.\n");
     }
-
 }

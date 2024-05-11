@@ -8,7 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-
+/**
+ * Assign Skills UI (console). This option is only available for administrators for demonstration purposes.
+ */
 public class CreateAssignSkillsUI implements Runnable {
     private Employee employee;
     private final CreateSkillController skillController;
@@ -39,8 +41,13 @@ public class CreateAssignSkillsUI implements Runnable {
     }
 
 
+    /**
+     * Displays the list of available employees and allows the user to select one.
+     *
+     * @return The selected employee.
+     */
     private Employee displayAndSelectEmployee() {
-        //Display the list of task categories
+        // Display the list of task categories
         List<Employee> employees = skillController.getAllEmployees();
 
         int listSize = employees.size();
@@ -48,16 +55,21 @@ public class CreateAssignSkillsUI implements Runnable {
 
         Scanner input = new Scanner(System.in);
 
-        do{
+        do {
             displayEmployeesOptions(employees);
             System.out.print("Select an Employee: ");
             answer = input.nextInt();
             return employees.get(answer - 1);
-        } while(answer < 0 || answer > listSize);
+        } while (answer < 0 || answer > listSize);
     }
 
+    /**
+     * Displays the list of employee options as a menu with numbered options to select.
+     *
+     * @param employees The list of employees to display.
+     */
     private void displayEmployeesOptions(List<Employee> employees) {
-        //display the task categories as a menu with number options to select
+        // Display the employee categories as a menu with number options to select
         int i = 1;
         for (Employee employee : employees) {
             System.out.println("  " + i + " - " + employee.getName() + " - " + employee.getEmail());
@@ -65,17 +77,24 @@ public class CreateAssignSkillsUI implements Runnable {
         }
     }
 
+    /**
+     * Displays the list of available skills that an employee can be assigned and allows the user to select multiple skills.
+     * The user can exit the selection process by entering '0'.
+     *
+     * @param employee The employee for whom skills are being selected.
+     * @return The list of selected skills.
+     */
     private ArrayList<Skill> displayAndSelectSkill(Employee employee) {
         Scanner input = new Scanner(System.in);
 
-        //Display the list of task categories
+        // Display the list of task categories
         List<Skill> skills = new ArrayList<>(List.copyOf(skillController.getAllSkills()));
         ArrayList<Skill> selectedSkills = new ArrayList<>();
 
-        //skils from the selected employee
+        // Get the skills already possessed by the employee
         List<Skill> employeeSkills = employee.getSkills();
 
-        //remove sills that the employee already has
+        // Remove skills that the employee already has
         for (Skill skill : employeeSkills) {
             skills.remove(skill);
         }
@@ -84,21 +103,26 @@ public class CreateAssignSkillsUI implements Runnable {
         int answer = -1;
 
         do {
-            displaySkillsOptions(skills);
+            displaySkillsOptions(skills); // Display the list of available skills
             System.out.println("  0 - Exit");
             System.out.print("Select a Skill: ");
-            answer = input.nextInt();
+            answer = input.nextInt(); // Prompt user to select a skill or exit
             if (answer > 0 && answer <= listSize) {
                 selectedSkills.add(skills.get(answer - 1));
-                skills.remove(answer-1);
+                skills.remove(answer - 1);
                 listSize--;
             }
-        } while (answer != 0);
-        return selectedSkills;
+        } while (answer != 0); // Continue the selection process until the user exits
+        return selectedSkills; // Return the list of selected skills
     }
 
+    /**
+     * Displays the list of skill options as a menu with numbered options to select.
+     *
+     * @param skills The list of skills to display.
+     */
     private void displaySkillsOptions(List<Skill> skills) {
-        //display the task categories as a menu with number options to select
+        // Display the skill categories as a menu with number options to select
         int i = 1;
         for (Skill skill : skills) {
             System.out.println("  " + i + " - " + skill.getName());

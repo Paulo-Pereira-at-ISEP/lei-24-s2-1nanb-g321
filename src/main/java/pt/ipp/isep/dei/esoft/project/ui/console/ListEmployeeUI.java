@@ -6,7 +6,7 @@ import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import java.util.List;
 
 /**
- * Create Skill UI (console). This option is only available for administrators for demonstration purposes.
+ * List Employee UI (console). This option is only available for administrators for demonstration purposes.
  */
 public class ListEmployeeUI implements Runnable {
 
@@ -21,6 +21,9 @@ public class ListEmployeeUI implements Runnable {
         listEmployees();
     }
 
+    /**
+     * Lists all registered employees along with their details.
+     */
     private void listEmployees() {
         List<Employee> employees = controller.getAllEmployees();
         System.out.println("Registered Employees:");

@@ -2,14 +2,12 @@ package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateSkillController;
 
-import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 
 import java.util.List;
-import java.util.Scanner;
 
 /**
- * Create Skill UI (console). This option is only available for administrators for demonstration purposes.
+ * List Skill UI (console). This option is only available for administrators for demonstration purposes.
  */
 public class ListSkillsUI implements Runnable {
 
@@ -24,6 +22,9 @@ public class ListSkillsUI implements Runnable {
         listSkills();
     }
 
+    /**
+     * Lists all registered skills along with their details.
+     */
     private void listSkills() {
         List<Skill> skills = skillController.getAllSkills();
 
