@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
@@ -176,4 +177,13 @@ public class Utils {
 
         return true; // Passed basic checks, potentially valid
     }
+
+    public static boolean isAtLeast18YearsOld (LocalDate input) {
+
+        LocalDate today = LocalDate.now(); // Get current date
+        LocalDate eighteenYearsAgo = today.minusYears(18); // Calculate date 18 years ago
+
+        return input.isBefore(eighteenYearsAgo);
+    }
+
 }

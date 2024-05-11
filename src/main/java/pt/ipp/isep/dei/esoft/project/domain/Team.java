@@ -58,6 +58,20 @@ public class Team {
         Integer[] scores=new Integer[listOfEmployees.size()];
 
         List<Employee> employees1 = sortEmployeesBySkillScore(scores, listOfEmployees);
+        
+        
+        for(Skill skill : skills) {
+            
+            for(Employee employee : employees) {
+                
+                for(Employee employee1 : employees1) {
+
+            
+                }
+            
+            }    
+        
+        }
 
         this.employees=employees1;
 

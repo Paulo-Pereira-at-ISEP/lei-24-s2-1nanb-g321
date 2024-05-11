@@ -11,9 +11,10 @@ actor "Human Resource Manager" as HRM
 participant ":CreateEmployeelUI" as UI
 participant ":CreateEmployeelController" as controller
 participant ":Repositories" as singleton
-participant "repositories\n:Repositories" as rep
-participant "employeeRepository:\nEmployeeRepository" as employeeRep
+participant ":Organization" as org
 participant ":Employee" as Employee
+
+
 
 activate HRM
 
@@ -33,14 +34,19 @@ activate HRM
 
                 deactivate singleton
 
-                controller -> rep : getEmployeeRepository()
+                controller -> org : getAllEmployees()
 
-                activate rep
+                activate org
 
 
-                    rep --> controller : employeeRep
+                    org --> controller : employeeRep
+                    controller --> Employee : Employee()
+                    activate Employee
 
-                deactivate rep
+                    Employee --> controller : Employee()
+
+                    deactivate Employee
+                    deactivate rep
 
 
 
@@ -57,17 +63,21 @@ activate HRM
         activate rep
 
             controller -> rep : getJobRepository()
-            rep -> controller : jobRepository
+            rep --> controller : jobRepository
+            controller --> JobRep : getAllJobs()
+            activate JobRep
+            JobRep --> controller : getAllJobs()
+            deactivate JobRep
         deactivate rep
 
             controller --> UI : getAllJobs()
-            deactivate controller
 
             UI --> HRM : shows list of jobs and asks to select one
 
             HRM -> UI : selects job
-
+            controller --> UI : Employee()
            UI -> controller : createEmployee(name, birthDate, admissionDate, adress, email, mobile, docIdType, docIdNum, TaxPayerNum)
+
                    deactivate UI
 
             activate controller
@@ -81,16 +91,16 @@ activate HRM
 
                 deactivate Employee
 
-                controller -> employeeRep : add(newEmployee)
+                controller -> EmployeeRepository : add(newEmployee)
 
-                activate employeeRep
+                activate EmployeeRepository
 
-                    employeeRep -> employeeRep : validateEmployee(newEmployee)
+                    EmployeeRepository -> EmployeeRepository : validateEmployee(newEmployee)
 
 
-                    employeeRep --> controller : newEmployee
+                    EmployeeRepository --> controller : newEmployee
 
-                deactivate employeeRep
+                deactivate EmployeeRepository
 
             controller --> UI : newEmployee
 
