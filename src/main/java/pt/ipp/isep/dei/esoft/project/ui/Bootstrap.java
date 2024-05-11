@@ -40,8 +40,6 @@ public class Bootstrap implements Runnable {
         organization.addEmployee(new Employee("QAM@this.app"));
         organization.addEmployee(new Employee("GSM@this.app"));
         organization.addEmployee(new Employee("colab@this.app"));
-
-
  */
         organizationRepository.add(organization);
     }
@@ -51,16 +49,16 @@ public class Bootstrap implements Runnable {
 
         skillRepository.add(new Skill("Light Vehicle Driver", "Drives light vehicles"));
         skillRepository.add(new Skill("Heavy Vehicle Driver", "Drives heavy vehicles"));
-        skillRepository.add(new Skill("Machine Operator", "Operating machines such as backhoes or tractors"));
-        skillRepository.add(new Skill("Tree Pruner", "Tree pruning"));
-        skillRepository.add(new Skill("Driver Light", "Application of agriculture phytopharmaceuticals"));
+        skillRepository.add(new Skill("Machine Operator", "Operates machines such as backhoes or tractors"));
+        skillRepository.add(new Skill("Tree Pruner", "Prunes trees"));
+        skillRepository.add(new Skill("Phytopharmaceutical applicator", "Applies agriculture phytopharmaceuticals to the crops"));
     }
     private void addJobs() {
         JobRepository jobRepository = Repositories.getInstance().getJobRepository();
 
         jobRepository.add(new Job("Designer", "Creates plans and ideas for products or visuals or experiences"));
         jobRepository.add(new Job("Budget Manager", "Plans and tracks company spending"));
-        jobRepository.add(new Job("Gardener", "Garden maintenance"));
+        jobRepository.add(new Job("Gardener", "Maintains the gardens"));
         jobRepository.add(new Job("Electrician", "Installs and maintains and fixes electrical systems in buildings"));
         jobRepository.add(new Job("Bricklayer", "Builds walls and structures by laying bricks with mortar"));
     }

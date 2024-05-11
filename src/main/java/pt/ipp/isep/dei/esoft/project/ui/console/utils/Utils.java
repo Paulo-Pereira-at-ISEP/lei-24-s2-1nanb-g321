@@ -203,4 +203,11 @@ public class Utils {
         return input.isBefore(eighteenYearsAgo);
     }
 
+    public static boolean isMobileNumberCorrect (String mobileNumber) {
+        if (mobileNumber == null || mobileNumber.isEmpty()) {
+            return false;
+        }
+        return mobileNumber.matches("^9[0-9]{8}$");
+    }
+
 }
