@@ -29,18 +29,7 @@ public class Bootstrap implements Runnable {
         //get organization repository
         OrganizationRepository organizationRepository = Repositories.getInstance().getOrganizationRepository();
         Organization organization = new Organization("Musgo Sublime"); //nome da empresa
-/*
-        //---------------Eliminar posteriormente------------------------
-        organization.addEmployee(new Employee("admin@this.app"));
-        organization.addEmployee(new Employee("employee@this.app"));
-        //---------------------------------------------------------------
 
-        organization.addEmployee(new Employee("HRM@this.app"));
-        organization.addEmployee(new Employee("VFM@this.app"));
-        organization.addEmployee(new Employee("QAM@this.app"));
-        organization.addEmployee(new Employee("GSM@this.app"));
-        organization.addEmployee(new Employee("colab@this.app"));
- */
         organizationRepository.add(organization);
     }
 
@@ -90,25 +79,7 @@ public class Bootstrap implements Runnable {
         authenticationRepository.addUserRole(AuthenticationController.ROLE_QAM, AuthenticationController.ROLE_QAM);
         authenticationRepository.addUserRole(AuthenticationController.ROLE_GSM, AuthenticationController.ROLE_GSM);
         authenticationRepository.addUserRole(AuthenticationController.ROLE_Collaborator, AuthenticationController.ROLE_Collaborator);
-/*
-        //---------------Eliminar posteriormente------------------------
-        authenticationRepository.addUserWithRole("Main Administrator", "admin@this.app", "admin",
-                AuthenticationController.ROLE_ADMIN);
-        authenticationRepository.addUserWithRole("Employee", "employee@this.app", "pwd",
-                AuthenticationController.ROLE_EMPLOYEE);
-        //---------------------------------------------------------------
 
-        authenticationRepository.addUserWithRole("HRM", "HRM@this.app", "admin",
-                AuthenticationController.ROLE_HRM);
-        authenticationRepository.addUserWithRole("VFM", "VFM@this.app", "admin",
-                AuthenticationController.ROLE_VFM);
-        authenticationRepository.addUserWithRole("QAM", "QAM@this.app", "admin",
-                AuthenticationController.ROLE_QAM);
-        authenticationRepository.addUserWithRole("GSM", "GSM@this.app", "admin",
-                AuthenticationController.ROLE_GSM);
-        authenticationRepository.addUserWithRole("Collaborator", "colab@this.app", "admin",
-                AuthenticationController.ROLE_Collaborator);
- */
         for (Employee employee : m_Employees) {
             if (employee.getRole().equals(AuthenticationController.ROLE_HRM)) {
                 authenticationRepository.addUserWithRole(employee.getName(),employee.getEmail(), employee.getPassword(),
