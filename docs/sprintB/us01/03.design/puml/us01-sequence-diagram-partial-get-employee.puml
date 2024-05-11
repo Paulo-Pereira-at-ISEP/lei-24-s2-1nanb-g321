@@ -6,67 +6,43 @@ skinparam shadowing false
 
 
 'hide footbox
-participant ":CreateSkillController" as CTRL
-participant ":ApplicationSession" as _APP
-participant "appSession\n:ApplicationSession" as APP
-participant "currentSession\n:UserSession" as SESSAO
-participant ":Repositories" as RepositorySingleton
-participant "repositories\n:Repositories" as PLAT
-participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
-participant "organization\n:Organization" as ORG
 
-autonumber 13
--> CTRL : getEmployeeFromSession()
-autonumber 13.1
-activate CTRL
+
+participant "repositories\n:Repositories" as PLAT
+participant "authenticationRepository\n:AuthenticationRepository" as AUTH_REPO
+participant "userSession\n:UserSessoin" as USR_SESSION
+
+
+
+autonumber 11
+-> PLAT : getEmployeeFromSession()
+
+autonumber 11.1
+
+activate PLAT
+    PLAT -> PLAT : getAuthenticationRepository()
+
+    PLAT -> AUTH_REPO : getCurrentUserSession()
+
+    activate AUTH_REPO
+
+        AUTH_REPO -> USR_SESSION : getUserId()
+
+        activate USR_SESSION
+
+            USR_SESSION --> AUTH_REPO : email
+
+        deactivate USR_SESSION
+
+    AUTH_REPO -->PLAT : email
+
+    deactivate AUTH_REPO
 
     group Get Employee
-        CTRL -> _APP: getInstance()
-        activate _APP
-            _APP -> CTRL: appSession
-        deactivate _APP
 
-        CTRL -> APP: getCurrentSession()
-        activate APP
+    autonumber 12
 
-            APP --> CTRL: currentSession
-        deactivate APP
-
-        CTRL -> SESSAO: email = getUserEmail()
-        activate SESSAO
-
-            SESSAO --> CTRL: email
-        deactivate SESSAO
-
-        CTRL -> PLAT: getOrganizationRepository()
-        activate PLAT
-
-            PLAT --> CTRL: organizationRepository
-        deactivate PLAT
-
-        CTRL -> OrganizationRepository: getOrganizationByUserEmail(email)
-        activate OrganizationRepository
-
-            loop [for each organization
-                OrganizationRepository -> ORG : anyEmployeeHasEmail(email)
-                activate ORG
-
-                     ORG --> OrganizationRepository : true/false
-                deactivate ORG
-            end
-
-            OrganizationRepository --> CTRL : organization
-
-        deactivate OrganizationRepository
-
-        CTRL -> ORG: getEmployeeByEmail(email)
-        activate ORG
-
-            ORG --> CTRL : employee
-        deactivate ORG
-    end
-    autonumber 15
-    <-- CTRL : employee
-deactivate CTRL
+ <-- PLAT: email
+deactivate PLAT
 
 @enduml
