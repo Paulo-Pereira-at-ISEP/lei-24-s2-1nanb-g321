@@ -39,14 +39,14 @@
 ## <a id="feat"></a> Features
 [top](#top)
 
-![Main Menu](user-manual%20multimedia/MainMenu.png)
+![Main Menu](user-manual-multimedia/MainMenu.png)
 
 In the Main Menu is where the user can login to get access to the rest of the features and where the user can get to know the development team.
 
 ## I. Human Resources Manager Features
 [top](#top)
 
-![HRMLogin](user-manual%20multimedia/HRMLogin.png)
+![HRMLogin](user-manual-multimedia/HRMLogin.png)
 
 Each user must be logged in to have access to each role's options.
 
@@ -54,13 +54,13 @@ Each user must be logged in to have access to each role's options.
 
 **Access:**
 
-![CreateSkill](user-manual%20multimedia/CreateSkill.png)
+![CreateSkill](user-manual-multimedia/CreateSkill.png)
 
 Choose option number 1 (1 - Create Skill) from the HRM MENU.
 
 **Registration Process:**
 
-![CreateSkillProcess](CreateSkillProcess.png)
+![CreateSkillProcess](user-manual-multimedia/CreateSkillProcess.png)
 
 Enter the skill name (e.g., Project Management, Software Development).
 
@@ -72,13 +72,13 @@ If followed correctly skill will be successfully created!
 
 **Access:**
 
-![ListSkills](user-manual%20multimedia/ListSkills.png)
+![ListSkills](user-manual-multimedia/ListSkills.png)
 
 Choose option number 2 (2 - List Skills) from the HRM MENU.
 
 **Viewing List:**
 
-![ListSkillsPresented](user-manual%20multimedia/ListSkillsPresented.png)
+![ListSkillsPresented](user-manual-multimedia/ListSkillsPresented.png)
 
 A list with all skills available and their descriptions will be presented.
 
@@ -86,13 +86,13 @@ A list with all skills available and their descriptions will be presented.
 
 **Access:**
 
-![CreateJob](user-manual%20multimedia/CreateJob.png)
+![CreateJob](user-manual-multimedia/CreateJob.png)
 
 Choose option number 3 (3 - Create Job) from the HRM MENU.
 
 **Registration Process:**
 
-![CreateJobProcess](user-manual%20multimedia/CreateJobProcess.png)
+![CreateJobProcess](user-manual-multimedia/CreateJobProcess.png)
 
 Enter the job title (e.g., Marketing Manager, Software Engineer).
 
@@ -104,13 +104,13 @@ If followed correctly job will be successfully created!
 
 **Access:**
 
-![ListJobs](user-manual%20multimedia/ListJobs.png)
+![ListJobs](user-manual-multimedia/ListJobs.png)
 
 Choose option number 4 (4 - List Job) from the HRM MENU.
 
 **Viewing List:**
 
-![ListJobsPresented](user-manual%20multimedia/ListJobsPresented.png)
+![ListJobsPresented](user-manual-multimedia/ListJobsPresented.png)
 
 A list with all jobs available and their descriptions will be presented.
 
@@ -118,13 +118,13 @@ A list with all jobs available and their descriptions will be presented.
 
 **Access:**
 
-![RegisterCollaborator](user-manual%20multimedia/RegisterCollaborator.png)
+![RegisterCollaborator](user-manual-multimedia/RegisterCollaborator.png)
 
 Choose option number 5 (5 - Create Job) from the HRM MENU.
 
 **Registration Process:**
 
-![RegisterCollaboratorProcess](user-manual%20multimedia/RegisterCollaboratorProcess.png)
+![RegisterCollaboratorProcess](user-manual-multimedia/RegisterCollaboratorProcess.png)
 
 Enter the employee's details (name, contact information, etc.).
 
@@ -138,13 +138,13 @@ If followed correctly collaborator will be successfully registered!
 
 **Access:**
 
-![ListCollaborators](user-manual%20multimedia/ListCollaborators.png)
+![ListCollaborators](user-manual-multimedia/ListCollaborators.png)
 
 Choose option number 6 (6 - List Collaborator) from the HRM MENU.
 
 **Viewing List:**
 
-![ListCollaboratorsPresented](user-manual%20multimedia/ListCollaboratorsPresented.png)
+![ListCollaboratorsPresented](user-manual-multimedia/ListCollaboratorsPresented.png)
 
 A list with all collaborators available and their information will be presented.
 
@@ -152,13 +152,13 @@ A list with all collaborators available and their information will be presented.
 
 **Access:**
 
-![AssignSkillsToCollaborator](user-manual%20multimedia/AssignSkillsToCollaborator.png)
+![AssignSkillsToCollaborator](user-manual-multimedia/AssignSkillsToCollaborator.png)
 
 Choose option number 7 (7 - Assign one or more skills to a collaborator) from the HRM MENU.
 
 **Assigning Skills:**
 
-![AssignSkillsToCollaboratorProcess](user-manual%20multimedia/AssignSkillsToCollaboratorProcess.png)
+![AssignSkillsToCollaboratorProcess](user-manual-multimedia/AssignSkillsToCollaboratorProcess.png)
 
 Choose the desired collaborator.
 
@@ -171,13 +171,13 @@ If followed correctly collaborator will get the desired skills on his profile!
 
 **Access:**
 
-![GenerateTeamProposal](user-manual%20multimedia/GenerateTeamProposal.png)
+![GenerateTeamProposal](user-manual-multimedia/GenerateTeamProposal.png)
 
 Choose option number 8 (8 - Generate a team proposal) from the HRM MENU.
 
 **Generating Proposal:**
 
-![GenerateTeamProposalProccess](user-manual%20multimedia/GenerateTeamProposalProccess.png)
+![GenerateTeamProposalProccess](user-manual-multimedia/GenerateTeamProposalProccess.png)
 
 Enter the team details (Team Maximum Size, Team Minimum Size).
 
@@ -188,7 +188,7 @@ If followed correctly and there were available employess with the desired skills
 ## II. Vehicle and Equipment Fleet Manager Features
 [top](#top)
 
-![VFMLogin](user-manual%20multimedia/VFMLogin.png)
+![VFMLogin](user-manual-multimedia/VFMLogin.png)
 
 Each user must be logged in to have access to each role's options.
 
@@ -196,7 +196,7 @@ Each user must be logged in to have access to each role's options.
 
 **Access:**
 
-![RegisterVehicle](user-manual%20multimedia/RegisterVehicle.png)
+![RegisterVehicle](user-manual-multimedia/RegisterVehicle.png)
 
 Choose option number 1 (1 - Create Vehicle) from the VFM MENU.
 
@@ -208,7 +208,7 @@ Not developed.
 
 **Access:**
 
-![RegisterVehicleMaintenance](user-manual%20multimedia/RegisterVehicleMaintenance.png)
+![RegisterVehicleMaintenance](user-manual-multimedia/RegisterVehicleMaintenance.png)
 
 Choose option number 2 (2 - Register Maintenance of Vehicle) from the VFM MENU.
 
@@ -220,7 +220,7 @@ Not developed.
 
 **Access:**
 
-![ListVehiclesWithPendingMaintenances](user-manual%20multimedia/ListVehiclesWithPendingMaintenances.png)
+![ListVehiclesWithPendingMaintenances](user-manual-multimedia/ListVehiclesWithPendingMaintenances.png)
 
 Choose option number 3 (3 - List Vehicle who needs Maintenance) from the VFM MENU.
 
