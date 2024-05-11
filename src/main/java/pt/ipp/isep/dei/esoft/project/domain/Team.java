@@ -39,7 +39,6 @@ public class Team {
         return employees;
     }
 
-
     public void setTeamMaxSize(int teamMaxSize) {
         this.teamMaxSize = teamMaxSize;
     }
@@ -119,7 +118,6 @@ public class Team {
             scores[employees1.indexOf(employee)] = scoreAux;
         }
 
-
         Employee employeeCopy;
         int scoreCopy;
 
@@ -147,7 +145,7 @@ public class Team {
 
 
     public String toString() {
-        return "Team Members: " + "\nTeam Size: " + "\nSkills: " + skills;
+        return "Team Maximum Size: " + teamMaxSize + "\nTeam Minimum Size: " + teamMinSize + "\nSkills: " + skills;
     }
 
     /**
