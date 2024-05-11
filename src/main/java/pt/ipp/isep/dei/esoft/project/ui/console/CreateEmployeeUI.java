@@ -10,6 +10,7 @@ import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 /**
@@ -86,15 +87,15 @@ public class CreateEmployeeUI implements Runnable {
     }
 
     private String requestEmployeeBirthDate() {
-        String ler;
+        String input;
         do {
-            ler = Utils.readLineFromConsole("Birth Date (YYYY-MM-DD): ");
-            assert ler != null;
-            if(!Utils.isAtLeast18YearsOld(LocalDate.parse(ler))){
+            input = Utils.readLineFromConsole("Birth Date (YYYY-MM-DD): ");
+            assert input != null;
+            if(!Utils.isAtLeast18YearsOld(LocalDate.parse(input))){
                 System.out.println("The Employee must be 18 years old or higher.");
             }
-        } while (!Utils.isAtLeast18YearsOld(LocalDate.parse(ler)));
-        return ler;
+        } while (!Utils.isAtLeast18YearsOld(LocalDate.parse(input)));
+        return input;
     }
 
         private String requestEmployeeAdmissionDate () {
@@ -105,9 +106,22 @@ public class CreateEmployeeUI implements Runnable {
             return (Utils.readLineFromConsole("Address: "));
         }
 
-        private int requestEmployeeMobile () {
-            return (Utils.readIntegerFromConsole("Mobile: "));
+    private int requestEmployeeMobile() {
+        boolean validNumber = false;
+        int number = 0;
+        while (!validNumber) {
+            try {
+                number = Integer.parseInt(Objects.requireNonNull(Utils.readLineFromConsole("Mobile Number: ")));
+                validNumber = Utils.isMobileNumberCorrect(String.valueOf(number));
+            } catch (NumberFormatException e) {
+                System.out.println("Error: Enter numbers only");
+            }
+            if (!validNumber) {
+                System.out.println("Nine digits and start with 9.");
+            }
         }
+        return number;
+    }
 
         private String requestEmployeeEmail () {
             String ler;
@@ -121,22 +135,18 @@ public class CreateEmployeeUI implements Runnable {
         }
 
         private String requestEmployeeIdentificationDocumentType () {
-            Scanner input = new Scanner(System.in);
-            String ler;
+            String input;
             do {
-                System.out.print("Identification Document Type: ");
-                ler = input.nextLine();
-                if (!Utils.isValidInput(ler)) {
+                input = Utils.readLineFromConsole("Identification Document Type: ");
+                if (!Utils.isValidInput(input)) {
                     System.out.print("Identification Document Type must only contain letters.\n");
                 }
-            } while (!Utils.isValidInput(ler));
-            return ler;
+            } while (!Utils.isValidInput(input));
+            return input;
         }
 
         private int requestEmployeeIdentificationDocumentNumber () {
-            Scanner input = new Scanner(System.in);
-            System.out.print("Identification Document Number: ");
-            return input.nextInt();
+            return Utils.readIntegerFromConsole("Identification Document Number: ");
         }
 
         private int requestEmployeeTaxPayerNumber () {
