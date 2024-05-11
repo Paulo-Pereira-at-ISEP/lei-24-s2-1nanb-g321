@@ -10,23 +10,22 @@ autonumber
 actor "Human Resource Manager" as HRM
 participant ":CreateSkillUI" as UI
 participant ":CreateSkillController" as CTRL
-participant ":Repositories" as REPO_SINGLETON
-
-
-
-participant "repositories\n:Repositories" as GEN_REPO_INSTANCE
-
-
-participant "skillRepository:\nSkillRepository" as SKILL_REPO_INSTANCE
+participant ":Organization" as ORG_SINGLETON
+participant "organization\n:Organization" as ORG_INSTANCE
+participant "employeee\n:EMployee" as MNGR
 participant ":Skill" as SKILL
 'participant ":HRManager" as MNGR
 
+note right of HRM
+    - The user is already logged in at this step.
+    - Authentication sequence is explained in
+    a sequence excerpt.
+end note
 
-note right of REPO_SINGLETON
+note right of ORG_SINGLETON
     - Singleton is
     in use
 end note
-
 
 
 activate HRM
@@ -37,25 +36,7 @@ activate HRM
             'create CTRL
             UI -> CTRL** : create
 
-            activate CTRL
 
-                CTRL -> REPO_SINGLETON : getInstance()
-
-                activate REPO_SINGLETON
-
-                    REPO_SINGLETON --> CTRL : repositories
-
-                deactivate REPO_SINGLETON
-
-                CTRL -> GEN_REPO_INSTANCE : getSkillRepository()
-
-                activate GEN_REPO_INSTANCE
-
-                    GEN_REPO_INSTANCE --> CTRL : skillRepository
-
-                deactivate GEN_REPO_INSTANCE
-
-            deactivate CTRL
 
 
             'requests the HRM to input data
@@ -67,7 +48,11 @@ activate HRM
         activate UI
 
             UI -> UI : validateSkillData(skillName, skillDescription)
-
+                note right of UI
+                    - This is an input type only. This
+                    means that only characters will be
+                    allowed.
+                end note
 
 
             deactivate CTRL
@@ -82,31 +67,55 @@ activate HRM
 
             UI -> CTRL : createSkill(skillName, skillDescription)
 
+
             activate CTRL
 
-                CTRL -> CTRL : getEmployeeFromSession()
+                CTRL -> ORG_SINGLETON : getInstance()
 
+                activate ORG_SINGLETON
 
-                |||
+                    ORG_SINGLETON --> CTRL : organization
 
-                CTRL -> SKILL : Skill(skillName, skillDescription, creator)
+                deactivate ORG_SINGLETON
+
+                CTRL -> ORG_INSTANCE : getEmployeeFromSession()
+
+                                note right of CTRL
+                                    - This method is explained in detail
+                                    in an excerpt sequence diagram.
+                                end note
+
+                activate ORG_INSTANCE
+
+                ORG_INSTANCE --> CTRL : employee
+
+                deactivate ORG_INSTANCE
+
+                CTRL -> MNGR : createSkill(skillName, skillDescription)
+
+                activate MNGR
+
+                MNGR -> SKILL : Skill(skillName, skillDescription)
 
                 activate SKILL
 
-                SKILL --> CTRL : newSkill
+                SKILL --> MNGR : newSkill
 
                 deactivate SKILL
 
-                CTRL -> SKILL_REPO_INSTANCE : add(newSkill)
+                MNGR --> CTRL : newSkill
 
-                activate SKILL_REPO_INSTANCE
+                deactivate MNGR
 
-                    SKILL_REPO_INSTANCE -> SKILL_REPO_INSTANCE : validateSkill(newSkill)
+                CTRL -> ORG_INSTANCE : addSkill(skill)
 
+                activate ORG_INSTANCE
 
-                    SKILL_REPO_INSTANCE --> CTRL : newSkill
+                ORG_INSTANCE -> ORG_INSTANCE : validateSkill()
 
-                deactivate SKILL_REPO_INSTANCE
+                ORG_INSTANCE --> CTRL : newSkill
+
+                deactivate ORG_INSTANCE
 
             CTRL --> UI : newSkill
 
