@@ -37,6 +37,9 @@ public class GenerateTeamUI implements Runnable {
     private void submitData() {
         Team team = controller.generateTeam(teamMaxSize, teamMinSize, skills);
 
+        listEmployees(team);
+
+
         if (team != null) {
             System.out.println("\nTeam successfully generated!");
         } else {
@@ -91,6 +94,20 @@ public class GenerateTeamUI implements Runnable {
         for (Skill skill : skills) {
             System.out.println("  " + i + " - " + skill.getDescription());
             i++;
+        }
+    }
+
+    private void listEmployees(Team team) {
+        List<Employee> employees = team.getEmployees();
+        System.out.println("Registered Employees:");
+        int counter = 1;
+        for (Employee employee: employees) {
+            System.out.println("[" + counter + "] ");
+            System.out.println("    Name: " + employee.getName());
+            System.out.println("    Email: " + employee.getEmail());
+            System.out.println("    Skills: " + employee.getSkills());
+            System.out.println("-----------------------------");
+            counter++;
         }
     }
 }

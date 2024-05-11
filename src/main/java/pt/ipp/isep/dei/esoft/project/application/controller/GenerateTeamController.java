@@ -77,13 +77,12 @@ public class GenerateTeamController {
         return employeeRepository.getEmployees();
     }
 
-    public List<Employee> getAllEmployees() {
-        return employeeRepository.getEmployees();
-    }
 
     public Team generateTeam(int teamMaxSize, int teamMinSize, ArrayList<Skill> skills) {
 
         Team team = new Team(teamMaxSize, teamMinSize, skills);
+
+        team.generateTeam(employeeRepository.getEmployees());
 
         return team;
     }
