@@ -5,10 +5,13 @@ import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Paulo Maio pam@isep.ipp.pt
@@ -210,4 +213,53 @@ public class Utils {
         return mobileNumber.matches("^9[0-9]{8}$");
     }
 
+    public static boolean isValidNIF(String number) {
+        final int max=9;
+        //check if is numeric and has 9 numbers
+        if (!number.matches("[0-9]+") || number.length()!=max) return false;
+        int checkSum=0;
+        //calculate checkSum
+        for (int i=0; i<max-1; i++){
+            checkSum+=(number.charAt(i)-'0')*(max-i);
+        }
+        int checkDigit=11-(checkSum % 11);
+        //if checkDigit is higher than 9 set it to zero
+        if (checkDigit>9) checkDigit=0;
+        //compare checkDigit with the last number of NIF
+        return checkDigit==number.charAt(max-1)-'0';
+    }
+
+    public static boolean parseDate(String dateInput) {
+        // Expressões regulares para verificar o formato da data
+        Pattern pattern = Pattern.compile("^\\d{4}[-/]\\d{2}[-/]\\d{2}$");
+        Matcher matcher = pattern.matcher(dateInput);
+
+        if (matcher.matches()) {
+            // Formatar a data corretamente
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            try {
+                // Parse da data
+                LocalDate date = LocalDate.parse(dateInput.replace("/", "-"), formatter);
+                // Verificar se o mês e o dia estão dentro dos limites corretos
+                int year = date.getYear();
+                int month = date.getMonthValue();
+                int day = date.getDayOfMonth();
+                // Verificar o mês
+                if (month < 1 || month > 12) {
+                    return false; // Mês inválido
+                }
+                // Verificar o dia
+                if (day < 1 || day > date.lengthOfMonth()) {
+                    return false; // Dia inválido
+                }
+                // Se chegou até aqui, a data é válida
+                return true;
+            } catch (Exception e) {
+                // Se houver algum erro na conversão, a data é inválida
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }

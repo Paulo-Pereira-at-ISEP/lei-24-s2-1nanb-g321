@@ -12,8 +12,6 @@ import java.util.Scanner;
 public class CreateAssignSkillsUI implements Runnable {
     private Employee employee;
     private final CreateSkillController skillController;
-    private String skillName;
-    private String skillDescription;
 
     public CreateAssignSkillsUI() {
         skillController = new CreateSkillController();
@@ -40,19 +38,6 @@ public class CreateAssignSkillsUI implements Runnable {
         employee.addSkill(displayAndSelectSkill(employee));
     }
 
-    private void listSkills() {
-        List<Skill> skills = skillController.getAllSkills();
-
-        System.out.println("Registered Jobs:");
-        int counter = 1;
-        for (Skill skill : skills) {
-
-            System.out.println("[" + counter + "]   Title: " + skill.getName());
-            System.out.println("      Description: " + skill.getDescription());
-            System.out.println("-------------------------");
-            counter++;
-        }
-    }
 
     private Employee displayAndSelectEmployee() {
         //Display the list of task categories
@@ -90,18 +75,13 @@ public class CreateAssignSkillsUI implements Runnable {
         //skils from the selected employee
         List<Skill> employeeSkills = employee.getSkills();
 
-
-
         //remove sills that the employee already has
         for (Skill skill : employeeSkills) {
             skills.remove(skill);
         }
 
-
-
         int listSize = skills.size();
         int answer = -1;
-
 
         do {
             displaySkillsOptions(skills);
