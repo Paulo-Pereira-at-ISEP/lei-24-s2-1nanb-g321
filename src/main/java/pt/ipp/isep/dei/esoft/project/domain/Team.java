@@ -1,12 +1,15 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.lang.reflect.Array;
 import java.util.*;
+
+import static java.util.Collections.sort;
 
 public class Team {
     private int teamMaxSize;
     private int teamMinSize;
-    private ArrayList<Skill> skills;
-    private List<Employee> employees;
+    private ArrayList<Skill> skills = new ArrayList<>();
+    private List<Employee> employees = new ArrayList<>();
 
 
     public Team(int teamMinSize, int teamMaxSize, ArrayList<Skill> skills) {
@@ -15,7 +18,7 @@ public class Team {
         this.skills = skills;
     }
 
-    public Team(List<Employee> employees) {
+    public Team(ArrayList<Employee> employees) {
         this.employees = employees;
     }
 
@@ -30,7 +33,7 @@ public class Team {
         return teamMinSize;
     }
 
-    public ArrayList<Skill> getSkills() {
+    public List<Skill> getSkills() {
         return skills;
     }
 
@@ -59,31 +62,48 @@ public class Team {
 
         Integer[] scores=new Integer[listOfEmployees.size()];
 
-        List<Employee> employees1 = sortEmployeesBySkillScore(scores, listOfEmployees);
-        
-        
+        List<Employee> employeesSorted = sortEmployeesBySkillScore(scores, listOfEmployees);
+
         for(Skill skill : skills) {
-            
-            for(Employee employee : employees) {
-                
-                for(Employee employee1 : employees1) {
 
-            
+                //pesquisa no 1 vetor
+                Employee current = hasSkill(employees, skill);
+
+                //procura no vetor da equipa
+                //se encontra, remove a skill do employee encontrado
+                //senao
+                    //procura no vetor dos employees ordenado
+                    //se encontrado adiciona a equipa
+                if(current != null) {
+                    current.getSkills().remove(skill);
+
+                } else {
+                    //pesquisa no 2 vetor
+                    current = hasSkill(employeesSorted, skill);
+                    if(current != null) {
+                        employees.add(current);
+                    }
                 }
-            
-            }    
-        
         }
-
-        this.employees=employees1;
 
         return employees;
     }
 
-    private List<Employee> sortEmployeesBySkillScore(Integer[] scores, List<Employee> listOfEmployees) {
+ public Employee hasSkill (List<Employee> employees, Skill skill ) {
+
+        for(Employee employee : employees) {
+            if(employee.getSkills().contains(skill)) {
+                return employee;
+            }
+        }
+
+        return null;
+ }
+
+    private ArrayList<Employee> sortEmployeesBySkillScore(Integer[] scores, List<Employee> listOfEmployees) {
         int scoreAux;
 
-        List<Employee> employees1 = new ArrayList<>(listOfEmployees);
+        ArrayList<Employee> employees1 = new ArrayList<>(listOfEmployees);
 
         //cria um array de scores
         for (Employee employee : employees1) {

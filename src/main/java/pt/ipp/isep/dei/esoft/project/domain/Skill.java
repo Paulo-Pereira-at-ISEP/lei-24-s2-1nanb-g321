@@ -61,4 +61,14 @@ public class Skill {
         return Objects.hash(name, description);
     }
 
+    public int compareTo(Skill otherSkill) {
+        if (this.name.equals(otherSkill.name)) {
+            // Skills are equal, group them together
+            return 0;
+        } else {
+            // Skills are different, compare normally
+            return this.name.compareTo(otherSkill.name);
+        }
+    }
+
 }
