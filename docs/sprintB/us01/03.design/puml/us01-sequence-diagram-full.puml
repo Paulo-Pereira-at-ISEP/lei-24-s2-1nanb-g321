@@ -8,13 +8,13 @@ autonumber
 'hide footbox
 
 actor "Human Resource Manager" as HRM
-participant ":CreateSkillUI" as UI
-participant ":CreateSkillController" as CTRL
-participant ":Organization" as ORG_SINGLETON
-participant "organization\n:Organization" as ORG_INSTANCE
-participant "employeee\n:EMployee" as MNGR
-participant ":Skill" as SKILL
-'participant ":HRManager" as MNGR
+participant ": CreateSkillUI" as UI
+participant ": CreateSkillController" as CTRL
+participant ": Repositories" as ORG_SINGLETON
+participant "repositories\n: Repositories" as ORG_INSTANCE
+participant "employee\n: Employee" as MNGR
+participant ": Skill" as SKILL
+
 
 note right of HRM
     - The user is already logged in at this step.
@@ -48,9 +48,10 @@ activate HRM
         activate UI
 
             UI -> UI : validateSkillData(skillName, skillDescription)
+
                 note right of UI
-                    - This is an input type only. This
-                    means that only characters will be
+                    - This is an input type only validation.
+                    This means that only characters will be
                     allowed.
                 end note
 
@@ -74,28 +75,29 @@ activate HRM
 
                 activate ORG_SINGLETON
 
-                    ORG_SINGLETON --> CTRL : organization
+                    ORG_SINGLETON --> CTRL : repositories
 
                 deactivate ORG_SINGLETON
 
-                CTRL -> ORG_INSTANCE : getEmployeeFromSession()
+                CTRL -> ORG_SINGLETON : getEmployeeFromSession()
 
                                 note right of CTRL
-                                    - This method is explained in detail
-                                    in an excerpt sequence diagram.
+                                    - This method is explained
+                                     in detail in an excerpt
+                                     sequence diagram.
                                 end note
 
-                activate ORG_INSTANCE
+                activate ORG_SINGLETON
 
-                ORG_INSTANCE --> CTRL : employee
+                ORG_SINGLETON --> CTRL : employee
 
-                deactivate ORG_INSTANCE
+                deactivate ORG_SINGLETON
 
-                CTRL -> MNGR : createSkill(skillName, skillDescription)
+                CTRL -> MNGR : createSkill(skillName, skillDescription, creatorEmployee)
 
                 activate MNGR
 
-                MNGR -> SKILL : Skill(skillName, skillDescription)
+                MNGR -> SKILL : Skill(skillName, skillDescription, creatorEmployee)
 
                 activate SKILL
 
@@ -112,6 +114,12 @@ activate HRM
                 activate ORG_INSTANCE
 
                 ORG_INSTANCE -> ORG_INSTANCE : validateSkill()
+
+                note right of ORG_INSTANCE
+                - This method is explained
+                in detail in an excerpt
+                sequence diagram.
+                end note
 
                 ORG_INSTANCE --> CTRL : newSkill
 
