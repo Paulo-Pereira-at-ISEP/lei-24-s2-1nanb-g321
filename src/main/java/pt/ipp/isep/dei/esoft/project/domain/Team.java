@@ -74,17 +74,24 @@ public class Team {
             //procura no vetor dos employees ordenado
             //se encontrado adiciona a equipa
             if (current != null) {
-                current.getSkills().remove(skill);
+                var skills = current.getSkills();
+                skills.remove(skill);
+                current.setSkills(skills);
+
 
             } else {
                 //pesquisa no 2 vetor
 
                 current = hasSkill(employeesSorted, skill);
                 if (current != null) {
+                    var skills = current.getSkills();
+                    skills.remove(skill);
+                    current.setSkills(skills);
                     employees.add(current);
                 }
             }
         }
+
 
         return employees;
     }

@@ -8,83 +8,88 @@ autonumber
 'hide footbox
 
 actor "Human Resource Manager" as HRM
-participant ":CreateAssignSkillslUI" as UI
-participant ":CreateSkillController" as controller
+participant ":CreateEmployeelUI" as UI
+participant ":CreateEmployeelController" as controller
 participant ":Repositories" as singleton
-
-
-
 participant "repositories\n:Repositories" as rep
-
-
-participant "SkillRepository:\nEmployeeRepository" as skillRep
-participant "EmployeeRepository:\nEmployeeRepository" as employeeRep
+participant "employeeRepository:\nEmployeeRepository" as employeeRep
+participant "skillRepository:\nJobRepository" as SkillRep
 participant ":Employee" as Employee
 
+
 activate HRM
+activate UI
+        HRM -> UI : ask for list of skills
 
-        HRM -> UI : asks for a list of employees
+        activate controller
 
-        activate UI
-            'create CTRL
-            UI -> controller** : create
-
-            activate controller
-
-                  controller -> singleton : getInstance()
-
-                activate singleton
-
-                    singleton --> controller : repositories
-
-                deactivate singleton
-
-                controller -> rep : getEmployeeRepository()
-
-                activate rep
-
-                    rep --> controller : EmployeeRepository
-
-                deactivate rep
-                    controller --> employeeRep : getAllEmployees()
-                    employeeRep --> controller : getAllEmployees()
-                    controller --> UI: getAllEmployees()
-
-
-            deactivate controller
-
-
-            'requests the HRM to input data
-            UI --> HRM : shows list of employees
-
-
-        HRM -> UI : selects employee
-
-
-
-            UI -> controller : asks for list of skills
-
-           deactivate UI
-            activate controller
-
-            controller --> skillRep : getAllSkills()
-            skillRep --> controller : getAllSkills()
-            controller --> UI : getAllSkills()
-            activate UI
-
-            UI --> HRM : shows list of skills
-
-
-            HRM --> UI : selects skills
-
-            Ui --> UI : validates data
-
-           UI --> HRM : shows data
-
-           HRM --> UI :confirms data
-
-           UI --> controller : employeeWithSkills
+        UI -> controller : Create
+        activate singleton
+        controller -> singleton :getInstance()
+        singleton --> controller : repositories
+        deactivate singleton
+        UI -> controller :asks for employees
 deactivate UI
+        activate rep
+        controller -> rep : getEmployeeRepository()
+        rep --> controller : employeeRepo
+        controller -> rep :getSkillRepository()
+        rep --> controller : skillRepo
+        deactivate rep
+        activate employeeRep
+
+        controller -> employeeRep : getAllEmployees()
+        employeeRep --> controller : Employees
+        deactivate employeeRep
+activate UI
+
+
+        controller --> UI: Employees
+        UI --> HRM : shows list of employees
+        deactivate controller
+
+        HRM -> UI: selects an employee
+        activate controller
+
+        UI -> controller : asks for skills
+        activate SkillRep
+        controller -> SkillRep : getAllSkills()
+        SkillRep --> controller : Skills
+        deactivate SkillRep
+        controller --> UI : Skills
+        UI --> HRM : shows list of skills
+        HRM -> UI : selects skill
+        UI -> UI : validates
+        UI --> HRM : shows data
+
+
+
+
+        activate Employee
+        UI -> controller : asks to assign skills
+          deactivate UI
+        controller -> Employee : assignSkillsToEmployee()
+        Employee -> Employee : validates
+        Employee --> controller : newEmployeeWithSkills
+        deactivate Employee
+activate UI
+        controller --> UI : newEmployeeWithSkills
+        UI --> HRM : asks for confirmation
+        HRM -> UI : confirmats data
+        activate employeeRep
+        UI -> controller : add new Skills to collaborator
+        controller -> employeeRep : addNewEmployeeWithSkills()
+        employeeRep -> controller: newEmployeeWithSkills
+        deactivate employeeRep
+        controller --> UI : newEmployeeWithSkills
+        UI -> HRM : displays success message
+        deactivate controller
+        UI --> HRM : shows success message
+         deactivate UI
+
+
+
+
 
 
 deactivate HRM

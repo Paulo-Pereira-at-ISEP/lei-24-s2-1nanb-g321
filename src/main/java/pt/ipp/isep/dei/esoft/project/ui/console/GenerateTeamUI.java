@@ -96,6 +96,7 @@ public class GenerateTeamUI implements Runnable {
     }
 
     private void listEmployees(Team team) {
+
         List<Employee> employees = team.getEmployees();
         System.out.println("Registered Employees:");
         int counter = 1;
