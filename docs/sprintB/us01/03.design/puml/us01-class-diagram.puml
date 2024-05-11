@@ -77,10 +77,14 @@ class Skill {
 }
 
 CreateSkillUI ..> CreateSkillController
-
 CreateSkillController -->  Repositories : getInstance
 Repositories ..> SkillRepository : create
-SkillRepository ..> Skill : createSkill
-Employee <-- Skill : is atributed to
+
+CreateSkillController --> Employee : createSkill
+
+Employee ..>Skill
+
+CreateSkillController --> SkillRepository: add
+
 
 @enduml
