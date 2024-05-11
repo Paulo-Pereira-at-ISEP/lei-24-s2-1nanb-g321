@@ -16,7 +16,7 @@ public class EmployeeRepository{
         employees.add(employee);
     }
 
-    public List<Employee> getAllEmployees() {
+    public ArrayList<Employee> getAllEmployees() {
         return new ArrayList<>(employees);
     }
 
@@ -32,7 +32,7 @@ public class EmployeeRepository{
      */
     public List<Employee> getEmployees() {
         //This is a defensive copy, so that the repository cannot be modified from the outside.
-        return List.copyOf(employees);
+        return new ArrayList<>(List.copyOf(employees));
     }
 
     public Optional<Employee> add(Employee employee) {

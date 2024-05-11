@@ -9,11 +9,11 @@ import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class Bootstrap implements Runnable {
 
-    List<Employee> m_Employees;
+    ArrayList<Employee> m_Employees;
 
     //Add some task categories to the repository as bootstrap
     public void run() {

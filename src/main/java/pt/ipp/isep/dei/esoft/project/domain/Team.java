@@ -9,7 +9,7 @@ public class Team {
     private int teamMaxSize;
     private int teamMinSize;
     private ArrayList<Skill> skills = new ArrayList<>();
-    private List<Employee> employees = new ArrayList<>();
+    private ArrayList<Employee> employees = new ArrayList<>();
 
 
     public Team(int teamMinSize, int teamMaxSize, ArrayList<Skill> skills) {
@@ -21,8 +21,6 @@ public class Team {
     public Team(ArrayList<Employee> employees) {
         this.employees = employees;
     }
-
-
 
 
     public int getTeamMaxSize() {
@@ -53,51 +51,55 @@ public class Team {
         this.skills = skills;
     }
 
-    public void setEmployees(List<Employee> employees) {
+    public void setEmployees(ArrayList<Employee> employees) {
         this.employees = employees;
     }
 
     public List<Employee> generateTeam(List<Employee> listOfEmployees) {
 
-        Integer[] scores=new Integer[listOfEmployees.size()];
+        Integer[] scores = new Integer[listOfEmployees.size()];
 
-        List<Employee> employeesSorted = sortEmployeesBySkillScore(scores, listOfEmployees);
+        Employee empAux;
 
-        for(Skill skill : skills) {
+        ArrayList<Employee> employeesSorted = sortEmployeesBySkillScore(scores, listOfEmployees);
 
-                //pesquisa no 1 vetor
-                Employee current = hasSkill(employees, skill);
+        for (Skill skill : skills) {
 
-                //procura no vetor da equipa
-                //se encontra, remove a skill do employee encontrado
-                //senao
-                    //procura no vetor dos employees ordenado
-                    //se encontrado adiciona a equipa
-                if(current != null) {
-                    current.getSkills().remove(skill);
+            //pesquisa no 1 vetor
+            Employee current = hasSkill(employees, skill);
 
-                } else {
-                    //pesquisa no 2 vetor
-                    current = hasSkill(employeesSorted, skill);
-                    if(current != null) {
-                        employees.add(current);
-                    }
+            //procura no vetor da equipa
+            //se encontra, remove a skill do employee encontrado
+            //senao
+            //procura no vetor dos employees ordenado
+            //se encontrado adiciona a equipa
+            if (current != null) {
+                current.getSkills().remove(skill);
+
+            } else {
+                //pesquisa no 2 vetor
+
+                current = hasSkill(employeesSorted, skill);
+                if (current != null) {
+                    employees.add(current);
                 }
+            }
         }
 
         return employees;
     }
 
- public Employee hasSkill (List<Employee> employees, Skill skill ) {
+    public Employee hasSkill(ArrayList<Employee> employees, Skill skill) {
 
-        for(Employee employee : employees) {
-            if(employee.getSkills().contains(skill)) {
+        for (Employee employee : employees) {
+
+            if (employee.getSkills().contains(skill)) {
                 return employee;
             }
         }
 
         return null;
- }
+    }
 
     private ArrayList<Employee> sortEmployeesBySkillScore(Integer[] scores, List<Employee> listOfEmployees) {
         int scoreAux;
@@ -130,13 +132,13 @@ public class Team {
                 if (scores[j] < scores[j + 1]) {
 
                     scoreCopy = scores[j];
-                    scores[j]=scores[j+1];
-                    scores[j+1]=scoreCopy;
+                    scores[j] = scores[j + 1];
+                    scores[j + 1] = scoreCopy;
 
 
-                    employeeCopy= employees1.get(j);
-                    employees1.set(j, employees1.get(j+1));
-                    employees1.set(j+1, employeeCopy);
+                    employeeCopy = employees1.get(j);
+                    employees1.set(j, employees1.get(j + 1));
+                    employees1.set(j + 1, employeeCopy);
 
                 }
 
