@@ -10,9 +10,13 @@ skinparam classAttributeIconSize 0
 'left to right direction
 
 class CreateJobController {
+    -jobRepository:JobRepository
+    -authenticationRepository:AuthenticationRepository
+
+
+    -getEmployeeFromSession()
     + CreateJobController(jobRepository)
-    + validateJobData(jobName, jobDescription)
-    + addJobToRepo(newJob)
+    + createJob(jobName, jobDescription)
 
 }
 
@@ -20,8 +24,10 @@ class CreateJobController {
 class CreateJobUI {
     +run()
     +requestData(jobName, jobDescription)
+    +submitData()
+    +requestJobDescription()
+    +requestJobName()
 }
-
 
 
 class Employee{
@@ -34,43 +40,59 @@ class Employee{
     -IDdocType:String
     -IDnumber:String
     -taxNumber:String
-    -skils:List<Job>
+    -job:Job
 
     +Employee (String nome,LocalDate dateOfBirth,\nLocalDate admissionDate, String morada, int telemovel,\nString email, String idDocType, int docTypeNumber,\nint taxPayerIdNumber, String role, Job job)
 }
 
 class Repositories{
     - instance:Repositories
-    - skillRepository:JobRepository
+    - jobRepository:JobRepository
     - jobRepository:JobRepository
     - employeeRepository:EmployeeRepository
+    -authenticationRepository:AuthenticationRepository
 
 
     + getInstance()
     + getSkillRepository()
     + getJobRepository()
     + getEmployeeRepository()
+    + getAuthenticationRepository()
 }
 
 class JobRepository{
-    + createJob(jobName, jobDescription)
-    + validateJob(newJob)
+    + getJobs()
+    + validateJobs(newJob)
     + addJob(newJob)
+}
+
+class AuthenticationRepository{
+    + getEmployeeFromSession()
 }
 
 class Job {
     -jobName:String
     -jobDescription:String
+    -creator:Employee
 
     +Job(jobName, jobDescription)
-    +validateJobData(jobName, jobDescription)
+    +validateSkillData(jobName, jobDescription)
 }
 
-CreateJobUI ..> CreateJobController
+CreateJobUI "1" ..> "1" CreateJobController
 
-CreateJobController -->  Repositories : getInstance
-Repositories ..> JobRepository : create
-JobRepository ..> Job : createJob
-Employee --> Job : has a
+CreateJobController "1" --> "1" Repositories : getInstance
+
+Repositories "1" ..> "1" JobRepository : create
+
+CreateJobController --> Employee : createJob
+CreateJobController "1" --> "1" AuthenticationRepository : getCurrentUserSession
+
+Employee ..>Job : .
+
+Employee "1" --> "1" Job : has a
+
+CreateJobController --> JobRepository: add
+
 
 @enduml
