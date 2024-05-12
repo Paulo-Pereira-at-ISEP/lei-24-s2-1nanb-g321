@@ -327,8 +327,24 @@ public class CreateEmployeeUI implements Runnable {
         return input; // Return the validated employee identification document type
     }
 
+    /**
+     * Requests the employee's identification document number from the user.
+     * This method prompts the user to input the identification document number,
+     * validates the input to ensure it contains only numeric characters,
+     * and returns the validated identification document number as an integer.
+     *
+     * @return The validated employee identification document number.
+     */
     private int requestEmployeeIdentificationDocumentNumber () {
-        return Utils.readIntegerFromConsole("Identification Document Number: ");
+        String input;
+        do {
+            input = Utils.readLineFromConsole("Identification Document Number: "); // Prompt user for identification document type
+            assert input != null;
+            if (!Utils.isValidInputInt(input)) {
+                System.out.print("Identification Document Number must only contain numbers.\n"); // Print error if input is invalid
+            }
+        } while (!Utils.isValidInputInt(input)); // Continue prompting until a valid identification document type is input
+        return Integer.parseInt(input); // Return the validated employee identification document type
     }
 
     /**

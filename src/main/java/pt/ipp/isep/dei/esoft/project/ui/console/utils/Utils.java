@@ -172,6 +172,13 @@ public class Utils {
         return name.matches(regex);
     }
 
+    public static boolean isValidInputInt(String input) {
+        // Allow only numbers
+        String regex = "^[0-9]+$";
+        // Check if the input matches the regular expression
+        return input.matches(regex);
+    }
+
     /**
      * Checks if a given string is a valid email address.
      *
