@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project.ui.console;
+package pt.ipp.isep.dei.esoft.project.ui.console.team;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.GenerateTeamController;
 import pt.ipp.isep.dei.esoft.project.domain.Employee;
@@ -8,7 +8,6 @@ import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 
 import java.util.ArrayList;
-import java.util.IllegalFormatCodePointException;
 import java.util.List;
 import java.util.Scanner;
 

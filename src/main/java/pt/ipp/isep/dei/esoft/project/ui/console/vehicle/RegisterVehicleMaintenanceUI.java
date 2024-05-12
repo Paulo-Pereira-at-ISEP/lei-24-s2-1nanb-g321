@@ -1,6 +1,5 @@
-package pt.ipp.isep.dei.esoft.project.ui.console;
+package pt.ipp.isep.dei.esoft.project.ui.console.vehicle;
 
-import pt.ipp.isep.dei.esoft.project.application.controller.CreateVehicleController;
 import pt.ipp.isep.dei.esoft.project.application.controller.RegisterVehicleMaintenanceController;
 
 public class RegisterVehicleMaintenanceUI {

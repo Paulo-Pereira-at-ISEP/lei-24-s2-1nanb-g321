@@ -3,6 +3,9 @@ package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
 
 import pt.ipp.isep.dei.esoft.project.ui.console.*;
+import pt.ipp.isep.dei.esoft.project.ui.console.employee.CreateEmployeeUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.job.CreateJobUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.skill.CreateSkillUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.util.ArrayList;

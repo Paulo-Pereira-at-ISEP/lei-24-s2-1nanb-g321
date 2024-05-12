@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project.ui.console;
+package pt.ipp.isep.dei.esoft.project.ui.console.employee;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateEmployeeController;
 import pt.ipp.isep.dei.esoft.project.domain.Employee;
@@ -59,7 +59,6 @@ public class CreateEmployeeUI implements Runnable {
 
     private void requestData() {
         String input;
-        //Employee employee = new Employee(name, dateOfBirth, admissionDate, address, mobile, email, idDocType, docTypeNumber, taxPayerIdNumber); // Create an empty Employee object
 
         do {
             name = requestEmployeeName();
@@ -71,17 +70,6 @@ public class CreateEmployeeUI implements Runnable {
             idDocType = requestEmployeeIdentificationDocumentType();
             docTypeNumber = requestEmployeeIdentificationDocumentNumber();
             taxPayerIdNumber = requestEmployeeTaxPayerNumber();
-
-            // Set employee data after successful parsing
-            //employee.setName(name);
-            //employee.setDateOfBirth(dateOfBirth);
-            //employee.setAdmissionDate(admissionDate);
-            //employee.setAddress(address);
-            //employee.setMobile(mobile);
-            //employee.setEmail(email);
-            //employee.setIdDocType(idDocType);
-            //employee.setDocTypeNumber(docTypeNumber);
-            //employee.setTaxPayerIdNumber(taxPayerIdNumber);
 
             System.out.println("\n\n\n---------- Submitted Data ----------\n");
             System.out.printf("Name: %s\n", name);
@@ -98,9 +86,7 @@ public class CreateEmployeeUI implements Runnable {
             if (input.equalsIgnoreCase("y")) {
                 System.out.println(" You can continue the registering process.");
                 job = displayAndSelectJob();
-                //employee.setJob(job);
                 skill = displayAndSelectSkill();
-                //employee.setSkills(skill);
                 break;
             }
 
@@ -123,9 +109,7 @@ public class CreateEmployeeUI implements Runnable {
             // After confirmation, use the employee object for further processing or storage
             System.out.println("Data confirmed. You can now select the jobs and skills: ");
             job = displayAndSelectJob();
-            //employee.setJob(job);
             skill = displayAndSelectSkill();
-            //employee.setSkills(skill);
 
         }while (!input.equalsIgnoreCase("n")); // Loop until user confirms
 
