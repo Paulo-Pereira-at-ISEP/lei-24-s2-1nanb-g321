@@ -4,7 +4,6 @@ public class Repositories {
 
     private static Repositories instance;
     private final OrganizationRepository organizationRepository;
-    private final TaskCategoryRepository taskCategoryRepository;
     private final AuthenticationRepository authenticationRepository;
     private final SkillRepository skillRepository;
     private final JobRepository jobRepository;
@@ -13,7 +12,6 @@ public class Repositories {
 
     private Repositories() {
         organizationRepository = new OrganizationRepository();
-        taskCategoryRepository = new TaskCategoryRepository();
         authenticationRepository = new AuthenticationRepository();
         skillRepository = new SkillRepository();
         jobRepository = new JobRepository();
@@ -32,10 +30,6 @@ public class Repositories {
 
     public OrganizationRepository getOrganizationRepository() {
         return organizationRepository;
-    }
-
-    public TaskCategoryRepository getTaskCategoryRepository() {
-        return taskCategoryRepository;
     }
 
     public AuthenticationRepository getAuthenticationRepository() {

@@ -7,50 +7,65 @@ import static org.junit.jupiter.api.Assertions.*;
 class RepositoriesTest {
 
     @Test
-    void testGetInstance() {
-        Repositories instance = Repositories.getInstance();
-        assertNotNull(instance);
+    public void testGetInstance() {
+        Repositories instance1 = Repositories.getInstance();
+        Repositories instance2 = Repositories.getInstance();
+
+        // Check if both instances are the same
+        assertSame(instance1, instance2);
     }
 
     @Test
-    void testGetOrganizationRepository() {
+    public void testGetOrganizationRepository() {
         Repositories instance = Repositories.getInstance();
-        assertNotNull(instance.getOrganizationRepository());
+        OrganizationRepository organizationRepository = instance.getOrganizationRepository();
+
+        // Check if the organization repository is not null
+        assertNotNull(organizationRepository);
     }
 
     @Test
-    void testGetTaskCategoryRepository() {
+    public void testGetAuthenticationRepository() {
         Repositories instance = Repositories.getInstance();
-        assertNotNull(instance.getTaskCategoryRepository());
+        AuthenticationRepository authenticationRepository = instance.getAuthenticationRepository();
+
+        // Check if the authentication repository is not null
+        assertNotNull(authenticationRepository);
     }
 
     @Test
-    void testAuthenticationRepository() {
+    public void testGetSkillRepository() {
         Repositories instance = Repositories.getInstance();
-        assertNotNull(instance.getAuthenticationRepository());
+        SkillRepository skillRepository = instance.getSkillRepository();
+
+        // Check if the skill repository is not null
+        assertNotNull(skillRepository);
     }
 
     @Test
-    void testEmployeeRepository() {
+    public void testGetJobRepository() {
         Repositories instance = Repositories.getInstance();
-        assertNotNull(instance.getEmployeeRepository());
+        JobRepository jobRepository = instance.getJobRepository();
+
+        // Check if the job repository is not null
+        assertNotNull(jobRepository);
     }
 
     @Test
-    void testJobRepository() {
+    public void testGetEmployeeRepository() {
         Repositories instance = Repositories.getInstance();
-        assertNotNull(instance.getJobRepository());
+        EmployeeRepository employeeRepository = instance.getEmployeeRepository();
+
+        // Check if the employee repository is not null
+        assertNotNull(employeeRepository);
     }
 
     @Test
-    void testSkillRepository() {
+    public void testGetTeamRepository() {
         Repositories instance = Repositories.getInstance();
-        assertNotNull(instance.getSkillRepository());
-    }
+        TeamRepository teamRepository = instance.getTeamRepository();
 
-    @Test
-    void testTeamRepository() {
-        Repositories instance = Repositories.getInstance();
-        assertNotNull(instance.getTeamRepository());
+        // Check if the team repository is not null
+        assertNotNull(teamRepository);
     }
 }

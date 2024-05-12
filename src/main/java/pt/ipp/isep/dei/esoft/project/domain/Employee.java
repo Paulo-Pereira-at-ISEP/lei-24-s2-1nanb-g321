@@ -92,6 +92,11 @@ public class Employee {
         this.password = PASSWORD_DEFAULT;
     }
 
+    public Employee(String name, String email) {
+        this.name = name;
+        this.email = email;
+    }
+
     public Employee(String email) {
         this.email = email;
     }
