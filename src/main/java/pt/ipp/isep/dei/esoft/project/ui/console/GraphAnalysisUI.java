@@ -36,6 +36,7 @@ public class GraphAnalysisUI implements Runnable {
     private static final String GNUPLOT_SCRIPT_FILE_NAME = "script.gp"; // nome do ficheiro de script do GNUPLOT
 
 
+
     /**
      * Run method
      */
@@ -60,11 +61,6 @@ public class GraphAnalysisUI implements Runnable {
 
     }
 
-    /**
-     * US14 source code extraction (code presentation improvement)
-     * @return
-     * @throws FileNotFoundException
-     */
 
 
     /**
