@@ -43,38 +43,28 @@ public class CreateSkillUI implements Runnable {
     }
 
     private void requestData() {
-
-        //Request the Skill Name from the console
-
             String input;
-            Skill skill = new Skill(skillName, skillDescription);
             do {
                 skillName = requestSkillName();
                 skillDescription = requestSkillDescription();
-
-                // Set employee data after successful parsing
-                skill.setName(skillName);
-                skill.setDescription(skillDescription);
 
                 System.out.println("\n\n\n---------- Submitted Data ----------\n");
                 System.out.printf("Title: %s\n", skillName);
                 System.out.printf("Description: %s\n", skillDescription);
 
-
                 input = Utils.readLineFromConsole("\n Do you confirm this data? (y/n)");
                 if (input.equalsIgnoreCase("y")) {
                     System.out.println(" Skill successfully registered!.");
-
                     break;
                 }
 
                 do {
                     boolean modified = false;
 
-                    String dataToModify = requestDataModification(skill);
+                    String dataToModify = requestDataModification();
                     if (dataToModify != null) {
                         modified = true;
-                        modifySkillData(skill, dataToModify); // Call a method to modify specific data
+                        modifySkillData(dataToModify); // Call a method to modify specific data
                         System.out.println("Data modified successfully.");
                     } else {
                         System.out.println("Invalid data selection. Please try again.");
@@ -89,9 +79,9 @@ public class CreateSkillUI implements Runnable {
             }while (!input.equalsIgnoreCase("n")); // Loop until user confirms
 
             // After confirmation, use the employee object for further processing or storage
-            System.out.println("Data confirmed." + skill);
+            System.out.println("Data confirmed.");
         }
-        private String requestDataModification(Skill skill) {
+        private String requestDataModification() {
             System.out.println("\nSelect the data field you want to modify:");
             System.out.println("1. Title");
             System.out.println("2. Description");
@@ -110,16 +100,16 @@ public class CreateSkillUI implements Runnable {
             }
         }
 
-        private void modifySkillData(Skill skill, String dataToModify) {
+        private void modifySkillData(String dataToModify) {
             switch (dataToModify) {
                 case "Title":
 
-                    skill.setName(requestSkillName());
+                    skillName = requestSkillName();
 
                     // Get new name and set it
                     break;
                 case "Description":
-                    skill.setDescription(requestSkillDescription()); // Get new dateOfBirth and set it
+                    skillDescription = requestSkillDescription(); // Get new dateOfBirth and set it
                     break;
 
                 default:
