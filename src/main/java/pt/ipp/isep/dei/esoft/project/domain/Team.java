@@ -60,7 +60,6 @@ public class Team {
         Integer[] scores = new Integer[listOfEmployees.size()];
 
 
-
         ArrayList<Employee> employeesSorted = sortEmployeesBySkillScore(scores, listOfEmployees);
 
         for (Skill skill : skills) {
@@ -93,27 +92,29 @@ public class Team {
                 }
             }
 
-            int dif = teamMinSize-employees.size();
-            int i=0;
+            int dif = teamMinSize - employees.size();
+            int i = 0;
             while (dif != 0 && i < skills.size()) {
                 Skill skill1 = skills.get(i);
                 //percorre as skills
                 //percorre os verifica se os employees tem a skill
-                    //se o employee devolvido ja estiver na equipa
-                        //remove o emplyee da lista de employees
-                        //procura novamente
-                        //quando encontrado
-                            //calcula o dif novamente
+                //se o employee devolvido ja estiver na equipa
+                //remove o emplyee da lista de employees
+                //procura novamente
+                //quando encontrado
+                //calcula o dif novamente
                 Employee employeeToChoose = hasSkill(employeesSorted, skill1);
-                if(employees.contains(employeeToChoose)) {
+
+                if (employeeToChoose != null && employees.contains(employeeToChoose)) {
                     employeesSorted.remove(employeeToChoose);
                 } else {
-                    employees.add(employeeToChoose);
+                    if (employeeToChoose != null)
+                        employees.add(employeeToChoose);
                 }
                 i++;
-                dif = teamMinSize-employees.size();
-                }
+                dif = teamMinSize - employees.size();
             }
+        }
         return employees;
     }
 
