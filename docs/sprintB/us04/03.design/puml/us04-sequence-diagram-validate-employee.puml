@@ -1,0 +1,27 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant "employeeRepository:\nEmployeeRepository" as EmpRep_INSTANCE
+
+
+
+autonumber 22
+-> EmpRep_INSTANCE : validates(newEmployee)
+
+autonumber 22.1
+activate EmpRep_INSTANCE
+    group Validate Employee
+
+        EmpRep_INSTANCE -> EmpRep_INSTANCE: !contains(newEmployee)
+
+        EmpRep_INSTANCE -> EmpRep_INSTANCE: !add(newEmployee)
+
+    end
+autonumber 23
+    <-- EmpRep_INSTANCE: true
+deactivate EmpRep_INSTANCE
+
+
+@enduml

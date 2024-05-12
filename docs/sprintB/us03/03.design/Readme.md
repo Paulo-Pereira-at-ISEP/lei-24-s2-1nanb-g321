@@ -42,7 +42,7 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
-![Sequence Diagram - Full](svg/us01-sequence-diagram-full.svg)
+![Sequence Diagram - Full](svg/us03-sequence-diagram.svg)
 
 ### Split Diagrams
 
@@ -51,8 +51,9 @@ The following partial diagrams are displayed to better illustrate the interactio
 
 **Validate Employee**
 
-![Sequence Diagram - Partial - Get Employee](svg/us01-sequence-diagram-partial-validate-skill.svg)
+![Sequence Diagram - Partial - Get Employee](svg/us03-sequence-diagram-validate-employees.svg)
+
 
 ## 3.3. Class Diagram (CD)
 
-![Class Diagram](svg/us01-class-diagram.svg)
+![Class Diagram](svg/us03-class-diagram.svg)
