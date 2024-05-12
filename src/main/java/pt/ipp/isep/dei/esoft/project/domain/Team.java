@@ -13,8 +13,8 @@ public class Team {
 
 
     public Team(int teamMinSize, int teamMaxSize, ArrayList<Skill> skills) {
-        this.teamMaxSize = teamMaxSize;
         this.teamMinSize = teamMinSize;
+        this.teamMaxSize = teamMaxSize;
         this.skills = skills;
     }
 
@@ -142,15 +142,12 @@ public class Team {
                 if (employee.getSkills().contains(skill)) {
                     scoreAux++;
                 }
-
             }
-
             scores[employees1.indexOf(employee)] = scoreAux;
         }
 
         Employee employeeCopy;
         int scoreCopy;
-
 
         for (int i = 0; i < scores.length; i++) {
             for (int j = 0; j < scores.length - 1 - i; j++) {
