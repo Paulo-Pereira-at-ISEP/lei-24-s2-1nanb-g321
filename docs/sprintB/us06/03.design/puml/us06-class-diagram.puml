@@ -9,19 +9,73 @@ skinparam classAttributeIconSize 0
 
 'left to right direction
 
-class ApplicationSession
-{
-    + static getInstance()
-    + getCurrentSession()
+class CreateVehicleUI {
+    +run()
+    +requestData(brand, model, type, tare weight, \ngross weight, current km,register date, \nacquisition date, maintenance frequency, \nplate number, passengers number,\ndoors number, fuel type, trailer machines)
+    +submitData()
+    +requestBrand()
+    +requestModel()
+    +requestType()
+    +requestTareWeight()
+    +requestGrossWeight()
+    +requestCurrentKM()
+    +requestRegisterDate()
+    +requestAcquisitionDate()
+    +requestMaintenanceFrequency()
+    +requestPlateNumber()
+    +requestPassengersNumber()
+    +requestDoorsNumber()
+    +requestFuelType()
+    +requestTrailerMachines()
 }
 
-class UserSession
-{
-    + getUserEmail()
+class CreateVehicleController {
+    - vehicleRepository:VehicleRepository
+    - authenticationRepository:AuthenticationRepository
+
+    - getEmployeeFromSession()
+    + CreateVehicleController(vehicleRepository)
+    + createVehicle(brand, model, type, tare weight, \ngross weight, current km,register date, \nacquisition date, maintenance frequency, \nplate number, passengers number,\ndoors number, fuel type, trailer machines)
 }
 
-class Employee {
-    - **a complementar estes atributos**
+class Employee{
+    -name:String
+    -birthdate:Date
+    -admissionDate:Date
+    -address
+    -mobileContact:String
+    -emailContact:String
+    -IDdocType:String
+    -IDnumber:String
+    -taxNumber:String
+    -job:Job
+
+    +Employee (String nome,LocalDate dateOfBirth,\nLocalDate admissionDate, String morada, int telemovel,\nString email, String idDocType, int docTypeNumber,\nint taxPayerIdNumber, String role, Job job)
+}
+
+class Repositories{
+    - instance:Repositories
+    - skillRepository:SkillRepository
+    - jobRepository:JobRepository
+    - employeeRepository:EmployeeRepository
+    -authenticationRepository:AuthenticationRepository
+
+
+    + getInstance()
+    + getSkillRepository()
+    + getJobRepository()
+    + getEmployeeRepository()
+    + getAuthenticationRepository()
+}
+
+class VehicleRepository{
+    + getVehicles()
+    + validateVehicle(newVehicle)
+    + addVehicle(newVehicle)
+}
+
+class AuthenticationRepository{
+    + getEmployeeFromSession()
 }
 
 class Vehicle {
@@ -43,66 +97,18 @@ class Vehicle {
     + Vehicle(brand, model, type, tare weight, \ngross weight, current km,register date, \nacquisition date, maintenance frequency, \nplate number, passengers number,\ndoors number, fuel type, trailer machines)
 }
 
-class Organization {
-    - **String name**
-    - **String vatNumber**
-    - **String website**
-    - **String phone**
-    - **String email**
+CreateVehicleUI "1" ..> "1" CreateVehicleController
 
-    - addVehicle(vehicle)
-    - validateVehicle(vehicle)
-    + anyEmployeeHasEmail(email)
-    + Organization(**Inserir atributos acima**)
-    + createVehicle(brand, model, type, tare weight, \ngross weight, current km,register date, \nacquisition date, maintenance frequency, \nplate number, passengers number,\ndoors number, fuel type, trailer machines)
-    - getEmployeeByEmail(email)
-}
+CreateVehicleController "1" --> "1" Repositories : getInstance
 
-class OrganizationRepository {
-    + getOrganizationByEmployeeEmail(email)
-}
+Repositories "1" ..> "1" VehicleRepository : create
 
-class Repositories {
-    - Repositories()
-    + getInstance() : Repositories
-    + getOrganizationRepository()
-}
+CreateVehicleController --> Employee : createVehicle
+CreateVehicleController "1" --> "1" AuthenticationRepository : getCurrentUserSession
 
-class CreateVehicleController {
-    + CreateVehicleController(organizationRepository)
-    + getTaskCategories()
-    + createVehicle(**userEmail**, brand, model, type, tare weight, \ngross weight, current km,register date, \nacquisition date, maintenance frequency, \nplate number, passengers number,\ndoors number, fuel type, trailer machines)
-    - getEmployeeFromSession()
-}
 
-note right of CreateVehicleController
-    - userEmail is obtained
-    from the user session
-end note
+Employee "1" --> "*" Vehicle : createNewVehicle
 
-class CreateVehicleUI {
-}
-
-Repositories -> Repositories : instance
-ApplicationSession -> ApplicationSession : instance
-
-CreateVehicleUI .> CreateVehicleController
-
-CreateVehicleController .> Repositories : repositories
-
-CreateVehicleController ..> OrganizationRepository : organizationRepository
-
-Repositories --> "1" OrganizationRepository
-
-OrganizationRepository --> "*" Organization
-ApplicationSession --> "1" UserSession : userSession
-
-CreateVehicleController ..> "1" Organization : organization
-CreateVehicleController ..> ApplicationSession
-CreateVehicleController ..> UserSession
-Organization "1" --> "*" Vehicle : register
-Vehicle --> Employee : createdBy
-
-Organization --> "*" Employee : employs
+CreateVehicleController --> VehicleRepository: add
 
 @enduml
