@@ -6,154 +6,146 @@ skinparam shadowing false
 autonumber
 
 'hide footbox
+
 actor "Vehicle and Equipment\nFleet Manager" as VFM
-participant ":CreateVehicleUI" as UI
-participant ":CreateVehicleController" as CTRL
-participant ":Repositories" as RepositorySingleton
-participant "repositories\n:Repositories" as PLAT
-participant ":ApplicationSession" as _APP
-participant "appSession\n:ApplicationSession" as APP
-participant "currentSession\n:UserSession" as SESSAO
-participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
-participant "organization\n:Organization" as ORG
-participant "vehicle\n:Vehicle" as VCLE
+participant ": RegisterVehicleMaintenanceUI" as UI
+participant ": RegisterVehicleMaintenanceController" as CTRL
+participant ": Repositories" as ORG_SINGLETON
+participant "repositories\n: Repositories" as ORG_INSTANCE
+participant "authenticationRepository\n:AuthenticationRepository" as AUTH_REPO
+participant "userSession\n:UserSession" as USR_SESSION
+participant "vehicleRepository\n:VehicleRepository" as VEHICLE_REPO_INSTANCE
+participant "employee\n:Employee" as MNGR
+participant "vehicle\n:Vehicle" as VEHICLE
+
+
+note right of VFM
+    - The user is already logged in at this step.
+    - Authentication sequence is explained in
+    a sequence excerpt.
+end note
+
+note right of ORG_SINGLETON
+    - Singleton is
+    in use
+end note
+
 
 activate VFM
 
         VFM -> UI : asks to create a new vehicle maintenance
 
         activate UI
-
+            'create CTRL
             UI -> CTRL** : create
 
-            UI -> CTRL : getMaintenanceVehicles()
-                activate CTRL
+            UI -> CTRL : createVehicleMaintenance
 
-                    CTRL -> RepositorySingleton : getInstance()
-                        activate RepositorySingleton
-
-                            RepositorySingleton --> CTRL: repositories
-                        deactivate RepositorySingleton
-
-                    CTRL -> PLAT : getMaintenanceVehiclesRepository()
-                        activate PLAT
-
-                            PLAT --> CTRL: MaintenanceVehiclesRepository
-                        deactivate PLAT
-
-                    CTRL -> OrganizationRepository : getMaintenanceVehicles()
-                        activate OrganizationRepository
-
-                            OrganizationRepository --> CTRL : maintenanceVehiclesList
-                        deactivate OrganizationRepository
-
-            CTRL --> UI : maintenanceVehiclesList
-                deactivate CTRL
-
-        UI --> VFM : shows vehicle maintenance list\n and asks to select one
-            deactivate UI
-
-    VFM -> UI : selects a vehicle
-    activate UI
-
-        UI --> VFM : requests data
-    deactivate UI
-
-    VFM -> UI : types requested data (plateNumber, date, currentKm)
-    activate UI
-
-        UI --> VFM : shows all data and requested confirmation
-    deactivate UI
-
-    VFM -> UI : confirms data
-    activate UI
-
-        UI -> CTRL : createMaintenance(plateNumber, date, currentKm)
-        activate CTRL
-
-                CTRL -> RepositorySingleton : getInstance()
-                activate RepositorySingleton
-
-                    RepositorySingleton --> CTRL: repositories
-                deactivate RepositorySingleton
-
-                CTRL -> PLAT : getVehicleRepository()
-                activate PLAT
-
-                    PLAT -> CTRL : vehicleRepository
-                deactivate PLAT
-
-            |||
-            CTRL -> CTRL : getEmployeeFromSession()
             activate CTRL
 
-                CTRL -> _APP: getInstance()
-                activate _APP
-                    _APP -> CTRL: appSession
-                deactivate _APP
+                CTRL -> ORG_SINGLETON : getInstance()
 
+                    activate ORG_SINGLETON
 
-                CTRL -> APP: getCurrentSession()
-                activate APP
+                    ORG_SINGLETON --> CTRL : repositories
 
-                    APP --> CTRL: currentSession
-                deactivate APP
+                deactivate ORG_SINGLETON
 
-                CTRL -> SESSAO: email = getUserEmail()
-                activate SESSAO
+                CTRL -> ORG_INSTANCE : getEmployeeFromSession()
 
-                    SESSAO --> CTRL: email
-                deactivate SESSAO
+                    note right of CTRL
+                        - This method is explained
+                        in detail in an excerpt
+                        sequence diagram.
+                    end note
 
+                    activate ORG_INSTANCE
 
-                CTRL -> PLAT: getOrganizationRepository(email)
-                activate PLAT
+                    ORG_INSTANCE --> CTRL : employee
 
-                    PLAT --> CTRL: organizationRepository
-                deactivate PLAT
+                deactivate ORG_INSTANCE
 
+                CTRL -> ORG_INSTANCE : getMaintenanceVehicles()
 
-                CTRL -> OrganizationRepository: getOrganizationByEmployeeEmail(email)
-                activate OrganizationRepository
+                    activate ORG_INSTANCE
 
-                    loop [for each organization
-                        OrganizationRepository -> ORG : anyEmployeeHasEmail(email)
-                        activate ORG
+                    ORG_INSTANCE --> CTRL : maintenanceVehiclesList
 
-                             ORG --> OrganizationRepository : true/false
-                        deactivate ORG
-                    end
-                    OrganizationRepository --> CTRL : organization
-                deactivate OrganizationRepository
+                deactivate ORG_INSTANCE
 
-                CTRL -> ORG: getEmployeeByEmail(email)
-                activate ORG
+            CTRL --> UI : maintenanceVehiclesList
 
-                    ORG --> CTRL : employee
-                deactivate ORG
+        UI --> VFM : shows vehicle maintenance list\n and asks to select one
 
-                CTRL --> CTRL : employee
+        deactivate UI
+
+        VFM -> UI : selects a vehicle
+
+        activate UI
+            'requests the VFM to input data
+            UI --> VFM : requestData (plateNumber, date, currentKm)
+
+        deactivate UI
+
+        VFM -> UI : types requested data
+
+        activate UI
+
+            UI -> UI : validateVehicleData(plateNumber, date, currentKm)
+
             deactivate CTRL
 
-            |||
-            CTRL -> ORG: createMaintenance(plateNumber, date, currentKm)
-            activate ORG
+            UI --> VFM : shows vehicle data and requests confirmation
 
-                ORG -> VCLE**: create(plateNumber, date, currentKm)
-                ORG -> ORG: addVehicleMaintenance (vehicle)
+        deactivate UI
+
+            VFM -> UI : confirms data
+
+        activate UI
+
+            UI -> CTRL : createVehicleMaintenance(plateNumber, date, currentKm)
+
+            activate CTRL
+
+                CTRL -> MNGR : createVehicleMaintenance(plateNumber, date, currentKm)
+
+                activate MNGR
+
+                MNGR -> VEHICLE : VehicleMaintenance(plateNumber, date, currentKm)
+
+                activate VEHICLE
+
+                VEHICLE --> MNGR : newVehicleMaintenance
+
+                deactivate VEHICLE
+
+                MNGR --> CTRL : newVehicleMaintenance
+
+                deactivate MNGR
+
+                CTRL -> ORG_INSTANCE : addVehicleMaintenance(vehicleMaintenance)
+
+                activate ORG_INSTANCE
+
+                ORG_INSTANCE -> ORG_INSTANCE : validateVehicleMaintenance(vehicleMaintenance)
+
+                note right of ORG_INSTANCE
+                - This method is explained
+                in detail in an excerpt
+                sequence diagram.
+                end note
+
+                ORG_INSTANCE --> CTRL : newVehicleMaintenance
+
+                deactivate ORG_INSTANCE
+
+            CTRL --> UI : newVehicleMaintenance
 
 
-                activate ORG
-                    ORG -> ORG: validateVehicleMaintenance(vehicle)
-                    activate ORG
+        deactivate CTRL
 
-                ORG --> CTRL : vehicleMaintenance
+        UI -> VFM : displays operation success
 
-            deactivate ORG
-
-            CTRL --> UI: vehicleMaintenance
-            deactivate CTRL
-            UI --> VFM: displays operation success
     deactivate UI
 
 deactivate VFM
