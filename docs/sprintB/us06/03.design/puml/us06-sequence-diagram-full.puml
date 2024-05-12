@@ -6,124 +6,125 @@ skinparam shadowing false
 autonumber
 
 'hide footbox
+
 actor "Vehicle and Equipment\nFleet Manager" as VFM
 participant ":CreateVehicleUI" as UI
 participant ":CreateVehicleController" as CTRL
-participant ":Repositories" as RepositorySingleton
-participant "repositories\n:Repositories" as PLAT
-participant ":ApplicationSession" as _APP
-participant "appSession\n:ApplicationSession" as APP
-participant "currentSession\n:UserSession" as SESSAO
-participant "organizationRepository:\nOrganizationRepository" as OrganizationRepository
-participant "organization\n:Organization" as ORG
-participant "vehicle\n:Vehicle" as VCLE
+participant ":Repositories" as ORG_SINGLETON
+participant "repositories\n: Repositories" as ORG_INSTANCE
+participant "authenticationRepository\n:AuthenticationRepository" as AUTH_REPO
+participant "userSession\n:UserSession" as USR_SESSION
+participant "vehicleRepository\n:VehicleRepository" as VEHICLE_REPO_INSTANCE
+participant "employee\n:Employee" as MNGR
+participant "vehicle\n:Vehicle" as VEHICLE
+
+
+note right of VFM
+    - The user is already logged in at this step.
+    - Authentication sequence is explained in
+    a sequence excerpt.
+end note
+
+note right of ORG_SINGLETON
+    - Singleton is
+    in use
+end note
+
 
 activate VFM
 
         VFM -> UI : asks to create a new vehicle
 
         activate UI
-
+            'create CTRL
             UI -> CTRL** : create
 
-        UI --> VFM : requests data
-    deactivate UI
+            'requests the VFM to input data
+            UI --> VFM : requestData (brand, model, type, \ntare weight, gross weight, current km,\nregister date, acquisition date, maintenance \nfrequency, plate number, passengers number,\ndoors number, fuel type, trailer machines)
 
-    VFM -> UI : types requested data (brand, model, type, \ntare weight, gross weight, current km,\nregister date, acquisition date, maintenance \nfrequency, plate number, passengers number,\ndoors number, fuel type, trailer machines)
-    activate UI
+        deactivate UI
 
-        UI --> VFM : shows all data and requested confirmation
-    deactivate UI
+        VFM -> UI : types requested data
 
-    VFM -> UI : confirms data
-    activate UI
+        activate UI
 
-        UI -> CTRL : createVehicle(brand, model, type, \ntare weight, gross weight, current km,\nregister date, acquisition date, maintenance \nfrequency, plate number, passengers number,\ndoors number, fuel type, trailer machines)
-        activate CTRL
+            UI -> UI : validateVehicleData(brand, model, type, \ntare weight, gross weight, current km,\nregister date, acquisition date, maintenance \nfrequency, plate number, passengers number,\ndoors number, fuel type, trailer machines)
 
-                CTRL -> RepositorySingleton : getInstance()
-                activate RepositorySingleton
+            deactivate CTRL
 
-                    RepositorySingleton --> CTRL: repositories
-                deactivate RepositorySingleton
+            UI --> VFM : shows vehicle data and requests confirmation
 
-                CTRL -> PLAT : getVehicleRepository()
-                activate PLAT
+        deactivate UI
 
-                    PLAT -> CTRL : vehicleRepository
-                deactivate PLAT
+            VFM -> UI : confirms data
 
-            |||
-            CTRL -> CTRL : getEmployeeFromSession()
+        activate UI
+
+            UI -> CTRL : createVehicle(brand, model, type, \ntare weight, gross weight, current km,\nregister date, acquisition date, maintenance \nfrequency, plate number, passengers number,\ndoors number, fuel type, trailer machines)
+
             activate CTRL
 
-                CTRL -> _APP: getInstance()
-                activate _APP
-                    _APP -> CTRL: appSession
-                deactivate _APP
+                CTRL -> ORG_SINGLETON : getInstance()
+
+                activate ORG_SINGLETON
+
+                    ORG_SINGLETON --> CTRL : repositories
+
+                deactivate ORG_SINGLETON
+
+                CTRL -> ORG_INSTANCE : getEmployeeFromSession()
+
+                                note right of CTRL
+                                    - This method is explained
+                                     in detail in an excerpt
+                                     sequence diagram.
+                                end note
+
+                activate ORG_INSTANCE
+
+                ORG_INSTANCE --> CTRL : employee
+
+                deactivate ORG_INSTANCE
+
+                CTRL -> MNGR : createVehicle(brand, model, type, \ntare weight, gross weight, current km,\nregister date, acquisition date, maintenance \nfrequency, plate number, passengers number,\ndoors number, fuel type, trailer machines, creatorEmployee)
+
+                activate MNGR
+
+                MNGR -> VEHICLE : Vehicle(brand, model, type, \ntare weight, gross weight, current km,\nregister date, acquisition date, maintenance \nfrequency, plate number, passengers number,\ndoors number, fuel type, trailer machines, creatorEmployee)
+
+                activate VEHICLE
+
+                VEHICLE --> MNGR : newVehicle
+
+                deactivate VEHICLE
+
+                MNGR --> CTRL : newVehicle
+
+                deactivate MNGR
+
+                CTRL -> ORG_INSTANCE : addVehicle(vehicle)
+
+                activate ORG_INSTANCE
+
+                ORG_INSTANCE -> ORG_INSTANCE : validateVehicle()
+
+                    note right of ORG_INSTANCE
+                        - This method is explained
+                        in detail in an excerpt
+                        sequence diagram.
+                    end note
+
+                ORG_INSTANCE --> CTRL : newVehicle
+
+                deactivate ORG_INSTANCE
+
+            CTRL --> UI : newVehicle
 
 
-                CTRL -> APP: getCurrentSession()
-                activate APP
+        deactivate CTRL
 
-                    APP --> CTRL: currentSession
-                deactivate APP
+        UI -> VFM : displays operation success
 
-                CTRL -> SESSAO: email = getUserEmail()
-                activate SESSAO
-
-                    SESSAO --> CTRL: email
-                deactivate SESSAO
-
-
-                CTRL -> PLAT: getOrganizationRepository(email)
-                activate PLAT
-
-                    PLAT --> CTRL: organizationRepository
-                deactivate PLAT
-
-
-                CTRL -> OrganizationRepository: getOrganizationByEmployeeEmail(email)
-                activate OrganizationRepository
-
-                    loop [for each organization
-                        OrganizationRepository -> ORG : anyEmployeeHasEmail(email)
-                        activate ORG
-
-                             ORG --> OrganizationRepository : true/false
-                        deactivate ORG
-                    end
-                    OrganizationRepository --> CTRL : organization
-                deactivate OrganizationRepository
-
-                CTRL -> ORG: getEmployeeByEmail(email)
-                activate ORG
-
-                    ORG --> CTRL : employee
-                deactivate ORG
-
-                CTRL --> CTRL : employee
-            deactivate CTRL
-
-            |||
-            CTRL -> ORG: createVehicle(brand, model, type, \ntare weight, gross weight, current km,\nregister date, acquisition date, maintenance \nfrequency, plate number, passengers number,\ndoors number, fuel type, trailer machines)
-            activate ORG
-
-                ORG -> VCLE**: create(brand, model, type, \ntare weight, gross weight, current km,\nregister date, acquisition date, maintenance \nfrequency, plate number, passengers number,\ndoors number, fuel type, trailer machines)
-                ORG -> ORG: addVehicle (vehicle)
-
-
-                activate ORG
-                    ORG -> ORG: validateVehicle(vehicle)
-                    activate ORG
-
-                ORG --> CTRL : vehicle
-
-            deactivate ORG
-
-            CTRL --> UI: vehicle
-            deactivate CTRL
-            UI --> VFM: displays operation success
     deactivate UI
 
 deactivate VFM
