@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 import static pt.ipp.isep.dei.esoft.project.ui.console.GraphAnalysisUI.*;
 
-public class ExecutionTimeAnalysis implements Runnable{
+public class ExecutionTimeAnalysis implements Runnable {
 
     /**
      * Constantes necessárias para a aplicação
@@ -40,6 +40,10 @@ public class ExecutionTimeAnalysis implements Runnable{
             int[] numOfLinesReaded = new int[numOfFilesToAnalize];
 
             for (int i = 0; i < numOfFilesToAnalize; i++) {
+
+                System.out.println("###########################################################################");
+                System.out.println("ITERATION: " + (i + 1));
+                System.out.println("\n");
 
                 workFile = workFilePrefix + (i + 1) + ".csv";
 
@@ -210,9 +214,17 @@ public class ExecutionTimeAnalysis implements Runnable{
      * @param filename
      */
     private static void printStatsToCSVFile(long[] execTimes, int[] lines, String filename) {
+        String outputFolderAndFile;
         try {
 
-            String outputFolderAndFile = String.format("%s%s", OUTPUT_FOLDER + "/", filename);
+            boolean isWindows = System.getProperty("os.name").toLowerCase().startsWith("windows");
+
+            if (isWindows) {
+                outputFolderAndFile = String.format("%s%s", OUTPUT_FOLDER + WINDOWS_DIRECTORY_SEPARARTOR, filename);
+            } else {
+                outputFolderAndFile = String.format("%s%s", OUTPUT_FOLDER + UNIX_DIRECTORY_SEPARARTOR, filename);
+
+            }
 
             PrintWriter printToFile = new PrintWriter(new File(outputFolderAndFile));
 
