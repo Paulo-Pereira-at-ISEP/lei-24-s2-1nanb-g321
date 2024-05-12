@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
 import pt.ipp.isep.dei.esoft.project.ui.console.CreateJobUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.CreateSkillUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.GraphAnalysisUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.ShowTextUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
@@ -23,7 +24,7 @@ public class GSMUI implements Runnable {
         options.add(new MenuItem("Create Job", new CreateJobUI()));
         options.add(new MenuItem("Register Collaborator", new ShowTextUI("You have chosen Option 3.")));
         options.add(new MenuItem("Assign one or more skills to a collaborator", new ShowTextUI("You have chosen Option 4.")));
-        options.add(new MenuItem("Generate a team proposal", new ShowTextUI("You have chosen Option 3.")));
+        options.add(new MenuItem("Graph analysis", new GraphAnalysisUI()));
 
         int option = 0;
         do {
