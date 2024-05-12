@@ -357,7 +357,7 @@ public class GraphAnalysisUI implements Runnable {
             data.add(new Edge(aux[0], aux[1], Double.parseDouble(aux[2])));
         }
 
-        System.out.println("Readed " + data.size() + " lines from file!");
+        System.out.println("Read " + data.size() + " lines from file!");
         return data;
     }
 
