@@ -1,76 +1,65 @@
-# US006 - Create a Task 
+# US03 - As an HRM, I want to register a collaborator with a job and fundamental characteristics.
 
-## 3. Design - User Story Realization 
+## 3. Design - User Story Realization
 
 ### 3.1. Rationale
 
-_**Note that SSD - Alternative One is adopted.**_
 
-| Interaction ID | Question: Which class is responsible for...   | Answer               | Justification (with patterns)                                                                                 |
-|:-------------  |:----------------------------------------------|:---------------------|:--------------------------------------------------------------------------------------------------------------|
-| Step 1  		 | 	... interacting with the actor?              | CreateTaskUI         | Pure Fabrication: there is no reason to assign this responsibility to any existing class in the Domain Model. |
-| 			  		 | 	... coordinating the US?                     | CreateTaskController | Controller                                                                                                    |
-| 			  		 | 	... instantiating a new Employee?            | Organization         | Creator (Rule 1): in the DM Organization has a Task.                                                          |
-| 			  		 | ... knowing the user using the system?        | UserSession          | IE: cf. A&A component documentation.                                                                          |
-| 			  		 | 							                                       | Organization         | IE: knows/has its own Employees                                                                               |
-| 			  		 | 							                                       | Employee             | IE: knows its own data (e.g. email)                                                                           |
-| Step 2  		 | 							                                       |                      |                                                                                                               |
-| Step 3  		 | 	...saving the inputted data?                 | Task                 | IE: object created in step 1 has its own data.                                                                |
-| Step 4  		 | 	...knowing the task categories to show?      | System               | IE: Task Categories are defined by the Administrators.                                                        |
-| Step 5  		 | 	... saving the selected category?            | Task                 | IE: object created in step 1 is classified in one Category.                                                   |
-| Step 6  		 | 							                                       |                      |                                                                                                               |              
-| Step 7  		 | 	... validating all data (local validation)?  | Task                 | IE: owns its data.                                                                                            | 
-| 			  		 | 	... validating all data (global validation)? | Organization         | IE: knows all its tasks.                                                                                      | 
-| 			  		 | 	... saving the created task?                 | Organization         | IE: owns all its tasks.                                                                                       | 
-| Step 8  		 | 	... informing operation success?             | CreateTaskUI         | IE: is responsible for user interactions.                                                                     | 
+
+| Interaction ID | Question: Which class is responsible for...                      | Answer                | Justification (with patterns)                                                                                                                  |
+|:---------------|:-----------------------------------------------------------------|:----------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------|
+| Step 1         | ... interacting with the actor                                   | CreateSkillUI         | There is no reason to assign this responsibility to any existing class in the Domain Model (Pure Fabrication)                                  |
+|                | ... instantiating the class that handles the UI?                 | CreateSkillUI         | There is no reason to assign this responsibility to any existing class in the Domain Model (Pure Fabrication)                                  |
+|                | ... coordinating the US?                                         | CreateSkillController | Ensures decouple between the UI layer and the Domain layer. (Controller, Low coupling, High Cohesion)                                          |
+| Step 2         | ... instantiating the controller                                 | CreateSkillUI         | There is no reason to assign this responsibility to any existing class in the Domain Model (Pure Fabrication)                                  | 
+| Step 3         | ... display the form for the actor to input data?                | CreateSkillUI         | Interaction with the user, there is no reason for other class to have this responsibility (Pure Fabrication)                                   |
+| Step 4         | ... temporarily keeping the input data?                          | CreateSkillUI         | Before passing the data to the CreateSkillController for further coordination (Pure Fabrication)                                               |
+| Step 5         | ... validating the inputted data?                                | CreateSkillUI         | Validating only data types, business rules are validated in the domain layer (Pure Fabrication)                                                |
+| Step 6 and 7   | ... showing all data and requesting confirmation?                | CreateSkillUI         | Interaction with the user (Pure Fabrication)                                                                                                   |
+| Step 8 and 20  | ... coordinating the creation the skill object?                  | CreateSkillController | Ensures decouple between the UI layer and the Domain layer. Answers the UI requests. (Controller, Low coupling, High Cohesion)                 |
+| Step 9 and 10  | ... organize the repositories of the current app?                | Repositories          | There is no reason for other class to have this responsibility. Aggregates all the repositories. (Pure Fabrication)                            |
+| Step 11 and 12 | ... know the current logged in user?                             | Repositories          | There is no reason for other class to have this responsibility. Has in itself the instance of the Authentication Repository (Pure Fabrication) |
+| Step 13 and 16 | ... creating the skill object?                                   | Employee              | In the domain model is the responsible for creating Skills as a Manager (Creator)                                                              |
+| Step 14 and 15 | ... knowing the required data to create a new instance of Skill? | Skill                 | Knows its own data (Information Expert)                                                                                                        |
+|                | ... validating (mandatory) data locally??                        | Skill                 | Should be responsible for validating its own data (Information Expert)                                                                         |
+| Step 17 and 19 | ... adding the skill to a collection?                            | SkillRepository       | Knows all the Skill instances (Information Expert, Pure Fabrication)                                                                           |
+| Step 18        | ... globally validating duplicated records?                      | SkillRepository       | Knows all the Skill instances (Information Expert, Pure Fabrication)                                                                           |
+| Step 21        | ... informing the operation success?                             | CreateSkillUI         | Interaction with the user (Pure Fabrication)                                                                                                   |              
 
 ### Systematization ##
 
-According to the taken rationale, the conceptual classes promoted to software classes are: 
+According to the taken rationale, the conceptual classes promoted to software classes are:
 
-* Organization
-* Task
+* Employee
+* Skill
 
-Other software classes (i.e. Pure Fabrication) identified: 
+Other software classes (i.e. Pure Fabrication) identified:
 
-* CreateTaskUI  
-* CreateTaskController
+* CreateSkillUI
+* CreateSkillController
+* SkillRepository
 
 
 ## 3.2. Sequence Diagram (SD)
-
-_**Note that SSD - Alternative Two is adopted.**_
 
 ### Full Diagram
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
-![Sequence Diagram - Full](svg/us03-sequence-diagram-full.svg)
+![Sequence Diagram - Full](svg/us01-sequence-diagram-full.svg)
 
 ### Split Diagrams
 
-The following diagram shows the same sequence of interactions between the classes involved in the realization of this user story, but it is split in partial diagrams to better illustrate the interactions between the classes.
+The following partial diagrams are displayed to better illustrate the interactions between the classes for the reference notes of the full diagram.
 
-It uses Interaction Occurrence (a.k.a. Interaction Use).
+**Get Employee From Session**
 
-![Sequence Diagram - split](svg/us006-sequence-diagram-split.svg)
+![Sequence Diagram - Partial - Create Task](svg/us01-sequence-diagram-partial-get-employee.svg)
 
-**Get Task Category List Partial SD**
+**Validate Skill**
 
-![Sequence Diagram - Partial - Get Task Category List](svg/us006-sequence-diagram-partial-get-task-category-list.svg)
-
-**Get Task Category Object**
-
-![Sequence Diagram - Partial - Get Task Category Object](svg/us006-sequence-diagram-partial-get-task-category.svg)
-
-**Get Employee**
-
-![Sequence Diagram - Partial - Get Employee](svg/us006-sequence-diagram-partial-get-employee.svg)
-
-**Create Task**
-
-![Sequence Diagram - Partial - Create Task](svg/us006-sequence-diagram-partial-create-task.svg)
+![Sequence Diagram - Partial - Get Employee](svg/us01-sequence-diagram-partial-validate-skill.svg)
 
 ## 3.3. Class Diagram (CD)
 
-![Class Diagram](svg/us006-class-diagram.svg)
+![Class Diagram](svg/us01-class-diagram.svg)

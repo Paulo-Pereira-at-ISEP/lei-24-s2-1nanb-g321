@@ -57,9 +57,12 @@ activate UI
         SkillRep --> controller : Skills
         deactivate SkillRep
         controller --> UI : Skills
+        loop for each skill selected
         UI --> HRM : shows list of skills
-        HRM -> UI : selects skill
         UI -> UI : validates
+
+        HRM -> UI : selects skill
+        end
         UI --> HRM : shows data
 
 
