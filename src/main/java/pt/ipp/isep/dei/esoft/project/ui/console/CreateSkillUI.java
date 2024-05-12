@@ -1,10 +1,13 @@
 package pt.ipp.isep.dei.esoft.project.ui.console;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateSkillController;
+import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 
 import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
+
+import java.time.LocalDate;
 
 /**
  * Create Skill UI (console). This option is only available for administrators for demonstration purposes.
@@ -45,11 +48,87 @@ public class CreateSkillUI implements Runnable {
     private void requestData() {
 
         //Request the Skill Name from the console
-        skillName = requestSkillName();
 
-        //Request the Task Description from the console
-        skillDescription = requestSkillDescription();
-    }
+            String input;
+            Skill skill = new Skill(skillName, skillDescription);
+            do {
+                skillName = requestSkillName();
+                skillDescription = requestSkillDescription();
+
+                // Set employee data after successful parsing
+                skill.setName(skillName);
+                skill.setDescription(skillDescription);
+
+                System.out.println("\n\n\n---------- Submitted Data ----------\n");
+                System.out.printf("Title: %s\n", skillName);
+                System.out.printf("Description: %s\n", skillDescription);
+
+
+                input = Utils.readLineFromConsole("\n Do you confirm this data? (y/n)");
+                if (input.equalsIgnoreCase("y")) {
+                    System.out.println(" Skill successfully registered!.");
+
+                    break;
+                }
+
+                do {
+                    boolean modified = false;
+
+                    String dataToModify = requestDataModification(skill);
+                    if (dataToModify != null) {
+                        modified = true;
+                        modifySkillData(skill, dataToModify); // Call a method to modify specific data
+                        System.out.println("Data modified successfully.");
+                    } else {
+                        System.out.println("Invalid data selection. Please try again.");
+                    }
+                    input = Utils.readLineFromConsole("Do you want to modify another field? (y/n)");
+
+                } while (!input.equalsIgnoreCase("n"));
+
+
+                // After confirmation, use the employee object for further processing or storage
+
+            }while (!input.equalsIgnoreCase("n")); // Loop until user confirms
+
+            // After confirmation, use the employee object for further processing or storage
+            System.out.println("Data confirmed." + skill);
+        }
+        private String requestDataModification(Skill skill) {
+            System.out.println("\nSelect the data field you want to modify:");
+            System.out.println("1. Title");
+            System.out.println("2. Description");
+
+
+            String choice = Utils.readLineFromConsole("Enter your choice (1-2): ");
+            switch (choice) {
+                case "1":
+                    return "Title"; // Modify name
+                case "2":
+                    return "Description"; // Modify dateOfBirth
+
+                default:
+                    System.out.println("Invalid choice. Please enter a number between 1 and 2.");
+                    return null;
+            }
+        }
+
+        private void modifySkillData(Skill skill, String dataToModify) {
+            switch (dataToModify) {
+                case "Title":
+
+                    skill.setName(requestSkillName());
+
+                    // Get new name and set it
+                    break;
+                case "Description":
+                    skill.setDescription(requestSkillDescription()); // Get new dateOfBirth and set it
+                    break;
+
+                default:
+                    System.out.println("Invalid data field. Data modification failed.");
+            }
+        }
 
     /**
      * Prompts the user to input a skill description and validates the input.

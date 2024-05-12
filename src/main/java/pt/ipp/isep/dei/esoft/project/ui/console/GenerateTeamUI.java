@@ -4,9 +4,11 @@ import pt.ipp.isep.dei.esoft.project.application.controller.GenerateTeamControll
 import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
+import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 
 import java.util.ArrayList;
+import java.util.IllegalFormatCodePointException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -35,15 +37,33 @@ public class GenerateTeamUI implements Runnable {
     }
 
     private void submitData() {
-        Team team = controller.generateTeam(teamMaxSize, teamMinSize, skills);
 
-        if (team != null && team.getEmployees().size() >= teamMinSize && team.getEmployees().size() <= teamMaxSize && !team.getEmployees().isEmpty()) {
+        Team team = controller.generateTeam(teamMinSize, teamMaxSize, skills);
+
+        if (team != null && team.getEmployees().size() >= teamMinSize &&team.getEmployees().size() <= teamMaxSize && !team.getEmployees().isEmpty()) {
             listEmployees(team);
-            System.out.println("\nTeam successfully generated!");
+            String input = Utils.readLineFromConsole("\n Do you accept this team? (y/n)");
+             if(input.equalsIgnoreCase("n") || input.isEmpty()){
+                System.out.println("A new team will be generated!\n ");
+                listEmployees(team);
+                input = Utils.readLineFromConsole("\n Do you accept this team? (y/n)");
+
+                 if(input.equalsIgnoreCase("y") || input.isEmpty()){
+                     System.out.println("Team successfully created!\n ");
+                 } else {
+                     System.out.println("Team not created!\n ");
+                 }
+
+             } else if(input.equalsIgnoreCase("y") || input.isEmpty()) {
+                 System.out.println("\nTeam successfully generated!");
+             }else {
+                 System.out.println("Team not created!\n ");
+            }
         } else {
-            System.out.println("\nTeam not generated!");
+            System.out.println("\nNo team was created!");
         }
     }
+
 
     private void requestData() {
 
@@ -98,7 +118,7 @@ public class GenerateTeamUI implements Runnable {
     private void listEmployees(Team team) {
 
         List<Employee> employees = team.getEmployees();
-        System.out.println("Registered Employees:");
+        System.out.println("Team:");
         int counter = 1;
         for (Employee employee : employees) {
                 System.out.println("[" + counter + "] ");
