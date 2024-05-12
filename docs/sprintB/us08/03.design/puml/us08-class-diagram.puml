@@ -9,21 +9,89 @@ skinparam classAttributeIconSize 0
 
 'left to right direction
 
-class ListVehiclesPendingMaintenancesUI {
-    +run()
-    +requestData(teamMinSize, teamMaxSize, skills)
-    +submitData()
+class ListVehiclesWithPendingMaintenanceController {
+    -vehiclesRepository : VehiclesRepository
+
+    +ListVehiclesWithPendingMaintenanceController(vehiclesRepository)
+    + createVehiclesWithPendingMaintenanceList()
+
 }
 
-class ListVehiclesPendingMaintenancesController{
-+ListVehiclesPendingMaintenancesController()
+
+class ListVehiclesWithPendingMaintenanceUI {
+    +run()
 }
+
 
 class Repositories{
+    - instance : Repositories
+    - Repository : SkillRepository
+    - jobRepository : JobRepository
+    - employeeRepository : EmployeeRepository
+
+
+    + getInstance() : Repositories
+    + getSkillRepository()
+    + getJobRepository()
+    + getEmployeeRepository()
 }
 
-ListVehiclesPendingMaintenancesUI ..> ListVehiclesPendingMaintenancesController
+class VehiclesRepository{
+    +getAllVehicles() : List<vehicles>
+    +addVehiclesWithPendingMaintenanceList
+}
 
-ListVehiclesPendingMaintenancesController --> Repositories
+class AuthenticationRepository{
+    + getEmployeeFromSession()
+}
+
+class Vehicle {
+    - String brand
+    - String model
+    - String type
+    - Integer tareWeight
+    - Integer grossWeight
+    - Integer currenteKm
+    - Date registerDate
+    - Date acquisitionDate
+    - Integer maintenanceFrequency
+    - String plateNumber
+    - Integer passengersNumber
+    - Integer doorsNumber
+    - String fuelType
+    - Boolean trailerMachines
+
+    +getVehicleMaintenances() : VehicleMaintenances
+}
+
+class VehicleMaintenance{
+-maintenanceFrequency: Int
+-currentKm: Int
+
++validateVehicleMaintenance(lastMaintenance, maintenanceFrequency, currentKm)
+
+}
+
+class VehicleMaintenances{
++getVehiclesWithPendingMaintenanceList(): List<VehicleMaintenance>
+
+}
+
+
+ListVehiclesWithPendingMaintenanceUI "1" ..> "1" ListVehiclesWithPendingMaintenanceController
+
+Vehicle "1" --> "1" VehicleMaintenances: VehicleMaintenances
+
+VehicleMaintenances "1" --> "*" VehicleMaintenance: arrayVehicleMaintenances
+
+Repositories -> Repositories : instance
+Repositories "1" --> "1" VehiclesRepository
+
+VehiclesRepository --> Vehicle
+
+ListVehiclesWithPendingMaintenanceController ..> VehicleMaintenances : vehicleMaintenances
+ListVehiclesWithPendingMaintenanceController ..> VehiclesRepository
+ListVehiclesWithPendingMaintenanceController "1" ..> "1" Repositories : repositories
+ListVehiclesWithPendingMaintenanceController "1" --> "1" AuthenticationRepository : getCurrentUserSession
 
 @enduml

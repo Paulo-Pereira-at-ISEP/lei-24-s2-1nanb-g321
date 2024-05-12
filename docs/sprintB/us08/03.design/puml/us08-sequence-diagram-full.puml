@@ -6,55 +6,107 @@ skinparam shadowing false
 autonumber
 
 'hide footbox
-actor "Vehicle Fleet Manager" as ADM
+actor "Vehicle Fleet Manager" as VFM
 participant ":ListVehiclesPendingMaintenanceUI" as UI
-participant ":ListVehiclesPendingMaintenanceController" as CTRL
-participant ":Repositories" as RepositorySingleton
-participant "repositories\n:Repositories" as PLAT
-participant "vehiclesRepository\n:vehiclesRepository" as VehiclesRepository
+participant ":ListVehiclesPendingMaintenanceController" as controller
+participant ":Repositories" as singleton
+participant "repositories\n:Repositories" as rep
+participant "vehicleRepository\n:vehicleRepository" as vehicleRepository
+participant "authenticationRepository\n:AuthenticationRepository" as AUTH_REPO
+participant "userSession\n:UserSession" as USR_SESSION
+participant ":Vehicle" as vehicle
+participant ":VehicleMaintenance" as VehicleMaintenance
+
+note right of VFM
+    - The user is already logged in at this step.
+    - Authentication sequence is explained in
+    a sequence excerpt.
+end note
 
 note right of singleton
     - Singleton is
     in use
 end note
 
-activate ADM
+activate VFM
 
-        ADM -> UI :asks to list vehicle's in need for a check-up
+        VFM -> UI :asks to list vehicle's in need for a check-up
 
         activate UI
 
-'            UI --> ADM : requests data (reference, description,  informal \n description, technical description, duration, cost)
-            'create CTRL
-            UI -> CTRL** : create
+            UI -> controller** : create
 
-            UI -> CTRL : getVehiclesPendingMaintenanceList()
-            activate CTRL
+            UI -> controller : asks for a list of the vehicles pending maintenance
+            activate controller
 
-                CTRL -> RepositorySingleton : getInstance()
-                activate RepositorySingleton
+                controller -> singleton : getInstance()
+                activate singleton
 
-                    RepositorySingleton --> CTRL: repositories
-                deactivate RepositorySingleton
+                    singleton --> controller: repositories
+                deactivate singleton
 
-                CTRL -> PLAT : getVehiclesRepository()
-                activate PLAT
+                controller -> singleton : getEmployeeFromSession()
 
-                    PLAT --> CTRL: vehiclesRepository
-                deactivate PLAT
+                note right of controller
+                    - This method is explained
+                    in detail in an excerpt
+                    sequence diagram.
+                end note
 
-                CTRL -> VehiclesRepository : getVehiclesPendingMaintenance()
-                activate VehiclesRepository
+                activate singleton
 
-                    VehiclesRepository --> CTRL : vehiclesPendingMaintenanceList
-                deactivate VehiclesRepository
+                singleton --> controller : employee
 
-                CTRL --> UI : vehiclesPendingMaintenanceList
-            deactivate CTRL
+                deactivate singleton
 
-            UI --> ADM : shows  vehicle's in need for a check-up
+                controller -> rep : getVehicleRepository()
+                activate rep
+
+                    rep --> controller: vehicleRepository
+                deactivate rep
+
+                controller -> vehicleRepository : getAllVehicles()
+                activate vehicleRepository
+
+                    vehicleRepository --> controller : vehicles
+                deactivate vehicleRepository
+
+                loop for each vehicle
+
+                controller -> vehicle: getMaintenanceFrequency()
+                activate vehicle
+
+                vehicle --> controller: MaintenanceFrequency
+                deactivate vehicle
+
+                controller -> vehicle: getLastMaintenance()
+                activate vehicle
+
+                vehicle --> controller: lastMaintenance
+                deactivate vehicle
+
+                controller -> vehicle: getCurrentKm()
+                activate vehicle
+
+                vehicle --> controller: currentKm
+                deactivate vehicle
+
+                controller -> VehicleMaintenance: vehicleMaintenance(MaintenanceFrequency, lastMaintenance)
+                activate VehicleMaintenance
+
+                VehicleMaintenance --> VehicleMaintenance: validateVehicleMaintenance
+
+                VehicleMaintenance --> controller: vehiclesMaintenance
+                deactivate VehicleMaintenance
+
+                end
+
+                controller --> UI : vehiclesWithPendingMaintenanceList
+            deactivate controller
+
+            UI --> VFM : shows vehicles that need Maintenance
         deactivate UI
 
-deactivate ADM
+deactivate VFM
 
 @enduml

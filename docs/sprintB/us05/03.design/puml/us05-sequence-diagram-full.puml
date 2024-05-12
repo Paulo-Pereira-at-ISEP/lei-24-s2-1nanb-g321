@@ -12,101 +12,212 @@ participant ":GenerateTeamUI" as UI
 participant ":GenerateTeamController" as controller
 participant ":Repositories" as singleton
 participant "repositories\n:Repositories" as rep
-participant "TeamRepository:\nTeamRepository" as teamRep
-participant "Team" as Team
+participant "employeeRepository\n:EmployeeRepository" as employeeRep
+participant "skillRepository\n:SkillRepository" as skillRep
+participant "teamRepository\n:TeamRepository" as teamRep
+participant "authenticationRepository\n:AuthenticationRepository" as AUTH_REPO
+participant "userSession\n:UserSession" as USR_SESSION
+participant ":Employee" as employee
+participant ":Team" as Team
+
+note right of HRM
+    - The user is already logged in at this step.
+    - Authentication sequence is explained in
+    a sequence excerpt.
+end note
 
 note right of singleton
     - Singleton is
     in use
 end note
 
-activate HRM
+        activate HRM
 
         HRM -> UI : asks to generate a team proposal
-
         activate UI
             'create controller
-            UI -> controller** : create
+        UI -> controller** : create
+        activate controller
 
-            activate controller
+        controller-> singleton : getInstance()
+        activate singleton
 
-                controller-> singleton : getInstance()
+        singleton --> controller : repositories
+        deactivate singleton
 
-                activate singleton
+        controller -> singleton : getEmployeeFromSession()
 
-                    singleton --> controller : repositories
+        note right of controller
+            - This method is explained
+            in detail in an excerpt
+            sequence diagram.
+        end note
 
-                deactivate singleton
+        activate singleton
 
-                controller -> rep : getEmployeeRepository()
+        singleton --> controller : employee
 
-                activate rep
+        deactivate singleton
 
-
-                    rep --> controller : employeeRep
-
-                deactivate rep
-
-
-
-
-            'requests the HRM to input data
-            UI --> HRM : requestData (team maximum size and minimum size)
+        'requests the HRM to input data
+        UI --> HRM : requestData (team maximum size and minimum size)
         deactivate UI
 
         HRM -> UI : types requested data
+        activate UI
 
-activate UI
-
+        controller -> rep : getSkillRepository()
         activate rep
 
-            controller -> rep : getSkillRepository()
-            rep -> controller : skillRepository
+        rep --> controller : skillRep
         deactivate rep
 
+        controller -> skillRep : getAllSkills()
+        activate skillRep
 
-            controller --> UI : getAllSkills()
-            deactivate controller
-
-loop
-            UI --> HRM : shows list of skills and asks to select one
-
-            HRM -> UI : selects skill
-end
-           UI -> controller : create Team
-                   deactivate UI
-
-            activate controller
+        skillRep --> controller : skills
+        deactivate skillRep
 
 
-                controller -> Team : Team
-
-                activate Team
-
-                Team --> controller : newTeam
-
-                deactivate Team
-
-                controller -> teamRep : add (newTeam )
-
-                activate teamRep
-
-                    teamRep -> teamRep : validateteam(newTeam)
-
-
-                    teamRep --> controller : newTeam
-
-                deactivate teamRep
-
-            controller --> UI : newTeam
-
-
+        controller --> UI : skills
         deactivate controller
-activate UI
-        UI -> HRM : displays success operation
 
-    deactivate UI
+        loop for each desired skill
+        UI --> HRM : shows list of skills and asks to select one
 
-deactivate HRM
+        HRM -> UI : selects skill
+        end
+
+        UI -> controller : create Team (teamMaxSize, teamMinSize, skills)
+        deactivate UI
+        activate controller
+
+        controller -> rep : getEmployeeRepository()
+        activate rep
+
+        rep --> controller : employeeRep
+        deactivate rep
+
+        controller -> employeeRep : getAllEmployees()
+        activate employeeRep
+
+        employeeRep --> controller : employees
+        deactivate employeeRep
+
+        controller -> employee : Team (teamMaxSize, teamMinSize, skills)
+        activate employee
+
+        employee -> Team: Team
+        activate Team
+
+        Team --> employee : newTeam
+        deactivate Team
+
+        employee --> controller : newTeam
+        deactivate employee
+
+        controller --> UI : newTeam
+        deactivate controller
+        activate UI
+
+        UI -> HRM : requests confirmation
+        deactivate UI
+
+        alt accept proposal
+
+        HRM -> UI : accepts team
+        activate UI
+
+        UI -> controller: Team
+        activate controller
+        deactivate employee
+
+        controller -> teamRep : addTeam
+        activate teamRep
+
+        teamRep -> teamRep : validateTeam
+
+        teamRep --> controller : Team
+        deactivate teamRep
+
+        controller -> UI: Team
+        deactivate controller
+
+        UI --> HRM : displays operation success and presents the team generated
+        deactivate UI
+
+        end
+
+        alt reject proposal
+
+        HRM -> UI : rejects team
+        activate UI
+
+
+        UI -> controller : create Team (teamMaxSize, teamMinSize, skills)
+        deactivate UI
+        activate controller
+
+        controller -> employee : Team (teamMaxSize, teamMinSize, skills)
+        activate employee
+
+        employee -> Team: Team
+        activate Team
+
+        Team --> employee : newTeam
+        deactivate Team
+
+        employee --> controller : newTeam
+        deactivate employee
+
+
+        controller --> UI : newTeam
+        deactivate controller
+        activate UI
+
+        UI --> HRM: requests confirmation
+        deactivate UI
+        deactivate controller
+
+        alt accept proposal
+
+        HRM -> UI : accepts team
+        activate UI
+
+        UI -> controller: Team
+        activate controller
+        deactivate employee
+
+        controller -> teamRep : addTeam
+        activate teamRep
+
+        teamRep -> teamRep : validateTeam
+
+        teamRep --> controller : Team
+        deactivate teamRep
+
+        controller -> UI: Team
+        deactivate controller
+
+        UI --> HRM : displays operation success and presents the team generated
+        deactivate UI
+
+        end
+
+        alt reject proposal
+
+        HRM -> UI: rejects team
+        activate UI
+
+        UI --> HRM: terminates operation without presenting the team
+        deactivate UI
+
+        end
+
+        end
+
+        deactivate UI
+
+        deactivate HRM
 
 @enduml
