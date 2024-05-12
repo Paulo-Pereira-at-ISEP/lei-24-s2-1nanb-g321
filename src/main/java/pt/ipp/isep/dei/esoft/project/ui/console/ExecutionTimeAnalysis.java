@@ -41,10 +41,6 @@ public class ExecutionTimeAnalysis implements Runnable{
 
             for (int i = 0; i < numOfFilesToAnalize; i++) {
 
-                System.out.println("##################################################################################################");
-                System.out.println("-> ITERATION: " + (i+1));
-                System.out.println("\n");
-
                 workFile = workFilePrefix + (i + 1) + ".csv";
 
                 edges = readGraphDataFromFile(workFile);
