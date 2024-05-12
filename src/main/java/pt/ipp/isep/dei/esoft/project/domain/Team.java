@@ -13,8 +13,8 @@ public class Team {
 
 
     public Team(int teamMinSize, int teamMaxSize, ArrayList<Skill> skills) {
-        this.teamMaxSize = teamMaxSize;
         this.teamMinSize = teamMinSize;
+        this.teamMaxSize = teamMaxSize;
         this.skills = skills;
     }
 
@@ -59,7 +59,7 @@ public class Team {
 
         Integer[] scores = new Integer[listOfEmployees.size()];
 
-        Employee empAux;
+
 
         ArrayList<Employee> employeesSorted = sortEmployeesBySkillScore(scores, listOfEmployees);
 
@@ -74,18 +74,44 @@ public class Team {
             //procura no vetor dos employees ordenado
             //se encontrado adiciona a equipa
             if (current != null) {
-                current.getSkills().remove(skill);
+                var skills = current.getSkills();
+                skills.remove(skill);
+                current.setSkills(skills);
+
 
             } else {
                 //pesquisa no 2 vetor
 
                 current = hasSkill(employeesSorted, skill);
                 if (current != null) {
+                    var skills = current.getSkills();
+                    skills.remove(skill);
+                    current.setSkills(skills);
                     employees.add(current);
                 }
             }
-        }
 
+            int dif = teamMinSize-employees.size();
+            int i=0;
+            while (dif != 0 && i < skills.size()) {
+                Skill skill1 = skills.get(i);
+                //percorre as skills
+                //percorre os verifica se os employees tem a skill
+                    //se o employee devolvido ja estiver na equipa
+                        //remove o emplyee da lista de employees
+                        //procura novamente
+                        //quando encontrado
+                            //calcula o dif novamente
+                Employee employeeToChoose = hasSkill(employeesSorted, skill1);
+                if(employees.contains(employeeToChoose)) {
+                    employeesSorted.remove(employeeToChoose);
+                } else {
+                    employees.add(employeeToChoose);
+                }
+                i++;
+                dif = teamMinSize-employees.size();
+                }
+            }
         return employees;
     }
 
@@ -116,15 +142,12 @@ public class Team {
                 if (employee.getSkills().contains(skill)) {
                     scoreAux++;
                 }
-
             }
-
             scores[employees1.indexOf(employee)] = scoreAux;
         }
 
         Employee employeeCopy;
         int scoreCopy;
-
 
         for (int i = 0; i < scores.length; i++) {
             for (int j = 0; j < scores.length - 1 - i; j++) {

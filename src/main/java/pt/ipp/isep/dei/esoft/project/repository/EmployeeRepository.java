@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Employee;
+import pt.ipp.isep.dei.esoft.project.domain.Skill;
 
 import java.util.*;
 
@@ -31,8 +32,20 @@ public class EmployeeRepository{
      * @return The list of skills.
      */
     public List<Employee> getEmployees() {
-        //This is a defensive copy, so that the repository cannot be modified from the outside.
-        return new ArrayList<>(List.copyOf(employees));
+        ArrayList<Employee> copy = new ArrayList<>();
+        for (Employee employee : employees) {
+            copy.add(employee.clone());
+        }
+        return copy;
+    }
+    public Employee getEmployeesByEmail(String email) {
+
+        for (Employee employee : employees) {
+            if (employee.getEmail().equals(email)){
+                return employee;
+            }
+        }
+        return null;
     }
 
     /**

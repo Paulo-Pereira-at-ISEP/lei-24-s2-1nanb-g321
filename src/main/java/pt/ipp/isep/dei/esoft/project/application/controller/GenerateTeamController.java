@@ -78,13 +78,24 @@ public class GenerateTeamController {
     }
 
 
-    public Team generateTeam(int teamMaxSize, int teamMinSize, ArrayList<Skill> skills) {
+    public Team generateTeam(int teamMinSize, int teamMaxSize, ArrayList<Skill> skills) {
 
-        Team team = new Team(teamMaxSize, teamMinSize, skills);
+
+
+        Team team = new Team(teamMinSize, teamMaxSize, skills);
 
         team.generateTeam(employeeRepository.getEmployees());
 
-        return team;
+        // Apresentar equipa final
+        ArrayList<Employee> teamFinal = new ArrayList<Employee>();
+
+        for (Employee employee : team.getEmployees()) {
+            teamFinal.add(employeeRepository.getEmployeesByEmail(employee.getEmail()));
+
+        }
+        team.setEmployees(teamFinal);
+
+            return team;
     }
 
 }

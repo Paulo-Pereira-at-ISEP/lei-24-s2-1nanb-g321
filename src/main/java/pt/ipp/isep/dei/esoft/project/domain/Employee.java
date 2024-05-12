@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.esoft.project.application.controller.authorization.Authen
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Employee {
     private static final String PASSWORD_DEFAULT = "admin";
@@ -218,7 +219,11 @@ public class Employee {
     }
 
     public ArrayList<Skill> getSkills() {
-        return skills;
+        ArrayList<Skill> copy = new ArrayList<>();
+        for (Skill skill : skills) {
+            copy.add(skill.clone());
+        }
+        return copy;
     }
 
     public void setSkills(ArrayList<Skill> skills) {

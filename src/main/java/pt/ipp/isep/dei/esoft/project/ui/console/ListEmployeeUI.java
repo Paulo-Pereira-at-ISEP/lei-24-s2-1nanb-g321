@@ -41,7 +41,8 @@ public class ListEmployeeUI implements Runnable {
             System.out.println("    Tax Payer Number: " + employee.getTaxPayerIdNumber());
             System.out.println("    Role: " + employee.getRole());
             System.out.println("    Job: " + employee.getJob());
-            System.out.println("    Skills: " + employee.getSkills());
+
+                System.out.println("    Skills: " + employee.getSkills());
             System.out.println("-----------------------------");
             counter++;
         }

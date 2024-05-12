@@ -58,19 +58,151 @@ public class CreateEmployeeUI implements Runnable {
     }
 
     private void requestData() {
+        String input;
+        //Employee employee = new Employee(name, dateOfBirth, admissionDate, address, mobile, email, idDocType, docTypeNumber, taxPayerIdNumber); // Create an empty Employee object
 
-        name = requestEmployeeName();
-        dateOfBirth = LocalDate.parse(requestEmployeeBirthDate());
-        admissionDate = LocalDate.parse(requestEmployeeAdmissionDate());
-        address = requestEmployeeAddress();
-        mobile = requestEmployeeMobile();
-        email = requestEmployeeEmail();
-        idDocType = requestEmployeeIdentificationDocumentType();
-        docTypeNumber = requestEmployeeIdentificationDocumentNumber();
-        taxPayerIdNumber = requestEmployeeTaxPayerNumber();
-        job = displayAndSelectJob();
-        skill = displayAndSelectSkill();
+        do {
+            name = requestEmployeeName();
+            dateOfBirth = LocalDate.parse(requestEmployeeBirthDate());
+            admissionDate = LocalDate.parse(requestEmployeeAdmissionDate());
+            address = requestEmployeeAddress();
+            mobile = requestEmployeeMobile();
+            email = requestEmployeeEmail();
+            idDocType = requestEmployeeIdentificationDocumentType();
+            docTypeNumber = requestEmployeeIdentificationDocumentNumber();
+            taxPayerIdNumber = requestEmployeeTaxPayerNumber();
+
+            // Set employee data after successful parsing
+            //employee.setName(name);
+            //employee.setDateOfBirth(dateOfBirth);
+            //employee.setAdmissionDate(admissionDate);
+            //employee.setAddress(address);
+            //employee.setMobile(mobile);
+            //employee.setEmail(email);
+            //employee.setIdDocType(idDocType);
+            //employee.setDocTypeNumber(docTypeNumber);
+            //employee.setTaxPayerIdNumber(taxPayerIdNumber);
+
+            System.out.println("\n\n\n---------- Submitted Data ----------\n");
+            System.out.printf("Name: %s\n", name);
+            System.out.printf("Birth Date: %s\n", dateOfBirth);
+            System.out.printf("Admission Date: %s\n", admissionDate);
+            System.out.printf("Address: %s\n", address);
+            System.out.printf("Mobile: %s\n", mobile);
+            System.out.printf("E-mail: %s\n", email);
+            System.out.printf("Doc Type: %s\n", idDocType);
+            System.out.printf("Doc Type Number: %s\n", docTypeNumber);
+            System.out.printf("Tax Payer ID Number: %s\n", taxPayerIdNumber);
+
+            input = Utils.readLineFromConsole("\n Do you confirm this data? (y/n): ");
+            if (input.equalsIgnoreCase("y")) {
+                System.out.println(" You can continue the registering process.");
+                job = displayAndSelectJob();
+                //employee.setJob(job);
+                skill = displayAndSelectSkill();
+                //employee.setSkills(skill);
+                break;
+            }
+
+                do {
+                    boolean modified = false;
+
+                    String dataToModify = requestDataModification();
+                    if (dataToModify != null) {
+                        modified = true;
+                        modifyEmployeeData(dataToModify); // Call a method to modify specific data
+                        System.out.println("Data modified successfully.");
+                    } else {
+                        System.out.println("Invalid data selection. Please try again.");
+                    }
+                    input = Utils.readLineFromConsole("Do you want to modify another field? (y/n): ");
+
+                } while (!input.equalsIgnoreCase("n"));
+
+
+            // After confirmation, use the employee object for further processing or storage
+            System.out.println("Data confirmed. You can now select the jobs and skills: ");
+            job = displayAndSelectJob();
+            //employee.setJob(job);
+            skill = displayAndSelectSkill();
+            //employee.setSkills(skill);
+
+        }while (!input.equalsIgnoreCase("n")); // Loop until user confirms
+
     }
+    private String requestDataModification() {
+        System.out.println("\nSelect the data field you want to modify:");
+        System.out.println("1. Name");
+        System.out.println("2. Birth Date");
+        System.out.println("3. Admission Date");
+        System.out.println("4. Address");
+        System.out.println("5. Mobile");
+        System.out.println("6. E-mail");
+        System.out.println("7. Doc Type");
+        System.out.println("8. Doc Type Number");
+        System.out.println("9. Tax Payer ID Number");
+
+        String choice = Utils.readLineFromConsole("Enter your choice (1-9): ");
+        switch (choice) {
+            case "1":
+                return "name"; // Modify name
+            case "2":
+                return "dateOfBirth"; // Modify dateOfBirth
+            case "3":
+                return "admissionDate"; // Modify admissionDate
+            case "4":
+                return "address"; // Modify address
+            case "5":
+                return "mobile"; // Modify mobile
+            case "6":
+                return "email"; // Modify email
+            case "7":
+                return "idDocType"; // Modify idDocType
+            case "8":
+                return "docTypeNumber"; // Modify docTypeNumber
+            case "9":
+                return "taxPayerIdNumber"; // Modify taxPayerIdNumber
+            default:
+                System.out.println("Invalid choice. Please enter a number between 1 and 9.");
+                return null;
+        }
+    }
+
+    private void modifyEmployeeData(String dataToModify) {
+        switch (dataToModify) {
+            case "name":
+                name = requestEmployeeName();
+                    // Get new name and set it
+                break;
+            case "dateOfBirth":
+                dateOfBirth = LocalDate.parse(requestEmployeeBirthDate()); // Get new dateOfBirth and set it
+                break;
+            case "admissionDate":
+                admissionDate = LocalDate.parse(requestEmployeeAdmissionDate()); // Get new admissionDate and set it
+                break;
+            case "address":
+                address =requestEmployeeAddress(); // Get new address and set it
+                break;
+            case "mobile":
+                mobile = requestEmployeeMobile(); // Get new mobile and set it
+                break;
+            case "email":
+                email = requestEmployeeEmail(); // Get new email and set it
+                break;
+            case "idDocType":
+                idDocType = requestEmployeeIdentificationDocumentType(); // Get new idDocType and set it
+                break;
+            case "docTypeNumber":
+                docTypeNumber = requestEmployeeIdentificationDocumentNumber(); // Get new docTypeNumber and set it
+                break;
+            case "taxPayerIdNumber":
+                taxPayerIdNumber = requestEmployeeTaxPayerNumber(); // Get new taxPayerIdNumber and set it
+                break;
+            default:
+                System.out.println("Invalid data field. Data modification failed.");
+        }
+    }
+
 
 
     /**
@@ -103,7 +235,7 @@ public class CreateEmployeeUI implements Runnable {
         String input = "";
         while (!validDate) {
             try {
-                input = (Utils.readLineFromConsole("Birth Date: ")); // Prompt user for birth date
+                input = (Utils.readLineFromConsole("Birth Date (YYYY-MM-DD): ")); // Prompt user for birth date
                 validDate = Utils.parseDate(input); // Validate the input date format
                 if (validDate) {
                     assert input != null;
@@ -132,7 +264,7 @@ public class CreateEmployeeUI implements Runnable {
         String input = "";
         while (!validDate) {
             try {
-                input = (Utils.readLineFromConsole("Admission Date: ")); // Prompt user for admission date
+                input = (Utils.readLineFromConsole("Admission Date (YYYY-MM-DD): ")); // Prompt user for admission date
                 validDate = Utils.parseDate(input); // Validate the input date format
                 if (!validDate) {
                     System.out.println("Invalid date format (YYYY-MM-DD)."); // Print error if input date format is invalid
