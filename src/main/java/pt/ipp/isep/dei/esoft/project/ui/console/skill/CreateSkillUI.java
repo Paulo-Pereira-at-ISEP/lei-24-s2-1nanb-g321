@@ -43,28 +43,18 @@ public class CreateSkillUI implements Runnable {
     }
 
     private void requestData() {
-
-        //Request the Skill Name from the console
-
             String input;
-            Skill skill = new Skill(skillName, skillDescription);
             do {
                 skillName = requestSkillName();
                 skillDescription = requestSkillDescription();
-
-                // Set employee data after successful parsing
-                //skill.setName(skillName);
-                //skill.setDescription(skillDescription);
 
                 System.out.println("\n\n\n---------- Submitted Data ----------\n");
                 System.out.printf("Title: %s\n", skillName);
                 System.out.printf("Description: %s\n", skillDescription);
 
-
                 input = Utils.readLineFromConsole("\n Do you confirm this data? (y/n)");
                 if (input.equalsIgnoreCase("y")) {
                     System.out.println(" Skill successfully registered!.");
-
                     break;
                 }
 
@@ -74,7 +64,7 @@ public class CreateSkillUI implements Runnable {
                     String dataToModify = requestDataModification();
                     if (dataToModify != null) {
                         modified = true;
-                        modifySkillData( dataToModify); // Call a method to modify specific data
+                        modifySkillData(dataToModify); // Call a method to modify specific data
                         System.out.println("Data modified successfully.");
                     } else {
                         System.out.println("Invalid data selection. Please try again.");

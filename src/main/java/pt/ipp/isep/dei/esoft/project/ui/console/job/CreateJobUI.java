@@ -3,7 +3,6 @@ package pt.ipp.isep.dei.esoft.project.ui.console.job;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateJobController;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 
-import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 /**
@@ -42,85 +41,75 @@ public class CreateJobUI implements Runnable {
     }
 
     private void requestData() {
+        String input;
+        do {
+            jobName = requestJobName();
+            jobDescription = requestJobDescription();
 
-            //Request the Skill Name from the console
+            System.out.println("\n\n\n---------- Submitted Data ----------\n");
+            System.out.printf("Name: %s\n", jobName);
+            System.out.printf("Description: %s\n", jobDescription);
 
-            String input;
+            input = Utils.readLineFromConsole("\n Do you confirm this data? (y/n)");
+            if (input.equalsIgnoreCase("y")) {
+                System.out.println(" Skill successfully registered!.");
+                break;
+            }
+
             do {
-                jobName = requestJobName();
-                jobDescription = requestJobDescription();
+                boolean modified = false;
 
-
-                System.out.println("\n\n\n---------- Submitted Data ----------\n");
-                System.out.printf("Title: %s\n", jobName);
-                System.out.printf("Description: %s\n", jobDescription);
-
-
-                input = Utils.readLineFromConsole("\n Do you confirm this data? (y/n)");
-                if (input.equalsIgnoreCase("y")) {
-                    System.out.println(" Job successfully registered!.");
-
-                    break;
+                String dataToModify = requestDataModification();
+                if (dataToModify != null) {
+                    modified = true;
+                    modifySkillData(dataToModify); // Call a method to modify specific data
+                    System.out.println("Data modified successfully.");
+                } else {
+                    System.out.println("Invalid data selection. Please try again.");
                 }
+                input = Utils.readLineFromConsole("Do you want to modify another field? (y/n)");
 
-                do {
-                    boolean modified = false;
+            } while (!input.equalsIgnoreCase("n"));
 
-                    String dataToModify = requestDataModification();
-                    if (dataToModify != null) {
-                        modified = true;
-                        modifySkillData(dataToModify); // Call a method to modify specific data
-                        System.out.println("Data modified successfully.");
-                    } else {
-                        System.out.println("Invalid data selection. Please try again.");
-                    }
-                    input = Utils.readLineFromConsole("Do you want to modify another field? (y/n)");
-
-                } while (!input.equalsIgnoreCase("n"));
-
-
-                // After confirmation, use the employee object for further processing or storage
-
-            }while (!input.equalsIgnoreCase("n")); // Loop until user confirms
 
             // After confirmation, use the employee object for further processing or storage
-            System.out.println("Data confirmed.");
+
+        }while (!input.equalsIgnoreCase("n")); // Loop until user confirms
+
+        // After confirmation, use the employee object for further processing or storage
+        System.out.println("Data confirmed.");
+    }
+
+    private String requestDataModification() {
+        System.out.println("\nSelect the data field you want to modify:");
+        System.out.println("1. Name");
+        System.out.println("2. Description");
+
+        String choice = Utils.readLineFromConsole("Enter your choice (1-2): ");
+        switch (choice) {
+            case "1":
+                return "Name"; // Modify name
+            case "2":
+                return "Description"; // Modify dateOfBirth
+            default:
+                System.out.println("Invalid choice. Please enter a number between 1 and 2.");
+                return null;
         }
-        private String requestDataModification() {
-            System.out.println("\nSelect the data field you want to modify:");
-            System.out.println("1. Title");
-            System.out.println("2. Description");
+    }
 
-
-            String choice = Utils.readLineFromConsole("Enter your choice (1-2): ");
-            switch (choice) {
-                case "1":
-                    return "Title"; // Modify name
-                case "2":
-                    return "Description"; // Modify dateOfBirth
-
-                default:
-                    System.out.println("Invalid choice. Please enter a number between 1 and 2.");
-                    return null;
-            }
+    private void modifySkillData(String dataToModify) {
+        switch (dataToModify) {
+            case "Name":
+                jobName = requestJobName();
+                // Get new name and set it
+                break;
+            case "Description":
+                jobDescription = requestJobDescription(); // Get new dateOfBirth and set it
+                break;
+            default:
+                System.out.println("Invalid data field. Data modification failed.");
         }
-
-        private void modifySkillData( String dataToModify) {
-            switch (dataToModify) {
-                case "Title":
-
-                    jobName = requestJobName();
-
-                    // Get new name and set it
-                    break;
-                case "Description":
-                    jobDescription = requestJobDescription(); // Get new dateOfBirth and set it
-                    break;
-
-                default:
-                    System.out.println("Invalid data field. Data modification failed.");
-            }
-        }
+    }
 
     /**
      * Prompts the user to input a job description and validates the input.
