@@ -20,7 +20,14 @@ public class Job {
         this.name = "Default name";
         this.description = "Default description";
     }
-
+    /**
+     * Checks if a `Job` object is considered "present" in the context
+     * used by this method.
+     *
+     * @param job The `Job` object to check for presence.
+     * @return true if the `job` object is not null and both its name and description fields are not null,
+     *         false otherwise.
+     */
     public static boolean contains(Job job) {
         return job.getName() != null && job.getName() != null && job.getDescription() != null;
     }
@@ -66,6 +73,12 @@ public class Job {
         return new Job(this.name, this.description);
     }
 
+    /**
+     * Calculates a hash code for this `Job` object.
+     *
+     * @return A hash code value used for identification and comparison.
+     *
+     */
     public int hashCode() {
         return Objects.hash(name, description);
     }

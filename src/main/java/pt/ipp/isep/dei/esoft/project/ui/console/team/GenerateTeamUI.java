@@ -34,7 +34,20 @@ public class GenerateTeamUI implements Runnable {
 
         submitData();
     }
-
+    /**
+     * Attempts to generate a team based on skills and allows user confirmation.
+     *
+     *
+     * @implNote This method calls the controller's `generateTeam` method to create a team
+     *          based on the provided parameters (`teamMinSize`, `teamMaxSize`, and `skills`).
+     *          - If a valid team is generated (not null, has size within limits, and not empty):
+     *              - It displays the team members using `listEmployees`.
+     *              - It prompts the user for confirmation ("y/n") to accept the team.
+     *              - If confirmed ("y" or empty input), it indicates successful team generation.
+     *              - If not confirmed ("n"), it generates a second team using `generateSecondTeam`
+     *                (assumed to be implemented differently) and repeats the confirmation process.
+     *          - If no valid team is generated, it indicates that no team was created.
+     */
     private void submitData() {
 
         Team team = controller.generateTeam(teamMinSize, teamMaxSize, skills);
@@ -83,7 +96,24 @@ public class GenerateTeamUI implements Runnable {
     }
 
 
-
+    /**
+     * Prompts the user to select skills from a list displayed on the console.
+     *
+     * @return An ArrayList of `Skill` objects representing the selected skills.
+     *         An empty list is returned if no skills are selected.
+     *
+     * @implNote This method retrieves all skills using the controller's `getAllSkills` method
+     *          (assumed to be available). It then iteratively displays the skills and allows
+     *          the user to select them:
+     *          - It displays the list of skills using `displaySkillsOptions` (assumed to be available).
+     *          - It provides an "0 - Exit" option.
+     *          - It prompts the user to select a skill by entering its corresponding number.
+     *          - If a valid number (between 1 and the list size) is entered:
+     *              - It adds the corresponding skill from the retrieved list (`skills`) to the
+     *                `selectedSkills` list.
+     *          - The loop continues until the user enters "0" (exit).
+     *          - Finally, it returns the list of selected skills.
+     */
     private ArrayList<Skill> displayAndSelectSkill() {
         //Display the list of skills
         ArrayList<Skill> skills = controller.getAllSkills();

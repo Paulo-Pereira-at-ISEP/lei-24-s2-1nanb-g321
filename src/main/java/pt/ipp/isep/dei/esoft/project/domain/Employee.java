@@ -100,7 +100,13 @@ public class Employee {
     public Employee(String email) {
         this.email = email;
     }
-
+    /**
+     * Checks if an `Employee` is considered "present"
+     *
+     * @param employee The `Employee` object to check for presence.
+     * @return true if the `employee` object is not null and both its email and dateOfBirth fields are not null,
+     *         false otherwise.
+     */
     public static boolean contains(Employee employee) {
         return employee != null && employee.getEmail() != null && employee.getDateOfBirth() != null;
     }
@@ -122,6 +128,15 @@ public class Employee {
 
     //checks if two employees are equal based on their email addresses.
     @Override
+    /**
+     * Compares the current `Employee` object to another object for equality.
+     *
+     * @param o The object to compare with.
+     * @return true if the objects are equal based on their email addresses,
+     *         false otherwise.
+     *
+     */
+
     public boolean equals(Object o) {
         if (this == o) {
             return true;
@@ -133,7 +148,7 @@ public class Employee {
         return email.equals(employee.email);
     }
 
-    //method that provides a string representation of an employee’s detail
+
     @Override
     public String toString() {
         return "Collaborator: " + name + "\nBirth date: " + dateOfBirth + "\nAdmission Date: " + admissionDate + "\nAddress: " + address + "\nMobile: "
@@ -144,8 +159,6 @@ public class Employee {
     public String getName() {
         return name;
     }
-
-
 
     public void setName(String name) {
         this.name = name;
@@ -223,6 +236,16 @@ public class Employee {
         this.job = job;
     }
 
+    /**
+     * Returns a copy of the skills associated with `Employee`.
+     *
+     * @return An `ArrayList` containing copies of the employee's skills.
+     *         Modifications to the returned list will not affect the original skills.
+     *
+     * @implNote This method creates a new `ArrayList` and iterates over the original skills list.
+     *          For each skill, it creates a copy using the `clone` method and adds the copy to the new list.
+     *          This ensures that modifications to the returned list won't affect the original skills of the employee.
+     */
     public ArrayList<Skill> getSkills() {
         ArrayList<Skill> copy = new ArrayList<>();
         for (Skill skill : skills) {

@@ -42,6 +42,20 @@ public class CreateSkillUI implements Runnable {
         }
     }
 
+    /**
+     * Prompts the user to enter data for a new skill and allows for modification before confirmation.
+     *
+     * @implNote This method iteratively requests skill name and description from the user.
+     *          It then presents the entered data for confirmation.
+     *          - If confirmed ("y"), it exits the loop and indicates successful registration.
+     *          - If not confirmed ("n"), it allows the user to:
+     *              - Choose a data field (name or description) for modification using `requestDataModification`.
+     *              - If a valid field is chosen, it calls `modifySkillData` (assumed to be available)
+     *                to modify the specific data.
+     *              - It allows the user to modify another field or confirm again.
+     *          The loop continues until the user confirms ("y") or exits ("n").
+     *          After confirmation, the skill data can be used for further processing or storage.
+     */
     private void requestData() {
             String input;
             do {
@@ -81,6 +95,12 @@ public class CreateSkillUI implements Runnable {
             // After confirmation, use the employee object for further processing or storage
             System.out.println("Data confirmed.");
         }
+    /**
+     * Prompts the user to select a data field for modification.
+     *
+     * @return A String representing the chosen data field to modify ("Title" or "Description"),
+     *         or null if the user enters an invalid choice.
+     */
         private String requestDataModification() {
             System.out.println("\nSelect the data field you want to modify:");
             System.out.println("1. Title");
@@ -100,6 +120,21 @@ public class CreateSkillUI implements Runnable {
             }
         }
 
+    /**
+     * Modifies the specified data field of a `Skill` object based on user input.
+     *
+     * @param dataToModify A String representing the data field to modify ("Title" or "Description").
+     *
+     * @implNote This method uses a switch statement to handle different data fields.
+     *          - For "Title":
+     *              - It prompts the user for a new title using `requestSkillName` (assumed to be available).
+     *              - It updates the internal `skillName` variable with the new title (implementation details omitted).
+     *          - For "Description":
+     *              - It prompts the user for a new description using `requestSkillDescription` (assumed to be available).
+     *              - It updates the internal `skillDescription` variable with the new description (implementation details omitted).
+     *          - For any other data field:
+     *              - It prints an error message indicating invalid data.
+     */
         private void modifySkillData(String dataToModify) {
             switch (dataToModify) {
                 case "Title":

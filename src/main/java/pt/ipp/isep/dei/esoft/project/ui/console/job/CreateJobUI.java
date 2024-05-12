@@ -29,7 +29,16 @@ public class CreateJobUI implements Runnable {
 
         submitData();
     }
-
+    /**
+     * Attempts to create a new `Job` object using the controller and submits the data.
+     *
+     * @implNote This method retrieves the controller using `getController`
+     *          (assumed to be implemented elsewhere) and calls its `createJob` method
+     *          to create a `Job` object with the previously collected data (`jobName` and `jobDescription`).
+     *          - If the job creation is successful (controller returns a non-null `Job` object),
+     *            a success message is printed.
+     *          - Otherwise, a failure message is printed.
+     */
     private void submitData() {
         Job job = getController().createJob(jobName, jobDescription);
 
@@ -39,7 +48,20 @@ public class CreateJobUI implements Runnable {
             System.out.println("\nJob not created!");
         }
     }
-
+    /**
+     * Prompts the user to enter data for a new job and allows for modification before confirmation.
+     *
+     * @implNote This method iteratively requests job name and description from the user.
+     *          It then presents the entered data for confirmation.
+     *          - If confirmed ("y"), it exits the loop and indicates successful registration.
+     *          - If not confirmed ("n"), it allows the user to:
+     *              - Choose a data field (name or description) for modification using `requestDataModification`.
+     *              - If a valid field is chosen, it calls `modifySkillData` (assumed to be available)
+     *                to modify the specific data.
+     *              - It allows the user to modify another field or confirm again.
+     *          The loop continues until the user confirms ("y") or exits ("n").
+     *          After confirmation, the job data can be used for further processing or storage.
+     */
     private void requestData() {
         String input;
         do {
@@ -79,7 +101,12 @@ public class CreateJobUI implements Runnable {
         // After confirmation, use the employee object for further processing or storage
         System.out.println("Data confirmed.");
     }
-
+    /**
+     * Prompts the user to select a data field for modification.
+     *
+     * @return A String representing the chosen data field to modify ("Name" or "Description"),
+     *         or null if the user enters an invalid choice.
+     */
     private String requestDataModification() {
         System.out.println("\nSelect the data field you want to modify:");
         System.out.println("1. Name");

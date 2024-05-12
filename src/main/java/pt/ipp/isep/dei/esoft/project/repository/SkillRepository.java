@@ -37,6 +37,23 @@ public class SkillRepository {
         return List.copyOf(skills);
     }
 
+
+    /**
+     * Attempts to add a new `Skill` object to the internal collection of skills.
+     *
+     * @param skill The `Skill` object to be added.
+     * @return An `Optional` of `Skill`. If the operation is successful, the `Optional`
+     *         contains the added `Skill` object. Otherwise, it is empty.
+     *
+     * @throws NullPointerException if the `skill` parameter is null.
+     *
+     * @implNote This method first validates the provided `skill` object using the `validateSkill` method
+     *          (assumed to be available). If validation is successful, it creates a copy of the `skill`
+     *          using the `clone` method and wraps it in an `Optional.of` object. Then, it attempts to add
+     *          the `Optional` object (containing the cloned skill) to the internal collection (`skills`).
+     *          If the addition is successful (returns `true`), the `Optional` with the added skill is returned.
+     *          Otherwise, an empty `Optional` is returned.
+     */
     public Optional<Skill> add(Skill skill) {
 
         Optional<Skill> newSkill = Optional.empty();

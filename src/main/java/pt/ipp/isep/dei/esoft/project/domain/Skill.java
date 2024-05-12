@@ -21,6 +21,14 @@ public class Skill {
         this.description = "Default skill";
     }
 
+    /**
+     * Checks if a `Skill` object is considered "present" in the context
+     * used by this method.
+     *
+     * @param skill The `Skill` object to check for presence.
+     * @return true if the `skill` object is not null and both its name and description fields are not null,
+     *         false otherwise.
+     */
     public static boolean contains(Skill skill) {
         return skill != null && skill.getName() != null && skill.getDescription() != null;
     }
@@ -52,12 +60,26 @@ public class Skill {
         Skill skill = (Skill) o;
         return name.equals(skill.name);
     }
-
+    /**
+     * Calculates a hash code for this `Skill` object.
+     *
+     * @return A hash code value used for identification and comparison.
+     *
+     */
     @Override
     public int hashCode() {
         return Objects.hash(name, description);
     }
 
+    /**
+     * Compares the current `Skill` object with another `Skill` object for ordering.
+     *
+     * @param otherSkill The `Skill` object to be compared with.
+     * @return A negative integer, zero, or a positive integer as this skill is less than,
+     *         equal to, or greater than the `otherSkill` based on their names.
+     *
+     * @throws NullPointerException if the `otherSkill` parameter is null.
+     */
     public int compareTo(Skill otherSkill) {
         if (this.name.equals(otherSkill.name)) {
             // Skills are equal, group them together

@@ -18,7 +18,11 @@ public class Repositories {
         employeeRepository = new EmployeeRepository();
         teamRepository = new TeamRepository();
     }
-
+    /**
+     * Provides a thread-safe singleton instance of the `Repositories` class.
+     *
+     * @return The singleton instance of `Repositories`.
+     */
     public static Repositories getInstance() {
         if (instance == null) {
             synchronized (Repositories.class) {

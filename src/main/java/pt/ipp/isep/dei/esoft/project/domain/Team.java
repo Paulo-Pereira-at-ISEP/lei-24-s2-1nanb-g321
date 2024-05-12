@@ -54,7 +54,23 @@ public class Team {
     public void setEmployees(ArrayList<Employee> employees) {
         this.employees = employees;
     }
-
+    /**
+     * Attempts to generate a team from a list of employees based on sorted emplyees by skill sets.
+     *
+     * @param listOfEmployees The list of `Employee` objects representing all available employees.
+     * @return A new `List` of `Employee` objects representing the generated team.
+     *
+     *
+     * @throws NullPointerException if the `listOfEmployees` parameter is null.
+     *
+     * @implNote This method attempts to create a team with a minimum size (`teamMinSize`)
+     *          by considering the skills specified in the `skills` field.
+     *          It iterates through the skills, searching for employees with those skills.
+     *          - If an employee with the desired skill is already in the team, it removes the skill
+     *            from that employee to avoid duplicates.
+     *          - Otherwise, it prioritizes selecting employees from the pre-sorted list (`employeesSorted`).
+     *          - If no suitable employee is found, it prints a message indicating team creation failed.
+     */
     public List<Employee> generateTeam(List<Employee> listOfEmployees) {
 
         Integer[] scores = new Integer[listOfEmployees.size()];
@@ -118,6 +134,22 @@ public class Team {
         return employees;
     }
 
+
+    /**
+     * Attempts to generate a team from a list of employees based on their skill sets,
+     * similar to the `generateTeam` method.
+     *
+     * @param listOfEmployees The list of `Employee` objects representing all available employees.
+     * @return A new `List` of `Employee` objects representing the generated team.
+     *
+     * @throws NullPointerException if the `listOfEmployees` parameter is null.
+     *
+     * @implNote This method attempts to create a team with a minimum size (`teamMinSize`)
+     *          by considering the skills specified in the `skills` field.
+     *          It iterates through the skills, searching for employees with those skills.
+     *         - It iterates on a non-sorted employee list to generate a different team.
+
+     */
     public List<Employee> generateSecondTeam(List<Employee> listOfEmployees) {
 
 
@@ -176,6 +208,15 @@ public class Team {
         }
         return employees;
     }
+
+    /**
+     * Searches for an employee with a specific skill in a list of employees.
+     *
+     * @param employees A list of `Employee` objects.
+     * @param skill The `Skill` object representing the skill to search for.
+     * @return The first `Employee` object found with the specified skill,
+     *         or null if no employee possesses that skill.
+     */
     public Employee hasSkill(ArrayList<Employee> employees, Skill skill) {
 
         for (Employee employee : employees) {
@@ -187,7 +228,23 @@ public class Team {
 
         return null;
     }
-
+    /**
+     * Sorts a list of employees based on a skill-based score calculation.
+     *
+     * @param scores An integer array used internally to store temporary scores (potentially pre-allocated).
+     *                 Its size should match the number of employees in `listOfEmployees`.
+     * @param listOfEmployees The original, unsorted list of `Employee` objects.
+     * @return A new `ArrayList` containing the employees from `listOfEmployees` sorted
+     *         in descending order based on their calculated skill scores.
+     *
+     * @implNote This method calculates a score for each employee based on the number of skills they possess
+     *          from a predefined set of skills (`skills`). It iterates through the employee list:
+     *          - For each employee, it iterates through the `skills` list.
+     *          - If the employee has a particular skill, its score is incremented.
+     *          - The score is stored in the `scores` array at the corresponding index of the employee in the `listOfEmployees` list.
+     *          Then, it uses a bubble sort algorithm to sort the `scores` array (and the `employees1` list in parallel)
+     *          in descending order based on the scores.
+     */
     private ArrayList<Employee> sortEmployeesBySkillScore(Integer[] scores, List<Employee> listOfEmployees) {
         int scoreAux;
 

@@ -38,6 +38,18 @@ public class EmployeeRepository{
         }
         return copy;
     }
+
+    /**
+     * Retrieves an `Employee` object from the system based on their email address.
+     *
+     * @param email The email address of the employee to search for.
+     * @return The `Employee` object with the matching email address,
+     *         or null if no employee is found.
+     *
+     * @implNote This method iterates through the internal collection of employees (`employees`)
+     *          and compares their email addresses with the provided `email` parameter.
+     *          If a match is found, the corresponding `Employee` object is returned.
+     */
     public Employee getEmployeesByEmail(String email) {
 
         for (Employee employee : employees) {
