@@ -8,25 +8,27 @@ autonumber
 'hide footbox
 
 actor "Human Resource Manager" as HRM
-participant ":CreateJobUI" as UI
-participant ":CreateJobController" as CTRL
-participant ":Repositories" as REPO_SINGLETON
-
-
-
-participant "repositories\n:Repositories" as GEN_REPO_INSTANCE
-
-
+participant ": CreateJobUI" as UI
+participant ": CreateJobController" as CTRL
+participant ": Repositories" as ORG_SINGLETON
+participant "repositories\n: Repositories" as ORG_INSTANCE
 participant "jobRepository:\nJobRepository" as JOB_REPO_INSTANCE
-participant ":Job" as JOB
-'participant ":HRManager" as MNGR
+participant "employee\n: Employee" as MNGR
+participant "authenticationRepository\n:AuthenticationRepository" as AUTH_REPO
+participant "userSession\n:UserSessoin" as USR_SESSION
+participant ": Job" as JOB
 
 
-note right of REPO_SINGLETON
+note right of HRM
+    - The user is already logged in at this step.
+    - Authentication sequence is explained in
+    a sequence excerpt.
+end note
+
+note right of ORG_SINGLETON
     - Singleton is
     in use
 end note
-
 
 
 activate HRM
@@ -37,25 +39,7 @@ activate HRM
             'create CTRL
             UI -> CTRL** : create
 
-            activate CTRL
 
-                CTRL -> REPO_SINGLETON : getInstance()
-
-                activate REPO_SINGLETON
-
-                    REPO_SINGLETON --> CTRL : repositories
-
-                deactivate REPO_SINGLETON
-
-                CTRL -> GEN_REPO_INSTANCE : getJobRepository()
-
-                activate GEN_REPO_INSTANCE
-
-                    GEN_REPO_INSTANCE --> CTRL : jobRepository
-
-                deactivate GEN_REPO_INSTANCE
-
-            deactivate CTRL
 
 
             'requests the HRM to input data
@@ -68,11 +52,12 @@ activate HRM
 
             UI -> UI : validateJobData(jobName, jobDescription)
 
-            note right of UI
-            - This kind of validation consists only in
-            ensuring that the correct data type (characters only)
-            is inserted.
-            end note
+                note right of UI
+                    - This is an input type only validation.
+                    This means that only characters will be
+                    allowed.
+                end note
+
 
             deactivate CTRL
 
@@ -86,40 +71,62 @@ activate HRM
 
             UI -> CTRL : createJob(jobName, jobDescription)
 
+
             activate CTRL
 
-                CTRL -> CTRL : getEmployeeFromSession()
-                note right of CTRL
-                    - This method will get the current logged-in HRM.
-                    - The returned object (of type Employee) will be
-                    argument of the next method as the creator.
-                    - Explained in more detail in a partial diagram.
-                end note
+                CTRL -> ORG_SINGLETON : getInstance()
 
-                |||
+                activate ORG_SINGLETON
 
-                CTRL -> JOB : Job(jobName, jobDescription, creator)
+                    ORG_SINGLETON --> CTRL : repositories
+
+                deactivate ORG_SINGLETON
+
+                CTRL -> ORG_SINGLETON : getEmployeeFromSession()
+
+                                note right of CTRL
+                                    - This method is explained
+                                     in detail in an excerpt
+                                     sequence diagram.
+                                end note
+
+                activate ORG_SINGLETON
+
+                ORG_SINGLETON --> CTRL : employee
+
+                deactivate ORG_SINGLETON
+
+                CTRL -> MNGR : createJob(jobName, jobDescription, creatorEmployee)
+
+                activate MNGR
+
+                MNGR -> JOB : Job(jobName, jobDescription, creatorEmployee)
 
                 activate JOB
 
-                JOB --> CTRL : newJob
+                JOB --> MNGR : newJob
 
                 deactivate JOB
 
-                CTRL -> JOB_REPO_INSTANCE : add(newJob)
+                MNGR --> CTRL : newJob
 
-                activate JOB_REPO_INSTANCE
+                deactivate MNGR
 
-                    JOB_REPO_INSTANCE -> JOB_REPO_INSTANCE : validateJob(newJob)
+                CTRL -> ORG_INSTANCE : addJob(newJob)
 
-                    note right of JOB_REPO_INSTANCE
-                    - Explained in more detail
-                    in a partial diagram.
-                    end note
+                activate ORG_INSTANCE
 
-                    JOB_REPO_INSTANCE --> CTRL : newJob
+                ORG_INSTANCE -> ORG_INSTANCE : validateJob()
 
-                deactivate JOB_REPO_INSTANCE
+                note right of ORG_INSTANCE
+                - This method is explained
+                in detail in an excerpt
+                sequence diagram.
+                end note
+
+                ORG_INSTANCE --> CTRL : newJob
+
+                deactivate ORG_INSTANCE
 
             CTRL --> UI : newJob
 

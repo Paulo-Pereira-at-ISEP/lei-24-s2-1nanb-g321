@@ -7,18 +7,19 @@ participant "jobRepository:\nJobRepository" as JOB_REPO_INSTANCE
 
 
 
-autonumber 16
+autonumber 18
 -> JOB_REPO_INSTANCE : validateJob(newJob)
 
-autonumber 16.1
+autonumber 18.1
 activate JOB_REPO_INSTANCE
     group Validate Job
 
         JOB_REPO_INSTANCE -> JOB_REPO_INSTANCE: !contains(newJob)
 
+        JOB_REPO_INSTANCE -> JOB_REPO_INSTANCE: add(newJob)
+
     end
 
-    autonumber 17
     <-- JOB_REPO_INSTANCE : true
 deactivate JOB_REPO_INSTANCE
 
