@@ -43,8 +43,9 @@ public class GenerateTeamUI implements Runnable {
             listEmployees(team);
             String input = Utils.readLineFromConsole("\n Do you accept this team? (y/n)");
              if(input.equalsIgnoreCase("n") || input.isEmpty()){
-                System.out.println("A new team will be generated!\n ");
-                listEmployees(team);
+                 System.out.println("A new team will be generated!\n ");
+                 Team team1 = controller.generateSecondTeam(teamMinSize, teamMaxSize, skills);
+                 listEmployees(team1);
                 input = Utils.readLineFromConsole("\n Do you accept this team? (y/n)");
 
                  if(input.equalsIgnoreCase("y") || input.isEmpty()){

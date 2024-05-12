@@ -118,6 +118,64 @@ public class Team {
         return employees;
     }
 
+    public List<Employee> generateSecondTeam(List<Employee> listOfEmployees) {
+
+
+        for (Skill skill : skills) {
+
+            //pesquisa no 1 vetor
+            Employee current = hasSkill(employees, skill);
+
+            //procura no vetor da equipa
+            //se encontra, remove a skill do employee encontrado
+            //senao
+            //procura no vetor dos employees ordenado
+            //se encontrado adiciona a equipa
+            if (current != null) {
+                var skills = current.getSkills();
+                skills.remove(skill);
+                current.setSkills(skills);
+
+
+            } else {
+                //pesquisa no 2 vetor
+
+                current = hasSkill((ArrayList<Employee>) listOfEmployees, skill);
+                if (current != null) {
+                    var skills = current.getSkills();
+                    skills.remove(skill);
+                    current.setSkills(skills);
+                    employees.add(current);
+                } else {
+                    System.out.println("Team not created! ");
+                }
+            }
+
+            int dif = teamMinSize - employees.size();
+            int i = 0;
+            while (dif != 0 && i < skills.size()) {
+                Skill skill1 = skills.get(i);
+                //percorre as skills
+                //percorre os verifica se os employees tem a skill
+                //se o employee devolvido ja estiver na equipa
+                //remove o emplyee da lista de employees
+                //procura novamente
+                //quando encontrado
+                //calcula o dif novamente
+                Employee employeeToChoose = hasSkill((ArrayList<Employee>) listOfEmployees, skill1);
+
+                if (employeeToChoose != null && employees.contains(employeeToChoose)) {
+                    listOfEmployees.remove(employeeToChoose);
+                } else {
+                    if (employeeToChoose != null)
+                        employees.add(employeeToChoose);
+                }
+                i++;
+                dif = teamMinSize - employees.size();
+            }
+        }
+        return employees;
+    }
     public Employee hasSkill(ArrayList<Employee> employees, Skill skill) {
 
         for (Employee employee : employees) {

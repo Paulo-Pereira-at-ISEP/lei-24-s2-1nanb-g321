@@ -97,15 +97,15 @@ class EmployeeRepository {
 CreateEmployeeUI "1" ..> "1" CreateEmployeeController
 
 CreateEmployeeController ..> Repositories : Repositories
-Repositories -> Repositories : instance
-Repositories "1" -> "1" EmployeeRepository : employeeRepository
-Repositories "1" -> "1" SkillRepository : skillRepository
-Repositories "1" -> "1" JobRepository : jobRepository
+Repositories --> Repositories : instance
+Repositories "1" --> "1" EmployeeRepository : employeeRepository
+Repositories "1" --> "1" SkillRepository : skillRepository
+Repositories "1" --> "1" JobRepository : jobRepository
 
 CreateEmployeeController ..> Organization : createEmployee
 
 
-Organization "1" -> "*" Employee : has a set of
+Organization "1" --> "*" Employee : has a set of
 
 CreateEmployeeController ..> EmployeeRepository: addEmployees
 
