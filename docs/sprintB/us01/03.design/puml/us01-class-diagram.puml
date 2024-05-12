@@ -73,7 +73,6 @@ class AuthenticationRepository{
 class Skill {
     -skillName:String
     -skillDescription:String
-    -employeeWithSkill:Employee
     -creator:Employee
 
     +Skill(skillName, skillDescription)
@@ -89,7 +88,9 @@ Repositories "1" ..> "1" SkillRepository : create
 CreateSkillController --> Employee : createSkill
 CreateSkillController "1" --> "1" AuthenticationRepository : getCurrentUserSession
 
-Employee ..>Skill
+Employee ..>Skill : .
+
+Employee "1" --> "*" Skill : has a set of
 
 CreateSkillController --> SkillRepository: add
 

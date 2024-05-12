@@ -6,64 +6,43 @@ skinparam shadowing false
 
 
 'hide footbox
-participant ":CreateJobController" as CTRL
-participant ":Repositories" as REPO_SINGLETON
-participant "repositories\n:Repositories" as GEN_REPO_INSTANCE
-participant "authenticationRepository\n:AuthenticationRepository" as AUTH_REPO_INSTANCE
-participant "authenticationFacade\n:AuthFacade" as AUTH_FACADE_INSTANCE
-participant "userSession\n:UserSession" as USR_SESSION_INSTANCE
 
 
-autonumber 13
--> CTRL : getEmployeeFromSession()
-autonumber 13.1
-activate CTRL
+participant "repositories\n: Repositories" as PLAT
+participant "authenticationRepository\n: AuthenticationRepository" as AUTH_REPO
+participant "userSession\n: UserSessoin" as USR_SESSION
+
+
+
+autonumber 11
+-> PLAT : getEmployeeFromSession()
+
+autonumber 11.1
+
+activate PLAT
+    PLAT -> PLAT : getAuthenticationRepository()
+
+    PLAT -> AUTH_REPO : getCurrentUserSession()
+
+    activate AUTH_REPO
+
+        AUTH_REPO -> USR_SESSION : getUserId()
+
+        activate USR_SESSION
+
+            USR_SESSION --> AUTH_REPO : email
+
+        deactivate USR_SESSION
+
+    AUTH_REPO -->PLAT : email
+
+    deactivate AUTH_REPO
 
     group Get Employee
 
-        CTRL -> REPO_SINGLETON : getInstance()
+    autonumber 12
 
-        activate REPO_SINGLETON
-
-            REPO_SINGLETON --> CTRL : repositories
-
-        deactivate REPO_SINGLETON
-
-        CTRL -> GEN_REPO_INSTANCE : getAuthenticationRepository()
-
-        activate GEN_REPO_INSTANCE
-
-        GEN_REPO_INSTANCE --> CTRL : authenticationRepository
-
-        deactivate GEN_REPO_INSTANCE
-
-        CTRL -> AUTH_REPO_INSTANCE : getCurrentUserSession()
-
-        activate AUTH_REPO_INSTANCE
-
-        AUTH_REPO_INSTANCE -> AUTH_FACADE_INSTANCE : getCurrentUserSession()
-
-        activate AUTH_FACADE_INSTANCE
-
-        AUTH_FACADE_INSTANCE --> AUTH_REPO_INSTANCE :  userSession
-
-        deactivate AUTH_FACADE_INSTANCE
-
-        AUTH_REPO_INSTANCE --> CTRL : userSession
-
-        deactivate AUTH_REPO_INSTANCE
-
-        CTRL -> USR_SESSION_INSTANCE : getUserId()
-
-        activate USR_SESSION_INSTANCE
-
-        USR_SESSION_INSTANCE --> CTRL : email
-
-        deactivate USR_SESSION_INSTANCE
-
-    end
-
-    <-- CTRL : Employee(email)
-deactivate CTRL
+ <-- PLAT: email
+deactivate PLAT
 
 @enduml
