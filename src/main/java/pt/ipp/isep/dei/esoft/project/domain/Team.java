@@ -88,6 +88,8 @@ public class Team {
                     skills.remove(skill);
                     current.setSkills(skills);
                     employees.add(current);
+                } else {
+                    System.out.println("Team not created! ");
                 }
             }
 
