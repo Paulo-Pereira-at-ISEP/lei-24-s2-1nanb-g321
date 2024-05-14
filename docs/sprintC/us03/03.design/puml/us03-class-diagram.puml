@@ -1,0 +1,105 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+class CreateEmployeeController
+{
+    -employeeRepository
+    -jobRepository
+    -skillRepository
+    -authenticationRepository:AuthenticationRepository
+    +CreateSkillController(employeeRepository, jobRepository, skillRepository)
+    +CreateEmployee(name, birthDate, admissionDate, adress, email, mobile, idDocType, docTypeNr, taxPayerIdNr, skills, job)
+
+
+}
+
+class CreateEmployeeUI {
+   +run()
+   +requestData(name, birthDate, admissionDate, adress, email, mobile, idDocType, docTypeNr, taxPayerIdNr, skills, job)
+   +submitData()
+   +requestName()
+   +requestBirthDate()
+   +requestAdmissionDate()
+   +requestAdress()
+   +requestEmail()
+   +requestMobile()
+   +requestIdDocType()
+   +requestIdNumber()
+   +requestTaxPayerIdNumber()
+   +requestSkills()
+   +requestJobs()
+}
+
+class Employee {
+    - String name
+    - LocalDate birthDate
+    - LocalDate admissionDate
+    - String adress
+    - String email
+    - Integer mobile
+    - String IdDocNr
+    - int docTypeNr
+    - int taxPayerIdNr
+    - Skill skills
+    - Job job
+
+    Employee(name, birthDate, admissionDate, adress, email, mobile, idDocType, docTypeNr, taxPayerIdNr, skills, job)
+}
+
+class Repositories {
+        - Repositories()
+        + getIntance() : Repositories
+        + getSkillRepository()
+        - getjobRepository()
+        -authenticationRepository:AuthenticationRepository
+}
+
+class Organization {
+    - String name
+    - String vatNumber
+    - String website
+    - String phone
+    - String email
+
+    - Employee employee
+}
+
+class SkillRepository{
+    + getAllSkills()
+}
+
+class JobRepository {
+    + getAllJobs()
+}
+
+class EmployeeRepository {
+
+    + getEmployees()
+    + validateEmployee(newEmployee)
+    + addEmployees(newEmployee)
+}
+
+CreateEmployeeUI "1" ..> "1" CreateEmployeeController
+
+CreateEmployeeController ..> Repositories : Repositories
+Repositories --> Repositories : instance
+Repositories "1" --> "1" EmployeeRepository : employeeRepository
+Repositories "1" --> "1" SkillRepository : skillRepository
+Repositories "1" --> "1" JobRepository : jobRepository
+
+CreateEmployeeController ..> Organization : createEmployee
+
+
+Organization "1" --> "*" Employee : has a set of
+
+CreateEmployeeController ..> EmployeeRepository: addEmployees
+
+@enduml

@@ -1,0 +1,142 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+
+actor "Human Resource Manager" as HRM
+participant ": CreateSkillUI" as UI
+participant ": CreateSkillController" as CTRL
+participant ": Repositories" as ORG_SINGLETON
+participant "repositories\n: Repositories" as ORG_INSTANCE
+participant "skillRepository:\nSkillRepository" as SKILL_REPO_INSTANCE
+participant "employee\n: Employee" as MNGR
+participant "authenticationRepository\n:AuthenticationRepository" as AUTH_REPO
+participant "userSession\n:UserSessoin" as USR_SESSION
+participant ": Skill" as SKILL
+
+
+note right of HRM
+    - The user is already logged in at this step.
+    - Authentication sequence is explained in
+    a sequence excerpt.
+end note
+
+note right of ORG_SINGLETON
+    - Singleton is
+    in use
+end note
+
+
+activate HRM
+
+        HRM -> UI : asks to create a new Skill
+
+        activate UI
+            'create CTRL
+            UI -> CTRL** : create
+
+
+
+
+            'requests the HRM to input data
+            UI --> HRM : requestData (skillName, skillDescription)
+        deactivate UI
+
+        HRM -> UI : types requested data
+
+        activate UI
+
+            UI -> UI : validateSkillData(skillName, skillDescription)
+
+                note right of UI
+                    - This is an input type only validation.
+                    This means that only characters will be
+                    allowed.
+                end note
+
+
+            deactivate CTRL
+
+            UI --> HRM : shows skill data and requests confirmation
+
+        deactivate UI
+
+            HRM -> UI : confirms data
+
+        activate UI
+
+            UI -> CTRL : createSkill(skillName, skillDescription)
+
+
+            activate CTRL
+
+                CTRL -> ORG_SINGLETON : getInstance()
+
+                activate ORG_SINGLETON
+
+                    ORG_SINGLETON --> CTRL : repositories
+
+                deactivate ORG_SINGLETON
+
+                CTRL -> ORG_SINGLETON : getEmployeeFromSession()
+
+                                note right of CTRL
+                                    - This method is explained
+                                     in detail in an excerpt
+                                     sequence diagram.
+                                end note
+
+                activate ORG_SINGLETON
+
+                ORG_SINGLETON --> CTRL : employee
+
+                deactivate ORG_SINGLETON
+
+                CTRL -> MNGR : createSkill(skillName, skillDescription, creatorEmployee)
+
+                activate MNGR
+
+                MNGR -> SKILL : Skill(skillName, skillDescription, creatorEmployee)
+
+                activate SKILL
+
+                SKILL --> MNGR : newSkill
+
+                deactivate SKILL
+
+                MNGR --> CTRL : newSkill
+
+                deactivate MNGR
+
+                CTRL -> ORG_INSTANCE : addSkill(skill)
+
+                activate ORG_INSTANCE
+
+                ORG_INSTANCE -> ORG_INSTANCE : validateSkill()
+
+                note right of ORG_INSTANCE
+                - This method is explained
+                in detail in an excerpt
+                sequence diagram.
+                end note
+
+                ORG_INSTANCE --> CTRL : newSkill
+
+                deactivate ORG_INSTANCE
+
+            CTRL --> UI : newSkill
+
+
+        deactivate CTRL
+
+        UI -> HRM : displays operation success
+
+    deactivate UI
+
+deactivate HRM
+
+@enduml

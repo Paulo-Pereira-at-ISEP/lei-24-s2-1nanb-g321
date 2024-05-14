@@ -1,0 +1,27 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant "jobRepository:\nJobRepository" as JOB_REPO_INSTANCE
+
+
+
+autonumber 18
+-> JOB_REPO_INSTANCE : validateJob(newJob)
+
+autonumber 18.1
+activate JOB_REPO_INSTANCE
+    group Validate Job
+
+        JOB_REPO_INSTANCE -> JOB_REPO_INSTANCE: !contains(newJob)
+
+        JOB_REPO_INSTANCE -> JOB_REPO_INSTANCE: add(newJob)
+
+    end
+
+    <-- JOB_REPO_INSTANCE : true
+deactivate JOB_REPO_INSTANCE
+
+
+@enduml

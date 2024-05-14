@@ -1,0 +1,98 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+class CreateSkillController {
+    -skillRepository:SkillRepository
+    -authenticationRepository:AuthenticationRepository
+
+
+    -getEmployeeFromSession()
+    + CreateSkillController(skillRepository)
+    + createSkill(skillName, skillDescription)
+
+}
+
+
+class CreateSkillUI {
+    +run()
+    +requestData(skillName, skillDescription)
+    +submitData()
+    +requestSkillDescription()
+    +requestSkillName()
+}
+
+
+class Employee{
+    -name:String
+    -birthdate:Date
+    -admissionDate:Date
+    -address
+    -mobileContact:String
+    -emailContact:String
+    -IDdocType:String
+    -IDnumber:String
+    -taxNumber:String
+    -job:Job
+
+    +Employee (String nome,LocalDate dateOfBirth,\nLocalDate admissionDate, String morada, int telemovel,\nString email, String idDocType, int docTypeNumber,\nint taxPayerIdNumber, String role, Job job)
+}
+
+class Repositories{
+    - instance:Repositories
+    - skillRepository:SkillRepository
+    - jobRepository:JobRepository
+    - employeeRepository:EmployeeRepository
+    -authenticationRepository:AuthenticationRepository
+
+
+    + getInstance()
+    + getSkillRepository()
+    + getJobRepository()
+    + getEmployeeRepository()
+    + getAuthenticationRepository()
+}
+
+class SkillRepository{
+    + getSkills()
+    + validateSkill(newSkill)
+    + addSkill(newSkill)
+}
+
+class AuthenticationRepository{
+    + getEmployeeFromSession()
+}
+
+class Skill {
+    -skillName:String
+    -skillDescription:String
+    -creator:Employee
+
+    +Skill(skillName, skillDescription)
+    +validateSkillData(skillName, skillDescription)
+}
+
+CreateSkillUI "1" ..> "1" CreateSkillController
+
+CreateSkillController "1" --> "1" Repositories : getInstance
+
+Repositories "1" ..> "1" SkillRepository : create
+
+CreateSkillController --> Employee : createSkill
+CreateSkillController "1" --> "1" AuthenticationRepository : getCurrentUserSession
+
+Employee ..>Skill : .
+
+Employee "1" --> "*" Skill : has a set of
+
+CreateSkillController --> SkillRepository: add
+
+
+@enduml

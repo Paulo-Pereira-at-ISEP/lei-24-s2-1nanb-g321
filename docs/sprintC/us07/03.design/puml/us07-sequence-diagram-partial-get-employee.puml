@@ -1,0 +1,43 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+'hide footbox
+
+participant "repositories\n:Repositories" as REPO
+participant "authenticationRepository\n:AuthenticationRepository" as AUTH_REPO
+participant "userSession\n:UserSessoin" as USR_SESSION
+
+autonumber 6
+-> REPO : getEmployeeFromSession()
+
+autonumber 6.1
+
+activate REPO
+    REPO -> REPO : getAuthenticationRepository()
+
+    REPO -> AUTH_REPO : getCurrentUserSession()
+
+    activate AUTH_REPO
+
+        AUTH_REPO -> USR_SESSION : getUserId()
+
+        activate USR_SESSION
+
+            USR_SESSION --> AUTH_REPO : employee
+
+        deactivate USR_SESSION
+
+    AUTH_REPO -->REPO : employee
+
+    deactivate AUTH_REPO
+
+    group Get Employee
+
+    autonumber 7
+
+ <-- REPO: employee
+deactivate REPO
+
+@enduml

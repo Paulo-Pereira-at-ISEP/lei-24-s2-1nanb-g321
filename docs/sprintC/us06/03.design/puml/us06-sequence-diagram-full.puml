@@ -1,0 +1,132 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+
+actor "Vehicle and Equipment\nFleet Manager" as VFM
+participant ":CreateVehicleUI" as UI
+participant ":CreateVehicleController" as CTRL
+participant ":Repositories" as ORG_SINGLETON
+participant "repositories\n: Repositories" as ORG_INSTANCE
+participant "authenticationRepository\n:AuthenticationRepository" as AUTH_REPO
+participant "userSession\n:UserSession" as USR_SESSION
+participant "vehicleRepository\n:VehicleRepository" as VEHICLE_REPO_INSTANCE
+participant "employee\n:Employee" as MNGR
+participant "vehicle\n:Vehicle" as VEHICLE
+
+
+note right of VFM
+    - The user is already logged in at this step.
+    - Authentication sequence is explained in
+    a sequence excerpt.
+end note
+
+note right of ORG_SINGLETON
+    - Singleton is
+    in use
+end note
+
+
+activate VFM
+
+        VFM -> UI : asks to create a new vehicle
+
+        activate UI
+            'create CTRL
+            UI -> CTRL** : create
+
+            'requests the VFM to input data
+            UI --> VFM : requestData (brand, model, type, \ntare weight, gross weight, current km,\nregister date, acquisition date, maintenance \nfrequency, plate number, passengers number,\ndoors number, fuel type, trailer machines)
+
+        deactivate UI
+
+        VFM -> UI : types requested data
+
+        activate UI
+
+            UI -> UI : validateVehicleData(brand, model, type, \ntare weight, gross weight, current km,\nregister date, acquisition date, maintenance \nfrequency, plate number, passengers number,\ndoors number, fuel type, trailer machines)
+
+            deactivate CTRL
+
+            UI --> VFM : shows vehicle data and requests confirmation
+
+        deactivate UI
+
+            VFM -> UI : confirms data
+
+        activate UI
+
+            UI -> CTRL : createVehicle(brand, model, type, \ntare weight, gross weight, current km,\nregister date, acquisition date, maintenance \nfrequency, plate number, passengers number,\ndoors number, fuel type, trailer machines)
+
+            activate CTRL
+
+                CTRL -> ORG_SINGLETON : getInstance()
+
+                activate ORG_SINGLETON
+
+                    ORG_SINGLETON --> CTRL : repositories
+
+                deactivate ORG_SINGLETON
+
+                CTRL -> ORG_INSTANCE : getEmployeeFromSession()
+
+                                note right of CTRL
+                                    - This method is explained
+                                     in detail in an excerpt
+                                     sequence diagram.
+                                end note
+
+                activate ORG_INSTANCE
+
+                ORG_INSTANCE --> CTRL : employee
+
+                deactivate ORG_INSTANCE
+
+                CTRL -> MNGR : createVehicle(brand, model, type, \ntare weight, gross weight, current km,\nregister date, acquisition date, maintenance \nfrequency, plate number, passengers number,\ndoors number, fuel type, trailer machines, creatorEmployee)
+
+                activate MNGR
+
+                MNGR -> VEHICLE : Vehicle(brand, model, type, \ntare weight, gross weight, current km,\nregister date, acquisition date, maintenance \nfrequency, plate number, passengers number,\ndoors number, fuel type, trailer machines, creatorEmployee)
+
+                activate VEHICLE
+
+                VEHICLE --> MNGR : newVehicle
+
+                deactivate VEHICLE
+
+                MNGR --> CTRL : newVehicle
+
+                deactivate MNGR
+
+                CTRL -> ORG_INSTANCE : addVehicle(vehicle)
+
+                activate ORG_INSTANCE
+
+                ORG_INSTANCE -> ORG_INSTANCE : validateVehicle()
+
+                    note right of ORG_INSTANCE
+                        - This method is explained
+                        in detail in an excerpt
+                        sequence diagram.
+                    end note
+
+                ORG_INSTANCE --> CTRL : newVehicle
+
+                deactivate ORG_INSTANCE
+
+            CTRL --> UI : newVehicle
+
+
+        deactivate CTRL
+
+        UI -> VFM : displays operation success
+
+    deactivate UI
+
+deactivate VFM
+
+@enduml

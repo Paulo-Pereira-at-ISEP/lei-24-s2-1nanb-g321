@@ -1,0 +1,77 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+class CreateEmployeeController
+{
+    -employeeRepository
+    -skillRepository
+    +CreateSkillController(employeeRepository, jobRepository, skillRepository)
+    +CreateEmployee(name, birthDate, admissionDate, adress, email, mobile, idDocType, docTypeNr, taxPayerIdNr, skills, job)
+
+
+}
+
+class CreteAssignSkillsToEmployeeUI {
+   +run()
+   +requestData()
+   +submitData()
+   +requestListOfEmployees()
+   +requestListOfSkills()
+}
+
+
+class Repositories {
+        - Repositories()
+        + getIntance() : Repositories
+        + getSkillRepository()
+
+}
+class Employee{
+    - String name
+    - LocalDate birthDate
+    - LocalDate admissionDate
+    - String adress
+    - String email
+    - Integer mobile
+    - String IdDocNr
+    - int docTypeNr
+    - int taxPayerIdNr
+    - Skill skills
+    - Job job
+
+    Employee(name, birthDate, admissionDate, adress, email, mobile, idDocType, docTypeNr, taxPayerIdNr, skills, job)
+}
+
+class SkillRepository{
+    + getAllSkills()
+}
+
+
+class EmployeeRepository {
+
+    + getEmployees()
+
+}
+
+CreteAssignSkillsToEmployeeUI "1" ..> "1" CreateEmployeeController
+
+CreateEmployeeController ..> Repositories : Repositories
+Repositories -> Repositories : instance
+Repositories "1" -> "1" EmployeeRepository : EmployeeRepository
+Repositories "1" -> "1" SkillRepository : skillRepository
+
+
+
+CreateEmployeeController ..> Employee: addSkillToEmployee
+
+CreateEmployeeController ..> EmployeeRepository: addEmployeesWithSkills
+
+@enduml

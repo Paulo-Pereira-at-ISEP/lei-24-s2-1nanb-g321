@@ -1,0 +1,29 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+left to right direction
+
+skinparam classAttributeIconSize 0
+
+class HumanResourcesManager {
+
+}
+
+class Manager {
+    section
+}
+
+class Job {
+    jobName
+    jobDescription
+}
+
+Manager "1" --- "1..*" Job: registers >
+Manager "1" --up "1..*" HumanResourcesManager: is a >
+
+hide circle
+hide methods
+
+@enduml

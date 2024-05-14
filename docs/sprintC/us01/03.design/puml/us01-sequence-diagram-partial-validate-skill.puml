@@ -1,0 +1,27 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant "skillRepository:\nSkillRepository" as SKILL_REPO_INSTANCE
+
+
+
+autonumber 18
+-> SKILL_REPO_INSTANCE : validateSkill(newSkill)
+
+autonumber 18.1
+activate SKILL_REPO_INSTANCE
+    group Validate Skill
+
+        SKILL_REPO_INSTANCE -> SKILL_REPO_INSTANCE: !contains(newSkill)
+
+        SKILL_REPO_INSTANCE -> SKILL_REPO_INSTANCE: add(newSkill)
+
+    end
+
+    <-- SKILL_REPO_INSTANCE : true
+deactivate SKILL_REPO_INSTANCE
+
+
+@enduml

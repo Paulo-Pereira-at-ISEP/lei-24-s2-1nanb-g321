@@ -1,0 +1,148 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+
+actor "Human Resource Manager" as HRM
+participant ":CreateEmployeelUI" as UI
+participant ":CreateEmployeelController" as controller
+participant ":Repositories" as singleton
+participant "repositories\n:Repositories" as rep
+participant "employeeRepository:\nEmployeeRepository" as employeeRep
+participant "jobRepository:\nJobRepository" as JobRep
+participant ":Organization" as org
+participant ":Employee" as Employee
+
+
+activate HRM
+
+        HRM -> UI : asks to register a new employee
+
+        activate UI
+            'create controller
+            UI -> controller** : create
+
+            activate controller
+
+                controller-> singleton : getInstance()
+
+                activate singleton
+
+                    singleton --> controller : repositories
+
+                deactivate singleton
+
+                controller -> rep : getEmployeeRepository()
+
+                activate rep
+
+
+                    rep --> controller : employeeRep
+
+                    deactivate rep
+                    activate org
+
+                    controller -> org : Employee()
+
+                    activate Employee
+
+                    org -> Employee : createEmployee()
+                    Employee --> org : Employee
+                    org --> controller : Employee
+
+
+
+
+                    deactivate org
+
+                    deactivate Employee
+
+
+
+
+
+
+            'requests the HRM to input data
+            UI --> HRM : requestData (name, birthDate, admissionDate, adress, email, mobile, docIdType, docIdNum, TaxPayerNum)
+        deactivate UI
+
+        HRM -> UI : types requested data
+
+        activate UI
+
+            UI -> UI : validateEmployeeData(name, birthDate, admissionDate, adress, email, mobile, docIdType, docIdNum, TaxPayerNum)
+        activate rep
+
+            controller -> rep : getJobRepository()
+            rep --> controller : jobRepository
+
+            deactivate rep
+
+            controller --> JobRep : getAllJobs()
+            activate JobRep
+
+            JobRep --> controller : getAllJobs()
+
+            deactivate JobRep
+
+
+            controller --> UI : getAllJobs()
+
+            UI --> HRM : shows list of jobs and asks to select one
+
+            HRM -> UI : selects job
+
+           UI -> controller : createEmployee(name, birthDate, admissionDate, adress, email, mobile, docIdType, docIdNum, TaxPayerNum)
+
+                   deactivate UI
+
+
+
+            activate org
+
+                controller -> org : Employee(name, birthDate, admissionDate, adress, email, mobile, docIdType, docIdNum, TaxPayerNum)
+
+
+                 org -> Employee : Employee(name, birthDate, admissionDate, adress, email, mobile, docIdType, docIdNum, TaxPayerNum)
+
+
+                activate Employee
+
+                Employee --> org : newEmployee
+
+                deactivate Employee
+
+                org --> controller : newEmployee
+
+                deactivate org
+
+                controller -> employeeRep : add(newEmployee)
+
+                activate employeeRep
+
+                    employeeRep -> employeeRep : validateEmployee(newEmployee)
+
+
+                    employeeRep --> controller : newEmployee
+
+                deactivate employeeRep
+
+            controller --> UI : newEmployee
+
+
+        deactivate controller
+
+activate UI
+
+
+        UI -> HRM : displays success operation
+
+    deactivate UI
+
+deactivate HRM
+
+@enduml

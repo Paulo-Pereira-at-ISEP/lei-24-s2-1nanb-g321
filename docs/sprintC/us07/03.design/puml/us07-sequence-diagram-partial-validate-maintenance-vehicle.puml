@@ -1,0 +1,26 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+participant "vehicleRepository:\nVehicleRepository" as VEHICLE_REPO_INSTANCE
+
+autonumber 18
+-> VEHICLE_REPO_INSTANCE : validateVehicleMaintenance(vehicleMaintenance)
+
+activate VEHICLE_REPO_INSTANCE
+
+    group Validate Vehicle Maintenance
+
+    autonumber 18.1
+        VEHICLE_REPO_INSTANCE -> VEHICLE_REPO_INSTANCE: !thisVehicleNeedMaintenance(vehicleMaintenance)
+
+        VEHICLE_REPO_INSTANCE -> VEHICLE_REPO_INSTANCE: add(vehicleMaintenance)
+
+    end
+
+    <-- VEHICLE_REPO_INSTANCE : true
+
+deactivate VEHICLE_REPO_INSTANCE
+
+@enduml

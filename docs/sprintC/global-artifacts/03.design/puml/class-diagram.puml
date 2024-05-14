@@ -1,0 +1,404 @@
+@startuml
+skinparam classAttributeIconSize 0
+skinparam linetype polyline
+
+
+class AuthenticationRepository{
+    - authenticationFacade:AuthFacade
+    + doLogin(email, pwd)
+    + doLogout()
+    + getCurrentUserSession()
+    + addUserRole(id, description)
+    + addUserWithRole(name, email, pwd, roleId)
+}
+
+class AuthFacade{
+    ...
+    getCurrentUserSession()
+}
+
+
+class Repositories{
+    - instance:Repositories
+    - skillRepository:JobRepository
+    - jobRepository:JobRepository
+    - employeeRepository:EmployeeRepository
+    - vehicleRepository:VehicleRepository
+    - authenticationRepository:AuthenticationRepository
+
+
+    + getInstance()
+    + getSkillRepository()
+    + getJobRepository()
+    + getVehicleRepository()
+    + getEmployeeRepository()
+    + getAuthenticationRepository()
+}
+
+'------------------         UI             ----------------------
+
+class MainMenuUI{
+    run()
+}
+
+class AuthenticationUI{
+    +run()
+    -getMenuItemForRoles()
+    -doLogin()
+    -logout()
+}
+
+class HRMUI{
+    run()
+}
+
+class VFMUI{
+    run()
+}
+
+
+
+
+
+class CreateSkillUI {
+    +run()
+    +requestData(skillName, skillDescription)
+    +submitData()
+}
+
+class CreateJobUI {
+    +run()
+    +requestData(jobName, jobDescription)
+    +submitData()
+}
+
+class CreateEmployeeUI {
+    +run()
+    +requestData()
+    +displayAndSelectJob()
+    +submitData()
+}
+
+class CreateAssignSkillsUI {
+    +run()
+    +requestData()
+    +displayAndSelectEmployee()
+    +displayAndSelectSkill()
+    +submitData()
+}
+
+class GenerateTeamUI {
+    +run()
+    +requestData()
+    +displayAndSelectSkills()
+    +requestTeamSize()
+    +submitData()
+}
+
+
+class CreateVehicleUI {
+    +run()
+    +requestData(skillName, skillDescription)
+    +submitData()
+}
+
+class RegisterVehicleMaintenanceUI {
+    +run()
+    +requestData()
+    +submitData()
+}
+
+class VehiclesNeedingMaintenanceUI {
+    +run()
+    +listVehiclesNeedingMaintenance(vehicles, vehicleMaintenances)
+}
+
+
+
+
+'------------------         CONTROLLERS             ----------------------
+
+class CreateSkillController {
+    - getEmployeeFromSession()
+    + CreateSkillController(skillRepository)
+    + validateSkillData(skillName, skillDescription)
+    + addSkillToRepo(newSkill)
+    + getAllSkills()
+    + getAllEmployees()
+    + addSkillToEmployee(skill, employee)
+
+}
+
+class CreateJobController {
+    -getEmployeeFromSession()
+    + CreateJobController(jobRepository)
+    + createJob(jobName, jobDescription)
+}
+
+class CreateEmployeeController {
+    +getAllJobs()
+    +getAllSkills()
+    +createEmployee(name, birthdate, admissionDate,\n adress, mobile, email, docType, docNumber,\n taxPayerId, job, skill)
+    +getAllEmployees()
+}
+
+class GenerateTeamController {
+    +getAllSkills()
+    +getAllEmployees()
+    +generateTeam(teamMaxSize, teamMinSize, skills)
+    +createTeam(team)
+}
+
+
+class CreateVehicleController {
+    -getEmployeeFromSession()
+    + CreateVehicleController(vehicleRepository)
+    + createVehicle(brand, model, type, tareWeight, grossWeight,\n currentKm, registerDate,acquisitionDate, maintenanceFrequencyInKm,\n plateNumber, numOfPassengers, numOfDoors, fuelType,\n trailerMachinesAble)
+}
+
+
+class RegisterVehicleMaintenanceController {
+    +getAllVehicles()
+    +registerVehicleMaintenance(vehicle, date, km)
+}
+
+class VehiclesNeedingMaintenanceController {
+    +getAllVehicles()
+    +getAllVehicleMaintenances()
+    +listVehiclesNeedingMaintenance(vehicleMaintenances)
+}
+
+
+'------------------         REPOS             ----------------------
+
+class SkillRepository{
+    + createSkill(skillName, skillDescription, creator)
+    + validateSkill(newSkill)
+    + addSkill(newSkill)
+}
+
+
+class JobRepository{
+    + createJob(jobName, jobDescription, creator)
+    + validateJob(newJob)
+    + addJob(newJob)
+}
+
+
+class EmployeeRepository{
+    + add(employee)
+    + getAllEmployees()
+    + validateEmployee(employee)
+    + getEmployees()
+}
+
+class TeamRepository{
+    + add(team)
+    + getTeams()
+}
+
+class VehicleRepository{
+    + createVehicle(brand, model, type, tareWeight, grossWeight,\n currentKm, registerDate,acquisitionDate, maintenanceFrequencyInKm,\n plateNumber, numOfPassengers, numOfDoors, fuelType,\n trailerMachinesAble)
+    + validateVehicle(newVehicle)
+    + addVehicle(newVehicle)
+}
+
+
+class VehicleMaintenanceRepository{
+    +add(vehicleMaintenance)
+    +validateVehicleMaintenance(vehicleMaintenance)
+}
+
+
+'------------------         MODELS             ----------------------
+
+class Skill {
+    -skillName:String
+    -skillDescription:String
+    -creator:Employee
+
+    +Skill(skillName, skillDescription, creator)
+    +validateSkillData(skillName, skillDescription, creator)
+}
+
+
+class Job {
+    -jobName:String
+    -jobDescription:String
+    -creator:Employee
+
+    +Job(jobName, jobDescription, creator)
+    +validateJobData(jobName, jobDescription, creator)
+}
+
+
+
+class Employee{
+    -name:String
+    -birthdate:Date
+    -admissionDate:Date
+    -address
+    -mobileContact:String
+    -emailContact:String
+    -IDdocType:String
+    -IDnumber:String
+    -taxNumber:String
+
+    +Employee (String nome,LocalDate dateOfBirth,\nLocalDate admissionDate, String morada, int telemovel,\nString email, String idDocType, int docTypeNumber,\nint taxPayerIdNumber, String role, Job job)
+}
+
+class Team{
+    -teamMaxSize:int
+    -teamMinSize:int
+    +generateTeam(teamMaxSize, teamMinSize,\n listOfSkills, employees)
+}
+
+class Vehicle{
+    -brand:String
+    -model:String
+    -vehicleType:String
+    -tareWeight:int
+    -grossWeight:int
+    -currentKm:int
+    -registerDate:Date
+    -acquisitionDate:Date
+    -maintenanceFrequencyInKm:int
+    -plateNumber:String
+    -numOfPassengers:int
+    -numOfDoors:int
+    -fuelType:String
+    -trailerMachinesAble:boolean
+    -creator:Employee
+
+    + Vehicle(brand, model, type, tareWeight, grossWeight,\n currentKm, registerDate,acquisitionDate, maintenanceFrequencyInKm,\n plateNumber, numOfPassengers, numOfDoors, fuelType,\n trailerMachinesAble, creator)
+}
+
+class VehicleMaintenance{
+    - date:Date
+    - kmsOfVehicle:int
+
+    + needsMaintenance ()
+}
+
+
+
+'Relationships
+
+AuthenticationRepository "1" --> "1" AuthFacade : getCurrentUserSession
+
+
+
+MainMenuUI "1" ..> "1" AuthenticationUI: create
+
+
+
+AuthenticationUI "1" ..> "1" HRMUI : create
+AuthenticationUI "1" ..> "1" VFMUI : create
+
+
+
+HRMUI "1" ..> "1" CreateSkillUI : create
+HRMUI "1" ..> "1" CreateJobUI : create
+HRMUI "1" ..> "1" CreateEmployeeUI : create
+HRMUI "1" ..> "1" CreateAssignSkillsUI : create
+HRMUI "1" ..> "1" GenerateTeamUI : create
+
+
+
+VFMUI "1" ..> "1" CreateVehicleUI : create
+VFMUI "1" ..> "1" RegisterVehicleMaintenanceUI : create
+VFMUI "1" ..> "1" VehiclesNeedingMaintenanceUI : create
+
+
+
+CreateSkillController "1" ---> "1" AuthenticationRepository : getCurretUserSession
+CreateJobController "1" ---> "1" AuthenticationRepository : getCurretUserSession
+CreateVehicleController "1" ---> "1" AuthenticationRepository : getCurrentUserSession
+
+
+
+CreateSkillController "1" ---> "1" Repositories : getInstance
+CreateJobController "1" ---> "1" Repositories : getInstance
+CreateEmployeeController "1" ---> "1" Repositories : getInstance
+GenerateTeamController "1" ---> "1" Repositories : getInstance
+CreateVehicleController "1" ---> "1" Repositories : getInstance
+RegisterVehicleMaintenanceController "1" ---> "1" Repositories : getInstance
+VehiclesNeedingMaintenanceController "1" ---> "1" Repositories : getInstance
+
+
+
+
+CreateSkillUI "1" ...> "1" CreateSkillController : create
+CreateJobUI "1" ...> "1" CreateJobController : create
+CreateEmployeeUI "1" ...> "1" CreateEmployeeController : create
+CreateAssignSkillsUI "1" ...> "1" CreateSkillController : create
+GenerateTeamUI "1" ...> "1" GenerateTeamController : create
+CreateVehicleUI "1" ...> "1" CreateVehicleController : create
+RegisterVehicleMaintenanceUI "1" ...> "1" RegisterVehicleMaintenanceController : create
+VehiclesNeedingMaintenanceUI "1" ...> "1" VehiclesNeedingMaintenanceController : create
+
+
+
+Repositories "1" ...> "1" SkillRepository : create
+Repositories "1" ...> "1" JobRepository : create
+Repositories "1" ...> "1" EmployeeRepository : create
+Repositories "1" ...> "1" TeamRepository : create
+Repositories "1" ...> "1" VehicleRepository : create
+Repositories "1" ...> "1" VehicleMaintenanceRepository : create
+
+
+
+
+CreateSkillController "1" --> "1" SkillRepository : addSkill
+CreateJobController "1" --> "1" JobRepository : addJob
+CreateEmployeeController "1" --> "1" EmployeeRepository : addEmployee
+GenerateTeamController "1" --> "1" TeamRepository : addTeam
+CreateVehicleController "1" --> "1" VehicleRepository : addVehicle
+RegisterVehicleMaintenanceController "1" --> "1" VehicleMaintenanceRepository : registerVehicleMaintenance
+VehiclesNeedingMaintenanceController "1" --> "1" VehicleMaintenanceRepository : getVehiclesNeedingMaintenance
+
+
+
+SkillRepository "1" --> "0..*" Skill
+JobRepository "1" --> "1..*" Job
+EmployeeRepository "1" --> "0..*" Employee
+VehicleRepository "1" --> "0..*" Vehicle
+TeamRepository "1" --> "0..*" Team
+VehicleMaintenanceRepository "1" --> "0..*" VehicleMaintenance
+
+
+
+
+Employee "1" --> "1" Job : has a
+Employee "1" --> "0..*" Skill : has a set of
+
+'from the US01
+CreateSkillController ..> Skill : create
+
+
+'from the US02
+CreateJobController ..> Job : create
+
+'from the US03
+CreateEmployeeController ..> Employee : create
+CreateEmployeeController "1" --> "1" SkillRepository : getAllSkils
+CreateEmployeeController "1" --> "1" JobRepository : getAllJobs
+
+'from the US04
+CreateSkillController --> Employee : addSkill
+
+'from the US05
+GenerateTeamController ..> Team : generateTeam
+Team "*" --> "1..*" Employee
+Team "*" --> "1..*" Skill
+
+'from the US06
+CreateVehicleController ..> Vehicle : create
+
+'from the US07
+VehicleMaintenance "*" --> "1" Vehicle : has
+RegisterVehicleMaintenanceController ..> VehicleMaintenance : create
+
+'from the US08
+VehicleMaintenanceRepository  -->  VehicleMaintenance : needsMaintenance?
+@enduml

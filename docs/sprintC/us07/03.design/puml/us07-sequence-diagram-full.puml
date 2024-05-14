@@ -1,0 +1,153 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+
+actor "Vehicle and Equipment\nFleet Manager" as VFM
+participant ": RegisterVehicleMaintenanceUI" as UI
+participant ": RegisterVehicleMaintenanceController" as CTRL
+participant ": Repositories" as ORG_SINGLETON
+participant "repositories\n: Repositories" as ORG_INSTANCE
+participant "authenticationRepository\n:AuthenticationRepository" as AUTH_REPO
+participant "userSession\n:UserSession" as USR_SESSION
+participant "vehicleRepository\n:VehicleRepository" as VEHICLE_REPO_INSTANCE
+participant "employee\n:Employee" as MNGR
+participant "vehicle\n:Vehicle" as VEHICLE
+
+
+note right of VFM
+    - The user is already logged in at this step.
+    - Authentication sequence is explained in
+    a sequence excerpt.
+end note
+
+note right of ORG_SINGLETON
+    - Singleton is
+    in use
+end note
+
+
+activate VFM
+
+        VFM -> UI : asks to create a new vehicle maintenance
+
+        activate UI
+            'create CTRL
+            UI -> CTRL** : create
+
+            UI -> CTRL : createVehicleMaintenance
+
+            activate CTRL
+
+                CTRL -> ORG_SINGLETON : getInstance()
+
+                    activate ORG_SINGLETON
+
+                    ORG_SINGLETON --> CTRL : repositories
+
+                deactivate ORG_SINGLETON
+
+                CTRL -> ORG_INSTANCE : getEmployeeFromSession()
+
+                    note right of CTRL
+                        - This method is explained
+                        in detail in an excerpt
+                        sequence diagram.
+                    end note
+
+                    activate ORG_INSTANCE
+
+                    ORG_INSTANCE --> CTRL : employee
+
+                deactivate ORG_INSTANCE
+
+                CTRL -> ORG_INSTANCE : getMaintenanceVehicles()
+
+                    activate ORG_INSTANCE
+
+                    ORG_INSTANCE --> CTRL : maintenanceVehiclesList
+
+                deactivate ORG_INSTANCE
+
+            CTRL --> UI : maintenanceVehiclesList
+
+        UI --> VFM : shows vehicle maintenance list\n and asks to select one
+
+        deactivate UI
+
+        VFM -> UI : selects a vehicle
+
+        activate UI
+            'requests the VFM to input data
+            UI --> VFM : requestData (plateNumber, date, currentKm)
+
+        deactivate UI
+
+        VFM -> UI : types requested data
+
+        activate UI
+
+            UI -> UI : validateVehicleData(plateNumber, date, currentKm)
+
+            deactivate CTRL
+
+            UI --> VFM : shows vehicle data and requests confirmation
+
+        deactivate UI
+
+            VFM -> UI : confirms data
+
+        activate UI
+
+            UI -> CTRL : createVehicleMaintenance(plateNumber, date, currentKm)
+
+            activate CTRL
+
+                CTRL -> MNGR : createVehicleMaintenance(plateNumber, date, currentKm)
+
+                activate MNGR
+
+                MNGR -> VEHICLE : VehicleMaintenance(plateNumber, date, currentKm)
+
+                activate VEHICLE
+
+                VEHICLE --> MNGR : newVehicleMaintenance
+
+                deactivate VEHICLE
+
+                MNGR --> CTRL : newVehicleMaintenance
+
+                deactivate MNGR
+
+                CTRL -> ORG_INSTANCE : addVehicleMaintenance(vehicleMaintenance)
+
+                activate ORG_INSTANCE
+
+                ORG_INSTANCE -> ORG_INSTANCE : validateVehicleMaintenance(vehicleMaintenance)
+
+                note right of ORG_INSTANCE
+                - This method is explained
+                in detail in an excerpt
+                sequence diagram.
+                end note
+
+                ORG_INSTANCE --> CTRL : newVehicleMaintenance
+
+                deactivate ORG_INSTANCE
+
+            CTRL --> UI : newVehicleMaintenance
+
+
+        deactivate CTRL
+
+        UI -> VFM : displays operation success
+
+    deactivate UI
+
+deactivate VFM
+
+@enduml

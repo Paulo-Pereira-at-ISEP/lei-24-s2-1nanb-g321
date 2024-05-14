@@ -1,0 +1,98 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+class GenerateTeamController {
+    -teamRepository : TeamRepository
+    -skillRepository : SkillRepository
+    -employeeRepository : EmployeeRepository
+    + GenerateTeamController(teamRepository)
+    + createTeam(teamMaxSize, teamMinSize, skills)
+
+}
+
+
+class GenerateTeamUI {
+    +run()
+    +requestData(teamMaxSize, teamMinSize, skills)
+    +submitData()
+}
+
+
+class Employee{
+    -name : String
+    -birthdate : LocalDate
+    -admissionDate : LocalDate
+    -address : String
+    -mobileContact : Int
+    -emailContact : String
+    -IDdocType : String
+    -IDnumber : Int
+    -taxNumber : Int
+    -job : Job
+
+    +Employee (String nome,LocalDate dateOfBirth,\nLocalDate admissionDate, String morada, int telemovel,\nString email, String idDocType, int docTypeNumber,\nint taxPayerIdNumber, String role, Job job)
+}
+
+class Repositories{
+    - instance : Repositories
+    - Repository : SkillRepository
+    - jobRepository : JobRepository
+    - employeeRepository : EmployeeRepository
+
+
+    + getInstance() : Repositories
+    + getSkillRepository()
+    + getJobRepository()
+    + getEmployeeRepository()
+}
+
+class SkillRepository{
+    + getAllSkills() : List<skills>
+}
+
+class EmployeeRepository{
+    + getAllEmployees() : List<employees>
+}
+
+class TeamRepository{
+    + addTeam()
+    + validateTeam(newTeam)
+}
+
+class AuthenticationRepository{
+    + getEmployeeFromSession()
+}
+
+class Team{
+    -teamMinSize : Int
+    -teamMaxSize : Int
+    -skills : List<skills>
+    -employees : List<employees>
+    +Team (List<employees> employees)
+}
+
+EmployeeRepository --> "1" Employee
+
+GenerateTeamUI "1" ..> "1" GenerateTeamController
+
+Repositories -> Repositories : instance
+Repositories "1" --> "1" SkillRepository
+Repositories "1" --> "1" EmployeeRepository
+Repositories "1" --> "1" TeamRepository
+
+Employee "1" --> "*" Team : createNewTeam
+
+GenerateTeamController ..> TeamRepository: addTeams
+GenerateTeamController "1" ..> "1" Repositories : repositories
+GenerateTeamController ..> Employee : createTeam
+GenerateTeamController "1" --> "1" AuthenticationRepository : getCurrentUserSession
+
+@enduml

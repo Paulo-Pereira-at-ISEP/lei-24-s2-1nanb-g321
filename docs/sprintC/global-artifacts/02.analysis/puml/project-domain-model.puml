@@ -1,0 +1,201 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'left to right direction
+skinparam classAttributeIconSize 0
+hide circle
+hide methods
+
+title Domain Model
+
+class Organization {
+    name
+    vatNumber
+    website
+    phoneNumber
+    email
+}
+
+class Employee {
+
+}
+
+class Collaborator {
+    name
+    birthdate
+    admissionDate
+    address
+    mobileContact
+    emailContact
+    IDdocType
+    IDnumber
+    taxNumber
+    job
+    skills
+
+}
+
+class Manager {
+    section
+}
+
+class HumanResourcesManager {
+
+}
+
+class VehicleFleetManager {
+
+}
+
+class GreenSpacesManager {
+
+}
+
+class Skill {
+    skillName
+    skillDescription
+}
+
+class Job {
+    jobName
+    jobDescription
+}
+
+class Vehicle {
+    Brand
+    Model
+    Type
+    Tare Weight
+    Gross Weight
+    Current Km
+    Register Date
+    Acquisition Date
+    Maintenance Frequency
+    Plate Number
+    Passengers Number
+    Doors Number
+    Fuel Type
+    Trailer Machines
+}
+
+class VehicleCheckup{
+    dateOfCheckup
+    kmOfCheckup
+}
+
+class Equipment {
+    equipmentName
+    equipmentDescription
+}
+
+class Agenda {
+    weeksTasks
+}
+
+
+class Task {
+    reference
+    taskDescription
+
+}
+
+class PendingTask{
+    pendingTask
+}
+
+class Team {
+    teamMembers
+}
+
+class Park {
+    location
+}
+
+class Portal {
+    httpAddress
+}
+
+class User {
+    name
+    email
+    password
+}
+
+class Reports {
+    type
+    date
+    park
+
+}
+
+class Comments {
+    commentDescription
+}
+
+class ReportFaults {
+    faultsDescription
+}
+
+class Malfunctions {
+    malfunctionDescription
+}
+
+
+
+Manager "1..*" -- "1..*" Employee: is a >
+Manager "1" -- "1" Portal: manages >
+Manager "1" --up "1..*" Job:  is registered by <
+Manager "1" -- "*" Skill: is registered by <
+Manager "1" -- "1..*" Collaborator: registers >
+Manager "1" -- "1" Agenda: manages >
+Manager "1" -- "*" PendingTask: manages >
+Manager "1" -- "*" Equipment: registers >
+Manager "1" -- "*" Vehicle: manages >
+Manager "1" -- "*" Task: creates >
+Manager "1" -- "*" Team: manages >
+Manager "1" --up "1..*" HumanResourcesManager: is a >
+Manager "1" --up "1..*" VehicleFleetManager: is a >
+Manager "1" --up "1..*" GreenSpacesManager: is a >
+
+Agenda "1" -- "*" PendingTask: gets tasks from >
+
+
+User "1..*" -- "*" Park: uses >
+User "*" -- "*" Reports: makes >
+
+Comments "*" -- "1" Reports: are >
+ReportFaults "*" -- "1" Reports: are >
+Malfunctions "*" -- "1" Reports: are >
+
+Team "1" -- "1" Park: carry out tasks in >
+Team "1" -- "1" Task: carry out >
+
+
+Organization "1" -- "*" Park: manages >
+Organization "1" -- "1..*" Employee : has >
+
+
+Employee "1..*" -- "1..*" Collaborator: is a >
+Employee "1" -- "1" Job: has a >
+
+Collaborator "1" -- "*" Skill: is assigned to <
+Collaborator "1..*" -- "1" Team: integrates >
+
+
+
+Vehicle "1..*" -- "1" Task: is attributed to >
+Vehicle "1" -- "1" VehicleCheckup: is submitted to >
+Equipment "0..*" -- "1" Task: is attributed to >
+
+Agenda "1" -- "*" Task: has >
+
+
+Task "1..*" -- "1..*" Park: are performed in >
+
+
+
+Reports "*" -- "1" Portal: are submitted >
+
+@enduml

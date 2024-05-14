@@ -1,0 +1,231 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+class ApplicationSession
+{
+    + static getInstance()
+    + getCurrentSession()
+}
+
+class UserSession
+{
+    + getUserEmail()
+}
+
+class Employee {
+    - **a complementar estes atributos**
+}
+
+class Vehicle {
+    - String brand
+        - String model
+        - String type
+        - Integer tareWeight
+        - Integer grossWeight
+        - Integer currenteKm
+        - Date registerDate
+        - Date acquisitionDate
+        - Integer maintenanceFrequency
+        - String plateNumber
+        - Integer passengersNumber
+        - Integer doorsNumber
+        - String fuelType
+        - Boolean trailerMachines
+
+        + Vehicle(brand, model, type, tare weight, \ngross weight, current km,register date, \nacquisition date, maintenance frequency, \nplate number, passengers number,\ndoors number, fuel type, trailer machines)
+}
+
+class VehicleMaintenance {
+    - String description
+
+    + VehicleMaintenance(description)
+}
+
+class Organization {
+    - **String name**
+    - **String vatNumber**
+    - **String website**
+    - **String phone**
+    - **String email**
+
+    - addVehicleMaintenance(vehicle)
+    - validateVehicleMaintenance(vehicle)
+    + anyEmployeeHasEmail(email)
+    + Organization(**Inserir atributos acima**)
+    + createVehicleMaintenance(date, currentKm, plateNumber)
+    - getEmployeeByEmail(email)
+
+}
+
+class OrganizationRepository {
+    + getOrganizationByEmployeeEmail(email)
+}
+
+class Repositories {
+    - Repositories()
+    + getInstance() : Repositories
+    + getOrganizationRepository()
+}
+
+class CreateMaintenanceController {
+    + CreateMaintenanceController(organizationRepository)
+    + getTaskCategories()
+    + createVehicle(**userEmail**, brand, model, type, tare weight, \ngross weight, current km,register date, \nacquisition date, maintenance frequency, \nplate number, passengers number,\ndoors number, fuel type, trailer machines)
+    - getEmployeeFromSession()
+}
+
+note right of CreateMaintenanceController
+    - userEmail is obtained
+    from the user session
+end note
+
+class CreateMaintenanceUI {
+}
+
+Repositories -> Repositories : instance
+ApplicationSession -> ApplicationSession : instance
+
+CreateMaintenanceUI .> CreateMaintenanceController
+
+CreateMaintenanceController .> Repositories : repositories
+
+CreateMaintenanceController ..> VehicleMaintenance
+CreateMaintenanceController ..> OrganizationRepository : organizationRepository
+
+Repositories --> "1" OrganizationRepository
+
+OrganizationRepository --> "*" Organization
+ApplicationSession --> "1" UserSession : userSession
+
+CreateMaintenanceController ..> "1" Organization : organization
+CreateMaintenanceController ..> ApplicationSession
+CreateMaintenanceController ..> UserSession
+Vehicle "1" --> "*" VehicleMaintenance : have
+Employee "1" --> "*" VehicleMaintenance : register
+Organization "1" --> "*" Vehicle : register
+Vehicle --> Employee : createdBy
+
+Organization --> "*" Employee : employs
+
+@enduml
+
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+class RegisterVehicleMaintenanceUI {
+    +run()
+    +requestData(plateNumber, date, currentKm)
+    +submitData()
+    +requestPlateNumber()
+    +requestDate()
+    +requestCurrentKM()
+}
+
+class RegisterVehicleMaintenanceController {
+    - vehicleRepository:VehicleRepository
+    - authenticationRepository:AuthenticationRepository
+
+    - getEmployeeFromSession()
+    + RegisterVehicleMaintenanceController(vehicleRepository)
+    + createVehicleMaintenance(plateNumber, date, currentKm)
+}
+
+class Employee{
+    -name:String
+    -birthdate:Date
+    -admissionDate:Date
+    -address
+    -mobileContact:String
+    -emailContact:String
+    -IDdocType:String
+    -IDnumber:String
+    -taxNumber:String
+    -job:Job
+
+    +Employee (String nome,LocalDate dateOfBirth,\nLocalDate admissionDate, String morada, int telemovel,\nString email, String idDocType, int docTypeNumber,\nint taxPayerIdNumber, String role, Job job)
+}
+
+class Repositories{
+    - instance:Repositories
+    - skillRepository:SkillRepository
+    - jobRepository:JobRepository
+    - employeeRepository:EmployeeRepository
+    -authenticationRepository:AuthenticationRepository
+
+    + getInstance()
+    + getSkillRepository()
+    + getJobRepository()
+    + getEmployeeRepository()
+    + getAuthenticationRepository()
+}
+
+class VehicleRepository{
+    + getVehicles()
+    + validateVehicle(newVehicle)
+    + addVehicle(newVehicle)
+}
+
+class AuthenticationRepository{
+    + getEmployeeFromSession()
+}
+
+class Vehicle {
+    - String brand
+    - String model
+    - String type
+    - Integer tareWeight
+    - Integer grossWeight
+    - Integer currenteKm
+    - Date registerDate
+    - Date acquisitionDate
+    - Integer maintenanceFrequency
+    - String plateNumber
+    - Integer passengersNumber
+    - Integer doorsNumber
+    - String fuelType
+    - Boolean trailerMachines
+
+    + Vehicle(brand, model, type, tare weight, \ngross weight, current km,register date, \nacquisition date, maintenance frequency, \nplate number, passengers number,\ndoors number, fuel type, trailer machines)
+}
+
+class VehicleMaintenance {
+    - String description
+
+    + VehicleMaintenance(description)
+}
+
+RegisterVehicleMaintenanceUI "1" ..> "1" RegisterVehicleMaintenanceController
+
+RegisterVehicleMaintenanceController "1" --> "1" Repositories : getInstance
+
+Repositories "1" ..> "1" VehicleRepository : create
+
+RegisterVehicleMaintenanceController --> Employee : createVehicleMaintenance
+
+RegisterVehicleMaintenanceController "1" --> "1" AuthenticationRepository : getCurrentUserSession
+
+Employee "1" --> "*" VehicleMaintenance : createNewVehicleMaintenance
+
+RegisterVehicleMaintenanceController --> VehicleRepository: add
+
+VehicleRepository --> Vehicle : have
+
+Vehicle "1" --> "*" VehicleMaintenance : have
+
+@enduml

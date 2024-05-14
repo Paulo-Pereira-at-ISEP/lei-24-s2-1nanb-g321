@@ -1,0 +1,100 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+
+actor "Human Resource Manager" as HRM
+participant ":CreateEmployeelUI" as UI
+participant ":CreateEmployeelController" as controller
+participant ":Repositories" as singleton
+participant "repositories\n:Repositories" as rep
+participant "employeeRepository:\nEmployeeRepository" as employeeRep
+participant "skillRepository:\nJobRepository" as SkillRep
+participant ":Employee" as Employee
+
+
+activate HRM
+activate UI
+        HRM -> UI : ask for list of skills
+
+        activate controller
+
+        UI -> controller : Create
+        activate singleton
+        controller -> singleton :getInstance()
+        singleton --> controller : repositories
+        deactivate singleton
+        UI -> controller :asks for employees
+deactivate UI
+        activate rep
+        controller -> rep : getEmployeeRepository()
+        rep --> controller : employeeRepo
+        controller -> rep :getSkillRepository()
+        rep --> controller : skillRepo
+        deactivate rep
+        activate employeeRep
+
+        controller -> employeeRep : getAllEmployees()
+        employeeRep --> controller : Employees
+        deactivate employeeRep
+activate UI
+
+
+        controller --> UI: Employees
+        UI --> HRM : shows list of employees
+        deactivate controller
+
+        HRM -> UI: selects an employee
+        activate controller
+
+        UI -> controller : asks for skills
+        activate SkillRep
+        controller -> SkillRep : getAllSkills()
+        SkillRep --> controller : Skills
+        deactivate SkillRep
+        controller --> UI : Skills
+        loop for each skill selected
+        UI --> HRM : shows list of skills
+        UI -> UI : validates
+
+        HRM -> UI : selects skill
+        end
+        UI --> HRM : shows data
+
+
+
+
+        activate Employee
+        UI -> controller : asks to assign skills
+          deactivate UI
+        controller -> Employee : assignSkillsToEmployee()
+        Employee -> Employee : validates
+        Employee --> controller : newEmployeeWithSkills
+        deactivate Employee
+activate UI
+        controller --> UI : newEmployeeWithSkills
+        UI --> HRM : asks for confirmation
+        HRM -> UI : confirmats data
+        activate employeeRep
+        UI -> controller : add new Skills to collaborator
+        controller -> employeeRep : addNewEmployeeWithSkills()
+        employeeRep -> controller: newEmployeeWithSkills
+        deactivate employeeRep
+        controller --> UI : newEmployeeWithSkills
+        UI -> HRM : displays success message
+        deactivate controller
+        UI --> HRM : shows success message
+         deactivate UI
+
+
+
+
+
+
+deactivate HRM
+
+@enduml

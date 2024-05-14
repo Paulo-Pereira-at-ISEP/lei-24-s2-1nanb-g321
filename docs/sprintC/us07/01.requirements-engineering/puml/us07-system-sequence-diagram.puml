@@ -1,0 +1,38 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - US07
+
+autonumber
+
+actor "Vehicle and Equipment\nFleet Manager" as Employee
+participant ":System" as System
+
+activate Employee
+
+    Employee -> System : asks to create a new vehicle maintenance
+    activate System
+
+        System --> Employee : show list of vehicles and asks to select one
+    deactivate System
+
+    Employee -> System : select vehicle
+    activate System
+
+        System --> Employee : requests data (i.e. Date, Kms of vehicle)
+    deactivate System
+
+    Employee -> System : types requested data
+    activate System
+
+        System --> Employee : show data and request confirmation
+    deactivate System
+
+    Employee -> System : confirms data
+    activate System
+
+        System --> Employee : displays operation success and \nshow next maintenance KM
+    deactivate System
+@enduml
