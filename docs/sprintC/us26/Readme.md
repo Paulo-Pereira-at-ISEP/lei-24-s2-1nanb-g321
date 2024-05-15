@@ -1,4 +1,4 @@
-# US08 -  As a VFM, I want to list the vehicles needing the check-up.
+# US26 - As a GSM, I want to assign one or more vehicles to an entry in the Agenda.
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 
