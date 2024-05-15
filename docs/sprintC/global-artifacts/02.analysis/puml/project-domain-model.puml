@@ -34,6 +34,7 @@ class Collaborator {
     taxNumber
     job
     skills
+    assignedTasks
 
 }
 
@@ -50,6 +51,10 @@ class VehicleFleetManager {
 }
 
 class GreenSpacesManager {
+
+}
+
+class QualityAssessmentManager {
 
 }
 
@@ -98,18 +103,19 @@ class Agenda {
 class Task {
     reference
     taskDescription
+    completion
 
 }
 
-class PendingTask{
-    pendingTask
+class ToDoList{
+    pendingTasks
 }
 
 class Team {
     teamMembers
 }
 
-class Park {
+class GreenSpace {
     location
 }
 
@@ -126,7 +132,7 @@ class User {
 class Reports {
     type
     date
-    park
+    greenSpace
 
 }
 
@@ -150,7 +156,7 @@ Manager "1" --up "1..*" Job:  is registered by <
 Manager "1" -- "*" Skill: is registered by <
 Manager "1" -- "1..*" Collaborator: registers >
 Manager "1" -- "1" Agenda: manages >
-Manager "1" -- "*" PendingTask: manages >
+Manager "1" -- "*" ToDoList: manages >
 Manager "1" -- "*" Equipment: registers >
 Manager "1" -- "*" Vehicle: manages >
 Manager "1" -- "*" Task: creates >
@@ -158,22 +164,23 @@ Manager "1" -- "*" Team: manages >
 Manager "1" --up "1..*" HumanResourcesManager: is a >
 Manager "1" --up "1..*" VehicleFleetManager: is a >
 Manager "1" --up "1..*" GreenSpacesManager: is a >
+Manager "1" --up "1..*" QualityAssessmentManager: is a >
 
-Agenda "1" -- "*" PendingTask: gets tasks from >
+Agenda "1" -- "*" ToDoList: gets tasks from >
 
 
-User "1..*" -- "*" Park: uses >
+User "1..*" -- "*" GreenSpace: uses >
 User "*" -- "*" Reports: makes >
 
 Comments "*" -- "1" Reports: are >
 ReportFaults "*" -- "1" Reports: are >
 Malfunctions "*" -- "1" Reports: are >
 
-Team "1" -- "1" Park: carry out tasks in >
+Team "1" -- "1" GreenSpace: carry out tasks in >
 Team "1" -- "1" Task: carry out >
 
 
-Organization "1" -- "*" Park: manages >
+Organization "1" -- "*" GreenSpace: manages >
 Organization "1" -- "1..*" Employee : has >
 
 
@@ -192,8 +199,11 @@ Equipment "0..*" -- "1" Task: is attributed to >
 Agenda "1" -- "*" Task: has >
 
 
-Task "1..*" -- "1..*" Park: are performed in >
+Task "1..*" -- "1..*" GreenSpace: are performed in >
+Task "1..*" ----- "1..*" Collaborator: are assigned to <
+Task "1..*" -- "1..*" ToDoList: has <
 
+GreenSpace "1..*" -- "1..*" GreenSpacesManager: are managed by >
 
 
 Reports "*" -- "1" Portal: are submitted >
