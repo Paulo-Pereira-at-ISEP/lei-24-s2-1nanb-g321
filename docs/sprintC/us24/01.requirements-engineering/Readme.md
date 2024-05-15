@@ -1,4 +1,4 @@
-# US08 - As a VFM, I want the system to produce a list (report) of vehicles needing maintenance.
+# US24 - As a GSM, I want to Postpone an entry in the Agenda to a future date.
 
 ## 1. Requirements Engineering
 

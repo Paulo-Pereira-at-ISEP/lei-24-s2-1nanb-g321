@@ -1,4 +1,4 @@
-# US08 -  As a VFM, I want to list the vehicles needing the check-up.
+# US24 - As a GSM, I want to Postpone an entry in the Agenda to a future date.
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 
