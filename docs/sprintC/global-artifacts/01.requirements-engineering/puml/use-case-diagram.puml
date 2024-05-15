@@ -13,7 +13,8 @@ title Sprint B
 left to right direction
 
 rectangle "System Actors" as actors {
-    actor "Software Quality Assessment Team Manager" as QAM
+    actor "Collaborator" as COLAB
+
     actor "Green Space Manager" as GSM
     actor "Vehicle and Equipment Fleet Manager" as VFM
     actor "Human Resource Manager" as HRM
@@ -25,36 +26,51 @@ rectangle "System Actors" as actors {
 
 rectangle "Use Cases" as usecases{
 
-    usecase "US14 - Run tests for inputs of variable size, to observe execution time of US13 algorithm." as UC14
-    usecase "US13 - Obtain optimal pipeline routes" as UC13
-    usecase "US12 - Import pipeline data from .csv file" as UC12
-    usecase "US11 - Obtain age group usage of an urban park" as UC11
-    usecase "US10 - Obtain user's preferences concerning equipment of an urban park" as UC10
-    usecase "US09 - Obtain the exact costs referring to water consumption of a specific green space" as UC09
+    usecase "US29 - Record the completion of a task." as UC29
+    usecase "US28 - Consult the tasks assigned to me." as UC28
+    usecase "US27 - List all green spaces managed by me." as UC27
+    usecase "US26 - Assign one or more vehicles to an entry in the Agenda." as UC26
+    usecase "US25 - Cancel an entry in the Agenda." as UC25
+    usecase "US24 - Postpone an entry in the Agenda to a future date." as UC24
+    usecase "US23 - Assign a Team to an entry in the Agenda." as UC23
+    usecase "US22 - Add a new entry to the Agenda." as UC22
+    usecase "US21 - Add a new entry to the To-DoList." as UC21
+    usecase "US20 - Register a green space." as UC20
+
     usecase "UC08 - List vehicles with pending maintenances" as UC08
-    usecase "UC07 - Register vehicle maintenance" as UC07
     usecase "UC06 - Register Vehicle" as UC06
-    usecase "UC05 - Generate team proposal automatically" as UC05
-    usecase "UC04 - Assign Skills to a Collaborator" as UC04
-    usecase "UC02 - Register jobs" as UC02
-    usecase "UC03 - Register Collaborators" as UC03
     usecase "UC01 - Register skills" as UC01
+    usecase "UC03 - Register Collaborators" as UC03
+    usecase "UC02 - Register jobs" as UC02
+    usecase "UC04 - Assign Skills to a Collaborator" as UC04
+    usecase "UC05 - Generate team proposal automatically" as UC05
+    usecase "UC07 - Register vehicle maintenance" as UC07
 
 
-    HRM --> UC01
+
+
     HRM --> UC02
+    HRM --> UC01
     HRM --> UC03
     HRM --> UC04
     HRM --> UC05
+
+
+
+    GSM --> UC20
+    GSM --> UC21
+    GSM --> UC22
+    GSM --> UC23
+    GSM --> UC24
+    GSM --> UC26
+    GSM --> UC27
+
     VFM --> UC06
     VFM --> UC07
     VFM --> UC08
-    GSM --> UC09
-    GSM --> UC10
-    GSM --> UC11
-    GSM --> UC12
-    GSM --> UC13
-    QAM --> UC14
+
+    COLAB --> UC28
+    COLAB --> UC29
 }
 
 

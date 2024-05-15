@@ -1,0 +1,69 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+'skinparam shadowing false
+
+skinparam rectangle{
+    BorderColor white
+
+}
+
+title Sprint B
+
+left to right direction
+
+rectangle "System Actors" as actors {
+
+    actor "Software Quality Assessment Team Manager" as QAM
+    actor "Green Space Manager" as GSM
+
+
+}
+
+
+
+
+rectangle "Use Cases" as usecases{
+
+
+    usecase "US19 - Analyze time complexity for US13, US17 and US18." as UC19
+    usecase "US18 - Determine the shortest route from any sign to the closest meeting point." as UC18
+    usecase "US17 - Determine the shortest route from any sign to the meeting point." as UC17
+    usecase "US16 - Determine the best line that fits the data." as UC16
+    usecase "US15 - Predict the average monthly cost for water consumption in the new park." as UC15
+    usecase "US14 - Run tests for inputs of variable size, to observe execution time of US13 algorithm." as UC14
+    usecase "US13 - Obtain optimal pipeline routes" as UC13
+    usecase "US12 - Import pipeline data from .csv file" as UC12
+    usecase "US11 - Obtain age group usage of an urban park" as UC11
+    usecase "US10 - Obtain user's preferences concerning equipment of an urban park" as UC10
+    usecase "US09 - Obtain the exact costs referring to water consumption of a specific green space" as UC09
+
+
+
+    GSM --> UC09
+    GSM --> UC10
+    GSM --> UC11
+    GSM --> UC12
+    GSM --> UC13
+    GSM --> UC15
+    GSM --> UC16
+    GSM --> UC17
+    GSM --> UC18
+
+    QAM --> UC14
+    QAM --> UC19
+
+    }
+
+
+'note left of usecases
+    'System
+'end note
+
+'note right of actors
+'    Rectangles and Titles are for
+'    demonstration purposes only.
+'    Omitt on your diagrams.
+'end note
+
+@enduml
