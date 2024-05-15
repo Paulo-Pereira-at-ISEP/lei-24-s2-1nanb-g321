@@ -4,7 +4,7 @@
 
 ### 1.1. User Story Description
 
-As a Vehicle and Equipment Fleet Manager, I want to prompt the creation of a list, generated automatically, of the vehicles needing maintenance, based on the amount of kilometers each of the vehicles has, within a defined range of kilometers. The list should include all the information about the vehicle like plate, brand, model, etc.
+As a Collaborator, I want to record the completion of a task that might have been attributed to me or my team.
 
 ### 1.2. Customer Specifications and Clarifications
 
