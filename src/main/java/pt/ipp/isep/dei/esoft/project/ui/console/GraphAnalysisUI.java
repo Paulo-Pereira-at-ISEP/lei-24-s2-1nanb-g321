@@ -239,7 +239,8 @@ public class GraphAnalysisUI implements Runnable {
 
             for (Edge e : edges) {
                 //printToFile.println(String.format("\t%s -- %s [w=%.1f]", e.src, e.dest, e.cost));
-                printToFile.println(String.format("\t%s -- %s", e.src, e.dest));
+                //printToFile.println(String.format("\t%s -- %s", e.src, e.dest, e.cost));
+                printToFile.println(String.format("\t%s -- %s [weight=%s]", e.src, e.dest, e.cost));
             }
             printToFile.println("\n}");
 

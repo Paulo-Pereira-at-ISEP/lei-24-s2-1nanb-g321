@@ -1,0 +1,28 @@
+graph US13_JardimEspeciesNucleoRuralMST {
+
+	Tilia -- Camelia_e3 [weight=3.0]
+	Carvalho -- Camelia_e1 [weight=4.0]
+	Abrunheiro -- Ginkgo [weight=4.0]
+	Camelia_e1 -- Camelia_e2 [weight=4.0]
+	Camelia_d3 -- Camelia_d2 [weight=4.0]
+	Liquidanbar -- Abrunheiro [weight=5.0]
+	Sobreiro -- Camelia_d1 [weight=5.0]
+	Camelia_e2 -- Camelia_e3 [weight=5.0]
+	Camelia_d4 -- Camelia_d3 [weight=5.0]
+	Camelia_d2 -- Camelia_d1 [weight=5.0]
+	Liquidanbar -- Camelia_e9 [weight=6.0]
+	Folhado -- Camelia_d5 [weight=6.0]
+	Camelia_e3 -- Camelia_e4 [weight=6.0]
+	Camelia_e4 -- Camelia_e6 [weight=6.0]
+	Camelia_e8 -- Camelia_e9 [weight=6.0]
+	Camelia_d7 -- Camelia_d6 [weight=6.0]
+	Camelia_d6 -- Camelia_d5 [weight=6.0]
+	Camelia_d5 -- Camelia_d4 [weight=6.0]
+	Castanheiro_India -- Camelia_e6 [weight=7.0]
+	Olaia -- Liquidanbar [weight=7.0]
+	Camelia_e7 -- Camelia_e8 [weight=7.0]
+	Magnolia -- Camelia_d6 [weight=8.0]
+	Castanheiro_India -- Olaia [weight=10.0]
+	Camelia_e1 -- Camelia_d1 [weight=10.0]
+
+}
