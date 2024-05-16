@@ -26,9 +26,9 @@ public class GraphAnalysisUI implements Runnable {
      */
     private static final String OUTPUT_FOLDER = "output-files";    //pasta de ficheiros de output
     private static final String OUTPUT_TXT_EXTENSION = ".txt";     //extensão de ficheiros de texto
-    private static final String MST_STRING = "MST";                //string utilizada para concatenar no nome dos ficheiros de saída
-    private static final String GRAPH_STRING = "GRAPH";            //string utilizada para concatenar no nome dos ficheiros de saída
-    private static final String IMAGE_EXTENSION_STRING = ".svg";   //extensão de ficheiros de imagem
+    public static final String MST_STRING = "MST";                //string utilizada para concatenar no nome dos ficheiros de saída
+    public static final String GRAPH_STRING = "GRAPH";            //string utilizada para concatenar no nome dos ficheiros de saída
+    public static final String IMAGE_EXTENSION_STRING = ".svg";   //extensão de ficheiros de imagem
     private static final String EFFICIENCY_PLOT_FILE_NAME = "eficiencyPlot.svg"; // nome do ficheiro de plot dos tempos de execução
     private static final String EFFICIENCY_CSV_DATA_FILE_NAME = "efficiencyData.csv"; // nome do ficheiro de dados dos tempos de execução
     private static final String UNIX_DIRECTORY_SEPARARTOR = "/"; // separador de diretorios UNIX
@@ -52,7 +52,22 @@ public class GraphAnalysisUI implements Runnable {
             edges = readGraphDataFromFile(workFile);
 
             //us13
-            applyKruskalAlgorythmAndPrintData(edges, workFile);
+            bubbleSort(edges);
+
+            List<Edge> mst = KruskalMST(edges);
+            printMST(mst, edges);
+
+            String outputGraph_TXTFile = outputTXTFileNameOf(workFile, GRAPH_STRING);
+            String outputMST_TXTFile = outputTXTFileNameOf(workFile, MST_STRING);
+
+            printGraphToTXTFile(edges, outputGraph_TXTFile);
+            printGraphToTXTFile(mst, outputMST_TXTFile);
+
+            String outputGraph_SVGFile = outputSVGFileNameOf(outputGraph_TXTFile, IMAGE_EXTENSION_STRING);
+            String outputMST_SVGFile = outputSVGFileNameOf(outputMST_TXTFile, IMAGE_EXTENSION_STRING);
+
+            plotGraph(outputGraph_TXTFile, outputGraph_SVGFile);
+            plotGraph(outputMST_TXTFile, outputMST_SVGFile);
 
 
         } catch (FileNotFoundException e) {
@@ -98,27 +113,7 @@ public class GraphAnalysisUI implements Runnable {
      * @param edges
      * @param workFile
      */
-    public static void applyKruskalAlgorythmAndPrintData(List<Edge> edges, String workFile) {
-        //US13
-        // Passo 1: ordenar os vértices por ordem de peso
-        //graph.sort(null);
-        bubbleSort(edges);
 
-        List<Edge> mst = KruskalMST(edges);
-        printMST(mst, edges);
-
-        String outputGraph_TXTFile = outputTXTFileNameOf(workFile, GRAPH_STRING);
-        String outputMST_TXTFile = outputTXTFileNameOf(workFile, MST_STRING);
-
-        printGraphToTXTFile(edges, outputGraph_TXTFile);
-        printGraphToTXTFile(mst, outputMST_TXTFile);
-
-        String outputGraph_SVGFile = outputSVGFileNameOf(outputGraph_TXTFile, IMAGE_EXTENSION_STRING);
-        String outputMST_SVGFile = outputSVGFileNameOf(outputMST_TXTFile, IMAGE_EXTENSION_STRING);
-
-        plotGraph(outputGraph_TXTFile, outputGraph_SVGFile);
-        plotGraph(outputMST_TXTFile, outputMST_SVGFile);
-    }
 
     /**
      * Method for reading an integer
@@ -185,7 +180,7 @@ public class GraphAnalysisUI implements Runnable {
      * @param svgExtensionString
      * @return
      */
-    private static String outputSVGFileNameOf(String outputGraphTxtFile, String svgExtensionString) {
+    public static String outputSVGFileNameOf(String outputGraphTxtFile, String svgExtensionString) {
         return outputGraphTxtFile.split("\\.")[0] + svgExtensionString;
     }
 
@@ -197,7 +192,7 @@ public class GraphAnalysisUI implements Runnable {
      * @param type
      * @return
      */
-    private static String outputTXTFileNameOf(String workFile, String type) {
+    public static String outputTXTFileNameOf(String workFile, String type) {
 
         boolean isWindows = System.getProperty("os.name").toLowerCase().startsWith("windows");
 
@@ -220,7 +215,7 @@ public class GraphAnalysisUI implements Runnable {
      * @param edges
      * @param filename
      */
-    private static void printGraphToTXTFile(List<Edge> edges, String filename) {
+    public static void printGraphToTXTFile(List<Edge> edges, String filename) {
 
         boolean isWindows = System.getProperty("os.name").toLowerCase().startsWith("windows");
 
@@ -301,7 +296,7 @@ public class GraphAnalysisUI implements Runnable {
      *
      * @param graph
      */
-    private static void bubbleSort(List<Edge> graph) {
+    public static void bubbleSort(List<Edge> graph) {
 
         int n = graph.size();
 
@@ -368,7 +363,7 @@ public class GraphAnalysisUI implements Runnable {
      * @param mst
      * @param edges
      */
-    private static void printMST(List<Edge> mst, List<Edge> edges) {
+    public static void printMST(List<Edge> mst, List<Edge> edges) {
         double cost = 0;
         for (Edge e : mst) {
             System.out.println(String.format("%20s -- %-20s = %.2f", e.src, e.dest, e.cost));

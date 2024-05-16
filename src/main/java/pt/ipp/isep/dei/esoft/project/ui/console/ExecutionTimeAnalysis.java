@@ -56,13 +56,29 @@ public class ExecutionTimeAnalysis implements Runnable {
                 long startTime = System.nanoTime();
 
                 //US 13
-                applyKruskalAlgorythmAndPrintData(edges, workFile);
+                bubbleSort(edges);
+
+                List<Edge> mst = KruskalMST(edges);
+                printMST(mst, edges);
 
                 // saves the ending time of the process
                 long endTime = System.nanoTime();
 
                 // calculates the execution time in milliseconds
                 long executionTimeMs = (endTime - startTime) / 1_000_000; // Convert nanoseconds to milliseconds
+
+                String outputGraph_TXTFile = outputTXTFileNameOf(workFile, GRAPH_STRING);
+                String outputMST_TXTFile = outputTXTFileNameOf(workFile, MST_STRING);
+
+                printGraphToTXTFile(edges, outputGraph_TXTFile);
+                printGraphToTXTFile(mst, outputMST_TXTFile);
+
+                String outputGraph_SVGFile = outputSVGFileNameOf(outputGraph_TXTFile, IMAGE_EXTENSION_STRING);
+                String outputMST_SVGFile = outputSVGFileNameOf(outputMST_TXTFile, IMAGE_EXTENSION_STRING);
+
+                plotGraph(outputGraph_TXTFile, outputGraph_SVGFile);
+                plotGraph(outputMST_TXTFile, outputMST_SVGFile);
+
 
                 executionTimes[i] = executionTimeMs;
 
