@@ -76,8 +76,8 @@ public class ExecutionTimeAnalysis implements Runnable {
                 String outputGraph_SVGFile = outputSVGFileNameOf(outputGraph_TXTFile, IMAGE_EXTENSION_STRING);
                 String outputMST_SVGFile = outputSVGFileNameOf(outputMST_TXTFile, IMAGE_EXTENSION_STRING);
 
-                plotGraph(outputGraph_TXTFile, outputGraph_SVGFile);
-                plotGraph(outputMST_TXTFile, outputMST_SVGFile);
+                //plotGraph(outputGraph_TXTFile, outputGraph_SVGFile);
+                //plotGraph(outputMST_TXTFile, outputMST_SVGFile);
 
 
                 executionTimes[i] = executionTimeMs;
