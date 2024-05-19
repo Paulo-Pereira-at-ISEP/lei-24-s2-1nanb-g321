@@ -1,0 +1,43 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - US24
+
+autonumber
+
+actor "Green Space\nManager" as Employee
+participant ":System" as System
+
+activate Employee
+
+    Employee -> System : Asks to postpone an entry from the Agenda
+    activate System
+
+        System --> Employee : Shows the entries collected at the Agenda
+    deactivate System
+
+    Employee -> System : Selects one of the listed entries
+
+    activate System
+
+            System --> Employee : Prompts the entry of a postpone date
+    deactivate System
+
+    Employee -> System : Chooses the postpone date
+
+    activate System
+
+            System --> Employee : Shows selected data and requests confirmation
+    deactivate System
+
+    Employee -> System : Confirms data
+
+    activate System
+
+                System --> Employee : Displays operation success message
+    deactivate System
+
+
+@enduml
