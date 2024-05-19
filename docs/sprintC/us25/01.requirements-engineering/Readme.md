@@ -26,42 +26,35 @@ As a GSM, I want to Cancel an entry in the Agenda that is no longer required.
 
 **From the client clarifications:**
 
-> **Question:** 
+> **Question:** Should the cancelled be deleted from the agenda? 
 >
-> **Answer:** 
+> **Answer:** No. The entry should remain, however, it's status should be altered to "Canceled".
 
-> **Question:** 
->
-> **Answer:** 
-
-> **Question:** 
->
-> **Answer:** 
-
-> **Question:** 
->
-> **Answer:** 
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** 
+* **AC1:** A canceled task should not be deleted but rather change its state. 
 * **AC2:** 
-* **AC3:** 
+* **AC3:** The selected entry should be canceled.
 
 ### 1.4. Found out Dependencies
 
-* 
+* There are dependencies with the:
+
+    * "US21-As a GSM,I want to add a new entry to the To-DoList." - There need to be entries in the "To-Do List" in order for the to be migrated to the "Agenda".
+    * "US22 - As a GSM, I want to add a new entry in the Agenda." - An entry (task) shoud be effectively planned in the "Agenda".
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 
-*
+* No data input is required.
 
 **Output Data:**
 
-* 
+* Confirmation of the selected data.
+* Message of operation success 
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![System Sequence Diagram](svg/us08-system-sequence-diagram.svg)
+![System Sequence Diagram](svg/us25-system-sequence-diagram.svg)
