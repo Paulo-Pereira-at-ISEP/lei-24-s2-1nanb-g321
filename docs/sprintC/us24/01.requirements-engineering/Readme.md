@@ -1,10 +1,10 @@
-# US24 - As a GSM, I want to Postpone an entry in the Agenda to a future date.
+# US24 - As a GSM, I want to Postpone an entry in the Agenda to a specific future date.
 
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-As a GSM, I want to Postpone an entry in the Agenda to a future date due to various reasons such as personnel, equipment or fleet management.
+As a GSM, I want to Postpone an entry in the Agenda to a specific future date due to various reasons such as personnel, equipment or fleet management.
 
 ### 1.2. Customer Specifications and Clarifications
 
@@ -26,43 +26,35 @@ As a GSM, I want to Postpone an entry in the Agenda to a future date due to vari
 
 **From the client clarifications:**
 
-> **Question:** 
+> **Question:** How should be handled the postponed entry? Should the current entry be deleted?  
 >
-> **Answer:** 
+> **Answer:** No. It should remain in the current Agenda Position, however, it's "status" should be altered to "postponed". Additionally, a copy of the current entry should be created with the updated date of execution.
 
-> **Question:** 
->
-> **Answer:** 
-
-> **Question:** 
->
-> **Answer:** 
-> 
-
-> **Question:** 
->
-> **Answer:** 
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** 
+* **AC1:** The date entered by the user should be higher than the initially planned date of the task.
 * **AC2:** 
-* **AC3:** 
+* **AC3:** The entry should be postponed.
 
 ### 1.4. Found out Dependencies
 
-* 
+* There are dependencies with the:
+
+  * "US21 - As a GSM,I want to add a new entry to the To-DoList." - There need to be entries in the "To-Do List" in order for the to be migrated to the "Agenda".
+  * "US22 - As a GSM, I want to add a new entry in the Agenda." - An entry (task) shoud be effectively planned in the "Agenda".
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
 
-*
+* Date
 
 **Output Data:**
 
-* 
+* Confirmation of the selected entry and inputted date.
+* Message of operation success
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![System Sequence Diagram](svg/us08-system-sequence-diagram.svg)
+![System Sequence Diagram](svg/us24-system-sequence-diagram.svg)

@@ -1,0 +1,33 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - US25
+
+autonumber
+
+actor "Green Space\nManager" as Employee
+participant ":System" as System
+
+activate Employee
+
+    Employee -> System : Asks to cancel an entry from the Agenda
+    activate System
+
+        System --> Employee : Shows the entries from the Agenda
+    deactivate System
+
+    Employee -> System : Selects one entry
+    activate System
+
+        System --> Employee : Shows selected data and requests confirmation
+    deactivate System
+
+    Employee -> System : Confirms operation
+    activate System
+
+        System --> Employee : Displays operation success
+    deactivate System
+
+@enduml
