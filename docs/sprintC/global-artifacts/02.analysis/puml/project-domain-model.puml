@@ -96,14 +96,16 @@ class Equipment {
 }
 
 class Agenda {
-    weeksTasks
+    plannedTasks
 }
 
 
 class Task {
-    reference
+    park
+    taskType
     taskDescription
-    completion
+    priority
+    status
 
 }
 
@@ -112,11 +114,18 @@ class ToDoList{
 }
 
 class Team {
+    minimumElements
+    maximumElements
+    skillsRequired
     teamMembers
 }
 
 class GreenSpace {
+    name
+    classification
+    area
     location
+    responsibleGSM
 }
 
 class Portal {
