@@ -1,0 +1,94 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'left to right direction
+skinparam classAttributeIconSize 0
+hide circle
+hide methods
+
+title Domain Model
+
+
+class Collaborator {
+    name
+    birthdate
+    admissionDate
+    address
+    mobileContact
+    emailContact
+    IDdocType
+    IDnumber
+    taxNumber
+    job
+    skills
+    assignedTasks
+
+}
+
+class Manager {
+    section
+}
+
+class HumanResourcesManager {
+
+}
+
+class GreenSpacesManager {
+
+}
+
+
+
+
+
+
+class Agenda {
+    plannedTasks
+}
+
+
+class Task {
+    park
+    taskType
+    taskDescription
+    priority
+    status
+
+}
+
+class ToDoList{
+    pendingTasks
+}
+
+class Team {
+    minimumElements
+    maximumElements
+    skillsRequired
+    teamMembers
+}
+
+
+
+
+
+Manager "1" -- "1..*" Collaborator: registers >
+Manager "1" -- "1" Agenda: manages >
+Manager "1" -- "*" ToDoList: manages >
+Manager "1" -- "*" Task: creates >
+Manager "1" -- "*" Team: manages >
+Manager "1" --up "1..*" HumanResourcesManager: is a >
+Manager "1" --up "1..*" GreenSpacesManager: is a >
+
+Agenda "1" -- "*" ToDoList: gets tasks from >
+Agenda "1" -- "*" Task: has >
+Task "1..*" -- "1..*" ToDoList: has <
+
+Team "1" -- "1" Task: carry out >
+
+Collaborator "1..*" -- "1" Team: integrates >
+
+
+
+@enduml
