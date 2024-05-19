@@ -41,7 +41,7 @@ As a GSM, I want to Cancel an entry in the Agenda that is no longer required.
 
 * There are dependencies with the:
 
-    * "US21-As a GSM,I want to add a new entry to the To-DoList." - There need to be entries in the "To-Do List" in order for the to be migrated to the "Agenda".
+    * "US21 - As a GSM,I want to add a new entry to the To-DoList." - There need to be entries in the "To-Do List" in order for the to be migrated to the "Agenda".
     * "US22 - As a GSM, I want to add a new entry in the Agenda." - An entry (task) shoud be effectively planned in the "Agenda".
 
 ### 1.5 Input and Output Data
