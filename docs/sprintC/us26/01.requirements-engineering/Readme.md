@@ -41,7 +41,7 @@ As a GSM, I want to assign one or more vehicles to an entry in the Agenda that m
 
 * There are dependencies with the:
 
-    * "US21-As a GSM,I want to add a new entry to the To-DoList." - There need to be entries in the "To-Do List" in order for the to be migrated to the "Agenda".
+    * "US21 - As a GSM,I want to add a new entry to the To-DoList." - There need to be entries in the "To-Do List" in order for the to be migrated to the "Agenda".
     * "US22 - As a GSM, I want to add a new entry in the Agenda." - An entry (task) shoud be effectively planned in the "Agenda".
     * "US06 - As a VFM, I wish to register a vehicle including Brand, Model, Type, Tare Weight, Gross Weight, Current Km, Register Date, Acquisition Date, and Maintenance/Check-up Frequency (in km).". Then an entry (task) shoud be effectively planned in the "Agenda" - There must be vehicles registered in the system. 
 
