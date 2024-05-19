@@ -10,44 +10,31 @@ As a Collaborator, I want to record the completion of a task that might have bee
 
 **From the specifications document:**
 
->	"Vehicle and Equipment Fleet Manager (VFM) – a person who manages the fleet park, the machines, equipment and vehicles, ensuring their good condition and assigning them to the tasks to be carried out."
->   Person who will list the vehicles who need maintenance.
+> "Tasks are carried out on an occasional or regular basis, in one or more green spaces, for example: tree pruning, installation of an irrigation system, and installation of a lighting system."
 
->   "Vehicles are needed to carry out the tasks assigned to the teams as well as to transport machines and equipment."
->   Uses of the vehicles.
+> "Teams are temporary associations of employees who will carry out a determined set of tasks in one or more green spaces. When creating multipurpose teams, the number of members and the set of skills that must be covered are crucial."
 
->   "This type of vehicle can only be for passengers or mixed, light or heavy, open box or closed vans or trucks."
->   Types of vehicles to list.
+> "The Agenda is a crucial mechanism for planning the week’s work. Each entry in the Agenda defines a task (that was previously included in the to-do list). A team will carry out that task in a green space at a certain time interval on a specific date."
 
->   "US06 - As a VFM, I wish to register a vehicle including Brand, Model, Type, Tare, Gross Weight, Current Km, Register Date, Acquisition Date, Maintenance/Checkup Frequency (in Kms)."
->   The vehicles need to be registered to be listed.
+> "... analyzing the Agenda entries and the pending tasks (to-do list) allows you to evaluate the work still to be done, the busyness of the week, and the work performed by a team in a green space at a determined time interval and on a specific date."
+ 
+> "Collaborator – a person who is an employee in the organization and carries out design, construction and/or maintenance tasks for green areas, depending on their skills."
+ 
+> "US05 - As an HRM, I want to generate a team proposal automatically."
 
->   "US07 - As a VFM, I wish to register a vehicle’s check-up."
->   The vehicles that have a check-up registered will be on the list.
+> "US23 - As a GSM, I want to assign a Team to an entry in the Agenda."
 
 **From the client clarifications:**
 
-> **Question:** What content do you want presented in the list?
+> **Question:** 
 >
-> **Answer:** List the vehicles that need a check-up.
-
-> **Question:** What are the factors that define if a vehicle needs a check-up?
->
-> **Answer:** The vehicle needs to be in the range of 200 to 300 km.
-
-> **Question:** What information will appear on the final list regarding the vehicle,besides the needing for check-up?
->
-> **Answer:** Data that allow to identify the vehicle like Plate, brand and model, as well as, the data that allowed to select/insert the vehicle in the list, number of kms, frequency of checkup and the last checkup.
-
-> **Question:** Can the vehicles get placed automatically on a list or the one listing has to be the VFM?
->
-> **Answer:** The list of vehicles is automatically created but the creation is triggered by the VFM.
+> **Answer:** 
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** A list with the vehicles that need maintenance needs to be created automatically.
-* **AC2:** The list needs to be created with the information about the vehicles already gathered in the system and have to be within the range of 200-300km of reaching the inspection limit.
-* **AC3:** The list needs to appear with data that allows to identify the vehicles like Plate, brand and model, as well as, the data that allowed to select/insert the vehicle in the list, number of kms, frequency of checkup and the last checkup.
+* **AC1:** The Collaborator may only choose between the tasks that are not yet completed.
+* **AC2:** The Collaborator may only choose between the tasks in which he is part of the team.
+* **AC3:** A task should be completed.
 
 ### 1.4. Found out Dependencies
 
@@ -66,4 +53,4 @@ No input data needed.
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![System Sequence Diagram](svg/us08-system-sequence-diagram.svg)
+![System Sequence Diagram](svg/us29-system-sequence-diagram.svg)
