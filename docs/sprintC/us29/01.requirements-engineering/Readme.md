@@ -38,8 +38,11 @@ As a Collaborator, I want to record the completion of a task that might have bee
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on "US06 - As a VFM, I wish to register a vehicle including Brand, Model, Type, Tare, Gross Weight, Current Km, Register Date, Acquisition Date, Maintenance/Checkup Frequency (in Kms)." as we need to know which vehicles are registered and their information to know which vehicles we need to list for the check-up.
-* There is a dependency on "US07 - As a VFM, I wish to register a vehicle’s check-up." as we need to list the vehicles that have a check-up registered from the overall vehicles.
+* There are dependencies with the:
+
+    * "US21 - As a GSM,I want to add a new entry to the To-DoList." - There need to be entries in the "To-Do List" in order for the to be migrated to the "Agenda".
+    * "US22 - As a GSM, I want to add a new entry in the Agenda." - An entry (task) shoud be effectively planned in the "Agenda".
+    * "US23 - As a GSM, I want to assign a Team to an entry in the Agenda." - A team must be assigned to a Task in order for each Collaborator be able to set it as "Completed".
 
 ### 1.5 Input and Output Data
 
@@ -49,7 +52,8 @@ No input data needed.
 
 **Output Data:**
 
-* List of the vehicles needing maintenance.
+* Confirmation of the selected data.
+* Message of operation success
 
 ### 1.6. System Sequence Diagram (SSD)
 
