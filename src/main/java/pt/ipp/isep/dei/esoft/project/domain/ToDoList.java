@@ -11,5 +11,8 @@ public class ToDoList extends Planning {
 
         return status;
     }
+    public ToDoList clone() {
+        return new ToDoList(this.task, this.expectedDuration, this.urgencyDegree);
+    }
 }
 

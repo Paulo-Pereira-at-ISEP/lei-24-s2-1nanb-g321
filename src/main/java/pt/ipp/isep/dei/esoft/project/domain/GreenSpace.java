@@ -18,6 +18,27 @@ public abstract class GreenSpace {
         return name;
     }
 
-    public abstract double getArea();
+    public void setName(String name){
+        this.name = name;
+    }
+
+    public double getArea(){
+        return area;
+    }
+
+    public void setArea(double area){
+        this.area = area;
+    }
+
+    public Employee getManager() {
+        return manager;
+    }
+
+    public void setManager(Employee manager){
+        this.manager = manager;
+    }
+    public GreenSpace clone() {
+        return new GreenSpace(this.name, this.area, this.manager);
+    }
 }
 
