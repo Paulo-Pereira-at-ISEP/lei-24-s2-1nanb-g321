@@ -1,17 +1,15 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-public abstract class GreenSpace {
+public class GreenSpace {
     private String name;
     private double area;
     Employee manager;
 
-    public Employee getManager() {
-        return manager;
-    }
 
-    public GreenSpace(String name, double area) {
+    public GreenSpace(String name, double area, Employee manager) {
         this.name = name;
         this.area = area;
+        this.manager = manager;
     }
 
     public String getName() {

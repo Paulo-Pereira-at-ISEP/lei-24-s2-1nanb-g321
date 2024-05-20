@@ -4,7 +4,6 @@ import pt.ipp.isep.dei.esoft.project.application.controller.authorization.Authen
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Employee {
 
