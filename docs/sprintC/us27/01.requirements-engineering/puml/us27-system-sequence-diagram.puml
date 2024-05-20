@@ -1,0 +1,21 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - US27
+
+autonumber
+
+actor "Green Spaces\nManager" as Employee
+participant ":System" as System
+
+activate Employee
+
+    Employee -> System : asks to create a list of the green spaces
+    activate System
+
+        System --> Employee : selects data from all green spaces and presents the list
+    deactivate System
+
+@enduml

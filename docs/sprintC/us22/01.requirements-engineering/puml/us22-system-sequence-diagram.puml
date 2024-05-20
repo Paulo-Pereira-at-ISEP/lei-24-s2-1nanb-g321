@@ -1,0 +1,30 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - US08
+
+autonumber
+
+actor "GreenSpace\nManager" as Employee
+participant ":System" as System
+
+activate Employee
+
+    Employee -> System : asks to add an entry to the agenda
+    activate System
+
+    System --> Employee : shows list of parks managed by the GSM
+    Employee -> System : selects a park
+    System --> Employee : shows list of task from the to-do list
+    Employee -> System : selects a task
+    System --> Employee : shows a list of days of the week and asks to select one
+    Employee -> System : selects a day
+    System --> Employee : asks to type the date (HH-MM) of the selected day.
+    Employee -> System : types data
+    System --> Employee : display success message
+
+   deactivate System
+
+@enduml

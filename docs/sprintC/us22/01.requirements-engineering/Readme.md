@@ -1,69 +1,75 @@
-# US08 - As a VFM, I want the system to produce a list (report) of vehicles needing maintenance.
+# US22 - As a GSM, I want to add a new entry in the Agenda.
 
 ## 1. Requirements Engineering
 
 ### 1.1. User Story Description
 
-As a Vehicle and Equipment Fleet Manager, I want to prompt the creation of a list, generated automatically, of the vehicles needing maintenance, based on the amount of kilometers each of the vehicles has, within a defined range of kilometers. The list should include all the information about the vehicle like plate, brand, model, etc.
+As a GSM, I want to pick a task from the to-do list and add it to the agenda for the weekly scheduling.
 
 ### 1.2. Customer Specifications and Clarifications
 
 **From the specifications document:**
 
->	"Vehicle and Equipment Fleet Manager (VFM) – a person who manages the fleet park, the machines, equipment and vehicles, ensuring their good condition and assigning them to the tasks to be carried out."
->   Person who will list the vehicles who need maintenance.
+>	"Green Spaces Manager (GSM) - the person responsible for managing
+the green spaces in charge of the organization."
+> 
+> Person responsible for adding the task to the agenda.
 
->   "Vehicles are needed to carry out the tasks assigned to the teams as well as to transport machines and equipment."
->   Uses of the vehicles.
+>  "The Agenda is a crucial mechanism for planning the week’s work."
+> 
+> Definition of agenda.
 
->   "This type of vehicle can only be for passengers or mixed, light or heavy, open box or closed vans or trucks."
->   Types of vehicles to list.
+>  "Each entry in the Agenda defines a task (that was previously included in the to-do list).
+A team will carry out that task in a green space at a certain time interval
+on a specific date."
+> 
+> Definition of entry (task), shows the order of planning of tasks (to-do and then agenda).
 
->   "US06 - As a VFM, I wish to register a vehicle including Brand, Model, Type, Tare, Gross Weight, Current Km, Register Date, Acquisition Date, Maintenance/Checkup Frequency (in Kms)."
->   The vehicles need to be registered to be listed.
+>   "Comparatively analyzing the Agenda entries and the
+pending tasks (to-do list) allows you to evaluate the work still to be done,
+the busyness of the week, and the work performed by a team in a green space
+at a determined time interval and on a specific date."
+> 
+> Usage of agenda
 
->   "US07 - As a VFM, I wish to register a vehicle’s check-up."
->   The vehicles that have a check-up registered will be on the list.
+
 
 **From the client clarifications:**
 
-> **Question:** What content do you want presented in the list?
+> **Question:** When the GSM plans a task (that was previously in To-Do) into the Agenda, what aditional data/information does he need to input when planning?
 >
-> **Answer:** List the vehicles that need a check-up.
+> **Answer:** The starting date for the task.
 
-> **Question:** What are the factors that define if a vehicle needs a check-up?
->
-> **Answer:** The vehicle needs to be in the range of 200 to 300 km.
 
-> **Question:** What information will appear on the final list regarding the vehicle,besides the needing for check-up?
->
-> **Answer:** Data that allow to identify the vehicle like Plate, brand and model, as well as, the data that allowed to select/insert the vehicle in the list, number of kms, frequency of checkup and the last checkup.
-
-> **Question:** Can the vehicles get placed automatically on a list or the one listing has to be the VFM?
->
-> **Answer:** The list of vehicles is automatically created but the creation is triggered by the VFM.
 
 ### 1.3. Acceptance Criteria
 
-* **AC1:** A list with the vehicles that need maintenance needs to be created automatically.
-* **AC2:** The list needs to be created with the information about the vehicles already gathered in the system and have to be within the range of 200-300km of reaching the inspection limit.
-* **AC3:** The list needs to appear with data that allows to identify the vehicles like Plate, brand and model, as well as, the data that allowed to select/insert the vehicle in the list, number of kms, frequency of checkup and the last checkup.
+* **AC1:** The new entry must be associated with a green space managed by the GSM.
+* **AC2:** The new entry must exist in the To-Do list.
+* **AC3:** We need to choose a date and time to add the task to the agenda.
 
 ### 1.4. Found out Dependencies
 
-* There is a dependency on "US06 - As a VFM, I wish to register a vehicle including Brand, Model, Type, Tare, Gross Weight, Current Km, Register Date, Acquisition Date, Maintenance/Checkup Frequency (in Kms)." as we need to know which vehicles are registered and their information to know which vehicles we need to list for the check-up.
-* There is a dependency on "US07 - As a VFM, I wish to register a vehicle’s check-up." as we need to list the vehicles that have a check-up registered from the overall vehicles.
+* There is a dependency on "US20 - As a Green Space Manager (GSM), I want to register a green
+  space (garden, medium-sized park or large-sized park) and its respective
+  area."
+* There is a dependency on "US21 - As a GSM, I want to add a new entry to the To-Do List."
 
 ### 1.5 Input and Output Data
 
 **Input Data:**
+* Typed data:
+    * Date (hh-mm)
 
-No input data needed.
+* Selected data:
+    * Tasks
+    * Park
+    * Day of the week
 
 **Output Data:**
 
-* List of the vehicles needing maintenance.
+* Success message.
 
 ### 1.6. System Sequence Diagram (SSD)
 
-![System Sequence Diagram](svg/us08-system-sequence-diagram.svg)
+![System Sequence Diagram](svg/us22-system-sequence-diagram.svg)

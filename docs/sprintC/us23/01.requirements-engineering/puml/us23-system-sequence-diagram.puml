@@ -1,0 +1,28 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+title System Sequence Diagram (SSD) - US08
+
+autonumber
+
+actor "GreenSpace\nManager" as Employee
+participant ":System" as System
+
+activate Employee
+
+    Employee -> System : asks to add an entry to the agenda
+    activate System
+
+    System --> Employee : shows list of tasks in the agenda
+    Employee -> System  : selects a task
+    System --> Employee : shows list of teams available
+    Employee -> System  : selects a team
+    System --> Employee : asks for the duration of task
+    Employee -> System  : selects duration
+    System --> Employee : display success message with data selected
+
+   deactivate System
+
+@enduml

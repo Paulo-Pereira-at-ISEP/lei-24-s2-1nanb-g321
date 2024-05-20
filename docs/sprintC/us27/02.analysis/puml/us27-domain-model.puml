@@ -1,0 +1,32 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title Domain Model
+
+class GreenSpacesManager {
+
+}
+
+class Manager {
+    section
+}
+
+class GreenSpace {
+
+}
+
+Manager "1" -- "1..*" GreenSpacesManager: is a >
+
+GreenSpace "1..*" --up "1..*" GreenSpacesManager: are managed by >
+
+
+@enduml

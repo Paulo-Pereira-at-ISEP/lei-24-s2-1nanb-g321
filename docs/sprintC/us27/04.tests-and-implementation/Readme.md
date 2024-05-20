@@ -1,4 +1,4 @@
-# US08 - As a VFM, I want the system to produce a list (report) of vehicles needing maintenance.
+# US27 - As a GSM, I need to list all green spaces managed by me.
 
 ## 4. Tests 
 

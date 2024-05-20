@@ -1,4 +1,4 @@
-# US08 -  As a VFM, I want to list the vehicles needing the check-up.
+# US28 - As a Collaborator, I wish to consult the tasks assigned to me.
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 
