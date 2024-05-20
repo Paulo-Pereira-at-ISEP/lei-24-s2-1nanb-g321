@@ -1,5 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
+
 public class Repositories {
 
     private static Repositories instance;
@@ -9,15 +11,24 @@ public class Repositories {
     private final JobRepository jobRepository;
     private final TeamRepository teamRepository;
     private final EmployeeRepository employeeRepository;
+    private final TaskRepository taskRepository;
+    private final ToDoListRepository toDoListRepository;
+
+    private final GreenSpaceRepository greenSpaceRepository;
 
     private Repositories() {
+        greenSpaceRepository = new GreenSpaceRepository();
         organizationRepository = new OrganizationRepository();
         authenticationRepository = new AuthenticationRepository();
         skillRepository = new SkillRepository();
         jobRepository = new JobRepository();
         employeeRepository = new EmployeeRepository();
         teamRepository = new TeamRepository();
+        taskRepository = new TaskRepository();
+        toDoListRepository = new ToDoListRepository();
+
     }
+
     /**
      * Provides a thread-safe singleton instance of the `Repositories` class.
      *
@@ -54,5 +65,17 @@ public class Repositories {
 
     public TeamRepository getTeamRepository() {
         return teamRepository;
+    }
+
+    public GreenSpaceRepository getGreenSpaceRepository() {
+        return greenSpaceRepository;
+    }
+
+    public TaskRepository getTaskRepository() {
+        return taskRepository;
+    }
+
+    public ToDoListRepository getToDoListRepository() {
+        return toDoListRepository;
     }
 }

@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Employee {
-    private static final String PASSWORD_DEFAULT = "admin";
 
+    private static final String PASSWORD_DEFAULT = "admin";
     private String name;
     private LocalDate dateOfBirth;
     private LocalDate admissionDate;

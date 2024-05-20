@@ -1,10 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.ui;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
-import pt.ipp.isep.dei.esoft.project.domain.Employee;
-import pt.ipp.isep.dei.esoft.project.domain.Job;
-import pt.ipp.isep.dei.esoft.project.domain.Organization;
-import pt.ipp.isep.dei.esoft.project.domain.Skill;
+import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.time.LocalDate;
@@ -22,6 +19,7 @@ public class Bootstrap implements Runnable {
         addJobs();
         addEmployee();
         addUsers();
+        addTasks();
     }
 
     private void addOrganization() {
@@ -52,6 +50,15 @@ public class Bootstrap implements Runnable {
         jobRepository.add(new Job("Bricklayer", "Builds walls and structures by laying bricks with mortar"));
     }
 
+    private void addTasks(){
+        TaskRepository taskRepository = Repositories.getInstance().getTaskRepository();
+
+        taskRepository.add(new Task("Cut Grass", "cutting grass with machine"));
+
+    }
+    private void addGreenSpace(){
+        GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
+    }
     private void addEmployee() {
         EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
 
