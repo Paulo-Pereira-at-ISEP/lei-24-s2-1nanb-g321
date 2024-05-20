@@ -28,3 +28,4 @@ However, be aware, this is a pedagogical simplification. On further projects and
 | US12  | [Import pipeline data from .csv file]()                                                       |
 | US13  | [Obtain optimal pipeline routes]()                                                            |
 | US14  | [US14 - Run tests for inputs of variable size, to observe execution time of US13 algorithm]() |
+| US15  | [US15 - Predict the average monthly cost for water consumption in the new park.]() |
