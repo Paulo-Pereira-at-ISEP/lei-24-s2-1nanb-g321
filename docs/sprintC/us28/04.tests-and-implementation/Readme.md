@@ -1,4 +1,4 @@
-# US08 - As a VFM, I want the system to produce a list (report) of vehicles needing maintenance.
+# US28 - As a Collaborator, I wish to consult the tasks assigned to me between two dates.
 
 ## 4. Tests 
 
