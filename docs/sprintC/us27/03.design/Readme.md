@@ -1,4 +1,4 @@
-# US08 - As a VFM, I want the system to produce a list (report) of vehicles needing maintenance.
+# US27 - As a GSM, I need to list all green spaces managed by me.
 
 ## 3. Design - User Story Realization 
 
@@ -36,7 +36,7 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
-![Sequence Diagram - Full](svg/us08-sequence-diagram-full.svg)
+![Sequence Diagram - Full](svg/us27-sequence-diagram-full.svg)
 
 ### Split Diagrams
 
@@ -46,8 +46,8 @@ It uses Interaction Occurrence (a.k.a. Interaction Use).
 
 **Get Employee**
 
-![Sequence Diagram - Partial - Get Employee](svg/us08-sequence-diagram-partial-get-employee.svg)
+![Sequence Diagram - Partial - Get Employee](svg/us27-sequence-diagram-partial-get-employee.svg)
 
 ## 3.3. Class Diagram (CD)
 
-![Class Diagram](svg/us08-class-diagram.svg)
+![Class Diagram](svg/us27-class-diagram.svg)
