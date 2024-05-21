@@ -58,22 +58,18 @@ public class Bootstrap implements Runnable {
         jobRepository.add(new Job("Bricklayer", "Builds walls and structures by laying bricks with mortar"));
     }
 
-<<<<<<< Updated upstream
     private void addTasks(){
         TaskRepository taskRepository = Repositories.getInstance().getTaskRepository();
-
         taskRepository.add(new Task("Cut Grass", "cutting grass with machine"));
 
     }
+
     private void addGreenSpace(){
         GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
     }
-    private void addEmployee() {
-        EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
-=======
+
     private void addManager() {
         ManagerRepository managerRepository = Repositories.getInstance().getManagerRepository();
->>>>>>> Stashed changes
 
         managerRepository.add(new Manager("HRM", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "hrm@this.app", "CC", 12345678, 123456789, new Job("Manager HR", "Human Resources"), PASSWORD, AuthenticationController.ROLE_HRM,"HRM"));
         managerRepository.add(new Manager("VFM", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "vfm@this.app", "CC", 12345678, 123456789, new Job("Manager VF", "Vehicle Fleet"),PASSWORD, AuthenticationController.ROLE_VFM, "VFM"));

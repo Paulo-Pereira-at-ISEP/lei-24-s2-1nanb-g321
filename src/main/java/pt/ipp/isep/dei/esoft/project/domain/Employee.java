@@ -3,17 +3,10 @@ package pt.ipp.isep.dei.esoft.project.domain;
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 
 import java.time.LocalDate;
-<<<<<<< Updated upstream
-import java.util.ArrayList;
-
-public class Employee {
-=======
 
 public abstract class Employee {
     private static final String PASSWORD_DEFAULT = "admin";
->>>>>>> Stashed changes
 
-    private static final String PASSWORD_DEFAULT = "admin";
     private String name;
     private LocalDate dateOfBirth;
     private LocalDate admissionDate;

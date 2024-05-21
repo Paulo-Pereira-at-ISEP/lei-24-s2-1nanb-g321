@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
-import pt.ipp.isep.dei.esoft.project.domain.Job;
+import pt.ipp.isep.dei.esoft.project.domain.Manager;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 import pt.isep.lei.esoft.auth.domain.model.Email;
 
@@ -10,23 +10,20 @@ import java.util.List;
 
 public class CreateGreenSpacesController {
 
-
         private GreenSpaceRepository greenSpaceRepository;
-        private OrganizationRepository organizationRepository;
         private AuthenticationRepository authenticationRepository;
+        private ManagerRepository managerRepository;
 
         //Repository instances are obtained from the Repositories class
         public CreateGreenSpacesController() {
-            getOrganizationRepository();
             getGreenSpacesRepository();
             getAuthenticationRepository();
+            getManagerRepository();
         }
 
         //Allows receiving the repositories as parameters for testing purposes
-        public CreateGreenSpacesController(OrganizationRepository organizationRepository,
-                                   GreenSpaceRepository greenSpaceRepository,
+        public CreateGreenSpacesController(GreenSpaceRepository greenSpaceRepository,
                                    AuthenticationRepository authenticationRepository) {
-            this.organizationRepository = organizationRepository;
             this.greenSpaceRepository = greenSpaceRepository;
             this.authenticationRepository = authenticationRepository;
         }
@@ -41,14 +38,6 @@ public class CreateGreenSpacesController {
             return greenSpaceRepository;
         }
 
-        private OrganizationRepository getOrganizationRepository() {
-            if (organizationRepository == null) {
-                Repositories repositories = Repositories.getInstance();
-                organizationRepository = repositories.getOrganizationRepository();
-            }
-            return organizationRepository;
-
-        }
     private GreenSpaceRepository getGreenSpacesRepository() {
         if (greenSpaceRepository == null) {
             Repositories repositories = Repositories.getInstance();
@@ -67,9 +56,17 @@ public class CreateGreenSpacesController {
             return authenticationRepository;
         }
 
-        private Employee getEmployeeFromSession() {
+        private ManagerRepository getManagerRepository() {
+            if (managerRepository == null) {
+                Repositories repositories = Repositories.getInstance();
+                managerRepository = repositories.getManagerRepository();
+            }
+            return managerRepository;
+        }
+
+        private Manager getManagerFromSession() {
             Email email = getAuthenticationRepository().getCurrentUserSession().getUserId();
-            return new Employee(email.getEmail());
+            return new Manager(email.getEmail());
         }
 
         public CreateGreenSpacesController(GreenSpaceRepository greenSpaceRepository) {

@@ -1,7 +1,5 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
-import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
-
 public class Repositories {
 
     private static Repositories instance;
@@ -9,34 +7,22 @@ public class Repositories {
     private final SkillRepository skillRepository;
     private final JobRepository jobRepository;
     private final TeamRepository teamRepository;
-<<<<<<< Updated upstream
-    private final EmployeeRepository employeeRepository;
     private final TaskRepository taskRepository;
-    private final ToDoListRepository toDoListRepository;
-
+    //private final ToDoListRepository toDoListRepository;
     private final GreenSpaceRepository greenSpaceRepository;
-
-    private Repositories() {
-        greenSpaceRepository = new GreenSpaceRepository();
-        organizationRepository = new OrganizationRepository();
-=======
     private final ManagerRepository managerRepository;
     private final CollaboratorRepository collaboratorRepository;
 
     private Repositories() {
->>>>>>> Stashed changes
+        greenSpaceRepository = new GreenSpaceRepository();
         authenticationRepository = new AuthenticationRepository();
         skillRepository = new SkillRepository();
         jobRepository = new JobRepository();
         teamRepository = new TeamRepository();
-<<<<<<< Updated upstream
         taskRepository = new TaskRepository();
-        toDoListRepository = new ToDoListRepository();
-
-=======
+        //toDoListRepository = new ToDoListRepository();
         managerRepository = new ManagerRepository();
         collaboratorRepository = new CollaboratorRepository();
->>>>>>> Stashed changes
     }
 
     /**
@@ -69,7 +55,7 @@ public class Repositories {
         return teamRepository;
     }
 
-<<<<<<< Updated upstream
+
     public GreenSpaceRepository getGreenSpaceRepository() {
         return greenSpaceRepository;
     }
@@ -77,16 +63,19 @@ public class Repositories {
     public TaskRepository getTaskRepository() {
         return taskRepository;
     }
-
+/*
     public ToDoListRepository getToDoListRepository() {
         return toDoListRepository;
-=======
+    }
+
+ */
+
     public ManagerRepository getManagerRepository() {
         return managerRepository;
     }
 
     public CollaboratorRepository getCollaboratorRepository() {
         return collaboratorRepository;
->>>>>>> Stashed changes
+
     }
 }

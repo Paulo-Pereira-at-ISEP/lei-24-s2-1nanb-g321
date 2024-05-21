@@ -4,32 +4,29 @@ import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 import pt.isep.lei.esoft.auth.domain.model.Email;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CreateTaskController {
 
     private TaskRepository taskRepository;
-    private OrganizationRepository organizationRepository;
     private AuthenticationRepository authenticationRepository;
-    private EmployeeRepository employeeRepository;
+    private ManagerRepository managerRepository;
+
     //Repository instances are obtained from the Repositories class
     public CreateTaskController() {
-        getOrganizationRepository();
         getTaskRepository();
         getAuthenticationRepository();
-        getEmployeeRepository();
-        getTaskRepository();
+        getManagerRepository();
     }
 
     //Allows receiving the repositories as parameters for testing purposes
-    public CreateTaskController(OrganizationRepository organizationRepository,
-                                 SkillRepository skillRepository,
-                                 AuthenticationRepository authenticationRepository, EmployeeRepository employeeRepository) {
-        this.organizationRepository = organizationRepository;
+    public CreateTaskController(SkillRepository skillRepository,
+                                 AuthenticationRepository authenticationRepository,
+                                ManagerRepository managerRepository
+    ) {
         this.taskRepository = taskRepository;
         this.authenticationRepository = authenticationRepository;
-        this.employeeRepository = employeeRepository;
+        this.managerRepository = managerRepository;
     }
 
     private TaskRepository getTaskRepository() {
@@ -40,22 +37,6 @@ public class CreateTaskController {
             taskRepository = repositories.getTaskRepository();
         }
         return taskRepository;
-    }
-    private EmployeeRepository getEmployeeRepository() {
-        if (employeeRepository == null) {
-            Repositories repositories = Repositories.getInstance();
-            employeeRepository = repositories.getEmployeeRepository();
-        }
-        return employeeRepository;
-    }
-
-    private OrganizationRepository getOrganizationRepository() {
-        if (organizationRepository == null) {
-            Repositories repositories = Repositories.getInstance();
-            organizationRepository = repositories.getOrganizationRepository();
-        }
-        return organizationRepository;
-
     }
 
     private AuthenticationRepository getAuthenticationRepository() {
@@ -68,9 +49,16 @@ public class CreateTaskController {
         return authenticationRepository;
     }
 
-    private Employee getEmployeeFromSession() {
+    private ManagerRepository getManagerRepository() {
+        if (managerRepository == null) {
+            Repositories repositories = Repositories.getInstance();
+        }
+        return managerRepository;
+    }
+
+    private Manager getManagerFromSession() {
         Email email = getAuthenticationRepository().getCurrentUserSession().getUserId();
-        return new Employee(email.getEmail());
+        return new Manager(email.getEmail());
     }
 
     public CreateTaskController(TaskRepository taskRepository) {
@@ -80,8 +68,8 @@ public class CreateTaskController {
     public List<Task> getAllTasks() {
         return taskRepository.getAllTasks();
     }
-    public List<Employee> getAllEmployees() {
-        return employeeRepository.getAllEmployees();
+    public List<Manager> getAllManagers() {
+        return managerRepository.getAllManagers();
     }
     public Task createTask(String name, String description) {
 

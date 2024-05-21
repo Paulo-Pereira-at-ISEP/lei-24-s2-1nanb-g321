@@ -1,15 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
-<<<<<<< Updated upstream
+
 import pt.ipp.isep.dei.esoft.project.ui.console.Tasks.TaskUI;
-import pt.ipp.isep.dei.esoft.project.ui.console.employee.EmployeeUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.job.JobUI;
-import pt.ipp.isep.dei.esoft.project.ui.console.Tasks.CreateTaskUI;
-=======
 import pt.ipp.isep.dei.esoft.project.ui.console.collaborator.CollaboratorUI;
-import pt.ipp.isep.dei.esoft.project.ui.console.job.JobUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.manager.ManagerUI;
->>>>>>> Stashed changes
 import pt.ipp.isep.dei.esoft.project.ui.console.skill.SkillUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.team.TeamUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
