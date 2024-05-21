@@ -67,7 +67,7 @@ public class CreateVehicleController {
 
     private Employee getEmployeeFromSession() {
         Email email = getAuthenticationRepository().getCurrentUserSession().getUserId();
-        return new Employee(email.getEmail());
+        return new Manager(email.getEmail());
     }
 
 }

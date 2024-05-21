@@ -1,11 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.team;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.GenerateTeamController;
-import pt.ipp.isep.dei.esoft.project.domain.Employee;
+import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +16,7 @@ public class GenerateTeamUI implements Runnable {
     private int teamMaxSize;
     private int teamMinSize;
     private ArrayList<Skill> skills;
-    private List<Employee> employees;
+    private List<Collaborator> collaborators;
 
     public GenerateTeamUI() {
         controller = new GenerateTeamController();
@@ -34,31 +33,18 @@ public class GenerateTeamUI implements Runnable {
 
         submitData();
     }
-    /**
-     * Attempts to generate a team based on skills and allows user confirmation.
-     *
-     *
-     * @implNote This method calls the controller's `generateTeam` method to create a team
-     *          based on the provided parameters (`teamMinSize`, `teamMaxSize`, and `skills`).
-     *          - If a valid team is generated (not null, has size within limits, and not empty):
-     *              - It displays the team members using `listEmployees`.
-     *              - It prompts the user for confirmation ("y/n") to accept the team.
-     *              - If confirmed ("y" or empty input), it indicates successful team generation.
-     *              - If not confirmed ("n"), it generates a second team using `generateSecondTeam`
-     *                (assumed to be implemented differently) and repeats the confirmation process.
-     *          - If no valid team is generated, it indicates that no team was created.
-     */
+
     private void submitData() {
 
         Team team = controller.generateTeam(teamMinSize, teamMaxSize, skills);
 
-        if (team != null && team.getEmployees().size() >= teamMinSize &&team.getEmployees().size() <= teamMaxSize && !team.getEmployees().isEmpty()) {
-            listEmployees(team);
+        if (team != null && team.getCollaborators().size() >= teamMinSize &&team.getCollaborators().size() <= teamMaxSize && !team.getCollaborators().isEmpty()) {
+            listCollaborators(team);
             String input = Utils.readLineFromConsole("\n Do you accept this team? (y/n)");
              if(input.equalsIgnoreCase("n") || input.isEmpty()){
                  System.out.println("A new team will be generated!\n ");
                  Team team1 = controller.generateSecondTeam(teamMinSize, teamMaxSize, skills);
-                 listEmployees(team1);
+                 listCollaborators(team1);
                 input = Utils.readLineFromConsole("\n Do you accept this team? (y/n)");
 
                  if(input.equalsIgnoreCase("y") || input.isEmpty()){
@@ -96,24 +82,6 @@ public class GenerateTeamUI implements Runnable {
     }
 
 
-    /**
-     * Prompts the user to select skills from a list displayed on the console.
-     *
-     * @return An ArrayList of `Skill` objects representing the selected skills.
-     *         An empty list is returned if no skills are selected.
-     *
-     * @implNote This method retrieves all skills using the controller's `getAllSkills` method
-     *          (assumed to be available). It then iteratively displays the skills and allows
-     *          the user to select them:
-     *          - It displays the list of skills using `displaySkillsOptions` (assumed to be available).
-     *          - It provides an "0 - Exit" option.
-     *          - It prompts the user to select a skill by entering its corresponding number.
-     *          - If a valid number (between 1 and the list size) is entered:
-     *              - It adds the corresponding skill from the retrieved list (`skills`) to the
-     *                `selectedSkills` list.
-     *          - The loop continues until the user enters "0" (exit).
-     *          - Finally, it returns the list of selected skills.
-     */
     private ArrayList<Skill> displayAndSelectSkill() {
         //Display the list of skills
         ArrayList<Skill> skills = controller.getAllSkills();
@@ -145,16 +113,16 @@ public class GenerateTeamUI implements Runnable {
         }
     }
 
-    private void listEmployees(Team team) {
+    private void listCollaborators(Team team) {
 
-        List<Employee> employees = team.getEmployees();
+        List<Collaborator> collaborators = team.getCollaborators();
         System.out.println("Team:");
         int counter = 1;
-        for (Employee employee : employees) {
+        for (Collaborator collaborator : collaborators) {
                 System.out.println("[" + counter + "] ");
-                System.out.println("    Name: " + employee.getName());
-                System.out.println("    Email: " + employee.getEmail());
-                System.out.println("    Skills: " + employee.getSkills());
+                System.out.println("    Name: " + collaborator.getName());
+                System.out.println("    Email: " + collaborator.getEmail());
+                System.out.println("    Skills: " + collaborator.getSkills());
                 System.out.println("-----------------------------");
                 counter++;
         }

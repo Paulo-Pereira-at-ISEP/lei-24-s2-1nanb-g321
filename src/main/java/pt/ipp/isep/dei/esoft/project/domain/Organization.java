@@ -1,3 +1,4 @@
+/*
 package pt.ipp.isep.dei.esoft.project.domain;
 
 import java.util.ArrayList;
@@ -7,39 +8,27 @@ import java.util.Optional;
 
 public class Organization {
     private final String vatNumber;
-    private final List<Employee> employees;
+    private final List<Manager> managers;
     private String name;
     private String website;
     private String phone;
     private String email;
 
-    /**
-     * This method is the constructor of the organization.
-     *
-     * @param vatNumber The vat number of the organization. This is the identity of the organization, therefore it
-     *                  cannot be changed.
-     */
 
     public Organization(String vatNumber) {
         this.vatNumber = vatNumber;
-        employees = new ArrayList<>();
+        managers = new ArrayList<>();
     }
 
-    /**
-     * This method checks if an employee works for the organization.
-     *
-     * @param employee The employee to be checked.
-     * @return True if the employee works for the organization.
-     */
     public boolean employs(Employee employee) {
-        return employees.contains(employee);
+        return managers.contains(employee);
     }
 
 
     public boolean anyEmployeeHasEmail(String email) {
         boolean result = false;
-        for (Employee employee : employees) {
-            if (employee.hasEmail(email)) {
+        for (Manager manager : managers) {
+            if (manager.hasEmail(email)) {
                 result = true;
             }
         }
@@ -63,11 +52,12 @@ public class Organization {
         return Objects.hash(vatNumber);
     }
 
+
     //add employee to organization
-    public boolean addEmployee(Employee employee) {
+    public boolean addManager(Manager manager) {
         boolean success = false;
-        if (validateEmployee(employee)) {
-            success = employees.add(employee);
+        if (validateManager(manager)) {
+            success = managers.add(employee);
         }
         return success;
     }
@@ -89,10 +79,14 @@ public class Organization {
         clone.phone = (this.phone);
         clone.email = (this.email);
 
-        for (Employee in : this.employees) {
-            clone.employees.add(in.clone());
+        for (Manager in : this.managers) {
+            clone.managers.add(in.clone());
         }
 
         return clone;
     }
+
+
 }
+        */
+

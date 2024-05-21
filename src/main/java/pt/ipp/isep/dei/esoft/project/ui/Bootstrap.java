@@ -6,22 +6,26 @@ import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class Bootstrap implements Runnable {
 
-    ArrayList<Employee> m_Employees;
+    List<Manager> m_Managers = new ArrayList<>();
+    List<Collaborator> m_Collaborators = new ArrayList<>();
+    private static String PASSWORD = "admin";
 
     //Add some task categories to the repository as bootstrap
     public void run() {
-        addOrganization();
+        //addOrganization();
         addSkills();
         addJobs();
-        addEmployee();
+        addManager();
+        addCollaborator();
         addUsers();
         addTasks();
     }
-
+/*
     private void addOrganization() {
         //TODO: add organizations bootstrap here
         //get organization repository
@@ -30,6 +34,10 @@ public class Bootstrap implements Runnable {
 
         organizationRepository.add(organization);
     }
+
+ */
+
+
 
     private void addSkills() {
         SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
@@ -50,6 +58,7 @@ public class Bootstrap implements Runnable {
         jobRepository.add(new Job("Bricklayer", "Builds walls and structures by laying bricks with mortar"));
     }
 
+<<<<<<< Updated upstream
     private void addTasks(){
         TaskRepository taskRepository = Repositories.getInstance().getTaskRepository();
 
@@ -61,15 +70,29 @@ public class Bootstrap implements Runnable {
     }
     private void addEmployee() {
         EmployeeRepository employeeRepository = Repositories.getInstance().getEmployeeRepository();
+=======
+    private void addManager() {
+        ManagerRepository managerRepository = Repositories.getInstance().getManagerRepository();
+>>>>>>> Stashed changes
 
-        employeeRepository.add(new Employee("HRM", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "hrm@this.app", "CC", 12345678, 123456789, new Job("Manager HR", "Human Resources"),new ArrayList<>(){{add(new Skill("Manager","Manages"));}}, AuthenticationController.ROLE_HRM, Employee.setPasswordDefault()));
-        employeeRepository.add(new Employee("VFM", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "vfm@this.app", "CC", 12345678, 123456789, new Job("Manager VF", "Vehicle Fleet"),new ArrayList<>(){{add(new Skill("Manager","Manages"));}}, AuthenticationController.ROLE_VFM, Employee.setPasswordDefault()));
-        employeeRepository.add(new Employee("GSM", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "gsm@this.app", "CC", 12345678, 123456789, new Job("Manager GS", "Green Spaces"),new ArrayList<>(){{add(new Skill("Manager","Manages"));}}, AuthenticationController.ROLE_GSM, Employee.setPasswordDefault()));
-        employeeRepository.add(new Employee("QAM", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "qam@this.app", "CC", 12345678, 123456789, new Job("Manager QA", "Software Quality Assessment Team"),new ArrayList<>(){{add(new Skill("Manager","Manages"));}}, AuthenticationController.ROLE_QAM, Employee.setPasswordDefault()));
+        managerRepository.add(new Manager("HRM", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "hrm@this.app", "CC", 12345678, 123456789, new Job("Manager HR", "Human Resources"), PASSWORD, AuthenticationController.ROLE_HRM,"HRM"));
+        managerRepository.add(new Manager("VFM", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "vfm@this.app", "CC", 12345678, 123456789, new Job("Manager VF", "Vehicle Fleet"),PASSWORD, AuthenticationController.ROLE_VFM, "VFM"));
+        managerRepository.add(new Manager("GSM", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "gsm@this.app", "CC", 12345678, 123456789, new Job("Manager GS", "Green Spaces"),PASSWORD, AuthenticationController.ROLE_GSM, "GSM"));
+        managerRepository.add(new Manager("QAM", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "qam@this.app", "CC", 12345678, 123456789, new Job("Manager QA", "Software Quality Assessment Team"),PASSWORD, AuthenticationController.ROLE_QAM, "QAM"));
 
-        employeeRepository.add(new Employee("Alfredo", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "alfredo@this.app", "CC", 12345678, 123456789, new Job("Gardener", "Garden maintenance"), new ArrayList<>(){{add(new Skill("Light Vehicle Driver","Drives light vehicles"));}} ));
+        m_Managers = managerRepository.getAllManagers();
+    }
 
-        m_Employees = employeeRepository.getAllEmployees();
+    private void addCollaborator() {
+        CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
+
+        collaboratorRepository.add(new Collaborator("Alfredo", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "alfredo@this.app", "CC", 12345678, 123456789, new Job("Gardener", "Garden maintenance"), PASSWORD ,AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Light Vehicle Driver","Drives light vehicles"));}} ));
+        collaboratorRepository.add(new Collaborator("Anacleto", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "anacleto@this.app", "CC", 12345678, 123456789, new Job("Gardener", "Garden maintenance"), PASSWORD ,AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Light Vehicle Driver","Drives light vehicles"));}} ));
+        collaboratorRepository.add(new Collaborator("Genoveva", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "genoveva@this.app", "CC", 12345678, 123456789, new Job("Gardener", "Garden maintenance"), PASSWORD ,AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Light Vehicle Driver","Drives light vehicles"));}} ));
+        collaboratorRepository.add(new Collaborator("Bianca", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "bianca@this.app", "CC", 12345678, 123456789, new Job("Gardener", "Garden maintenance"), PASSWORD ,AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Light Vehicle Driver","Drives light vehicles"));}} ));
+        collaboratorRepository.add(new Collaborator("Laurindo", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "laurindo@this.app", "CC", 12345678, 123456789, new Job("Gardener", "Garden maintenance"), PASSWORD ,AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Light Vehicle Driver","Drives light vehicles"));}} ));
+
+        m_Collaborators = collaboratorRepository.getAllCollaborators();
     }
 
     private void addUsers() {
@@ -87,25 +110,32 @@ public class Bootstrap implements Runnable {
         authenticationRepository.addUserRole(AuthenticationController.ROLE_GSM, AuthenticationController.ROLE_GSM);
         authenticationRepository.addUserRole(AuthenticationController.ROLE_Collaborator, AuthenticationController.ROLE_Collaborator);
 
-        for (Employee employee : m_Employees) {
-            if (employee.getRole().equals(AuthenticationController.ROLE_HRM)) {
-                authenticationRepository.addUserWithRole(employee.getName(),employee.getEmail(), employee.getPassword(),
+        for (Manager manager : m_Managers) {
+            if (manager.getRole().equals(AuthenticationController.ROLE_HRM)) {
+                authenticationRepository.addUserWithRole(manager.getName(),manager.getEmail(), manager.getPassword(),
                         AuthenticationController.ROLE_HRM);
             }
-            else if (employee.getRole().equals(AuthenticationController.ROLE_VFM)) {
-                authenticationRepository.addUserWithRole(employee.getName(),employee.getEmail(), employee.getPassword(),
+            else if (manager.getRole().equals(AuthenticationController.ROLE_VFM)) {
+                authenticationRepository.addUserWithRole(manager.getName(),manager.getEmail(), manager.getPassword(),
                         AuthenticationController.ROLE_VFM);
             }
-            else if (employee.getRole().equals(AuthenticationController.ROLE_QAM)) {
-                authenticationRepository.addUserWithRole(employee.getName(),employee.getEmail(), employee.getPassword(),
+            else if (manager.getRole().equals(AuthenticationController.ROLE_QAM)) {
+                authenticationRepository.addUserWithRole(manager.getName(),manager.getEmail(), manager.getPassword(),
                         AuthenticationController.ROLE_QAM);
             }
-            else if (employee.getRole().equals(AuthenticationController.ROLE_GSM)) {
-                authenticationRepository.addUserWithRole(employee.getName(),employee.getEmail(), employee.getPassword(),
+            else if (manager.getRole().equals(AuthenticationController.ROLE_GSM)) {
+                authenticationRepository.addUserWithRole(manager.getName(),manager.getEmail(), manager.getPassword(),
                         AuthenticationController.ROLE_GSM);
             }
             else {
-                authenticationRepository.addUserWithRole(employee.getName(),employee.getEmail(), employee.getPassword(),
+                authenticationRepository.addUserWithRole(manager.getName(),manager.getEmail(), manager.getPassword(),
+                        AuthenticationController.ROLE_Collaborator);
+            }
+        }
+
+        for (Collaborator collaborator : m_Collaborators) {
+            if (collaborator.getRole().equals(AuthenticationController.ROLE_Collaborator)) {
+                authenticationRepository.addUserWithRole(collaborator.getName(),collaborator.getEmail(), collaborator.getPassword(),
                         AuthenticationController.ROLE_Collaborator);
             }
         }

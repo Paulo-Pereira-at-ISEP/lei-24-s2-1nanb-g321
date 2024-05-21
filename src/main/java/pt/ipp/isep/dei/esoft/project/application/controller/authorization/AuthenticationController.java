@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.isep.lei.esoft.auth.mappers.dto.UserRoleDTO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,11 +15,13 @@ public class AuthenticationController {
     public static final String ROLE_ADMIN = "ADMINISTRATOR";
     public static final String ROLE_EMPLOYEE = "EMPLOYEE";
 
-    public static final String ROLE_HRM= "Human Resources Manager";
+    public static final String ROLE_HRM = "Human Resources Manager";
     public static final String ROLE_VFM = "Vehicle and Equipment Fleet Manager";
     public static final String ROLE_QAM = "Software Quality assessment Team Manager";
     public static final String ROLE_GSM = "Green Spaces Manager";
     public static final String ROLE_Collaborator = "Collaborator";
+
+    public static final ArrayList<String> roles = new ArrayList<>(List.of(ROLE_HRM,ROLE_VFM,ROLE_QAM,ROLE_GSM));
 
     //private final ApplicationSession applicationSession;
     private final AuthenticationRepository authenticationRepository;

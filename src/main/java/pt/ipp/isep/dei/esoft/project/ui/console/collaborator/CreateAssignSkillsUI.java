@@ -1,18 +1,15 @@
-package pt.ipp.isep.dei.esoft.project.ui.console.employee;
+package pt.ipp.isep.dei.esoft.project.ui.console.collaborator;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateSkillController;
-import pt.ipp.isep.dei.esoft.project.domain.Employee;
+import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * Assign Skills UI (console). This option is only available for administrators for demonstration purposes.
- */
 public class CreateAssignSkillsUI implements Runnable {
-    private Employee employee;
+    private Collaborator collaborator;
     private final CreateSkillController skillController;
 
     public CreateAssignSkillsUI() {
@@ -28,7 +25,7 @@ public class CreateAssignSkillsUI implements Runnable {
     }
 
     private void submitData() {
-        if (employee != null) {
+        if (collaborator != null) {
             System.out.println("\nSkills successfully assigned!");
         } else {
             System.out.println("\nNo skills selected!");
@@ -36,55 +33,37 @@ public class CreateAssignSkillsUI implements Runnable {
     }
 
     private void requestData() {
-        employee = displayAndSelectEmployee();
-        employee.addSkill(displayAndSelectSkill(employee));
+        collaborator = displayAndSelectCollaborator();
+        collaborator.addSkill(displayAndSelectSkill(collaborator));
     }
 
-
-    /**
-     * Displays the list of available employees and allows the user to select one.
-     *
-     * @return The selected employee.
-     */
-    private Employee displayAndSelectEmployee() {
+    private Collaborator displayAndSelectCollaborator() {
         // Display the list of task categories
-        List<Employee> employees = skillController.getAllEmployees();
+        List<Collaborator> collaborators = skillController.getAllCollaborators();
 
-        int listSize = employees.size();
+        int listSize = collaborators.size();
         int answer = -1;
 
         Scanner input = new Scanner(System.in);
 
         do {
-            displayEmployeesOptions(employees);
-            System.out.print("Select an Employee: ");
+            displayEmployeesOptions(collaborators);
+            System.out.print("Select an Collaborator: ");
             answer = input.nextInt();
-            return employees.get(answer - 1);
+            return collaborators.get(answer - 1);
         } while (answer < 0 || answer > listSize);
     }
 
-    /**
-     * Displays the list of employee options as a menu with numbered options to select.
-     *
-     * @param employees The list of employees to display.
-     */
-    private void displayEmployeesOptions(List<Employee> employees) {
+    private void displayEmployeesOptions(List<Collaborator> collaborators) {
         // Display the employee categories as a menu with number options to select
         int i = 1;
-        for (Employee employee : employees) {
-            System.out.println("  " + i + " - " + employee.getName() + " - " + employee.getEmail());
+        for (Collaborator collaborator : collaborators) {
+            System.out.println("  " + i + " - " + collaborator.getName() + " - " + collaborator.getEmail());
             i++;
         }
     }
 
-    /**
-     * Displays the list of available skills that an employee can be assigned and allows the user to select multiple skills.
-     * The user can exit the selection process by entering '0'.
-     *
-     * @param employee The employee for whom skills are being selected.
-     * @return The list of selected skills.
-     */
-    private ArrayList<Skill> displayAndSelectSkill(Employee employee) {
+    private ArrayList<Skill> displayAndSelectSkill(Collaborator collaborator) {
         Scanner input = new Scanner(System.in);
 
         // Display the list of task categories
@@ -92,10 +71,10 @@ public class CreateAssignSkillsUI implements Runnable {
         ArrayList<Skill> selectedSkills = new ArrayList<>();
 
         // Get the skills already possessed by the employee
-        List<Skill> employeeSkills = employee.getSkills();
+        List<Skill> collaboratorSkills = collaborator.getSkills();
 
         // Remove skills that the employee already has
-        for (Skill skill : employeeSkills) {
+        for (Skill skill : collaboratorSkills) {
             skills.remove(skill);
         }
 
@@ -116,11 +95,6 @@ public class CreateAssignSkillsUI implements Runnable {
         return selectedSkills; // Return the list of selected skills
     }
 
-    /**
-     * Displays the list of skill options as a menu with numbered options to select.
-     *
-     * @param skills The list of skills to display.
-     */
     private void displaySkillsOptions(List<Skill> skills) {
         // Display the skill categories as a menu with number options to select
         int i = 1;
@@ -129,5 +103,7 @@ public class CreateAssignSkillsUI implements Runnable {
             i++;
         }
     }
+
+
 
 }

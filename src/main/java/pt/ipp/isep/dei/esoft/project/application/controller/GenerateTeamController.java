@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
-import pt.ipp.isep.dei.esoft.project.domain.Employee;
+import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
+import pt.ipp.isep.dei.esoft.project.domain.Manager;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.repository.*;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class GenerateTeamController {
 
-    private static EmployeeRepository employeeRepository;
+    private static CollaboratorRepository collaboratorRepository;
     private SkillRepository skillRepository;
     private AuthenticationRepository authenticationRepository;
     private TeamRepository teamRepository;
@@ -29,21 +30,17 @@ public class GenerateTeamController {
         this.skillRepository = skillRepository;
     }
 
-    private EmployeeRepository getEmployeeRepository() {
-        if (employeeRepository == null) {
+    private CollaboratorRepository getEmployeeRepository() {
+        if (collaboratorRepository == null) {
             Repositories repositories = Repositories.getInstance();
-
-            //Get the TaskCategoryRepository
-            employeeRepository = repositories.getEmployeeRepository();
+            collaboratorRepository = repositories.getCollaboratorRepository();
         }
-        return employeeRepository;
+        return collaboratorRepository;
     }
 
     private SkillRepository getSkillRepository() {
         if (skillRepository == null) {
             Repositories repositories = Repositories.getInstance();
-
-            //Get the TaskCategoryRepository
             skillRepository = repositories.getSkillRepository();
         }
         return skillRepository;
@@ -52,8 +49,6 @@ public class GenerateTeamController {
     private AuthenticationRepository getAuthenticationRepository() {
         if (authenticationRepository == null) {
             Repositories repositories = Repositories.getInstance();
-
-            //Get the AuthenticationRepository
             authenticationRepository = repositories.getAuthenticationRepository();
         }
         return authenticationRepository;
@@ -62,8 +57,6 @@ public class GenerateTeamController {
     private TeamRepository getTeamRepository() {
         if (teamRepository == null) {
             Repositories repositories = Repositories.getInstance();
-
-            //Get the Team Repository
             teamRepository = repositories.getTeamRepository();
         }
         return teamRepository;
@@ -73,46 +66,47 @@ public class GenerateTeamController {
         return skillRepository.getAllSkills();
     }
 
-    public List<Employee> employee() {
-        return employeeRepository.getEmployees();
+    public List<Collaborator> collaborator() {
+        return collaboratorRepository.getCollaborators();
     }
 
+    public List<Team> getAllTeams() {
+        return teamRepository.getTeams();
+    }
 
     public Team generateTeam(int teamMinSize, int teamMaxSize, ArrayList<Skill> skills) {
 
-
-
         Team team = new Team(teamMinSize, teamMaxSize, skills);
 
-        team.generateTeam(employeeRepository.getEmployees());
+        team.generateTeam(collaboratorRepository.getCollaborators());
 
         // Apresentar equipa final
-        ArrayList<Employee> teamFinal = new ArrayList<Employee>();
+        ArrayList<Collaborator> teamFinal = new ArrayList<Collaborator>();
 
-        for (Employee employee : team.getEmployees()) {
-            teamFinal.add(employeeRepository.getEmployeesByEmail(employee.getEmail()));
+        for (Collaborator collaborator : team.getCollaborators()) {
+            teamFinal.add(collaboratorRepository.getCollaboratorByEmail(collaborator.getEmail()));
 
         }
-        team.setEmployees(teamFinal);
+        team.setCollaborators(teamFinal);
 
-            return team;
+        teamRepository.addTeam(team);
+        return team;
     }
+
     public Team generateSecondTeam(int teamMinSize, int teamMaxSize, ArrayList<Skill> skills) {
 
-
-
         Team team = new Team(teamMinSize, teamMaxSize, skills);
 
-        team.generateSecondTeam(employeeRepository.getEmployees());
+        team.generateSecondTeam(collaboratorRepository.getCollaborators());
 
         // Apresentar equipa final
-        ArrayList<Employee> teamFinal = new ArrayList<Employee>();
+        ArrayList<Collaborator> teamFinal = new ArrayList<Collaborator>();
 
-        for (Employee employee : team.getEmployees()) {
-            teamFinal.add(employeeRepository.getEmployeesByEmail(employee.getEmail()));
+        for (Collaborator collaborator : team.getCollaborators()) {
+            teamFinal.add(collaboratorRepository.getCollaboratorByEmail(collaborator.getEmail()));
 
         }
-        team.setEmployees(teamFinal);
+        team.setCollaborators(teamFinal);
 
         return team;
     }

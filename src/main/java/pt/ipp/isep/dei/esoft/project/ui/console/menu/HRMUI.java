@@ -1,9 +1,15 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
+<<<<<<< Updated upstream
 import pt.ipp.isep.dei.esoft.project.ui.console.Tasks.TaskUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.employee.EmployeeUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.job.JobUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.Tasks.CreateTaskUI;
+=======
+import pt.ipp.isep.dei.esoft.project.ui.console.collaborator.CollaboratorUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.job.JobUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.manager.ManagerUI;
+>>>>>>> Stashed changes
 import pt.ipp.isep.dei.esoft.project.ui.console.skill.SkillUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.team.TeamUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
@@ -23,7 +29,8 @@ public class HRMUI implements Runnable {
         List<MenuItem> options = new ArrayList<MenuItem>();
         options.add(new MenuItem("Skills", new SkillUI()));
         options.add(new MenuItem("Jobs", new JobUI()));
-        options.add(new MenuItem("Collaborator", new EmployeeUI()));
+        options.add(new MenuItem("Manager", new ManagerUI()));
+        options.add(new MenuItem("Collaborator", new CollaboratorUI()));
         options.add(new MenuItem("Team", new TeamUI()));
         options.add(new MenuItem("Tasks", new TaskUI()));
 

@@ -1,15 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-import java.lang.reflect.Array;
 import java.util.*;
-
-import static java.util.Collections.sort;
 
 public class Team {
     private int teamMaxSize;
     private int teamMinSize;
     private ArrayList<Skill> skills = new ArrayList<>();
-    private ArrayList<Employee> employees = new ArrayList<>();
+    private ArrayList<Collaborator> collaborators = new ArrayList<>();
 
 
     public Team(int teamMinSize, int teamMaxSize, ArrayList<Skill> skills) {
@@ -18,8 +15,8 @@ public class Team {
         this.skills = skills;
     }
 
-    public Team(ArrayList<Employee> employees) {
-        this.employees = employees;
+    public Team(ArrayList<Collaborator> collaborators) {
+        this.collaborators = collaborators;
     }
 
 
@@ -35,8 +32,8 @@ public class Team {
         return skills;
     }
 
-    public List<Employee> getEmployees() {
-        return employees;
+    public List<Collaborator> getCollaborators() {
+        return collaborators;
     }
 
     public void setTeamMaxSize(int teamMaxSize) {
@@ -51,37 +48,20 @@ public class Team {
         this.skills = skills;
     }
 
-    public void setEmployees(ArrayList<Employee> employees) {
-        this.employees = employees;
+    public void setCollaborators(ArrayList<Collaborator> collaborators) {
+        this.collaborators = collaborators;
     }
-    /**
-     * Attempts to generate a team from a list of employees based on sorted emplyees by skill sets.
-     *
-     * @param listOfEmployees The list of `Employee` objects representing all available employees.
-     * @return A new `List` of `Employee` objects representing the generated team.
-     *
-     *
-     * @throws NullPointerException if the `listOfEmployees` parameter is null.
-     *
-     * @implNote This method attempts to create a team with a minimum size (`teamMinSize`)
-     *          by considering the skills specified in the `skills` field.
-     *          It iterates through the skills, searching for employees with those skills.
-     *          - If an employee with the desired skill is already in the team, it removes the skill
-     *            from that employee to avoid duplicates.
-     *          - Otherwise, it prioritizes selecting employees from the pre-sorted list (`employeesSorted`).
-     *          - If no suitable employee is found, it prints a message indicating team creation failed.
-     */
-    public List<Employee> generateTeam(List<Employee> listOfEmployees) {
 
-        Integer[] scores = new Integer[listOfEmployees.size()];
+    public List<Collaborator> generateTeam(List<Collaborator> listOfCollaborators) {
 
+        Integer[] scores = new Integer[listOfCollaborators.size()];
 
-        ArrayList<Employee> employeesSorted = sortEmployeesBySkillScore(scores, listOfEmployees);
+        ArrayList<Collaborator> collaboratorSorted = sortCollaboratorBySkillScore(scores, listOfCollaborators);
 
         for (Skill skill : skills) {
 
             //pesquisa no 1 vetor
-            Employee current = hasSkill(employees, skill);
+            Collaborator current = hasSkill(collaborators, skill);
 
             //procura no vetor da equipa
             //se encontra, remove a skill do employee encontrado
@@ -97,18 +77,18 @@ public class Team {
             } else {
                 //pesquisa no 2 vetor
 
-                current = hasSkill(employeesSorted, skill);
+                current = hasSkill(collaboratorSorted, skill);
                 if (current != null) {
                     var skills = current.getSkills();
                     skills.remove(skill);
                     current.setSkills(skills);
-                    employees.add(current);
+                    collaborators.add(current);
                 } else {
                     System.out.println("Team not created! ");
                 }
             }
 
-            int dif = teamMinSize - employees.size();
+            int dif = teamMinSize - collaborators.size();
             int i = 0;
             while (dif != 0 && i < skills.size()) {
                 Skill skill1 = skills.get(i);
@@ -119,44 +99,28 @@ public class Team {
                 //procura novamente
                 //quando encontrado
                 //calcula o dif novamente
-                Employee employeeToChoose = hasSkill(employeesSorted, skill1);
+                Collaborator collaboratorToChoose = hasSkill(collaboratorSorted, skill1);
 
-                if (employeeToChoose != null && employees.contains(employeeToChoose)) {
-                    employeesSorted.remove(employeeToChoose);
+                if (collaboratorToChoose != null && collaborators.contains(collaboratorToChoose)) {
+                    collaboratorSorted.remove(collaboratorToChoose);
                 } else {
-                    if (employeeToChoose != null)
-                        employees.add(employeeToChoose);
+                    if (collaboratorToChoose != null)
+                        collaborators.add(collaboratorToChoose);
                 }
                 i++;
-                dif = teamMinSize - employees.size();
+                dif = teamMinSize - collaborators.size();
             }
         }
-        return employees;
+        return collaborators;
     }
 
-
-    /**
-     * Attempts to generate a team from a list of employees based on their skill sets,
-     * similar to the `generateTeam` method.
-     *
-     * @param listOfEmployees The list of `Employee` objects representing all available employees.
-     * @return A new `List` of `Employee` objects representing the generated team.
-     *
-     * @throws NullPointerException if the `listOfEmployees` parameter is null.
-     *
-     * @implNote This method attempts to create a team with a minimum size (`teamMinSize`)
-     *          by considering the skills specified in the `skills` field.
-     *          It iterates through the skills, searching for employees with those skills.
-     *         - It iterates on a non-sorted employee list to generate a different team.
-
-     */
-    public List<Employee> generateSecondTeam(List<Employee> listOfEmployees) {
+    public List<Collaborator> generateSecondTeam(List<Collaborator> listOfCollaborators) {
 
 
         for (Skill skill : skills) {
 
             //pesquisa no 1 vetor
-            Employee current = hasSkill(employees, skill);
+            Collaborator current = hasSkill(collaborators, skill);
 
             //procura no vetor da equipa
             //se encontra, remove a skill do employee encontrado
@@ -172,18 +136,18 @@ public class Team {
             } else {
                 //pesquisa no 2 vetor
 
-                current = hasSkill((ArrayList<Employee>) listOfEmployees, skill);
+                current = hasSkill((ArrayList<Collaborator>) listOfCollaborators, skill);
                 if (current != null) {
                     var skills = current.getSkills();
                     skills.remove(skill);
                     current.setSkills(skills);
-                    employees.add(current);
+                    collaborators.add(current);
                 } else {
                     System.out.println("Team not created! ");
                 }
             }
 
-            int dif = teamMinSize - employees.size();
+            int dif = teamMinSize - collaborators.size();
             int i = 0;
             while (dif != 0 && i < skills.size()) {
                 Skill skill1 = skills.get(i);
@@ -194,77 +158,53 @@ public class Team {
                 //procura novamente
                 //quando encontrado
                 //calcula o dif novamente
-                Employee employeeToChoose = hasSkill((ArrayList<Employee>) listOfEmployees, skill1);
+                Collaborator collaboratorToChoose = hasSkill((ArrayList<Collaborator>) listOfCollaborators, skill1);
 
-                if (employeeToChoose != null && employees.contains(employeeToChoose)) {
-                    listOfEmployees.remove(employeeToChoose);
+                if (collaboratorToChoose != null && collaborators.contains(collaboratorToChoose)) {
+                    listOfCollaborators.remove(collaboratorToChoose);
                 } else {
-                    if (employeeToChoose != null)
-                        employees.add(employeeToChoose);
+                    if (collaboratorToChoose != null)
+                        collaborators.add(collaboratorToChoose);
                 }
                 i++;
-                dif = teamMinSize - employees.size();
+                dif = teamMinSize - collaborators.size();
             }
         }
-        return employees;
+        return collaborators;
     }
 
-    /**
-     * Searches for an employee with a specific skill in a list of employees.
-     *
-     * @param employees A list of `Employee` objects.
-     * @param skill The `Skill` object representing the skill to search for.
-     * @return The first `Employee` object found with the specified skill,
-     *         or null if no employee possesses that skill.
-     */
-    public Employee hasSkill(ArrayList<Employee> employees, Skill skill) {
+    public Collaborator hasSkill(ArrayList<Collaborator> collaborators, Skill skill) {
 
-        for (Employee employee : employees) {
+        for (Collaborator collaborator : collaborators) {
 
-            if (employee.getSkills().contains(skill)) {
-                return employee;
+            if (collaborator.getSkills().contains(skill)) {
+                return collaborator;
             }
         }
 
         return null;
     }
-    /**
-     * Sorts a list of employees based on a skill-based score calculation.
-     *
-     * @param scores An integer array used internally to store temporary scores (potentially pre-allocated).
-     *                 Its size should match the number of employees in `listOfEmployees`.
-     * @param listOfEmployees The original, unsorted list of `Employee` objects.
-     * @return A new `ArrayList` containing the employees from `listOfEmployees` sorted
-     *         in descending order based on their calculated skill scores.
-     *
-     * @implNote This method calculates a score for each employee based on the number of skills they possess
-     *          from a predefined set of skills (`skills`). It iterates through the employee list:
-     *          - For each employee, it iterates through the `skills` list.
-     *          - If the employee has a particular skill, its score is incremented.
-     *          - The score is stored in the `scores` array at the corresponding index of the employee in the `listOfEmployees` list.
-     *          Then, it uses a bubble sort algorithm to sort the `scores` array (and the `employees1` list in parallel)
-     *          in descending order based on the scores.
-     */
-    private ArrayList<Employee> sortEmployeesBySkillScore(Integer[] scores, List<Employee> listOfEmployees) {
+
+    private ArrayList<Collaborator> sortCollaboratorBySkillScore(Integer[] scores, List<Collaborator> listOfCollaborators) {
         int scoreAux;
 
-        ArrayList<Employee> employees1 = new ArrayList<>(listOfEmployees);
+        ArrayList<Collaborator> collaborators1 = new ArrayList<>(listOfCollaborators);
 
         //cria um array de scores
-        for (Employee employee : employees1) {
+        for (Collaborator collaborator : collaborators1) {
             scoreAux = 0;
             for (Skill skill : skills) {
 
                 //verificar se o employee tem a skill
                 //se sim, incrementa score no vetor scores na posição employees.indexOf(employee)
-                if (employee.getSkills().contains(skill)) {
+                if (collaborator.getSkills().contains(skill)) {
                     scoreAux++;
                 }
             }
-            scores[employees1.indexOf(employee)] = scoreAux;
+            scores[collaborators1.indexOf(collaborator)] = scoreAux;
         }
 
-        Employee employeeCopy;
+        Collaborator collaboratorCopy;
         int scoreCopy;
 
         for (int i = 0; i < scores.length; i++) {
@@ -277,15 +217,15 @@ public class Team {
                     scores[j + 1] = scoreCopy;
 
 
-                    employeeCopy = employees1.get(j);
-                    employees1.set(j, employees1.get(j + 1));
-                    employees1.set(j + 1, employeeCopy);
+                    collaboratorCopy = collaborators1.get(j);
+                    collaborators1.set(j, collaborators1.get(j + 1));
+                    collaborators1.set(j + 1, collaboratorCopy);
 
                 }
 
             }
         }
-        return employees1;
+        return collaborators1;
     }
 
 
@@ -293,14 +233,11 @@ public class Team {
         return "Team Maximum Size: " + teamMaxSize + "\nTeam Minimum Size: " + teamMinSize + "\nSkills: " + skills;
     }
 
-    /**
-     * Clone method.
-     *
-     * @return A clone of the current instance.
-     */
+
     public Team clone() {
         return new Team(this.teamMinSize, this.teamMaxSize, this.skills);
     }
+
 
 
 }

@@ -1,9 +1,11 @@
-package pt.ipp.isep.dei.esoft.project.ui.console.employee;
+package pt.ipp.isep.dei.esoft.project.ui.console.collaborator;
 
-import pt.ipp.isep.dei.esoft.project.application.controller.CreateEmployeeController;
-import pt.ipp.isep.dei.esoft.project.domain.Employee;
+import pt.ipp.isep.dei.esoft.project.application.controller.CreateCollaboratorController;
+import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
+import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
+import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.time.LocalDate;
@@ -14,10 +16,10 @@ import java.util.Objects;
 import java.util.Scanner;
 
 /**
- * Create Employee UI (console). This option is only available for administrators for demonstration purposes.
+ * Create Collaborator UI (console). This option is only available for administrators for demonstration purposes.
  */
-public class CreateEmployeeUI implements Runnable {
-    private final CreateEmployeeController controller;
+public class CreateCollaboratorUI implements Runnable {
+    private final CreateCollaboratorController controller;
     private String name;
     private LocalDate dateOfBirth;
     private LocalDate admissionDate;
@@ -27,31 +29,37 @@ public class CreateEmployeeUI implements Runnable {
     private String idDocType;
     private int docTypeNumber;
     private int taxPayerIdNumber;
-
     private Job job;
+    private String password = "admin";
     private ArrayList<Skill> skill;
+    private String role = AuthenticationController.ROLE_Collaborator;
+    private AuthenticationRepository authenticationRepository;
 
-    public CreateEmployeeUI() {
-        controller = new CreateEmployeeController();
+    public CreateCollaboratorUI() {
+        controller = new CreateCollaboratorController();
     }
 
-    private CreateEmployeeController getController() {
+    private CreateCollaboratorController getController() {
         return controller;
     }
 
     public void run() {
-        System.out.println("\n\n--- Create Employee ------------------------");
-
+        System.out.println("\n\n--- Create Collaborator ------------------------");
+        authenticationRepository = controller.getAuthenticationRepository();
         requestData();
 
         submitData();
     }
 
     private void submitData() {
-        Employee employee = getController().createEmployee(name, dateOfBirth, admissionDate, address, mobile, email, idDocType, docTypeNumber, taxPayerIdNumber, job, skill);
+        Collaborator collaborator = getController().addCollaborator(name, dateOfBirth, admissionDate, address, mobile, email, idDocType, docTypeNumber, taxPayerIdNumber, job, password, role, skill);
 
-        if (employee != null) {
+        if (collaborator != null) {
             System.out.println("\nEmployee successfully registered!");
+            if (this.role.equals(AuthenticationController.ROLE_Collaborator)) {
+                authenticationRepository.addUserWithRole(this.name, this.email, this.password,
+                        AuthenticationController.ROLE_Collaborator);
+            }
         } else {
             System.out.println("\nEmployee not created!");
         }
@@ -108,10 +116,12 @@ public class CreateEmployeeUI implements Runnable {
 
             // After confirmation, use the employee object for further processing or storage
             System.out.println("Data confirmed. You can now select the jobs and skills: ");
+
             job = displayAndSelectJob();
             skill = displayAndSelectSkill();
 
         }while (!input.equalsIgnoreCase("n")); // Loop until user confirms
+
 
     }
     private String requestDataModification() {
@@ -442,4 +452,5 @@ public class CreateEmployeeUI implements Runnable {
             i++;
         }
     }
+
 }

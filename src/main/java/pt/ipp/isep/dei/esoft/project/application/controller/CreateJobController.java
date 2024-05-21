@@ -9,21 +9,21 @@ import java.util.List;
 public class CreateJobController {
 
     private JobRepository jobRepository;
-    private OrganizationRepository organizationRepository;
+    //private OrganizationRepository organizationRepository;
     private AuthenticationRepository authenticationRepository;
 
     //Repository instances are obtained from the Repositories class
     public CreateJobController() {
-        getOrganizationRepository();
+        //getOrganizationRepository();
         getJobRepository();
         getAuthenticationRepository();
     }
 
     //Allows receiving the repositories as parameters for testing purposes
-    public CreateJobController(OrganizationRepository organizationRepository,
+    public CreateJobController(
                            JobRepository jobRepository,
                            AuthenticationRepository authenticationRepository) {
-        this.organizationRepository = organizationRepository;
+        //this.organizationRepository = organizationRepository;
         this.jobRepository = jobRepository;
         this.authenticationRepository = authenticationRepository;
     }
@@ -37,7 +37,7 @@ public class CreateJobController {
         }
         return jobRepository;
     }
-
+/*
     private OrganizationRepository getOrganizationRepository() {
         if (organizationRepository == null) {
             Repositories repositories = Repositories.getInstance();
@@ -46,6 +46,8 @@ public class CreateJobController {
         return organizationRepository;
 
     }
+
+ */
 
     private AuthenticationRepository getAuthenticationRepository() {
         if (authenticationRepository == null) {
@@ -57,9 +59,9 @@ public class CreateJobController {
         return authenticationRepository;
     }
 
-    private Employee getEmployeeFromSession() {
+    private Manager getManagerFromSession() {
         Email email = getAuthenticationRepository().getCurrentUserSession().getUserId();
-        return new Employee(email.getEmail());
+        return new Manager(email.getEmail());
     }
 
     public CreateJobController(JobRepository jobRepository) {

@@ -5,11 +5,11 @@ import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
 public class Repositories {
 
     private static Repositories instance;
-    private final OrganizationRepository organizationRepository;
     private final AuthenticationRepository authenticationRepository;
     private final SkillRepository skillRepository;
     private final JobRepository jobRepository;
     private final TeamRepository teamRepository;
+<<<<<<< Updated upstream
     private final EmployeeRepository employeeRepository;
     private final TaskRepository taskRepository;
     private final ToDoListRepository toDoListRepository;
@@ -19,14 +19,24 @@ public class Repositories {
     private Repositories() {
         greenSpaceRepository = new GreenSpaceRepository();
         organizationRepository = new OrganizationRepository();
+=======
+    private final ManagerRepository managerRepository;
+    private final CollaboratorRepository collaboratorRepository;
+
+    private Repositories() {
+>>>>>>> Stashed changes
         authenticationRepository = new AuthenticationRepository();
         skillRepository = new SkillRepository();
         jobRepository = new JobRepository();
-        employeeRepository = new EmployeeRepository();
         teamRepository = new TeamRepository();
+<<<<<<< Updated upstream
         taskRepository = new TaskRepository();
         toDoListRepository = new ToDoListRepository();
 
+=======
+        managerRepository = new ManagerRepository();
+        collaboratorRepository = new CollaboratorRepository();
+>>>>>>> Stashed changes
     }
 
     /**
@@ -43,10 +53,6 @@ public class Repositories {
         return instance;
     }
 
-    public OrganizationRepository getOrganizationRepository() {
-        return organizationRepository;
-    }
-
     public AuthenticationRepository getAuthenticationRepository() {
         return authenticationRepository;
     }
@@ -59,14 +65,11 @@ public class Repositories {
         return jobRepository;
     }
 
-    public EmployeeRepository getEmployeeRepository() {
-        return employeeRepository;
-    }
-
     public TeamRepository getTeamRepository() {
         return teamRepository;
     }
 
+<<<<<<< Updated upstream
     public GreenSpaceRepository getGreenSpaceRepository() {
         return greenSpaceRepository;
     }
@@ -77,5 +80,13 @@ public class Repositories {
 
     public ToDoListRepository getToDoListRepository() {
         return toDoListRepository;
+=======
+    public ManagerRepository getManagerRepository() {
+        return managerRepository;
+    }
+
+    public CollaboratorRepository getCollaboratorRepository() {
+        return collaboratorRepository;
+>>>>>>> Stashed changes
     }
 }

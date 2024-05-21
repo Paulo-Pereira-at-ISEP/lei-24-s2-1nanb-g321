@@ -3,9 +3,15 @@ package pt.ipp.isep.dei.esoft.project.domain;
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 
 import java.time.LocalDate;
+<<<<<<< Updated upstream
 import java.util.ArrayList;
 
 public class Employee {
+=======
+
+public abstract class Employee {
+    private static final String PASSWORD_DEFAULT = "admin";
+>>>>>>> Stashed changes
 
     private static final String PASSWORD_DEFAULT = "admin";
     private String name;
@@ -17,18 +23,11 @@ public class Employee {
     private String idDocType;
     private int docTypeNumber;
     private int taxPayerIdNumber;
-
     private Job job;
-    private ArrayList<Skill> skills;
-
-    private String role;
     private String password;
+    private String role;
 
-    public Employee(ArrayList<Skill> skills) {
-        this.skills = skills;
-    }
-
-    public Employee(String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, Job job, ArrayList<Skill> skills, String role, String password) {
+    public Employee(String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, Job job, String password, String role) {
         this.name = nome;
         this.dateOfBirth = dateOfBirth;
         this.admissionDate = admissionDate;
@@ -39,41 +38,8 @@ public class Employee {
         this.docTypeNumber = docTypeNumber;
         this.taxPayerIdNumber = taxPayerIdNumber;
         this.job = job;
-        this.skills = skills;
-        this.role = role;
         this.password = password;
-    }
-
-    public Employee(String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber) {
-        this.name = nome;
-        this.dateOfBirth = dateOfBirth;
-        this.admissionDate = admissionDate;
-        this.address = morada;
-        this.mobile = telemovel;
-        this.email = email;
-        this.idDocType = idDocType;
-        this.docTypeNumber = docTypeNumber;
-        this.taxPayerIdNumber = taxPayerIdNumber;
-        this.job = new Job("Nenhum", "Sem descrição");
-        this.skills = new ArrayList<>();
-        this.role = AuthenticationController.ROLE_Collaborator;
-        this.password = PASSWORD_DEFAULT;
-    }
-
-    public Employee(String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, Job job, ArrayList<Skill> skills) {
-        this.name = nome;
-        this.dateOfBirth = dateOfBirth;
-        this.admissionDate = admissionDate;
-        this.address = morada;
-        this.mobile = telemovel;
-        this.email = email;
-        this.idDocType = idDocType;
-        this.docTypeNumber = docTypeNumber;
-        this.taxPayerIdNumber = taxPayerIdNumber;
-        this.job = job;
-        this.skills = skills;
-        this.role = AuthenticationController.ROLE_Collaborator;
-        this.password = PASSWORD_DEFAULT;
+        this.role = role;
     }
 
     public Employee(String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, Job job) {
@@ -87,8 +53,8 @@ public class Employee {
         this.docTypeNumber = docTypeNumber;
         this.taxPayerIdNumber = taxPayerIdNumber;
         this.job = job;
-        this.role = AuthenticationController.ROLE_Collaborator;
         this.password = PASSWORD_DEFAULT;
+        this.role = AuthenticationController.ROLE_Collaborator;
     }
 
     public Employee(String name, String email) {
@@ -98,61 +64,6 @@ public class Employee {
 
     public Employee(String email) {
         this.email = email;
-    }
-    /**
-     * Checks if an `Employee` is considered "present"
-     *
-     * @param employee The `Employee` object to check for presence.
-     * @return true if the `employee` object is not null and both its email and dateOfBirth fields are not null,
-     *         false otherwise.
-     */
-    public static boolean contains(Employee employee) {
-        return employee != null && employee.getEmail() != null && employee.getDateOfBirth() != null;
-    }
-
-    public void getEmployee(String nome, LocalDate dateOfBirth, LocalDate admissionDate, String morada, int telemovel, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, String role) {
-        this.name = nome;
-        this.dateOfBirth = dateOfBirth;
-        this.admissionDate = admissionDate;
-        this.address = morada;
-        this.mobile = telemovel;
-        this.email = email;
-        this.idDocType = idDocType;
-        this.docTypeNumber = docTypeNumber;
-        this.taxPayerIdNumber = taxPayerIdNumber;
-        this.role = role;
-    }
-
-    //boolean to make employee manager
-
-    //checks if two employees are equal based on their email addresses.
-    @Override
-    /**
-     * Compares the current `Employee` object to another object for equality.
-     *
-     * @param o The object to compare with.
-     * @return true if the objects are equal based on their email addresses,
-     *         false otherwise.
-     *
-     */
-
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof Employee)) {
-            return false;
-        }
-        Employee employee = (Employee) o;
-        return email.equals(employee.email);
-    }
-
-
-    @Override
-    public String toString() {
-        return "Collaborator: " + name + "\nBirth date: " + dateOfBirth + "\nAdmission Date: " + admissionDate + "\nAddress: " + address + "\nMobile: "
-                + mobile + "\nE-mail: " + email + "\nDocument: " + idDocType + "\nID number: " + docTypeNumber + "\nTax payer ID: " + taxPayerIdNumber +
-                "\nJob: " + job + "\nSkill(s): " + skills;
     }
 
     public String getName() {
@@ -235,35 +146,12 @@ public class Employee {
         this.job = job;
     }
 
-    /**
-     * Returns a copy of the skills associated with `Employee`.
-     *
-     * @return An `ArrayList` containing copies of the employee's skills.
-     *         Modifications to the returned list will not affect the original skills.
-     *
-     * @implNote This method creates a new `ArrayList` and iterates over the original skills list.
-     *          For each skill, it creates a copy using the `clone` method and adds the copy to the new list.
-     *          This ensures that modifications to the returned list won't affect the original skills of the employee.
-     */
-    public ArrayList<Skill> getSkills() {
-        ArrayList<Skill> copy = new ArrayList<>();
-        for (Skill skill : skills) {
-            copy.add(skill.clone());
-        }
-        return copy;
+    public String getPassword() {
+        return password;
     }
 
-    public void setSkills(ArrayList<Skill> skills) {
-        this.skills = skills;
-    }
-
-    public void addSkill(ArrayList<Skill> skills) {
-
-        for (Skill s : skills){
-            if (!this.skills.contains(s))
-                this.skills.add(s);
-        }
-
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getRole() {
@@ -274,29 +162,10 @@ public class Employee {
         this.role = role;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public static String setPasswordDefault() {
-        return PASSWORD_DEFAULT;
-    }
-
     public boolean hasEmail(String email) {
-        return false;
+        return this.email.equals(email);
     }
 
-    /**
-     * Clone method.
-     *
-     * @return A clone of the current instance.
-     */
-    public Employee clone() {
-        return new Employee(this.name, this.dateOfBirth, this.admissionDate, this.address, this.mobile, this.email, this.idDocType, this.docTypeNumber, this.taxPayerIdNumber, this.job, this.skills, this.role, this.password);
-    }
+    public abstract Employee clone();
 
 }

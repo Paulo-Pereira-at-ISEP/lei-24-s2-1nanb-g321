@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
+import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
 
 import java.util.ArrayList;
@@ -22,28 +23,24 @@ public class TeamRepository{
         return new ArrayList<>(teams);
     }
 
-    private boolean validateTeam(Team team) {
-        boolean isValid = !teams.contains(team);
+    private boolean validateTeam(ArrayList<Collaborator> collaborators) {
+        boolean isValid = !teams.contains(collaborators);
         return isValid;
     }
 
-    /**
-     * This method returns a defensive (immutable) copy of the list of teams.
-     *
-     * @return The list of teams.
-     */
+
     public List<Team> getTeams() {
         //This is a defensive copy, so that the repository cannot be modified from the outside.
         return List.copyOf(teams);
     }
 
-    public Optional<Team> add(Team team) {
+    public Optional<Team> add(ArrayList<Collaborator> collaborators) {
 
         Optional<Team> newTeam = Optional.empty();
         boolean operationSuccess = false;
 
-        if (validateTeam(team)) {
-            newTeam = Optional.of(team.clone());
+        if (validateTeam(collaborators)) {
+            newTeam = Optional.of((Team) collaborators.clone());
             operationSuccess = teams.add(newTeam.get());
         }
 
@@ -52,7 +49,5 @@ public class TeamRepository{
         }
 
         return newTeam;
-
     }
-
 }
