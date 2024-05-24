@@ -18,7 +18,7 @@ public class Task {
 
     public Task() {
         this.name = "Default task";
-        this.description = "Default tasl";
+        this.description = "Default task";
     }
 
 

@@ -23,11 +23,12 @@ public abstract class Planning {
     public void setExpectedDuration(double expectedDuration) {
         this.expectedDuration = expectedDuration;
     }
-public Task getTask() {
+
+    public Task getTask() {
     return task;
 }
 
-public void setTask(Task task) {
+    public void setTask(Task task) {
     this.task = task;
 }
 }
