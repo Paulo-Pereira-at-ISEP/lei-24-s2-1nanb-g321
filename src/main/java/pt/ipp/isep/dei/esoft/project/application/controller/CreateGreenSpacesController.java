@@ -64,6 +64,10 @@ public class CreateGreenSpacesController {
             return managerRepository;
         }
 
+        public List<Manager> getAllManagers() {
+            return getManagerRepository().getAllManagers();
+        }
+
         private Manager getManagerFromSession() {
             Email email = getAuthenticationRepository().getCurrentUserSession().getUserId();
             return new Manager(email.getEmail());
@@ -77,9 +81,9 @@ public class CreateGreenSpacesController {
             return greenSpaceRepository.getGreenSpaces();
         }
 
-        public GreenSpace createGreenSpace(String name, double area, Employee employee ) {
+        public GreenSpace createGreenSpace(String name, double area, String classification, Employee employee ) {
 
-            GreenSpace newGreenSpace = new GreenSpace(name, area, employee);
+            GreenSpace newGreenSpace = new GreenSpace(name, area, classification, employee);
 
             greenSpaceRepository.add(newGreenSpace);
 

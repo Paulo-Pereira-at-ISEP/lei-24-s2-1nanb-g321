@@ -329,4 +329,8 @@ public class Utils {
         return input; // Return the validated input containing only letters
     }
 
+    public static boolean isValidDocumentType(String input) {
+        return input.equalsIgnoreCase("cc") || input.equalsIgnoreCase("passport");
+    }
+
 }

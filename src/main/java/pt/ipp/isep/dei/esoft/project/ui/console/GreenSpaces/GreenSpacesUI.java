@@ -14,7 +14,7 @@ public class GreenSpacesUI implements Runnable{
     public void run() {
         List<MenuItem> options = new ArrayList<MenuItem>();
         options.add(new MenuItem("Create Green Space", new CreateGreenSpacesUI()));
-        options.add(new MenuItem("List Green Spaces", new CreateGreenSpacesUI()));
+        options.add(new MenuItem("List Green Spaces", new ListGreenSpacesUI()));
 
         int option = 0;
         do {

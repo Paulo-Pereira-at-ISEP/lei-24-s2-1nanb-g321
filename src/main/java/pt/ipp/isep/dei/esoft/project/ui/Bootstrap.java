@@ -24,7 +24,7 @@ public class Bootstrap implements Runnable {
         addCollaborator();
         addUsers();
         addTasks();
-
+        addGreenSpace();
     }
 /*
     private void addOrganization() {
@@ -67,6 +67,8 @@ public class Bootstrap implements Runnable {
 
     private void addGreenSpace(){
         GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
+
+        greenSpaceRepository.add(new GreenSpace("Avioso", 20000, "Large-Sized Park", m_Managers.get(2)));
     }
 
     private void addManager() {
@@ -76,6 +78,7 @@ public class Bootstrap implements Runnable {
         managerRepository.add(new Manager("VFM", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "vfm@this.app", "CC", 12345678, 123456789, new Job("Manager VF", "Vehicle Fleet"),PASSWORD, AuthenticationController.ROLE_VFM, "VFM"));
         managerRepository.add(new Manager("GSM", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "gsm@this.app", "CC", 12345678, 123456789, new Job("Manager GS", "Green Spaces"),PASSWORD, AuthenticationController.ROLE_GSM, "GSM"));
         managerRepository.add(new Manager("QAM", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "qam@this.app", "CC", 12345678, 123456789, new Job("Manager QA", "Software Quality Assessment Team"),PASSWORD, AuthenticationController.ROLE_QAM, "QAM"));
+
 
         m_Managers = managerRepository.getAllManagers();
     }

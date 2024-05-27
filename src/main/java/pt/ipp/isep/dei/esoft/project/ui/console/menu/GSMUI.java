@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
 
 import pt.ipp.isep.dei.esoft.project.ui.console.GraphAnalysisUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.GreenSpaces.GreenSpacesUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class GSMUI implements Runnable {
     public void run() {
         List<MenuItem> options = new ArrayList<MenuItem>();
         options.add(new MenuItem("Graph analysis", new GraphAnalysisUI()));
+        options.add(new MenuItem("Green Spaces", new GreenSpacesUI()));
 
         int option = 0;
         do {

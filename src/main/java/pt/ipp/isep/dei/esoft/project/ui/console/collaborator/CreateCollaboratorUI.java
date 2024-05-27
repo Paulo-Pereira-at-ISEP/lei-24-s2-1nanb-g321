@@ -71,7 +71,7 @@ public class CreateCollaboratorUI implements Runnable {
         do {
             name = requestEmployeeName();
             dateOfBirth = LocalDate.parse(requestEmployeeBirthDate());
-            admissionDate = LocalDate.parse(requestEmployeeAdmissionDate());
+            admissionDate = LocalDate.parse(requestEmployeeAdmissionDate(dateOfBirth));
             address = requestEmployeeAddress();
             mobile = requestEmployeeMobile();
             email = requestEmployeeEmail();
@@ -172,7 +172,7 @@ public class CreateCollaboratorUI implements Runnable {
                 dateOfBirth = LocalDate.parse(requestEmployeeBirthDate()); // Get new dateOfBirth and set it
                 break;
             case "admissionDate":
-                admissionDate = LocalDate.parse(requestEmployeeAdmissionDate()); // Get new admissionDate and set it
+                admissionDate = LocalDate.parse(requestEmployeeAdmissionDate(dateOfBirth)); // Get new admissionDate and set it
                 break;
             case "address":
                 address =requestEmployeeAddress(); // Get new address and set it
@@ -253,14 +253,20 @@ public class CreateCollaboratorUI implements Runnable {
      *
      * @return The validated employee admission date.
      */
-    private String requestEmployeeAdmissionDate() {
+    private String requestEmployeeAdmissionDate(LocalDate dateOfBirth) {
         boolean validDate = false;
         String input = "";
         while (!validDate) {
             try {
                 input = (Utils.readLineFromConsole("Admission Date (YYYY-MM-DD): ")); // Prompt user for admission date
                 validDate = Utils.parseDate(input); // Validate the input date format
-                if (!validDate) {
+                if (validDate) {
+                    LocalDate admissionDate = LocalDate.parse(input);
+                    if (admissionDate.isBefore(dateOfBirth) || admissionDate.isEqual(dateOfBirth)) {
+                        System.out.println("Admission date cannot be before or equal to birth date.");
+                        validDate = false;
+                    }
+                } else {
                     System.out.println("Invalid date format (YYYY-MM-DD)."); // Print error if input date format is invalid
                 }
             } catch (DateTimeParseException e) {
@@ -328,12 +334,14 @@ public class CreateCollaboratorUI implements Runnable {
     private String requestEmployeeIdentificationDocumentType() {
         String input;
         do {
-            input = Utils.readLineFromConsole("Identification Document Type: "); // Prompt user for identification document type
+            input = Utils.readLineFromConsole("Identification Document Type (CC/Passport): "); // Prompt user for identification document type
             assert input != null; // Ensure input is not null
             if (!Utils.isValidInput(input)) {
                 System.out.print("Identification Document Type must only contain letters.\n"); // Print error if input is invalid
+            } else if (!Utils.isValidDocumentType(input)) {
+                System.out.print("Identification Document Type must be either CC or Passport.\n");
             }
-        } while (!Utils.isValidInput(input)); // Continue prompting until a valid identification document type is input
+        } while (!Utils.isValidInput(input) || !Utils.isValidDocumentType(input)); // Continue prompting until a valid identification document type is input
         return input; // Return the validated employee identification document type
     }
 

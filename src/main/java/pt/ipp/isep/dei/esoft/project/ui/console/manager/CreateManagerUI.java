@@ -44,7 +44,7 @@ public class CreateManagerUI implements Runnable {
 
 
     public void run() {
-        System.out.println("\n\n--- Create Employee ------------------------");
+        System.out.println("\n\n--- Create Manager ------------------------");
         authenticationRepository = controller.getAuthenticationRepository();
         requestData();
 
@@ -55,7 +55,7 @@ public class CreateManagerUI implements Runnable {
         Manager manager = getController().addManager(name, dateOfBirth, admissionDate, address, mobile, email, idDocType, docTypeNumber, taxPayerIdNumber, job, password, department, role);
 
         if (manager != null) {
-            System.out.println("\nEmployee successfully registered!");
+            System.out.println("\nManager successfully registered!");
 
             if (this.role.equals(AuthenticationController.ROLE_HRM)) {
                     authenticationRepository.addUserWithRole(this.name,this.email,this.password,
@@ -81,7 +81,7 @@ public class CreateManagerUI implements Runnable {
 
 
         } else {
-            System.out.println("\nEmployee not created!");
+            System.out.println("\nManager not created!");
         }
     }
 
