@@ -5,11 +5,13 @@ import java.util.ArrayList;
 public class Entry extends Task{
     private String  UrgencyDegree;
     private int duration;
+    GreenSpace greenSpace;
 
-    public Entry(String name, String description, String urgencyDegree, int duration) {
+    public Entry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace) {
         super(name, description);
         UrgencyDegree = urgencyDegree;
         this.duration = duration;
+        this.greenSpace = greenSpace;
     }
 
     public String getUrgencyDegree() {
@@ -30,13 +32,20 @@ public class Entry extends Task{
 
     @Override
     public String toString() {
-        return  "Title=" + getName() +"Description=" + getDescription() + "Entry{" +
+        return   "GreenSpace= " + getGreenSpace() +"Title=" + getName() +"Description=" + getDescription() + "Entry{" +
                 "UrgencyDegree=" + UrgencyDegree +
                 ", duration=" + duration +
                 '}' ;
     }
     public Entry clone() {
-        return new Entry(getName(), getDescription(), UrgencyDegree, duration);
+        return new Entry(getName(), getDescription(), UrgencyDegree, duration, greenSpace);
     }
 
+    public GreenSpace getGreenSpace() {
+        return greenSpace;
+    }
+
+    public void setGreenSpace(GreenSpace greenSpace) {
+        this.greenSpace = greenSpace;
+    }
 }

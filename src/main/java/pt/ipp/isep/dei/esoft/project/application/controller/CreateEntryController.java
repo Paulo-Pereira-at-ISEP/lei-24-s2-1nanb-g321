@@ -15,6 +15,7 @@ public class CreateEntryController {
         private AuthenticationRepository authenticationRepository;
         private CollaboratorRepository collaboratorRepository;
         private TaskRepository taskRepository;
+        private GreenSpaceRepository greenSpaceRepository;
 
         //Repository instances are obtained from the Repositories class
         public CreateEntryController() {
@@ -22,16 +23,18 @@ public class CreateEntryController {
             getAuthenticationRepository();
             getCollaboratorRepository();
             getTaskRepository();
+            getGreenSpacesRepository();
         }
 
         //Allows receiving the repositories as parameters for testing purposes
         public CreateEntryController(CollaboratorRepository collaboratorRepository,
                                      ToDoListRepository toDoListRepository,TaskRepository taskRepository ,
-                                     AuthenticationRepository authenticationRepository) {
+                                     AuthenticationRepository authenticationRepository, GreenSpaceRepository greenSpaceRepository) {
             this.toDoListRepository = toDoListRepository;
             this.authenticationRepository = authenticationRepository;
             this.collaboratorRepository = collaboratorRepository;
             this.taskRepository = taskRepository;
+            this.greenSpaceRepository = greenSpaceRepository;
         }
 
         private ToDoListRepository getToDoListRepository() {
@@ -41,7 +44,13 @@ public class CreateEntryController {
             }
             return toDoListRepository;
         }
-
+        private GreenSpaceRepository getGreenSpacesRepository() {
+            if (greenSpaceRepository == null) {
+                Repositories repositories = Repositories.getInstance();
+                greenSpaceRepository = repositories.getGreenSpaceRepository();
+            }
+            return greenSpaceRepository;
+        }
         private CollaboratorRepository getCollaboratorRepository() {
             if (collaboratorRepository == null) {
                 Repositories repositories = Repositories.getInstance();
@@ -79,10 +88,13 @@ public class CreateEntryController {
     public List<Task> getAllTasks() {
         return taskRepository.getAllTasks();
     }
+    public List<GreenSpace> getAllGreenSpaces() {
+            return greenSpaceRepository.getAllGreenSpaces();
+    }
 
-    public Entry createEntry(String name, String description, String urgencyDegree, int duration) {
+    public Entry createEntry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace) {
 
-            Entry newEntry = new Entry(name, description, urgencyDegree, duration);
+            Entry newEntry = new Entry(name, description, urgencyDegree, duration, greenSpace);
 
             toDoListRepository.add(newEntry);
 

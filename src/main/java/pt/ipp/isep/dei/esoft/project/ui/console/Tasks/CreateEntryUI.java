@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console.Tasks;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateEntryController;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateTaskController;
 import pt.ipp.isep.dei.esoft.project.domain.Entry;
+import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Task;
 import pt.ipp.isep.dei.esoft.project.repository.TaskRepository;
@@ -26,6 +27,7 @@ public class CreateEntryUI implements Runnable {
     private String urgencyDegree;
     private int duration;
     private Task task;
+    private GreenSpace greenSpace;
 
     public CreateEntryUI() {
         controller = new CreateEntryController();
@@ -44,7 +46,7 @@ public class CreateEntryUI implements Runnable {
     }
 
     private void submitData() {
-        Entry entry = controller.createEntry(task.getName(), task.getDescription(), urgencyDegree, duration);
+        Entry entry = controller.createEntry(task.getName(), task.getDescription(), urgencyDegree, duration, greenSpace);
 
         if (entry != null) {
             System.out.println("\nEntry successfully added to ToDoList!");
@@ -69,11 +71,13 @@ public class CreateEntryUI implements Runnable {
      */
     private void requestData() {
         String input;
+        greenSpace = displayAndSelectGreenSpaces();
         task = displayAndSelectTasks();
         urgencyDegree = requestUrgencyDegree();
         duration = requestDuration();
 
         System.out.println("\n\n\n---------- Submitted Data ----------\n");
+        System.out.printf("GreenSpace: %s\n", greenSpace.getName());
         System.out.printf("Title: %s\n", task.getName());
         System.out.printf("Description: %s\n", task.getDescription());
         System.out.println("Urgency Degree: " + urgencyDegree);
@@ -153,12 +157,35 @@ public class CreateEntryUI implements Runnable {
      */
     private int requestDuration() {
 
-        System.out.println("What is the duration of the entry?");
+        System.out.print("What is the duration of the entry (hours) ? ");
         Scanner input = new Scanner(System.in);
         duration = input.nextInt();
         return  duration;
     }
 
+    private GreenSpace displayAndSelectGreenSpaces() {
+        // Retrieve the list of available jobs
+        List<GreenSpace> greenSpaces = controller.getAllGreenSpaces();
+        int listSize = greenSpaces.size();
+        int answer = -1;
+
+        Scanner input = new Scanner(System.in);
+        while (answer < 1 || answer > listSize) {
+            displayGreenSpacesOptions(greenSpaces); // Display the list of available jobs
+            System.out.println("Select a GreenSpace: ");
+            answer = input.nextInt(); // Prompt user to select a job
+        }
+
+        return greenSpaces.get(answer - 1); // Return the selected job
+    }
+    private void displayGreenSpacesOptions(List<GreenSpace> greenSpaces) {
+        // Display the task categories as a menu with number options to select
+        int i = 1;
+        for (GreenSpace greenSpace : greenSpaces) {
+            System.out.println("  " + i + " - " + greenSpace.getName());
+            i++;
+        }
+    }
 
 
 }

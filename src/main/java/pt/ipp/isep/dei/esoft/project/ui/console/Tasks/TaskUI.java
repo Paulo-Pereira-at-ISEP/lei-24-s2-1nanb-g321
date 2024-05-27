@@ -20,6 +20,7 @@ public class TaskUI implements Runnable {
         options.add(new MenuItem("Create Task", new CreateTaskUI()));
         options.add(new MenuItem("List Tasks", new ListTasksUI()));
         options.add(new MenuItem("Create Entrys", new CreateEntryUI()));
+        options.add(new MenuItem("To Do List", new CreateListToDoListUI()));
 
         int option = 0;
         do {
