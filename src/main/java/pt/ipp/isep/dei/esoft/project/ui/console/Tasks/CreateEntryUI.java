@@ -1,0 +1,164 @@
+package pt.ipp.isep.dei.esoft.project.ui.console.Tasks;
+
+import pt.ipp.isep.dei.esoft.project.application.controller.CreateEntryController;
+import pt.ipp.isep.dei.esoft.project.application.controller.CreateTaskController;
+import pt.ipp.isep.dei.esoft.project.domain.Entry;
+import pt.ipp.isep.dei.esoft.project.domain.Job;
+import pt.ipp.isep.dei.esoft.project.domain.Task;
+import pt.ipp.isep.dei.esoft.project.repository.TaskRepository;
+import pt.ipp.isep.dei.esoft.project.repository.ToDoListRepository;
+import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class CreateEntryUI implements Runnable {
+
+
+    /**
+     * Create Skill UI (console). This option is only available for administrators for demonstration purposes.
+     */
+
+    private final CreateEntryController controller;
+    private String entryName;
+    private String entryDescription;
+    private String urgencyDegree;
+    private int duration;
+    private Task task;
+
+    public CreateEntryUI() {
+        controller = new CreateEntryController();
+    }
+
+    private CreateEntryController getController() {
+        return controller;
+    }
+
+    public void run() {
+        System.out.println("\n\n--- Create Entry ------------------------");
+
+        requestData();
+
+        submitData();
+    }
+
+    private void submitData() {
+        Entry entry = controller.createEntry(task.getName(), task.getDescription(), urgencyDegree, duration);
+
+        if (entry != null) {
+            System.out.println("\nEntry successfully added to ToDoList!");
+        } else {
+            System.out.println("\nEntry not created!");
+        }
+    }
+
+    /**
+     * Prompts the user to enter data for a new skill and allows for modification before confirmation.
+     *
+     * @implNote This method iteratively requests skill name and description from the user.
+     * It then presents the entered data for confirmation.
+     * - If confirmed ("y"), it exits the loop and indicates successful registration.
+     * - If not confirmed ("n"), it allows the user to:
+     * - Choose a data field (name or description) for modification using `requestDataModification`.
+     * - If a valid field is chosen, it calls `modifySkillData` (assumed to be available)
+     * to modify the specific data.
+     * - It allows the user to modify another field or confirm again.
+     * The loop continues until the user confirms ("y") or exits ("n").
+     * After confirmation, the skill data can be used for further processing or storage.
+     */
+    private void requestData() {
+        String input;
+        task = displayAndSelectTasks();
+        urgencyDegree = requestUrgencyDegree();
+        duration = requestDuration();
+
+        System.out.println("\n\n\n---------- Submitted Data ----------\n");
+        System.out.printf("Title: %s\n", task.getName());
+        System.out.printf("Description: %s\n", task.getDescription());
+        System.out.println("Urgency Degree: " + urgencyDegree);
+        System.out.println("Duration: " + duration);
+
+
+    }
+
+
+    /**
+     * Prompts the user to select a data field for modification.
+     *
+     * @return A String representing the chosen data field to modify ("Title" or "Description"),
+     * or null if the user enters an invalid choice.
+     */
+
+
+    /**
+     * Prompts the user to input a skill description and validates the input.
+     * The input is considered valid if it contains only letters.
+     *
+     * @return The validated skill description.
+     */
+    private Task displayAndSelectTasks() {
+        // Retrieve the list of available jobs
+        List<Task> tasks = controller.getAllTasks();
+        int listSize = tasks.size();
+        int answer = -1;
+
+        Scanner input = new Scanner(System.in);
+        while (answer < 1 || answer > listSize) {
+            displayTasksOptions(tasks); // Display the list of available jobs
+            System.out.print("Select a task: ");
+            answer = input.nextInt(); // Prompt user to select a job
+        }
+
+        return tasks.get(answer - 1); // Return the selected job
+    }
+    private void displayTasksOptions(List<Task> tasks) {
+        // Display the task categories as a menu with number options to select
+        int i = 1;
+        for (Task task : tasks) {
+            System.out.println("  " + i + " - " + task.getName());
+            i++;
+        }
+    }
+
+    private String requestUrgencyDegree() {
+        do {
+            System.out.println("Choose one of the following urgency degrees: ");
+            System.out.println("[1]  - Low");
+            System.out.println("[2]  - Medium");
+            System.out.println("[3]  - High");
+            System.out.print("Your choice: ");
+            Scanner input = new Scanner(System.in);
+            urgencyDegree = input.nextLine();
+
+            switch (urgencyDegree) {
+                case "1":
+                    return "Low";
+                case "2":
+                    return "Medium";
+                case "3":
+                    return "High";
+                default:
+                    System.out.println("Invalid choice. Please enter '1', '2', or '3'.");
+            }
+        } while (true);
+
+    }
+
+    /**
+     * Prompts the user to input a skill name and validates the input.
+     * The input is considered valid if it contains only letters.
+     *
+     * @return The validated skill name.
+     */
+    private int requestDuration() {
+
+        System.out.println("What is the duration of the entry?");
+        Scanner input = new Scanner(System.in);
+        duration = input.nextInt();
+        return  duration;
+    }
+
+
+
+}

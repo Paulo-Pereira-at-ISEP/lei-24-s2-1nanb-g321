@@ -8,7 +8,7 @@ public class Repositories {
     private final JobRepository jobRepository;
     private final TeamRepository teamRepository;
     private final TaskRepository taskRepository;
-    //private final ToDoListRepository toDoListRepository;
+    private final ToDoListRepository toDoListRepository;
     private final GreenSpaceRepository greenSpaceRepository;
     private final ManagerRepository managerRepository;
     private final CollaboratorRepository collaboratorRepository;
@@ -20,7 +20,7 @@ public class Repositories {
         jobRepository = new JobRepository();
         teamRepository = new TeamRepository();
         taskRepository = new TaskRepository();
-        //toDoListRepository = new ToDoListRepository();
+        toDoListRepository = new ToDoListRepository();
         managerRepository = new ManagerRepository();
         collaboratorRepository = new CollaboratorRepository();
     }
@@ -63,12 +63,10 @@ public class Repositories {
     public TaskRepository getTaskRepository() {
         return taskRepository;
     }
-/*
+
     public ToDoListRepository getToDoListRepository() {
         return toDoListRepository;
     }
-
- */
 
     public ManagerRepository getManagerRepository() {
         return managerRepository;
