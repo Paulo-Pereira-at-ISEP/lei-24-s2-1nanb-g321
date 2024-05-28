@@ -25,6 +25,7 @@ public class Bootstrap implements Runnable {
         addUsers();
         addTasks();
         addGreenSpace();
+        addTeam();
     }
 /*
     private void addOrganization() {
@@ -48,7 +49,9 @@ public class Bootstrap implements Runnable {
         skillRepository.add(new Skill("Machine Operator", "Operates machines such as backhoes or tractors"));
         skillRepository.add(new Skill("Tree Pruner", "Prunes trees"));
         skillRepository.add(new Skill("Phytopharmaceutical applicator", "Applies agriculture phytopharmaceuticals to the crops"));
+
     }
+
     private void addJobs() {
         JobRepository jobRepository = Repositories.getInstance().getJobRepository();
 
@@ -57,6 +60,7 @@ public class Bootstrap implements Runnable {
         jobRepository.add(new Job("Gardener", "Maintains the gardens"));
         jobRepository.add(new Job("Electrician", "Installs and maintains and fixes electrical systems in buildings"));
         jobRepository.add(new Job("Bricklayer", "Builds walls and structures by laying bricks with mortar"));
+
     }
 
     private void addTasks(){
@@ -88,6 +92,7 @@ public class Bootstrap implements Runnable {
         managerRepository.add(new Manager("GSM_2", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "gsm@this.app", "CC", 12345678, 123456789, new Job("Manager GS", "Green Spaces"),PASSWORD, AuthenticationController.ROLE_GSM, "GSM"));
 
         m_Managers = managerRepository.getAllManagers();
+
     }
 
     private void addCollaborator() {
@@ -100,6 +105,15 @@ public class Bootstrap implements Runnable {
         collaboratorRepository.add(new Collaborator("Laurindo", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "laurindo@this.app", "CC", 12345678, 123456789, new Job("Gardener", "Garden maintenance"), PASSWORD ,AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Light Vehicle Driver","Drives light vehicles"));}} ));
 
         m_Collaborators = collaboratorRepository.getAllCollaborators();
+
+    }
+
+    private void addTeam(){
+        TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
+
+
+
+
     }
 
     private void addUsers() {
