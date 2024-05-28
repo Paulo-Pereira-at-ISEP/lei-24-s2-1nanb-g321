@@ -1,11 +1,8 @@
-package pt.ipp.isep.dei.esoft.project.ui.console.Tasks;
+package pt.ipp.isep.dei.esoft.project.ui.console.tasks;
 
-import pt.ipp.isep.dei.esoft.project.application.controller.CreateSkillController;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateTaskController;
-import pt.ipp.isep.dei.esoft.project.domain.Skill;
 
 import pt.ipp.isep.dei.esoft.project.domain.Task;
-import pt.ipp.isep.dei.esoft.project.repository.SkillRepository;
 import pt.ipp.isep.dei.esoft.project.repository.TaskRepository;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 

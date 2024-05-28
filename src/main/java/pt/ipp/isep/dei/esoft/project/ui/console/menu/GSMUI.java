@@ -3,8 +3,6 @@ package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
 import pt.ipp.isep.dei.esoft.project.ui.console.GraphAnalysisUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.GreenSpaces.GreenSpacesUI;
-import pt.ipp.isep.dei.esoft.project.ui.console.todolist.CreateEntryUI;
-import pt.ipp.isep.dei.esoft.project.ui.console.todolist.CreateListToDoListUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.todolist.ToDoListUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 

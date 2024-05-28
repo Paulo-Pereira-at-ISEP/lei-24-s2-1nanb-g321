@@ -1,7 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
 
-import pt.ipp.isep.dei.esoft.project.ui.console.Tasks.TaskUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.tasks.TaskUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.job.JobUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.collaborator.CollaboratorUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.manager.ManagerUI;

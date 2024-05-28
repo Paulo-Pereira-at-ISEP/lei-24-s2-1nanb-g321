@@ -5,14 +5,14 @@ import pt.ipp.isep.dei.esoft.project.domain.Entry;
 
 import java.util.List;
 
-public class CreateListToDoListUI implements Runnable{
+public class ListToDoListUI implements Runnable{
 
 
 
 
         private final CreateEntryController entryController;
 
-        public CreateListToDoListUI() {
+        public ListToDoListUI() {
             entryController = new CreateEntryController();
         }
 
