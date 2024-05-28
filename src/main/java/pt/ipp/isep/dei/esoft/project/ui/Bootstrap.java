@@ -61,7 +61,11 @@ public class Bootstrap implements Runnable {
 
     private void addTasks(){
         TaskRepository taskRepository = Repositories.getInstance().getTaskRepository();
+
         taskRepository.add(new Task("Cut Grass", "Cuts grass with a machine"));
+        taskRepository.add(new Task("Trash Collection", "Picks up litter and debris to keep the green space clean"));
+        taskRepository.add(new Task("Weeding", "Remove unwanted plants that can crowd out desired vegetation"));
+        taskRepository.add(new Task("Trail Maintenance", "Clears fallen branches, repair paths, or build new ones"));
 
     }
 
@@ -69,6 +73,9 @@ public class Bootstrap implements Runnable {
         GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
 
         greenSpaceRepository.add(new GreenSpace("Avioso", 20000, "Large-Sized Park", m_Managers.get(2)));
+        greenSpaceRepository.add(new GreenSpace("Parque Mágico", 200, "Garden", m_Managers.get(4)));
+        greenSpaceRepository.add(new GreenSpace("Parque Assombrado", 5000, "Medium-Sized Park", m_Managers.get(4)));
+
     }
 
     private void addManager() {
@@ -76,9 +83,9 @@ public class Bootstrap implements Runnable {
 
         managerRepository.add(new Manager("HRM", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "hrm@this.app", "CC", 12345678, 123456789, new Job("Manager HR", "Human Resources"), PASSWORD, AuthenticationController.ROLE_HRM,"HRM"));
         managerRepository.add(new Manager("VFM", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "vfm@this.app", "CC", 12345678, 123456789, new Job("Manager VF", "Vehicle Fleet"),PASSWORD, AuthenticationController.ROLE_VFM, "VFM"));
-        managerRepository.add(new Manager("GSM", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "gsm@this.app", "CC", 12345678, 123456789, new Job("Manager GS", "Green Spaces"),PASSWORD, AuthenticationController.ROLE_GSM, "GSM"));
+        managerRepository.add(new Manager("GSM_1", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "gsm@this.app", "CC", 12345678, 123456789, new Job("Manager GS", "Green Spaces"),PASSWORD, AuthenticationController.ROLE_GSM, "GSM"));
         managerRepository.add(new Manager("QAM", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "qam@this.app", "CC", 12345678, 123456789, new Job("Manager QA", "Software Quality Assessment Team"),PASSWORD, AuthenticationController.ROLE_QAM, "QAM"));
-
+        managerRepository.add(new Manager("GSM_2", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "gsm@this.app", "CC", 12345678, 123456789, new Job("Manager GS", "Green Spaces"),PASSWORD, AuthenticationController.ROLE_GSM, "GSM"));
 
         m_Managers = managerRepository.getAllManagers();
     }
