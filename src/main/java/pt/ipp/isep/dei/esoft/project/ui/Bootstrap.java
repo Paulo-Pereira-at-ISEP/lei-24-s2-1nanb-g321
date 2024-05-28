@@ -61,7 +61,7 @@ public class Bootstrap implements Runnable {
 
     private void addTasks(){
         TaskRepository taskRepository = Repositories.getInstance().getTaskRepository();
-        taskRepository.add(new Task("Cut Grass", "cutting grass with machine"));
+        taskRepository.add(new Task("Cut Grass", "Cuts grass with a machine"));
 
     }
 

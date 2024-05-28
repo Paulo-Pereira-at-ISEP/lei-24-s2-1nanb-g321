@@ -1,16 +1,10 @@
-package pt.ipp.isep.dei.esoft.project.ui.console.Tasks;
+package pt.ipp.isep.dei.esoft.project.ui.console.todolist;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateEntryController;
-import pt.ipp.isep.dei.esoft.project.application.controller.CreateTaskController;
 import pt.ipp.isep.dei.esoft.project.domain.Entry;
 import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
-import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Task;
-import pt.ipp.isep.dei.esoft.project.repository.TaskRepository;
-import pt.ipp.isep.dei.esoft.project.repository.ToDoListRepository;
-import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -49,7 +43,7 @@ public class CreateEntryUI implements Runnable {
         Entry entry = controller.createEntry(task.getName(), task.getDescription(), urgencyDegree, duration, greenSpace);
 
         if (entry != null) {
-            System.out.println("\nEntry successfully added to ToDoList!");
+            System.out.println("\nEntry successfully added to the ToDoList!");
         } else {
             System.out.println("\nEntry not created!");
         }
@@ -76,7 +70,7 @@ public class CreateEntryUI implements Runnable {
         urgencyDegree = requestUrgencyDegree();
         duration = requestDuration();
 
-        System.out.println("\n\n\n---------- Submitted Data ----------\n");
+        System.out.println("\n\n\n---------- Submitted Data ----------");
         System.out.printf("GreenSpace: %s\n", greenSpace.getName());
         System.out.printf("Title: %s\n", task.getName());
         System.out.printf("Description: %s\n", task.getDescription());
@@ -128,9 +122,9 @@ public class CreateEntryUI implements Runnable {
     private String requestUrgencyDegree() {
         do {
             System.out.println("Choose one of the following urgency degrees: ");
-            System.out.println("[1]  - Low");
-            System.out.println("[2]  - Medium");
-            System.out.println("[3]  - High");
+            System.out.println("[1] - Low");
+            System.out.println("[2] - Medium");
+            System.out.println("[3] - High");
             System.out.print("Your choice: ");
             Scanner input = new Scanner(System.in);
             urgencyDegree = input.nextLine();
@@ -157,7 +151,7 @@ public class CreateEntryUI implements Runnable {
      */
     private int requestDuration() {
 
-        System.out.print("What is the duration of the entry (hours) ? ");
+        System.out.print("What is the duration of the entry (hours)? ");
         Scanner input = new Scanner(System.in);
         duration = input.nextInt();
         return  duration;
@@ -172,7 +166,7 @@ public class CreateEntryUI implements Runnable {
         Scanner input = new Scanner(System.in);
         while (answer < 1 || answer > listSize) {
             displayGreenSpacesOptions(greenSpaces); // Display the list of available jobs
-            System.out.println("Select a GreenSpace: ");
+            System.out.print("Select a GreenSpace: ");
             answer = input.nextInt(); // Prompt user to select a job
         }
 

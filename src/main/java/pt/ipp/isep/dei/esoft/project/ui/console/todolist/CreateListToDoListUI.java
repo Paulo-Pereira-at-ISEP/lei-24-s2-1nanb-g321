@@ -1,9 +1,7 @@
-package pt.ipp.isep.dei.esoft.project.ui.console.Tasks;
+package pt.ipp.isep.dei.esoft.project.ui.console.todolist;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateEntryController;
-import pt.ipp.isep.dei.esoft.project.application.controller.CreateTaskController;
 import pt.ipp.isep.dei.esoft.project.domain.Entry;
-import pt.ipp.isep.dei.esoft.project.domain.Task;
 
 import java.util.List;
 
@@ -33,7 +31,7 @@ public class CreateListToDoListUI implements Runnable{
             int counter = 1;
             for (Entry entry : entrys) {
 
-                System.out.println("[" + counter + "]   GreenSpace: " + entry.getGreenSpace());
+                System.out.println("[" + counter + "]   GreenSpace: " + entry.getGreenSpace().getName());
                 System.out.println("      Manager: " + entry.getGreenSpace().getManager().getName());
                 System.out.println("      Title: " + entry.getName());
                 System.out.println("      Description: " + entry.getDescription());

@@ -1,7 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.Tasks;
 
-import pt.ipp.isep.dei.esoft.project.ui.console.Tasks.CreateTaskUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.MenuItem;
+import pt.ipp.isep.dei.esoft.project.ui.console.todolist.CreateEntryUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.todolist.CreateListToDoListUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.util.ArrayList;
@@ -19,8 +20,6 @@ public class TaskUI implements Runnable {
         List<MenuItem> options = new ArrayList<MenuItem>();
         options.add(new MenuItem("Create Task", new CreateTaskUI()));
         options.add(new MenuItem("List Tasks", new ListTasksUI()));
-        options.add(new MenuItem("Create Entrys", new CreateEntryUI()));
-        options.add(new MenuItem("To Do List", new CreateListToDoListUI()));
 
         int option = 0;
         do {
