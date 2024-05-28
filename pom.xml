@@ -39,6 +39,10 @@
         <mockito-all>1.10.19</mockito-all>
         <mockito-core>5.1.1</mockito-core>
 
+
+        <javafx.version>11</javafx.version>
+        <javafx.maven.plugin.version>0.0.8</javafx.maven.plugin.version>
+
     </properties>
 
     <dependencies>
@@ -80,6 +84,17 @@
             <groupId>pt.isep.lei.esoft</groupId>
             <artifactId>AuthLib</artifactId>
             <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
         </dependency>
 
     </dependencies>
@@ -185,6 +200,18 @@
                 </configuration>
 
             </plugin>
+
+            <plugin>
+                <groupId>org.openjfx</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>${javafx.maven.plugin.version}</version>
+                <configuration>
+                    <jlinkImageName>project</jlinkImageName>
+                    <launcher>launcher</launcher>
+                    <mainClass>pt.ipp.isep.dei.esoft.project.ui.gui.MainApp</mainClass>
+                </configuration>
+            </plugin>
+
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

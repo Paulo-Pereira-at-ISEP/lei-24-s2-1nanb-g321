@@ -2,10 +2,11 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import java.util.ArrayList;
 
-public class Entry extends Task{
+public class Entry extends Task {
     private String  UrgencyDegree;
     private int duration;
     GreenSpace greenSpace;
+
 
     public Entry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace) {
         super(name, description);
@@ -37,6 +38,7 @@ public class Entry extends Task{
                 ", duration=" + duration +
                 '}' ;
     }
+
     public Entry clone() {
         return new Entry(getName(), getDescription(), UrgencyDegree, duration, greenSpace);
     }

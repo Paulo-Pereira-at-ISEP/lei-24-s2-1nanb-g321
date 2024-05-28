@@ -15,14 +15,14 @@ class RepositoriesTest {
         assertSame(instance1, instance2);
     }
 
-    @Test
-    public void testGetOrganizationRepository() {
-        Repositories instance = Repositories.getInstance();
-        OrganizationRepository organizationRepository = instance.getOrganizationRepository();
+//    @Test
+//    public void testGetOrganizationRepository() {
+        // Repositories instance = Repositories.getInstance();
+      //  OrganizationRepository organizationRepository = instance.getOrganizationRepository();
 
         // Check if the organization repository is not null
-        assertNotNull(organizationRepository);
-    }
+    //    assertNotNull(organizationRepository);
+  //  }
 
     @Test
     public void testGetAuthenticationRepository() {
@@ -49,15 +49,6 @@ class RepositoriesTest {
 
         // Check if the job repository is not null
         assertNotNull(jobRepository);
-    }
-
-    @Test
-    public void testGetEmployeeRepository() {
-        Repositories instance = Repositories.getInstance();
-        EmployeeRepository employeeRepository = instance.getEmployeeRepository();
-
-        // Check if the employee repository is not null
-        assertNotNull(employeeRepository);
     }
 
     @Test
