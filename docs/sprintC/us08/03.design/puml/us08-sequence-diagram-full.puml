@@ -16,6 +16,7 @@ participant "authenticationRepository\n:AuthenticationRepository" as AUTH_REPO
 participant "userSession\n:UserSession" as USR_SESSION
 participant ":Vehicle" as vehicle
 participant ":VehicleMaintenance" as VehicleMaintenance
+participant ":VehicleMaintenances" as VehicleMaintenances
 
 note right of VFM
     - The user is already logged in at this step.
@@ -96,10 +97,14 @@ activate VFM
 
                 VehicleMaintenance --> VehicleMaintenance: validateVehicleMaintenance
 
-                VehicleMaintenance --> controller: vehiclesMaintenance
+                VehicleMaintenance --> VehicleMaintenances: vehicleMaintenance
                 deactivate VehicleMaintenance
+                activate VehicleMaintenances
 
                 end
+
+                VehicleMaintenances -> controller: vehiclesWithPendingMaintenanceList
+                deactivate VehicleMaintenances
 
                 controller --> UI : vehiclesWithPendingMaintenanceList
             deactivate controller
