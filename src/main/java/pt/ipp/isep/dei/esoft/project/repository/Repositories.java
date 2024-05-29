@@ -12,6 +12,7 @@ public class Repositories {
     private final GreenSpaceRepository greenSpaceRepository;
     private final ManagerRepository managerRepository;
     private final CollaboratorRepository collaboratorRepository;
+    private final AgendaRepository agendaRepository;
 
     private Repositories() {
         greenSpaceRepository = new GreenSpaceRepository();
@@ -23,6 +24,7 @@ public class Repositories {
         toDoListRepository = new ToDoListRepository();
         managerRepository = new ManagerRepository();
         collaboratorRepository = new CollaboratorRepository();
+        agendaRepository = new AgendaRepository();
     }
 
     /**
@@ -75,5 +77,9 @@ public class Repositories {
     public CollaboratorRepository getCollaboratorRepository() {
         return collaboratorRepository;
 
+    }
+
+    public AgendaRepository getAgendaRepository() {
+    return agendaRepository;
     }
 }

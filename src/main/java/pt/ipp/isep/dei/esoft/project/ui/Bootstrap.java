@@ -12,7 +12,7 @@ import java.util.List;
 public class Bootstrap implements Runnable {
 
     List<Manager> m_Managers = new ArrayList<>();
-    List<Collaborator> m_Collaborators = new ArrayList<>();
+    ArrayList<Collaborator> m_Collaborators = new ArrayList<>();
     private static String PASSWORD = "admin";
 
     //Add some task categories to the repository as bootstrap
@@ -104,13 +104,13 @@ public class Bootstrap implements Runnable {
         collaboratorRepository.add(new Collaborator("Bianca", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "bianca@this.app", "CC", 12345678, 123456789, new Job("Gardener", "Garden maintenance"), PASSWORD ,AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Light Vehicle Driver","Drives light vehicles"));}} ));
         collaboratorRepository.add(new Collaborator("Laurindo", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "laurindo@this.app", "CC", 12345678, 123456789, new Job("Gardener", "Garden maintenance"), PASSWORD ,AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Light Vehicle Driver","Drives light vehicles"));}} ));
 
-        m_Collaborators = collaboratorRepository.getAllCollaborators();
+        m_Collaborators = (ArrayList<Collaborator>) collaboratorRepository.getAllCollaborators();
 
     }
 
     private void addTeam(){
         TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
-
+        teamRepository.addTeam(new Team(m_Collaborators));
 
 
 

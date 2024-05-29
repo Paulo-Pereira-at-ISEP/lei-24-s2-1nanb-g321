@@ -1,16 +1,18 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.agenda;
 
+import pt.ipp.isep.dei.esoft.project.application.controller.CreateAgendaEntryController;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateEntryController;
+import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.domain.Entry;
 
 import java.util.List;
 
 public class ListAgendaUI implements Runnable{
 
-    private final CreateEntryController entryController;
+    private final CreateAgendaEntryController agendaEntryController;
 
     public ListAgendaUI() {
-        entryController = new CreateEntryController();
+        agendaEntryController = new CreateAgendaEntryController();
     }
 
     public void run() {
@@ -22,11 +24,11 @@ public class ListAgendaUI implements Runnable{
      * Lists all registered skills along with their details.
      */
     private void listAgenda() {
-        List<Entry> entrys = entryController.getAllEntrys();
+        List<AgendaEntry> entrys = agendaEntryController.getAllAgendaEntrys();
 
         System.out.println("Agenda:");
         int counter = 1;
-        for (Entry entry : entrys) {
+        for (AgendaEntry entry : entrys) {
 
             System.out.println("[" + counter + "]   GreenSpace: " + entry.getGreenSpace().getName());
             System.out.println("      Manager: " + entry.getGreenSpace().getManager().getName());
