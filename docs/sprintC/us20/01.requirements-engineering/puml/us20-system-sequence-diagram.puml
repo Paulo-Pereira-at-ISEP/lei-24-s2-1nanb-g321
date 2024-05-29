@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - US08
+title System Sequence Diagram (SSD) - US20
 
 autonumber
 
@@ -12,7 +12,7 @@ participant ":System" as System
 
 activate Employee
 
-    Employee -> System : asks to create a new job
+    Employee -> System : asks to register a green space
         activate System
 
             System --> Employee : requests data (name, area, classification, manager)
@@ -29,6 +29,5 @@ activate Employee
 
             System --> Employee : displays operation success
         deactivate System
-
 
 @enduml
