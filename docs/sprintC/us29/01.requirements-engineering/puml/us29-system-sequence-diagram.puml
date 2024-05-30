@@ -18,7 +18,7 @@ activate Collaborator
         System --> Collaborator : Shows the Agenda tasks that have not yet been completed\n in which the employee is part of the team
     deactivate System
 
-    Collaborator -> System : Selects the task
+    Collaborator -> System : Selects the Agenda Entry
     activate System
 
         System --> Collaborator : Shows the selected tasks and requests confirmation
@@ -27,7 +27,7 @@ activate Collaborator
     Collaborator -> System : Confirms data
     activate System
 
-        System --> Collaborator : Shows operations success message
+        System --> Collaborator : Displays operations success message
     deactivate System
 
 
