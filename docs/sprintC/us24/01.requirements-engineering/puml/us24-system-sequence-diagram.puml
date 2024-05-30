@@ -22,10 +22,10 @@ activate Employee
 
     activate System
 
-            System --> Employee : Prompts the entry of a postpone date
+            System --> Employee : Prompts the entry of a postpone date and hour
     deactivate System
 
-    Employee -> System : Chooses the postpone date
+    Employee -> System : Chooses the postpone date and hour
 
     activate System
 
