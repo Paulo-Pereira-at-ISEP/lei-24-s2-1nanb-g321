@@ -37,7 +37,7 @@ activate GSM
 
             UI -> controller** : create
 
-            UI -> controller : asks to list the entries from the Agenda
+            UI -> controller : getEntriesFromAgendaStartingFrom(currentDate, status="Planned")
             activate controller
 
                 controller -> singleton : getInstance()
@@ -66,7 +66,7 @@ activate GSM
                     rep --> controller: agendaRepository
                 deactivate rep
 
-                controller -> agendaRepository : getFutureEntriesByStatus(status="Planned")
+                controller -> agendaRepository : getEntriesFromAgendaStartingFrom(currentDate, status="Planned")
                 activate agendaRepository
 
                     agendaRepository --> controller : futureEntries
@@ -122,6 +122,10 @@ activate GSM
 
 
                         MGR -> MGR : validateNoCollaboratorAlreadyDispached(selectedEntry,\n selectedDateHour, futureEntriesFilteredByDate)
+
+                        note right MGR
+                        mudar a sequência abaixo para um split SD
+                        end note
 
                         MGR -> entry :setStatus(selectedEntry, "Postponed")
 
