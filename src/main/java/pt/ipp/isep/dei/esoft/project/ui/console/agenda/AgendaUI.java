@@ -16,7 +16,7 @@ public class AgendaUI implements Runnable {
 
     public void run() {
         List<MenuItem> options = new ArrayList<MenuItem>();
-        //options.add(new MenuItem("Create Agenda", new CreateAgendaUI()));
+        options.add(new MenuItem("Add Entry Agenda", new AddNewEntryUI()));
         options.add(new MenuItem("List Agenda", new ListAgendaUI()));
 
         int option = 0;

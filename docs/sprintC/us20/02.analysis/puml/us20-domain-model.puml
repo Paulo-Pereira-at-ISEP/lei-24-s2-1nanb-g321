@@ -1,0 +1,29 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title Domain Model
+
+class GreenSpacesManager{
+}
+
+class Manager {
+}
+
+class ToDoList {
+pendingTasks
+}
+
+Manager "1" -- "*" ToDoList: manages >
+Manager "1" --up "1..*" GreenSpacesManager: is a >
+
+
+@enduml

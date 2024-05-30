@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-title System Sequence Diagram (SSD) - US20
+title System Sequence Diagram (SSD) - US21
 
 autonumber
 
@@ -12,10 +12,10 @@ participant ":System" as System
 
 activate Employee
 
-    Employee -> System : asks to register a green space
+        Employee -> System : asks to add a new entry to the ToDoList
         activate System
 
-            System --> Employee : requests data (name, area, classification, manager)
+            System --> Employee : requests data (green space, task name, task description, urgency degree, approximate expected duration)
         deactivate System
 
         Employee -> System : types requested data
