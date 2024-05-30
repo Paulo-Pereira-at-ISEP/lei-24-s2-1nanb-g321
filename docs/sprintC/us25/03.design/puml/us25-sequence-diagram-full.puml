@@ -1,0 +1,135 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Green Space Manager" as GSM
+participant ":CancelAgendaEntryUI" as UI
+participant ":CancelAgendaEntryController" as controller
+participant ":Repositories" as singleton
+participant "repositories\n:Repositories" as rep
+participant "agendaRepository\n:AgendaRepository" as agendaRepository
+participant "authenticationRepository\n:AuthenticationRepository" as AUTH_REPO
+participant "userSession\n:UserSession" as USR_SESSION
+participant "employee\n: Employee" as MGR
+participant ":Entry" as entry
+
+
+note right of GSM
+    - The user is already logged in at this step.
+    - Authentication sequence is explained in
+    a sequence excerpt.
+end note
+
+note right of singleton
+    - Singleton is
+    in use
+end note
+
+activate GSM
+
+        GSM -> UI :Asks to cancel an entry from the Agenda
+
+        activate UI
+
+            UI -> controller** : create
+
+            UI -> controller : getEntriesFromAgendaStartingFrom(currentDate, status="Planned")
+            activate controller
+
+                controller -> singleton : getInstance()
+                activate singleton
+
+                    singleton --> controller: repositories
+                deactivate singleton
+
+                controller -> singleton : getEmployeeFromSession()
+
+                note right of controller
+                    - This method is explained
+                    in detail in an excerpt
+                    sequence diagram.
+                end note
+
+                activate singleton
+
+                singleton --> controller : employee
+
+                deactivate singleton
+
+                controller -> rep : getAgendaRepository()
+                activate rep
+
+                    rep --> controller: agendaRepository
+                deactivate rep
+
+                controller -> agendaRepository : getEntriesFromAgendaStartingFrom(currentDate, status="Planned")
+                activate agendaRepository
+
+                    agendaRepository --> controller : futureEntries
+
+                deactivate agendaRepository
+
+
+                controller --> UI : futureEntries
+            deactivate controller
+
+            UI --> GSM : Shows the entries from the Agenda
+
+
+        deactivate UI
+
+        GSM -> UI :Selects one entry
+
+            activate UI
+
+                UI --> GSM: Shows selected data and requests confirmation
+
+            deactivate UI
+
+        GSM -> UI : Confirms operation
+
+            activate UI
+
+
+            UI -> controller : cancelEntry(selectedEntry)
+
+                activate controller
+
+                controller -> MGR : cancelEntry(selectedEntry)
+
+                    activate MGR
+
+
+                        MGR -> MGR : cancelEntry(selectedEntry)
+
+                        note right MGR
+                        mudar a sequência abaixo para um split SD
+                        end note
+
+                        MGR -> entry :setStatus(clonnedEntry, "Planned")
+
+                        activate entry
+
+                            entry --> MGR : canceledEntry
+
+                        deactivate entry
+
+                        MGR --> controller : canceledEntry
+
+                    deactivate MGR
+
+                        controller --> UI : canceledEntry
+
+                deactivate controller
+
+                UI --> GSM :Displays operation success message
+
+            deactivate UI
+
+deactivate GSM
+
+@enduml
