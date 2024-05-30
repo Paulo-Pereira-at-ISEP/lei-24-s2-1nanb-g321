@@ -1,0 +1,165 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Green Space Manager" as GSM
+participant ":PostponeAgendaEntryUI" as UI
+participant ":PostponeAgendaEntryController" as controller
+participant ":Repositories" as singleton
+participant "repositories\n:Repositories" as rep
+participant "agendaRepository\n:AgendaRepository" as agendaRepository
+participant "authenticationRepository\n:AuthenticationRepository" as AUTH_REPO
+participant "userSession\n:UserSession" as USR_SESSION
+participant "employee\n: Employee" as MGR
+participant ":Entry" as entry
+
+
+note right of GSM
+    - The user is already logged in at this step.
+    - Authentication sequence is explained in
+    a sequence excerpt.
+end note
+
+note right of singleton
+    - Singleton is
+    in use
+end note
+
+activate GSM
+
+        GSM -> UI :Asks to postpone an entry from the Agenda
+
+        activate UI
+
+            UI -> controller** : create
+
+            UI -> controller : asks to list the entries from the Agenda
+            activate controller
+
+                controller -> singleton : getInstance()
+                activate singleton
+
+                    singleton --> controller: repositories
+                deactivate singleton
+
+                controller -> singleton : getEmployeeFromSession()
+
+                note right of controller
+                    - This method is explained
+                    in detail in an excerpt
+                    sequence diagram.
+                end note
+
+                activate singleton
+
+                singleton --> controller : employee
+
+                deactivate singleton
+
+                controller -> rep : getAgendaRepository()
+                activate rep
+
+                    rep --> controller: agendaRepository
+                deactivate rep
+
+                controller -> agendaRepository : getFutureEntriesByStatus(status="Planned")
+                activate agendaRepository
+
+                    agendaRepository --> controller : futureEntries
+
+                deactivate agendaRepository
+
+
+                controller --> UI : futureEntries
+            deactivate controller
+
+            UI --> GSM : Shows the entries collected at the Agenda
+
+
+        deactivate UI
+
+        GSM -> UI :Selects one of the listed entries
+
+            activate UI
+
+                UI --> GSM: Prompts the entry of a postpone date and hour
+
+            deactivate UI
+
+        GSM -> UI : Chooses the postpone date and hour
+
+            activate UI
+
+            UI --> GSM:Shows selected data and requests confirmation
+
+            deactivate UI
+
+        GSM -> UI : Confirms data
+
+            activate UI
+
+
+            UI -> controller : postponeEntryToDate(selectedEntry, selectedDateHour, futureEntries)
+
+                activate controller
+
+                controller -> MGR : filterFutureEntriesByDate(futureEntries, selectedDateHour)
+
+                    activate MGR
+
+                        MGR --> controller : futureEntriesFilteredByDate
+
+                    deactivate MGR
+
+
+                controller -> MGR : postponeEntryToDate(selectedEntry, selectedDateHour, futureEntriesFilteredByDate)
+
+                    activate MGR
+
+
+                        MGR -> MGR : validateNoCollaboratorAlreadyDispached(selectedEntry,\n selectedDateHour, futureEntriesFilteredByDate)
+
+                        MGR -> entry :setStatus(selectedEntry, "Postponed")
+
+                        activate entry
+
+                            MGR -> entry :cloneEntry(selectedEntry)
+
+                        entry --> MGR: clonnedEntry
+                        deactivate entry
+
+                            MGR -> entry :setDate(clonnedEntry, selectedDate)
+
+                        activate entry
+                            MGR -> entry :setStatus(clonnedEntry, "Planned")
+                            entry --> MGR : postponedEntry
+
+                        deactivate entry
+
+                        MGR --> controller : postponedEntry
+
+                    deactivate MGR
+
+                        controller -> agendaRepository : addEntry(postponedEntry)
+
+                        activate agendaRepository
+
+                            agendaRepository --> controller : postponedEntry
+
+                        deactivate agendaRepository
+
+                        controller --> UI : postponedEntry
+
+                deactivate controller
+
+                UI --> GSM :Displays operation success message
+
+            deactivate UI
+
+deactivate GSM
+
+@enduml
