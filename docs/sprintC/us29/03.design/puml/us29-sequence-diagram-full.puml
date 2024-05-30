@@ -1,0 +1,146 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+actor "Collaborator" as USR
+participant ":RecordTaskCompletionUI" as UI
+participant ":RecordTaskCompletionController" as controller
+participant ":Repositories" as singleton
+participant "repositories\n:Repositories" as rep
+participant "agendaRepository\n:AgendaRepository" as agendaRepository
+participant "authenticationRepository\n:AuthenticationRepository" as AUTH_REPO
+participant "userSession\n:UserSession" as USR_SESSION
+participant "employee\n: Employee" as CLBTR
+participant ":Entry" as entry
+
+
+note right of USR
+    - The user is already logged in at this step.
+    - Authentication sequence is explained in
+    a sequence excerpt.
+end note
+
+note right of singleton
+    - Singleton is
+    in use
+end note
+
+activate USR
+
+        USR -> UI :Asks to record the completion of a task
+
+        activate UI
+
+            UI -> controller** : create
+
+            UI -> controller : getEntriesFromAgendaPriorTo(currentDate, satus="Planned")
+            activate controller
+
+                controller -> singleton : getInstance()
+                activate singleton
+
+                    singleton --> controller: repositories
+                deactivate singleton
+
+                controller -> singleton : getEmployeeFromSession()
+
+                note right of controller
+                    - This method is explained
+                    in detail in an excerpt
+                    sequence diagram.
+                end note
+
+                activate singleton
+
+                singleton --> controller : employee
+
+                deactivate singleton
+
+                controller -> rep : getAgendaRepository()
+                activate rep
+
+                    rep --> controller: agendaRepository
+                deactivate rep
+
+                controller -> agendaRepository : getEntriesFromAgendaPriorTo(currentDate, satus="Planned")
+
+
+                activate agendaRepository
+
+                    agendaRepository --> controller : presentAndPastEntries
+
+                deactivate agendaRepository
+
+
+                controller -> CLBTR : filterEntriesByCollaborator(employee)
+
+                activate CLBTR
+
+                    CLBTR --> controller : filteredEntriesByColaborator
+
+                deactivate CLBTR
+
+                controller --> UI : filteredEntriesByColaborator
+
+            deactivate controller
+
+            UI --> USR : Shows the Agenda tasks that have not yet been completed\n in which the employee is part of the team
+
+
+        deactivate UI
+
+        USR -> UI :Selects the Agenda Entry
+
+            activate UI
+
+            UI --> USR:Shows selected data and requests confirmation
+
+            deactivate UI
+
+        USR -> UI : Confirms data
+
+            activate UI
+
+
+            UI -> controller : recordTaskAsCompleted(selectedEntry)
+
+                activate controller
+
+                controller -> CLBTR : recordTaskAsCompleted(selectedEntry, employee))
+
+
+                    activate CLBTR
+
+
+                        CLBTR -> CLBTR : validateCollaboratorDispachedToTask(selectedEntry,employee)
+
+                        note right CLBTR
+                        mudar a sequência abaixo para um split SD
+                        end note
+
+                        CLBTR -> entry :setStatus(selectedEntry, "Done")
+
+                        activate entry
+                            entry --> CLBTR : alteredEntry
+
+                        deactivate entry
+
+                        CLBTR --> controller : alteredEntry
+
+                    deactivate CLBTR
+
+                        controller --> UI : alteredEntry
+
+                deactivate controller
+
+                UI --> USR :Displays operation success message
+
+            deactivate UI
+
+deactivate USR
+
+@enduml
