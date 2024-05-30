@@ -3,49 +3,43 @@ package pt.ipp.isep.dei.esoft.project.application.controller;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
-public class CreateAgendaEntryController {
+public class CreateEntryToAgendaController {
 
-        private AgendaRepository agendaRepository;
+        private ToDoListRepository toDoListRepository;
         private AuthenticationRepository authenticationRepository;
         private CollaboratorRepository collaboratorRepository;
         private TaskRepository taskRepository;
         private GreenSpaceRepository greenSpaceRepository;
-        private ToDoListRepository toDoListRepository;
+        private AgendaRepository agendaRepository;
         private TeamRepository teamRepository;
 
         //Repository instances are obtained from the Repositories class
-        public CreateAgendaEntryController() {
-            getAgendaRepository();
+        public CreateEntryToAgendaController() {
+            getToDoListRepository();
             getAuthenticationRepository();
             getCollaboratorRepository();
             getTaskRepository();
             getGreenSpacesRepository();
-            getToDoListRepository();
+            getAgendaRepository();
             getTeamRepository();
         }
 
         //Allows receiving the repositories as parameters for testing purposes
-        public CreateAgendaEntryController(CollaboratorRepository collaboratorRepository,
-                                     AgendaRepository agendaRepository,TaskRepository taskRepository ,
-                                     AuthenticationRepository authenticationRepository,TeamRepository teamRepository ,ToDoListRepository  toDoListRepository ,GreenSpaceRepository greenSpaceRepository) {
-            this.agendaRepository = agendaRepository;
+        public CreateEntryToAgendaController(CollaboratorRepository collaboratorRepository,
+                                     ToDoListRepository toDoListRepository,TaskRepository taskRepository ,
+                                     AuthenticationRepository authenticationRepository, TeamRepository teamRepository,AgendaRepository agendaRepository ,GreenSpaceRepository greenSpaceRepository) {
+            this.toDoListRepository = toDoListRepository;
             this.authenticationRepository = authenticationRepository;
             this.collaboratorRepository = collaboratorRepository;
             this.taskRepository = taskRepository;
             this.greenSpaceRepository = greenSpaceRepository;
-            this.toDoListRepository = toDoListRepository;
+            this.agendaRepository = agendaRepository;
             this.teamRepository = teamRepository;
         }
 
-        private AgendaRepository getAgendaRepository() {
-            if (agendaRepository == null) {
-                Repositories repositories = Repositories.getInstance();
-                agendaRepository = repositories.getAgendaRepository();
-            }
-            return agendaRepository;
-        }
         private ToDoListRepository getToDoListRepository() {
             if (toDoListRepository == null) {
                 Repositories repositories = Repositories.getInstance();
@@ -59,6 +53,13 @@ public class CreateAgendaEntryController {
             teamRepository = repositories.getTeamRepository();
         }
         return teamRepository;
+    }
+    private AgendaRepository getAgendaRepository() {
+        if (agendaRepository == null) {
+            Repositories repositories = Repositories.getInstance();
+            agendaRepository = repositories.getAgendaRepository();
+        }
+        return agendaRepository;
     }
         private GreenSpaceRepository getGreenSpacesRepository() {
             if (greenSpaceRepository == null) {
@@ -90,12 +91,12 @@ public class CreateAgendaEntryController {
             return taskRepository;
         }
 
-        public CreateAgendaEntryController(AgendaRepository agendaRepository) {
+        public CreateEntryToAgendaController(AgendaRepository agendaRepository) {
             this.agendaRepository = agendaRepository;
         }
 
-        public List<AgendaEntry> getAllAgendaEntrys() {
-            return agendaRepository.getEntrys();
+        public List<Entry> getAllEntrys() {
+            return toDoListRepository.getEntrys();
         }
 
         public List<Collaborator> getAllCollaborators() {
@@ -104,22 +105,20 @@ public class CreateAgendaEntryController {
         public List<Task> getAllTasks() {
             return taskRepository.getAllTasks();
         }
-    public List<Team> getAllTeams() {
-        return teamRepository.getAllTeams();
-    }
         public List<GreenSpace> getAllGreenSpaces() {
             return greenSpaceRepository.getAllGreenSpaces();
         }
-    public List<Entry> getAllEntrys() {
-        return toDoListRepository.getEntrys();
-    }
-        public AgendaEntry createAgendaEntry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, String day, int hours, String status, Team team) {
+        public List<Team> getAllTeams() {
+            return teamRepository.getAllTeams();
+        }
 
-            AgendaEntry newAgendaEntry = new AgendaEntry(name, description, urgencyDegree, duration, greenSpace, day, hours, status, team);
+        public Entry createEntry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate date, String status, Team team) {
 
-            agendaRepository.add(newAgendaEntry);
+            Entry newEntry = new Entry(name, description, urgencyDegree, duration, greenSpace, date, status, team);
 
-            return newAgendaEntry;
+            toDoListRepository.add(newEntry);
+
+            return newEntry;
         }
     }
 

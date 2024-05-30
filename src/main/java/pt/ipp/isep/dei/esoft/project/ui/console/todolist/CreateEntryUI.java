@@ -4,7 +4,9 @@ import pt.ipp.isep.dei.esoft.project.application.controller.CreateEntryControlle
 import pt.ipp.isep.dei.esoft.project.domain.Entry;
 import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
 import pt.ipp.isep.dei.esoft.project.domain.Task;
+import pt.ipp.isep.dei.esoft.project.domain.Team;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -22,6 +24,10 @@ public class CreateEntryUI implements Runnable {
     private int duration;
     private Task task;
     private GreenSpace greenSpace;
+    private LocalDate date;
+    private String status;
+    private Team team;
+    private Entry entry;
 
     public CreateEntryUI() {
         controller = new CreateEntryController();
@@ -40,7 +46,7 @@ public class CreateEntryUI implements Runnable {
     }
 
     private void submitData() {
-        Entry entry = controller.createEntry(task.getName(), task.getDescription(), urgencyDegree, duration, greenSpace);
+        Entry entry = controller.createEntry(task.getName(), task.getDescription(), urgencyDegree, duration, greenSpace, LocalDate.EPOCH, status, team);
 
         if (entry != null) {
             System.out.println("\nEntry successfully added to the ToDoList!");
@@ -69,6 +75,7 @@ public class CreateEntryUI implements Runnable {
         task = displayAndSelectTasks();
         urgencyDegree = requestUrgencyDegree();
         duration = requestDuration();
+        status = requestStatus();
 
         System.out.println("\n\n\n---------- Submitted Data ----------");
         System.out.printf("GreenSpace: %s\n", greenSpace.getName());
@@ -138,6 +145,23 @@ public class CreateEntryUI implements Runnable {
                     return "High";
                 default:
                     System.out.println("Invalid choice. Please enter '1', '2', or '3'.");
+            }
+        } while (true);
+
+    }
+    private String requestStatus() {
+        do {
+            System.out.println("Select the following status: ");
+            System.out.println("[1] - Pending");
+            System.out.print("Your choice: ");
+            Scanner input = new Scanner(System.in);
+            status = input.nextLine();
+
+            switch (status) {
+                case "1":
+                    return "Pending";
+                default:
+                    System.out.println("Invalid choice. Please press '1'.");
             }
         } while (true);
 

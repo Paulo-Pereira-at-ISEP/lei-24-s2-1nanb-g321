@@ -1,10 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.agenda;
 
-import pt.ipp.isep.dei.esoft.project.application.controller.CreateAgendaEntryController;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateEntryController;
+import pt.ipp.isep.dei.esoft.project.application.controller.CreateEntryToAgendaController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
-import pt.ipp.isep.dei.esoft.project.dto.TeamDTO;
+import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,24 +16,22 @@ public class AddNewEntryUI implements Runnable{
      * Create Skill UI (console). This option is only available for administrators for demonstration purposes.
      */
 
-    private final CreateAgendaEntryController controller;
-    private int hourOfDay;
-    private String day;
-    private String status;
-    private Team team;
-    private Entry entrys;
-    private AgendaEntry agendaEntry;
+    private final CreateEntryToAgendaController controller;
 
+    private Entry entrys;
+    private Team team;
+    private LocalDate date;
+    private String status;
     public AddNewEntryUI() {
-        controller = new CreateAgendaEntryController();
+        controller = new CreateEntryToAgendaController();
     }
 
-    private CreateAgendaEntryController getController() {
+    private CreateEntryToAgendaController getController() {
         return controller;
     }
 
     public void run() {
-        System.out.println("\n\n--- Create Entry to Agenda ------------------------");
+        System.out.println("\n\n--- Add Entry to Agenda ------------------------");
 
         requestData();
 
@@ -39,7 +39,7 @@ public class AddNewEntryUI implements Runnable{
     }
 
     private void submitData() {
-        AgendaEntry entry = controller.createAgendaEntry(entrys.getName(), entrys.getDescription(), entrys.getUrgencyDegree(), entrys.getDuration(), entrys.getGreenSpace(), day, hourOfDay, status, team);
+        Entry entry = controller.createEntry(entrys.getName(), entrys.getDescription(), entrys.getUrgencyDegree(), entrys.getDuration(), entrys.getGreenSpace(), entrys.getEntryDate(), status, team);
 
         if (entry != null) {
             System.out.println("\nEntry successfully added to the Agenda!");
@@ -66,16 +66,17 @@ public class AddNewEntryUI implements Runnable{
         String input;
         entrys = displayAndSelectEntry();
         team = displayAndSelectTeams();
-        day = requestDay();
-        hourOfDay = requestHourOfDay();
+        date = LocalDate.parse(requestDate());
+        entrys.setEntryDate(date);
+        status = requestStatus();
+
 
 
         System.out.println("\n\n\n---------- Submitted Data ----------");
         System.out.printf("Entry: %s\n", entrys.getName());
         System.out.println("Team:\n" + team);
-        System.out.printf("Day: %s\n", day);
-        System.out.printf("Hour of the day: %s\n", hourOfDay);
-        System.out.println("Status: " + "Planned");
+        System.out.printf("Date: %s\n", entrys.getEntryDate());
+        System.out.println("Status: %s\n" + status);
 
 
     }
@@ -145,75 +146,43 @@ public class AddNewEntryUI implements Runnable{
         }
     }
 
-    private String requestDay() {
+    private String requestStatus() {
         do {
-            System.out.println("Choose one of the following days: ");
-            System.out.println("[1] - Monday");
-            System.out.println("[2] - Tuesday");
-            System.out.println("[3] - Wednesday");
-            System.out.println("[4] - Thursday");
-            System.out.println("[5] - Friday");
-            System.out.println("[6] - Saturday");
-
+            System.out.println("Select the following status: ");
+            System.out.println("[1] - Planned");
             System.out.print("Your choice: ");
             Scanner input = new Scanner(System.in);
-            day = input.nextLine();
+            status = input.nextLine();
 
-            switch (day) {
+            switch (status) {
                 case "1":
-                    return "Monday";
-                case "2":
-                    return "Tuesday";
-                case "3":
-                    return "Wednesday";
-                case "4":
-                    return "Thursday";
-                case "5":
-                    return "Friday";
-                case "6":
-                    return "Saturday";
+                    return "Planned";
                 default:
-                    System.out.println("Invalid choice. Please enter '1', '2','3', '4', '5' or '6'.");
+                    System.out.println("Invalid choice. Please press '1'.");
             }
         } while (true);
 
     }
 
-
-    private int requestHourOfDay() {
-        do {
-            System.out.println("Choose one of the following Hours: ");
-            System.out.println("[1] - 09:00 am");
-            System.out.println("[2] - 10:00 am");
-            System.out.println("[3] - 11:00 am");
-            System.out.println("[4] - 12:00 am");
-            System.out.println("[5] - 14:00 pm");
-            System.out.println("[6] - 15:00 pm");
-            System.out.println("[7] - 16:00 pm");
-
-            System.out.print("Your choice: ");
-            Scanner input = new Scanner(System.in);
-            day = input.nextLine();
-
-            switch (day) {
-                case "1":
-                    return 9;
-                case "2":
-                    return 10;
-                case "3":
-                    return 11;
-                case "4":
-                    return 12;
-                case "5":
-                    return 14;
-                case "6":
-                    return 15;
-                case "7":
-                    return 16;
-                default:
-                    System.out.println("Invalid choice. Please enter '1', '2','3', '4', '5','6' or '7'.");
+    private CharSequence requestDate() {
+        boolean validDate = false;
+        String input = "";
+        while (!validDate) {
+            try {
+                input = (Utils.readLineFromConsole("Entry Date (YYYY-MM-DD): ")); // Prompt user for birth date
+                validDate = Utils.parseDate(input); // Validate the input date format
+                if (validDate) {
+                    assert input != null;
+                } else {
+                    System.out.println("Invalid date format (YYYY-MM-DD)."); // Print error if input date format is invalid
+                }
+            } catch (DateTimeParseException e) {
+                System.out.println("Error: Invalid date format."); // Print error if there's an exception parsing the date
             }
-        } while (true);
+        }
+        return input; // Return the validated employee birth date
     }
-}
+
+    }
+
 

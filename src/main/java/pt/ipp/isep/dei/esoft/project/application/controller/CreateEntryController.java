@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.application.controller;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -92,9 +93,9 @@ public class CreateEntryController {
             return greenSpaceRepository.getAllGreenSpaces();
     }
 
-    public Entry createEntry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace) {
+    public Entry createEntry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate date, String status, Team team) {
 
-            Entry newEntry = new Entry(name, description, urgencyDegree, duration, greenSpace);
+            Entry newEntry = new Entry(name, description, urgencyDegree, duration, greenSpace, date, status, team);
 
             toDoListRepository.add(newEntry);
 

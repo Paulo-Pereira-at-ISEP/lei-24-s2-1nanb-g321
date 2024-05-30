@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
-import pt.ipp.isep.dei.esoft.project.domain.AgendaEntry;
 import pt.ipp.isep.dei.esoft.project.domain.Entry;
 
 import java.util.ArrayList;
@@ -11,21 +10,21 @@ public class AgendaRepository {
 
 
 
-    private final List<AgendaEntry> entrys;
+    private final List<Entry> entrys;
 
         public AgendaRepository() {
             this.entrys = new ArrayList<>();
         }
 
-        public void addEntry(AgendaEntry entry) {
+        public void addEntry(Entry entry) {
             entrys.add(entry);
         }
 
-        public ArrayList<AgendaEntry> getAllEntrys() {
+        public ArrayList<Entry> getAllEntrys() {
             return new ArrayList<>(entrys);
         }
 
-        private boolean validateEntry(AgendaEntry entry) {
+        private boolean validateEntry(Entry entry) {
             boolean isValid = !entrys.contains(entry);
             return isValid;
         }
@@ -35,15 +34,15 @@ public class AgendaRepository {
          *
          * @return The list of skills.
          */
-        public List<AgendaEntry> getEntrys() {
+        public List<Entry> getEntrys() {
             //This is a defensive copy, so that the repository cannot be modified from the outside.
             return List.copyOf(entrys);
         }
 
 
-        public Optional<AgendaEntry> add(AgendaEntry entry) {
+        public Optional<Entry> add(Entry entry) {
 
-            Optional<AgendaEntry> newEntry = Optional.empty();
+            Optional<Entry> newEntry = Optional.empty();
             boolean operationSuccess = false;
 
             if (validateEntry(entry)) {
