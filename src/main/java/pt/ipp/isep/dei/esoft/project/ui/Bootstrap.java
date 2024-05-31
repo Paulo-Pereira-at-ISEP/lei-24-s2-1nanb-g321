@@ -89,7 +89,7 @@ public class Bootstrap implements Runnable {
         managerRepository.add(new Manager("VFM", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "vfm@this.app", "CC", 12345678, 123456789, new Job("Manager VF", "Vehicle Fleet"),PASSWORD, AuthenticationController.ROLE_VFM, "VFM"));
         managerRepository.add(new Manager("GSM_1", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "gsm@this.app", "CC", 12345678, 123456789, new Job("Manager GS", "Green Spaces"),PASSWORD, AuthenticationController.ROLE_GSM, "GSM"));
         managerRepository.add(new Manager("QAM", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "qam@this.app", "CC", 12345678, 123456789, new Job("Manager QA", "Software Quality Assessment Team"),PASSWORD, AuthenticationController.ROLE_QAM, "QAM"));
-        managerRepository.add(new Manager("GSM_2", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "gsm@this.app", "CC", 12345678, 123456789, new Job("Manager GS", "Green Spaces"),PASSWORD, AuthenticationController.ROLE_GSM, "GSM"));
+        managerRepository.add(new Manager("GSM_2", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "gsm2@this.app", "CC", 12345678, 123456789, new Job("Manager GS", "Green Spaces"),PASSWORD, AuthenticationController.ROLE_GSM, "GSM"));
 
         m_Managers = managerRepository.getAllManagers();
 

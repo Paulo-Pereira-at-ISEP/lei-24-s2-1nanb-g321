@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.GridPane?>
 
-<GridPane fx:controller="pt.ipp.isep.dei.esoft.project.ui.gui.authorization.LoginController"
+<GridPane fx:controller="pt.ipp.isep.dei.esoft.project.application.controller.fx.authorization.LoginFXController"
           alignment="CENTER" hgap="10" vgap="10" xmlns:fx="http://javafx.com/fxml">
     <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
 

@@ -21,7 +21,7 @@ public class CreateGreenSpacesUI implements Runnable {
     private String name;
     private double area;
     private String classification;
-    private Employee manager;
+    private Manager manager;
 
     public CreateGreenSpacesUI() {
         controller = new CreateGreenSpacesController();

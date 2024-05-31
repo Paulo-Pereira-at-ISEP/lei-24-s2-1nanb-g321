@@ -81,9 +81,9 @@ public class CreateGreenSpacesController {
             return greenSpaceRepository.getGreenSpaces();
         }
 
-        public GreenSpace createGreenSpace(String name, double area, String classification, Employee employee ) {
+        public GreenSpace createGreenSpace(String name, double area, String classification, Manager manager ) {
 
-            GreenSpace newGreenSpace = new GreenSpace(name, area, classification, employee);
+            GreenSpace newGreenSpace = new GreenSpace(name, area, classification, manager);
 
             greenSpaceRepository.add(newGreenSpace);
 

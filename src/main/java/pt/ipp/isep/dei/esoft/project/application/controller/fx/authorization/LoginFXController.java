@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project.ui.gui.authorization;
+package pt.ipp.isep.dei.esoft.project.application.controller.fx.authorization;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 
-public class LoginController {
+public class LoginFXController {
 
     @FXML
     private TextField emailField;
@@ -23,7 +23,7 @@ public class LoginController {
 
     private final AuthenticationController ctrl;
 
-    public LoginController() {
+    public LoginFXController() {
         this.ctrl = new AuthenticationController();
     }
 
@@ -55,8 +55,6 @@ public class LoginController {
         if (roles.size() == 1) {
             return roles.get(0);
         } else {
-            // Esta parte precisa ser implementada para permitir ao usuário selecionar um papel
-            // Você pode criar uma janela de diálogo para selecionar um papel
             return null;
         }
     }
@@ -64,11 +62,17 @@ public class LoginController {
     private void redirectToRoleUI(UserRoleDTO role) {
         try {
             if (role.getDescription().equals(AuthenticationController.ROLE_HRM)) {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/HRMMenu.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/employee/HRMMenu.fxml"));
                 Scene scene = new Scene(loader.load());
-                Stage stage = (Stage) emailField.getScene().getWindow(); // Obtém o palco atual
+                Stage stage = (Stage) emailField.getScene().getWindow();
                 stage.setScene(scene);
                 stage.setTitle("HRM Menu");
+            } else if (role.getDescription().equals(AuthenticationController.ROLE_GSM)) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/employee/GSMMenu.fxml"));
+                Scene scene = new Scene(loader.load());
+                Stage stage = (Stage) emailField.getScene().getWindow();
+                stage.setScene(scene);
+                stage.setTitle("GSM Menu");
             } else {
                 System.out.println("There is no UI for users with role '" + role.getDescription() + "'");
             }
