@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
-import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
 import pt.ipp.isep.dei.esoft.project.domain.Manager;
 import pt.ipp.isep.dei.esoft.project.repository.*;
@@ -81,9 +80,9 @@ public class CreateGreenSpacesController {
             return greenSpaceRepository.getGreenSpaces();
         }
 
-        public GreenSpace createGreenSpace(String name, double area, String classification, Employee employee ) {
+        public GreenSpace createGreenSpace(String name, double area, String classification, Manager manager ) {
 
-            GreenSpace newGreenSpace = new GreenSpace(name, area, classification, employee);
+            GreenSpace newGreenSpace = new GreenSpace(name, area, classification, manager);
 
             greenSpaceRepository.add(newGreenSpace);
 

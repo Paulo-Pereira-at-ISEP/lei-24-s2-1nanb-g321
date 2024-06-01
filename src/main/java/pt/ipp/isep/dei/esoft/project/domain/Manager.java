@@ -15,6 +15,10 @@ public class Manager extends Employee {
         super(email);
     }
 
+    public String getName(){
+        return super.getName();
+    }
+
     public String getDepartment() {
         return department;
     }

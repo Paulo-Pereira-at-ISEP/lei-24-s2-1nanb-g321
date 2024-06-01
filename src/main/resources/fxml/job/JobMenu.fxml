@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:controller="pt.ipp.isep.dei.esoft.project.application.controller.fx.job.JobMenuFXController"
+      alignment="CENTER" spacing="10" xmlns:fx="http://javafx.com/fxml/1">
+    <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+
+    <Button fx:id="createJobButton" text="Create Job"/>
+    <Button fx:id="listJobsButton" text="List Jobs"/>
+    <Button fx:id="backButton" text="Back" onAction="#handleBack"/>
+</VBox>

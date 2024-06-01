@@ -1,7 +1,5 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.collaborator;
 
-import pt.ipp.isep.dei.esoft.project.ui.console.manager.CreateManagerUI;
-import pt.ipp.isep.dei.esoft.project.ui.console.manager.ListManagerUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.MenuItem;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 

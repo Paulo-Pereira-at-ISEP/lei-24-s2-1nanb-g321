@@ -20,6 +20,7 @@ public class CreateCollaboratorController {
     public CreateCollaboratorController() {
         getAuthenticationRepository();
         getJobRepository();
+        getSkillRepository();
         getCollaboratorRepository();
     }
 
