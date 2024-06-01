@@ -107,13 +107,6 @@ activate GSM
 
                 activate controller
 
-                controller -> MGR : filterFutureEntriesByDate(futureEntries, selectedDateHour)
-
-                    activate MGR
-
-                        MGR --> controller : futureEntriesFilteredByDate
-
-                    deactivate MGR
 
 
                 controller -> MGR : postponeEntryToDate(selectedEntry, selectedDateHour, futureEntriesFilteredByDate)
