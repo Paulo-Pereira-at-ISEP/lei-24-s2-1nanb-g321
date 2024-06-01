@@ -15,7 +15,7 @@ activate Employee
     Employee -> System : Asks to postpone an entry from the Agenda
     activate System
 
-        System --> Employee : Shows the entries collected at the Agenda
+        System --> Employee : Shows the entries collected at the Agenda\n and promps the selection of an entry
     deactivate System
 
     Employee -> System : Selects one of the listed entries
