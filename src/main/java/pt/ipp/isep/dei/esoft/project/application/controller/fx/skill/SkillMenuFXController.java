@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class SkillMenuController {
+public class SkillMenuFXController {
 
     @FXML
     private Button createSkillButton;

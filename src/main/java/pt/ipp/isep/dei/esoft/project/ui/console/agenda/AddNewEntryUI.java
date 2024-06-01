@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.agenda;
 
-import pt.ipp.isep.dei.esoft.project.application.controller.CreateEntryController;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateEntryToAgendaController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;

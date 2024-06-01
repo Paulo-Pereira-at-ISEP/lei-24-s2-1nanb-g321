@@ -2,14 +2,11 @@ package pt.ipp.isep.dei.esoft.project.ui.console.GreenSpaces;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateGreenSpacesController;
 
-import pt.ipp.isep.dei.esoft.project.domain.Employee;
 import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
 import pt.ipp.isep.dei.esoft.project.domain.Manager;
-import pt.ipp.isep.dei.esoft.project.domain.Task;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Scanner;
 
 /**

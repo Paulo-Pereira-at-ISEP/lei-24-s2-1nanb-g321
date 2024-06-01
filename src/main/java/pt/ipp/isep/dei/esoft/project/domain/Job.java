@@ -47,11 +47,17 @@ public class Job {
     public void setDescription(String description) {
         this.description = description;
     }
-
+/*
     @Override
     public String toString() {
         return name + " - " + description;
     }
+
+ */
+    @Override
+    public String toString() {
+    return name;
+}
 
     public boolean equals(Object o) {
         if (this == o) {

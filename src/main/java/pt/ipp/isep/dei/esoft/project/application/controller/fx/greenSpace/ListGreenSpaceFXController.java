@@ -26,7 +26,7 @@ public class ListGreenSpaceFXController {
     private TableColumn<GreenSpace, String> nameColumn;
 
     @FXML
-    private TableColumn<GreenSpace, String> areaColumn;
+    private TableColumn<GreenSpace, Double> areaColumn;
 
     @FXML
     private TableColumn<GreenSpace, String> classificationColumn;
