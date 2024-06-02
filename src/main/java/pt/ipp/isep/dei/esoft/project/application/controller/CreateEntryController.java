@@ -93,9 +93,9 @@ public class CreateEntryController {
             return greenSpaceRepository.getAllGreenSpaces();
     }
 
-    public Entry createEntry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate date, String status, Team team) {
+    public Entry createEntry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace) {
 
-            Entry newEntry = new Entry(name, description, urgencyDegree, duration, greenSpace, date, status, team);
+            Entry newEntry = new Entry(name, description, urgencyDegree, duration, greenSpace);
 
             toDoListRepository.add(newEntry);
 

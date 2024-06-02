@@ -73,10 +73,13 @@ public class GenerateTeamController {
     public List<Team> getAllTeams() {
         return teamRepository.getTeams();
     }
+    public int getTeamId(Team team) {
+        return team.getId(); // Assuming Team class has a getId() method
+    }
 
-    public Team generateTeam(int teamMinSize, int teamMaxSize, ArrayList<Skill> skills) {
+    public Team generateTeam(int teamMinSize, int teamMaxSize, ArrayList<Skill> skills, int id) {
 
-        Team team = new Team(teamMinSize, teamMaxSize, skills);
+        Team team = new Team(teamMinSize, teamMaxSize, skills, id);
 
         team.generateTeam(collaboratorRepository.getCollaborators());
 
@@ -93,9 +96,9 @@ public class GenerateTeamController {
         return team;
     }
 
-    public Team generateSecondTeam(int teamMinSize, int teamMaxSize, ArrayList<Skill> skills) {
+    public Team generateSecondTeam(int teamMinSize, int teamMaxSize, ArrayList<Skill> skills, int id) {
 
-        Team team = new Team(teamMinSize, teamMaxSize, skills);
+        Team team = new Team(teamMinSize, teamMaxSize, skills, id);
 
         team.generateSecondTeam(collaboratorRepository.getCollaborators());
 

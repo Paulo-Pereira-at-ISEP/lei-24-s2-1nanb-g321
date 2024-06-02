@@ -29,16 +29,18 @@ public class ListTeamUI implements Runnable {
      * Lists all registered employees along with their details.
      */
     private void listTeams() {
+
         List<Team> teams = controller.getAllTeams();
         System.out.println("Registered Teams:");
         int counter = 1;
         for (Team team: teams) {
             int counter2 = 1;
+            System.out.println("[Team ID] " + controller.getTeamId(team));
             List <Collaborator> collaborators = team.getCollaborators();
-            System.out.println("[Team " + counter + "] ");
             for (Collaborator collaborator: collaborators){
-                System.out.print("[" + counter2 +"] ");
+
                 System.out.println(" Name: " + collaborator.getName());
+                System.out.println("Skills: " + collaborator.getSkills());
                 counter2++;
             }
             System.out.println("-----------------------------");

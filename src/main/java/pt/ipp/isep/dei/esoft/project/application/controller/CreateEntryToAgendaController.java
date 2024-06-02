@@ -112,11 +112,11 @@ public class CreateEntryToAgendaController {
             return teamRepository.getAllTeams();
         }
 
-        public Entry createEntry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate date, String status, Team team) {
+        public Entry createEntry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate date, String status, int hour) {
 
-            Entry newEntry = new Entry(name, description, urgencyDegree, duration, greenSpace, date, status, team);
+            Entry newEntry = new Entry(name, description, urgencyDegree, duration, greenSpace, date, status, hour);
 
-            toDoListRepository.add(newEntry);
+            agendaRepository.add(newEntry);
 
             return newEntry;
         }

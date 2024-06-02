@@ -25,7 +25,7 @@ public class Bootstrap implements Runnable {
         addUsers();
         addTasks();
         addGreenSpace();
-        addTeam();
+        //addTeam();
     }
 /*
     private void addOrganization() {
@@ -114,13 +114,12 @@ public class Bootstrap implements Runnable {
 
     }
 
-    private void addTeam(){
+    /*private void addTeam(){
         TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
         teamRepository.addTeam(new Team(m_Collaborators));
+}
+*/
 
-
-
-    }
 
     private void addUsers() {
         //TODO: add Authentication users here: should be created for each user in the organization

@@ -17,6 +17,7 @@ public class GenerateTeamUI implements Runnable {
     private int teamMinSize;
     private ArrayList<Skill> skills;
     private List<Collaborator> collaborators;
+    private int iD;
 
     public GenerateTeamUI() {
         controller = new GenerateTeamController();
@@ -36,14 +37,14 @@ public class GenerateTeamUI implements Runnable {
 
     private void submitData() {
 
-        Team team = controller.generateTeam(teamMinSize, teamMaxSize, skills);
+        Team team = controller.generateTeam(teamMinSize, teamMaxSize, skills, iD);
 
         if (team != null && team.getCollaborators().size() >= teamMinSize &&team.getCollaborators().size() <= teamMaxSize && !team.getCollaborators().isEmpty()) {
             listCollaborators(team);
             String input = Utils.readLineFromConsole("\n Do you accept this team? (y/n)");
              if(input.equalsIgnoreCase("n") || input.isEmpty()){
                  System.out.println("A new team will be generated!\n ");
-                 Team team1 = controller.generateSecondTeam(teamMinSize, teamMaxSize, skills);
+                 Team team1 = controller.generateSecondTeam(teamMinSize, teamMaxSize, skills, iD);
                  listCollaborators(team1);
                 input = Utils.readLineFromConsole("\n Do you accept this team? (y/n)");
 
@@ -116,15 +117,20 @@ public class GenerateTeamUI implements Runnable {
     private void listCollaborators(Team team) {
 
         List<Collaborator> collaborators = team.getCollaborators();
+
         System.out.println("Team:");
         int counter = 1;
         for (Collaborator collaborator : collaborators) {
+            if (collaborator.getHasTeam() == true) {
+                System.out.println("A team could not be generated");
+            }else{
                 System.out.println("[" + counter + "] ");
                 System.out.println("    Name: " + collaborator.getName());
                 System.out.println("    Email: " + collaborator.getEmail());
                 System.out.println("    Skills: " + collaborator.getSkills());
                 System.out.println("-----------------------------");
                 counter++;
+            }
         }
     }
 }

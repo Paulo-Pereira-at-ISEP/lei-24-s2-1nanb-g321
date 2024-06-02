@@ -7,16 +7,15 @@ public class Team {
     private int teamMinSize;
     private ArrayList<Skill> skills = new ArrayList<>();
     private ArrayList<Collaborator> collaborators = new ArrayList<>();
+    private static int nextId = 1; // Static variable to keep track of the next ID
+    private final int id;
 
 
-    public Team(int teamMinSize, int teamMaxSize, ArrayList<Skill> skills) {
+    public Team(int teamMinSize, int teamMaxSize, ArrayList<Skill> skills, int id) {
         this.teamMinSize = teamMinSize;
         this.teamMaxSize = teamMaxSize;
         this.skills = skills;
-    }
-
-    public Team(ArrayList<Collaborator> collaborators) {
-        this.collaborators = collaborators;
+        this.id = nextId++;
     }
 
 
@@ -58,58 +57,63 @@ public class Team {
 
         ArrayList<Collaborator> collaboratorSorted = sortCollaboratorBySkillScore(scores, listOfCollaborators);
 
-        for (Skill skill : skills) {
 
-            //pesquisa no 1 vetor
-            Collaborator current = hasSkill(collaborators, skill);
+            for (Skill skill : skills) {
 
-            //procura no vetor da equipa
-            //se encontra, remove a skill do employee encontrado
-            //senao
-            //procura no vetor dos employees ordenado
-            //se encontrado adiciona a equipa
-            if (current != null) {
-                var skills = current.getSkills();
-                skills.remove(skill);
-                current.setSkills(skills);
+                //pesquisa no 1 vetor
+                Collaborator current = hasSkill(collaborators, skill);
 
-
-            } else {
-                //pesquisa no 2 vetor
-
-                current = hasSkill(collaboratorSorted, skill);
+                //procura no vetor da equipa
+                //se encontra, remove a skill do employee encontrado
+                //senao
+                //procura no vetor dos employees ordenado
+                //se encontrado adiciona a equipa
                 if (current != null) {
                     var skills = current.getSkills();
                     skills.remove(skill);
                     current.setSkills(skills);
-                    collaborators.add(current);
+
+
                 } else {
-                    System.out.println("Team not created! ");
+                    //pesquisa no 2 vetor
+
+                    current = hasSkill(collaboratorSorted, skill);
+                    if (current != null) {
+                        var skills = current.getSkills();
+                        skills.remove(skill);
+                        current.setSkills(skills);
+                        collaborators.add(current);
+                   } else {
+                        System.out.println("Team not created! ");
+                    }
+                }
+
+                int dif = teamMinSize - collaborators.size();
+                int i = 0;
+                while (dif != 0 && i < skills.size()) {
+                    Skill skill1 = skills.get(i);
+                    //percorre as skills
+                    //percorre os verifica se os employees tem a skill
+                    //se o employee devolvido ja estiver na equipa
+                    //remove o emplyee da lista de employees
+                    //procura novamente
+                    //quando encontrado
+                    //calcula o dif novamente
+                    Collaborator collaboratorToChoose = hasSkill(collaboratorSorted, skill1);
+
+                    if (collaboratorToChoose != null && collaborators.contains(collaboratorToChoose)) {
+                        collaboratorSorted.remove(collaboratorToChoose);
+                    } else {
+                        if (collaboratorToChoose != null)
+                            collaborators.add(collaboratorToChoose);
+
+                    }
+                    i++;
+                    dif = teamMinSize - collaborators.size();
                 }
             }
-
-            int dif = teamMinSize - collaborators.size();
-            int i = 0;
-            while (dif != 0 && i < skills.size()) {
-                Skill skill1 = skills.get(i);
-                //percorre as skills
-                //percorre os verifica se os employees tem a skill
-                //se o employee devolvido ja estiver na equipa
-                //remove o emplyee da lista de employees
-                //procura novamente
-                //quando encontrado
-                //calcula o dif novamente
-                Collaborator collaboratorToChoose = hasSkill(collaboratorSorted, skill1);
-
-                if (collaboratorToChoose != null && collaborators.contains(collaboratorToChoose)) {
-                    collaboratorSorted.remove(collaboratorToChoose);
-                } else {
-                    if (collaboratorToChoose != null)
-                        collaborators.add(collaboratorToChoose);
-                }
-                i++;
-                dif = teamMinSize - collaborators.size();
-            }
+        for (Collaborator collaborator : collaborators) {
+            collaborator.setHasTeam(true);
         }
         return collaborators;
     }
@@ -184,7 +188,16 @@ public class Team {
 
         return null;
     }
+    public Collaborator hasTeam (List<Collaborator> listOfCollaborators) {
+        for (Collaborator collaborator : listOfCollaborators) {
+            if (!collaborator.getHasTeam()) {
+                collaborator.setHasTeam(true);
+                return collaborator;
+            }
 
+        }
+        return null;
+    }
     private ArrayList<Collaborator> sortCollaboratorBySkillScore(Integer[] scores, List<Collaborator> listOfCollaborators) {
         int scoreAux;
 
@@ -193,6 +206,7 @@ public class Team {
         //cria um array de scores
         for (Collaborator collaborator : collaborators1) {
             scoreAux = 0;
+
             for (Skill skill : skills) {
 
                 //verificar se o employee tem a skill
@@ -202,6 +216,11 @@ public class Team {
                 }
             }
             scores[collaborators1.indexOf(collaborator)] = scoreAux;
+        }
+        for (Collaborator collaborator : collaborators1) {
+            if(collaborator.getHasTeam()) {
+                collaborators1.remove(collaborator);
+            }
         }
 
         Collaborator collaboratorCopy;
@@ -235,9 +254,11 @@ public class Team {
 
 
     public Team clone() {
-        return new Team(this.teamMinSize, this.teamMaxSize, this.skills);
+        return new Team(this.teamMinSize, this.teamMaxSize, this.skills, this.id);
     }
 
 
-
+    public int getId() {
+        return id;
+    }
 }

@@ -24,10 +24,7 @@ public class CreateEntryUI implements Runnable {
     private int duration;
     private Task task;
     private GreenSpace greenSpace;
-    private LocalDate date;
     private String status;
-    private Team team;
-    private Entry entry;
 
     public CreateEntryUI() {
         controller = new CreateEntryController();
@@ -46,7 +43,7 @@ public class CreateEntryUI implements Runnable {
     }
 
     private void submitData() {
-        Entry entry = controller.createEntry(task.getName(), task.getDescription(), urgencyDegree, duration, greenSpace, LocalDate.EPOCH, status, team);
+        Entry entry = controller.createEntry(task.getName(), task.getDescription(), urgencyDegree, duration, greenSpace);
 
         if (entry != null) {
             System.out.println("\nEntry successfully added to the ToDoList!");
