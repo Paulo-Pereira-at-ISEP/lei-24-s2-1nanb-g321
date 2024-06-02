@@ -148,6 +148,6 @@ public class CreateCollaboratorFXController {
         docTypeNumberField.clear();
         taxPayerIdNumberField.clear();
         jobComboBox.setValue(null);
-        //skillListView.setValue(null);
+        skillListView.getSelectionModel().clearSelection();
     }
 }
