@@ -6,14 +6,16 @@
 
 <VBox fx:controller="pt.ipp.isep.dei.esoft.project.application.controller.fx.employee.HRMMenuFXController"
       alignment="CENTER" spacing="10" xmlns:fx="http://javafx.com/fxml/1">
-    <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+    <padding>
+        <Insets top="25" right="25" bottom="25" left="25"/>
+    </padding>
 
-    <Button fx:id="skillsButton" text="Skills"/>
-    <Button fx:id="jobsButton" text="Jobs"/>
-    <Button fx:id="managerButton" text="Manager"/>
-    <Button fx:id="collaboratorButton" text="Collaborator"/>
-    <Button fx:id="teamButton" text="Team"/>
-    <Button fx:id="tasksButton" text="Tasks"/>
-    <Button fx:id="logoutButton" text="Logout"/>
-    <Button fx:id="closeButton" text="Close"/>
+    <Button fx:id="skillsButton" text="Skills" maxWidth="Infinity"/>
+    <Button fx:id="jobsButton" text="Jobs" maxWidth="Infinity"/>
+    <Button fx:id="managerButton" text="Manager" maxWidth="Infinity"/>
+    <Button fx:id="collaboratorButton" text="Collaborator" maxWidth="Infinity"/>
+    <Button fx:id="teamButton" text="Team" maxWidth="Infinity"/>
+    <Button fx:id="tasksButton" text="Tasks" maxWidth="Infinity"/>
+    <Button fx:id="logoutButton" text="Logout" maxWidth="Infinity"/>
+    <Button fx:id="closeButton" text="Close" maxWidth="Infinity"/>
 </VBox>

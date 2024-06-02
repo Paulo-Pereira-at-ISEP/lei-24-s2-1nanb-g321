@@ -99,7 +99,15 @@ public class HRMMenuFXController {
     }
 
     private void handleTeam() {
-        // Lógica para redirecionar para a UI de Team
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/team/TeamMenu.fxml"));
+            Scene scene = new Scene(loader.load());
+            Stage stage = (Stage) teamButton.getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Team Menu");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void handleTasks() {
