@@ -49,6 +49,7 @@ public class Bootstrap implements Runnable {
         skillRepository.add(new Skill("Machine Operator", "Operates machines such as backhoes or tractors"));
         skillRepository.add(new Skill("Tree Pruner", "Prunes trees"));
         skillRepository.add(new Skill("Phytopharmaceutical applicator", "Applies agriculture phytopharmaceuticals to the crops"));
+        skillRepository.add(new Skill("Electrical Wiring", "Installs and repairs electrical wiring"));
 
     }
 

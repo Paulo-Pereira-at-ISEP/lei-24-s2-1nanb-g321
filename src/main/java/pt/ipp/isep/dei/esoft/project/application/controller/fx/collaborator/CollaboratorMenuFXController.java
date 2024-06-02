@@ -17,12 +17,16 @@ public class CollaboratorMenuFXController {
     private Button listCollaboratorsButton;
 
     @FXML
+    private Button assignSkillsButton;
+
+    @FXML
     private Button backButton;
 
     @FXML
     private void initialize() {
         createCollaboratorButton.setOnAction(event -> handleCreateCollaborator());
         listCollaboratorsButton.setOnAction(event -> handleListCollaborators());
+        assignSkillsButton.setOnAction(event -> handleAssignSkills());
         backButton.setOnAction(event -> handleBack());
     }
 
@@ -45,6 +49,18 @@ public class CollaboratorMenuFXController {
             Stage stage = (Stage) listCollaboratorsButton.getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle("List Collaborators");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void handleAssignSkills() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/collaborator/SelectCollaborator.fxml"));
+            Scene scene = new Scene(loader.load());
+            Stage stage = (Stage) assignSkillsButton.getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Assign Skills Collaborators");
         } catch (IOException e) {
             e.printStackTrace();
         }

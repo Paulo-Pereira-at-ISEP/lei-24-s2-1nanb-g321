@@ -15,4 +15,5 @@
     <Button fx:id="teamButton" text="Team"/>
     <Button fx:id="tasksButton" text="Tasks"/>
     <Button fx:id="logoutButton" text="Logout"/>
+    <Button fx:id="closeButton" text="Close"/>
 </VBox>

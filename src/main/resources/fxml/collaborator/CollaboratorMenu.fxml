@@ -10,5 +10,6 @@
 
     <Button fx:id="createCollaboratorButton" text="Create Collaborator"/>
     <Button fx:id="listCollaboratorsButton" text="List Collaborators"/>
+    <Button fx:id="assignSkillsButton" text="Assign Skills to Collaborators"/>
     <Button fx:id="backButton" text="Back" onAction="#handleBack"/>
 </VBox>

@@ -10,4 +10,5 @@
 
     <Button fx:id="greenSpacesButton" text="Green Spaces"/>
     <Button fx:id="logoutButton" text="Logout"/>
+    <Button fx:id="closeButton" text="Close"/>
 </VBox>
