@@ -17,8 +17,6 @@ import pt.ipp.isep.dei.esoft.project.domain.Team;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class ListTeamFXController {
 
@@ -34,17 +32,32 @@ public class ListTeamFXController {
     private TableColumn<TeamMemberView, String> collaboratorColumn;
 
     @FXML
+    private TableColumn<TeamMemberView, String> emailColumn;
+
+    @FXML
+    private TableColumn<TeamMemberView, String> jobColumn;
+
+    @FXML
+    private TableColumn<TeamMemberView, String> skillsColumn;
+
+    @FXML
     private Button backButton;
 
     @FXML
     private void initialize() {
         idTeamColumn.setCellValueFactory(new PropertyValueFactory<>("teamId"));
         collaboratorColumn.setCellValueFactory(new PropertyValueFactory<>("collaboratorName"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<>("collaboratorEmail"));
+        jobColumn.setCellValueFactory(new PropertyValueFactory<>("collaboratorJob"));
+        skillsColumn.setCellValueFactory(new PropertyValueFactory<>("collaboratorSkills"));
 
         teamsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        idTeamColumn.setMinWidth(50);
+        idTeamColumn.setMinWidth(20);
         collaboratorColumn.setMinWidth(150);
+        emailColumn.setMinWidth(150);
+        jobColumn.setMinWidth(150);
+        skillsColumn.setMinWidth(470);
 
         listTeams();
     }
@@ -53,11 +66,10 @@ public class ListTeamFXController {
         List<Team> teams = teamController.getAllTeams();
         List<TeamMemberView> teamMemberViews = new ArrayList<>();
 
-        for (int i = 0; i < teams.size(); i++) {
-            Team team = teams.get(i);
-            int teamId = i + 1; // ID incremental
+        for (Team team : teams) {
+            int teamId = team.getId(); // Use o ID existente da equipe
             for (Collaborator collaborator : team.getCollaborators()) {
-                teamMemberViews.add(new TeamMemberView(teamId, collaborator.getName()));
+                teamMemberViews.add(new TeamMemberView(teamId, collaborator.getName(), collaborator.getEmail(), collaborator.getJob(), collaborator.getSkills()));
             }
         }
 

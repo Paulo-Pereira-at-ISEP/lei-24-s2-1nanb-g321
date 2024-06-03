@@ -1,23 +1,30 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
+import pt.ipp.isep.dei.esoft.project.repository.TeamRepository;
+
 import java.util.*;
 
 public class Team {
     private int teamMaxSize;
     private int teamMinSize;
-    private ArrayList<Skill> skills = new ArrayList<>();
+    private static ArrayList<Skill> skills = new ArrayList<>();
     private ArrayList<Collaborator> collaborators = new ArrayList<>();
-    private static int nextId = 1; // Static variable to keep track of the next ID
     private final int id;
 
+    private final TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
 
-    public Team(int teamMinSize, int teamMaxSize, ArrayList<Skill> skills, int id) {
+    public Team(int teamMinSize, int teamMaxSize, ArrayList<Skill> skills) {
         this.teamMinSize = teamMinSize;
         this.teamMaxSize = teamMaxSize;
         this.skills = skills;
-        this.id = nextId++;
+        this.id = teamRepository.getAllTeams().size() + 1;
     }
 
+    public Team(ArrayList<Collaborator> collaborators) {
+        this.collaborators = collaborators;
+        this.id = teamRepository.getAllTeams().size() + 1;
+    }
 
     public int getTeamMaxSize() {
         return teamMaxSize;
@@ -33,6 +40,10 @@ public class Team {
 
     public List<Collaborator> getCollaborators() {
         return collaborators;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void setTeamMaxSize(int teamMaxSize) {
@@ -51,214 +62,106 @@ public class Team {
         this.collaborators = collaborators;
     }
 
-    public List<Collaborator> generateTeam(List<Collaborator> listOfCollaborators) {
+    public static ArrayList<Collaborator> createSuperTeam(int teamMaxSize, int teamMinSize, ArrayList<Skill> skills, ArrayList<Collaborator> listOfCollaborators) {
+        // Ordenar colaboradores por habilidades necessárias (presumindo que a função sortCollaboratorBySkill está implementada)
+        ArrayList<Collaborator> collaboratorSorted = sortCollaboratorBySkill(listOfCollaborators, skills);
 
-        Integer[] scores = new Integer[listOfCollaborators.size()];
-
-        ArrayList<Collaborator> collaboratorSorted = sortCollaboratorBySkillScore(scores, listOfCollaborators);
-
-
-            for (Skill skill : skills) {
-
-                //pesquisa no 1 vetor
-                Collaborator current = hasSkill(collaborators, skill);
-
-                //procura no vetor da equipa
-                //se encontra, remove a skill do employee encontrado
-                //senao
-                //procura no vetor dos employees ordenado
-                //se encontrado adiciona a equipa
-                if (current != null) {
-                    var skills = current.getSkills();
-                    skills.remove(skill);
-                    current.setSkills(skills);
-
-
-                } else {
-                    //pesquisa no 2 vetor
-
-                    current = hasSkill(collaboratorSorted, skill);
-                    if (current != null) {
-                        var skills = current.getSkills();
-                        skills.remove(skill);
-                        current.setSkills(skills);
-                        collaborators.add(current);
-                   } else {
-                        System.out.println("Team not created! ");
-                    }
-                }
-
-                int dif = teamMinSize - collaborators.size();
-                int i = 0;
-                while (dif != 0 && i < skills.size()) {
-                    Skill skill1 = skills.get(i);
-                    //percorre as skills
-                    //percorre os verifica se os employees tem a skill
-                    //se o employee devolvido ja estiver na equipa
-                    //remove o emplyee da lista de employees
-                    //procura novamente
-                    //quando encontrado
-                    //calcula o dif novamente
-                    Collaborator collaboratorToChoose = hasSkill(collaboratorSorted, skill1);
-
-                    if (collaboratorToChoose != null && collaborators.contains(collaboratorToChoose)) {
-                        collaboratorSorted.remove(collaboratorToChoose);
-                    } else {
-                        if (collaboratorToChoose != null)
-                            collaborators.add(collaboratorToChoose);
-
-                    }
-                    i++;
-                    dif = teamMinSize - collaborators.size();
-                }
-            }
-        for (Collaborator collaborator : collaborators) {
-            collaborator.setHasTeam(true);
-        }
-        return collaborators;
-    }
-
-    public List<Collaborator> generateSecondTeam(List<Collaborator> listOfCollaborators) {
-
-
+        // Map para contar a necessidade de cada skill
+        Map<Skill, Integer> remainingSkills = new HashMap<>();
         for (Skill skill : skills) {
+            remainingSkills.put(skill, remainingSkills.getOrDefault(skill, 0) + 1);
+        }
 
-            //pesquisa no 1 vetor
-            Collaborator current = hasSkill(collaborators, skill);
+        // Lista para armazenar os colaboradores selecionados
+        ArrayList<Collaborator> selectedTeam = new ArrayList<>();
+        // Set para rastrear as habilidades que a equipe cobre
+        Set<Skill> teamSkills = new HashSet<>();
 
-            //procura no vetor da equipa
-            //se encontra, remove a skill do employee encontrado
-            //senao
-            //procura no vetor dos employees ordenado
-            //se encontrado adiciona a equipa
-            if (current != null) {
-                var skills = current.getSkills();
-                skills.remove(skill);
-                current.setSkills(skills);
+        for (Collaborator collaborator : collaboratorSorted) {
+            if (selectedTeam.size() >= teamMaxSize) {
+                break;
+            }
 
-
-            } else {
-                //pesquisa no 2 vetor
-
-                current = hasSkill((ArrayList<Collaborator>) listOfCollaborators, skill);
-                if (current != null) {
-                    var skills = current.getSkills();
-                    skills.remove(skill);
-                    current.setSkills(skills);
-                    collaborators.add(current);
-                } else {
-                    System.out.println("Team not created! ");
+            boolean addedToTeam = false;
+            for (Skill skill : collaborator.getSkills()) {
+                if (remainingSkills.containsKey(skill)) {
+                    // Adicionar colaborador se ele ainda não está na equipe
+                    if (!selectedTeam.contains(collaborator)) {
+                        selectedTeam.add(collaborator);
+                        addedToTeam = true;
+                    }
+                    // Adicionar skill ao conjunto de skills da equipe
+                    teamSkills.add(skill);
+                    // Reduzir a contagem da habilidade necessária
+                    remainingSkills.put(skill, remainingSkills.get(skill) - 1);
+                    if (remainingSkills.get(skill) <= 0) {
+                        remainingSkills.remove(skill);
+                    }
                 }
             }
 
-            int dif = teamMinSize - collaborators.size();
-            int i = 0;
-            while (dif != 0 && i < skills.size()) {
-                Skill skill1 = skills.get(i);
-                //percorre as skills
-                //percorre os verifica se os employees tem a skill
-                //se o employee devolvido ja estiver na equipa
-                //remove o emplyee da lista de employees
-                //procura novamente
-                //quando encontrado
-                //calcula o dif novamente
-                Collaborator collaboratorToChoose = hasSkill((ArrayList<Collaborator>) listOfCollaborators, skill1);
-
-                if (collaboratorToChoose != null && collaborators.contains(collaboratorToChoose)) {
-                    listOfCollaborators.remove(collaboratorToChoose);
-                } else {
-                    if (collaboratorToChoose != null)
-                        collaborators.add(collaboratorToChoose);
-                }
-                i++;
-                dif = teamMinSize - collaborators.size();
-            }
-        }
-        return collaborators;
-    }
-
-    public Collaborator hasSkill(ArrayList<Collaborator> collaborators, Skill skill) {
-
-        for (Collaborator collaborator : collaborators) {
-
-            if (collaborator.getSkills().contains(skill)) {
-                return collaborator;
+            // Verifica se a equipe já possui todas as skills necessárias e tem tamanho mínimo
+            if (addedToTeam && teamSkills.containsAll(skills) && selectedTeam.size() >= teamMinSize) {
+                return selectedTeam;
             }
         }
 
-        return null;
+        // Verifica se a equipe formada atende aos requisitos após o loop
+        if (teamSkills.containsAll(skills) && selectedTeam.size() >= teamMinSize) {
+            return selectedTeam;
+        }
+
+        return new ArrayList<>();
     }
-    public Collaborator hasTeam (List<Collaborator> listOfCollaborators) {
+
+    public static ArrayList<Collaborator> createSuperTeam2(int teamMaxSize,int teamMinSize, ArrayList<Skill> skills, ArrayList<Collaborator> listOfCollaborators, Team team) {
+        ArrayList<Collaborator> tempTeam = listOfCollaborators;
+
+        for (int i = 0; i < listOfCollaborators.size(); i++) {
+            Collaborator collaborator = listOfCollaborators.get(i);
+            if (team.getCollaborators().contains(collaborator)) {
+                tempTeam.remove(i);
+                i--;
+            }
+        }
+
+        return createSuperTeam(teamMaxSize, teamMinSize, skills, tempTeam);
+    }
+
+    private static ArrayList<Collaborator> sortCollaboratorBySkill(List<Collaborator> listOfCollaborators, ArrayList<Skill> skills) {
+        Map<Collaborator, Integer> map = new HashMap<>();
+
         for (Collaborator collaborator : listOfCollaborators) {
-            if (!collaborator.getHasTeam()) {
-                collaborator.setHasTeam(true);
-                return collaborator;
-            }
-
-        }
-        return null;
-    }
-    private ArrayList<Collaborator> sortCollaboratorBySkillScore(Integer[] scores, List<Collaborator> listOfCollaborators) {
-        int scoreAux;
-
-        ArrayList<Collaborator> collaborators1 = new ArrayList<>(listOfCollaborators);
-
-        //cria um array de scores
-        for (Collaborator collaborator : collaborators1) {
-            scoreAux = 0;
-
+            int score = 0;
             for (Skill skill : skills) {
-
-                //verificar se o employee tem a skill
-                //se sim, incrementa score no vetor scores na posição employees.indexOf(employee)
                 if (collaborator.getSkills().contains(skill)) {
-                    scoreAux++;
+                    score++;
                 }
             }
-            scores[collaborators1.indexOf(collaborator)] = scoreAux;
-        }
-        for (Collaborator collaborator : collaborators1) {
-            if(collaborator.getHasTeam()) {
-                collaborators1.remove(collaborator);
-            }
+            map.put(collaborator, score);
         }
 
-        Collaborator collaboratorCopy;
-        int scoreCopy;
+        ArrayList<Collaborator> sortedCollaborators = new ArrayList<>(listOfCollaborators);
 
-        for (int i = 0; i < scores.length; i++) {
-            for (int j = 0; j < scores.length - 1 - i; j++) {
-
-                if (scores[j] < scores[j + 1]) {
-
-                    scoreCopy = scores[j];
-                    scores[j] = scores[j + 1];
-                    scores[j + 1] = scoreCopy;
-
-
-                    collaboratorCopy = collaborators1.get(j);
-                    collaborators1.set(j, collaborators1.get(j + 1));
-                    collaborators1.set(j + 1, collaboratorCopy);
-
+        for (int i = 0; i < sortedCollaborators.size() - 1; i++) {
+            for (int j = 0; j < sortedCollaborators.size() - i - 1; j++) {
+                if (map.get(sortedCollaborators.get(j)) < map.get(sortedCollaborators.get(j + 1))) {
+                    Collaborator temp = sortedCollaborators.get(j);
+                    sortedCollaborators.set(j, sortedCollaborators.get(j + 1));
+                    sortedCollaborators.set(j + 1, temp);
                 }
-
             }
         }
-        return collaborators1;
+
+        return sortedCollaborators;
     }
-
 
     public String toString() {
         return "Team Maximum Size: " + teamMaxSize + "\nTeam Minimum Size: " + teamMinSize + "\nSkills: " + skills;
     }
 
-
     public Team clone() {
-        return new Team(this.teamMinSize, this.teamMaxSize, this.skills, this.id);
+        return new Team(this.teamMinSize, this.teamMaxSize, this.skills);
     }
 
-
-    public int getId() {
-        return id;
-    }
 }

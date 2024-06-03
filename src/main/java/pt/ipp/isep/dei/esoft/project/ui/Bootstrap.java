@@ -113,12 +113,16 @@ public class Bootstrap implements Runnable {
         m_Collaborators = (ArrayList<Collaborator>) collaboratorRepository.getAllCollaborators();
 
     }
-
-    /*private void addTeam(){
+/*
+    private void addTeam(){
         TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
         teamRepository.addTeam(new Team(m_Collaborators));
-}
-*/
+
+    }
+
+ */
+
+
 
 
     private void addUsers() {

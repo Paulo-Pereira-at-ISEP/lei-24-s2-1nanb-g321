@@ -1,7 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
-import pt.ipp.isep.dei.esoft.project.domain.Manager;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
 import pt.ipp.isep.dei.esoft.project.repository.*;
@@ -73,45 +72,33 @@ public class GenerateTeamController {
     public List<Team> getAllTeams() {
         return teamRepository.getTeams();
     }
+
     public int getTeamId(Team team) {
         return team.getId(); // Assuming Team class has a getId() method
     }
 
-    public Team generateTeam(int teamMinSize, int teamMaxSize, ArrayList<Skill> skills, int id) {
+    public Team createTeam(int teamMaxSize, int teamMinSize, ArrayList<Skill> skills) {
 
-        Team team = new Team(teamMinSize, teamMaxSize, skills, id);
+        ArrayList<Collaborator> team = Team.createSuperTeam(teamMaxSize, teamMinSize, skills, collaboratorRepository.getCollaboratorsWithoutTeam());
 
-        team.generateTeam(collaboratorRepository.getCollaborators());
+        return new Team(team);
+    }
 
-        // Apresentar equipa final
-        ArrayList<Collaborator> teamFinal = new ArrayList<Collaborator>();
+    public Team createSecondTeam(int teamMaxSize, int teamMinSize, ArrayList<Skill> skills, Team team) {
+        ArrayList<Collaborator> team2 = Team.createSuperTeam2(teamMaxSize, teamMinSize, skills, collaboratorRepository.getCollaboratorsWithoutTeam(), team);
 
-        for (Collaborator collaborator : team.getCollaborators()) {
-            teamFinal.add(collaboratorRepository.getCollaboratorByEmail(collaborator.getEmail()));
+        return new Team(team2);
+    }
 
-        }
-        team.setCollaborators(teamFinal);
-
+    public Team addToRepository(Team team) {
         teamRepository.addTeam(team);
         return team;
     }
 
-    public Team generateSecondTeam(int teamMinSize, int teamMaxSize, ArrayList<Skill> skills, int id) {
-
-        Team team = new Team(teamMinSize, teamMaxSize, skills, id);
-
-        team.generateSecondTeam(collaboratorRepository.getCollaborators());
-
-        // Apresentar equipa final
-        ArrayList<Collaborator> teamFinal = new ArrayList<Collaborator>();
-
+    public void colaboratorHasTeam(Team team) {
         for (Collaborator collaborator : team.getCollaborators()) {
-            teamFinal.add(collaboratorRepository.getCollaboratorByEmail(collaborator.getEmail()));
-
+            collaboratorRepository.hasTeam(collaborator);
         }
-        team.setCollaborators(teamFinal);
-
-        return team;
     }
 
 }

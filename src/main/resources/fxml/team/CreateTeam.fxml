@@ -13,11 +13,11 @@
         <Insets top="25" right="25" bottom="25" left="25"/>
     </padding>
 
-    <Label text="Min Team size:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-    <TextField fx:id="minTeamField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+    <Label text="Max Team size:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+    <TextField fx:id="maxTeamField" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-    <Label text="Max Team size:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-    <TextField fx:id="maxTeamField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+    <Label text="Min Team size:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <TextField fx:id="minTeamField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
     <Label text="Skills:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
     <ListView fx:id="skillListView" GridPane.rowIndex="2" GridPane.columnIndex="1"/>

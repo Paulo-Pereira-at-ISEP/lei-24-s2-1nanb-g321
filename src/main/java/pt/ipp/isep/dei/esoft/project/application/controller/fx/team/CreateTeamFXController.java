@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateSkillController;
 import pt.ipp.isep.dei.esoft.project.application.controller.GenerateTeamController;
+import pt.ipp.isep.dei.esoft.project.application.controller.fx.utils.UtilsFX;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
 
@@ -17,8 +18,8 @@ import java.util.List;
 
 public class CreateTeamFXController {
 
-    private CreateSkillController skillController = new CreateSkillController();
-    private GenerateTeamController controller = new GenerateTeamController();
+    private final CreateSkillController skillController = new CreateSkillController();
+    private final GenerateTeamController controller = new GenerateTeamController();
 
     @FXML
     private TextField minTeamField;
@@ -50,21 +51,67 @@ public class CreateTeamFXController {
     @FXML
     private void handleCreateTeam() {
         try {
-            int minTeam = Integer.parseInt(minTeamField.getText());
             int maxTeam = Integer.parseInt(maxTeamField.getText());
+            int minTeam = Integer.parseInt(minTeamField.getText());
 
             ArrayList<Skill> selectedSkills = new ArrayList<>(skillListView.getSelectionModel().getSelectedItems());
 
-            Team team = controller.generateTeam(minTeam, maxTeam, selectedSkills);
+            Team team = controller.createTeam(maxTeam, minTeam, selectedSkills);
 
-            if (team != null) {
-                showAlert(Alert.AlertType.INFORMATION, "Team Created", "Team successfully created!");
-                clearFields();
+            if (team != null && !team.getCollaborators().isEmpty()) {
+                // Abre a nova janela para mostrar os colaboradores
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/team/ShowCollaborators.fxml"));
+                Scene scene = new Scene(loader.load());
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("Show Collaborators");
+
+                ShowCollaboratorsFXController showCollaboratorsController = loader.getController();
+                showCollaboratorsController.setTeam(team);
+
+                stage.showAndWait();
+
+                // Se a equipe for aceita, adicione ao repositório
+                if (showCollaboratorsController.isAccepted()) {
+                    controller.addToRepository(team);
+                    controller.colaboratorHasTeam(team);
+                    UtilsFX.showAlert(Alert.AlertType.INFORMATION, "Team Created", "Team successfully created!");
+                    clearFields();
+                } else if (showCollaboratorsController.isRejected()){
+                    Team team1 = controller.createSecondTeam(maxTeam, minTeam, selectedSkills, team);
+
+                    if (team1 != null && !team1.getCollaborators().isEmpty()) {
+
+                        loader = new FXMLLoader(getClass().getResource("/fxml/team/ShowCollaborators.fxml"));
+                        scene = new Scene(loader.load());
+                        stage = new Stage();
+                        stage.setScene(scene);
+                        stage.setTitle("Show Collaborators");
+
+                        showCollaboratorsController = loader.getController();
+                        showCollaboratorsController.setTeam(team1);
+
+                        stage.showAndWait();
+
+                        if (showCollaboratorsController.isAccepted()) {
+                            controller.addToRepository(team1);
+                            controller.colaboratorHasTeam(team1);
+                            UtilsFX.showAlert(Alert.AlertType.INFORMATION, "Team Created", "Team successfully created!");
+                            clearFields();
+                        } else {
+                            UtilsFX.showAlert(Alert.AlertType.ERROR, "Team Not Created", "Team not created!");
+                        }
+                    } else {
+                        UtilsFX.showAlert(Alert.AlertType.ERROR, "Team Not Created", "No more collaborators to show!");
+                    }
+                } else {
+                    UtilsFX.showAlert(Alert.AlertType.ERROR, "Team Not Created", "Team not created!");
+                }
             } else {
-                showAlert(Alert.AlertType.ERROR, "Team Not Created", "Team not created!");
+                UtilsFX.showAlert(Alert.AlertType.ERROR, "Team Not Created", "Team not created!");
             }
-        } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, "Invalid Input", "Please enter valid numbers for team sizes.");
+        } catch (NumberFormatException | IOException e) {
+            UtilsFX.showAlert(Alert.AlertType.ERROR, "Invalid Input", "Please enter valid numbers for team sizes.");
         }
     }
 
@@ -79,14 +126,6 @@ public class CreateTeamFXController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private void showAlert(Alert.AlertType alertType, String title, String message) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 
     private void clearFields() {

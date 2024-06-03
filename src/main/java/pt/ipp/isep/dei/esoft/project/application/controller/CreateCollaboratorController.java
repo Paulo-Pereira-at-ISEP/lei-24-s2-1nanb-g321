@@ -82,6 +82,7 @@ public class CreateCollaboratorController {
     public Collaborator addCollaborator(String name, LocalDate dateOfBirth, LocalDate admissionDate, String address, int mobile, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, Job job, String password, String role, ArrayList<Skill> skills) {
         Collaborator collaborator = new Collaborator(name, dateOfBirth, admissionDate, address, mobile, email, idDocType, docTypeNumber, taxPayerIdNumber, job, password, role, skills);
         collaboratorRepository.addCollaborator(collaborator);
+        authenticationRepository.addUserWithRole(name, email, password, role);
         return collaborator;
     }
 }

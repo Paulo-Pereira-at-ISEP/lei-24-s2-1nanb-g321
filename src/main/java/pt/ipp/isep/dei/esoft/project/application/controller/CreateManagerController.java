@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
+import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.Manager;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.repository.*;
@@ -11,7 +12,7 @@ public class CreateManagerController {
 
     private ManagerRepository managerRepository;
     private JobRepository jobRepository;
-    private AuthenticationRepository authenticationRepository;
+    private AuthenticationRepository  authenticationRepository;
 
     //Repository instances are obtained from the Repositories class
     public CreateManagerController() {
@@ -62,6 +63,7 @@ public class CreateManagerController {
     public Manager addManager(String name, LocalDate dateOfBirth, LocalDate admissionDate, String address, int mobile, String email, String idDocType, int docTypeNumber, int taxPayerIdNumber, Job job, String password, String department, String role) {
         Manager manager = new Manager(name, dateOfBirth, admissionDate, address, mobile, email, idDocType, docTypeNumber, taxPayerIdNumber, job, password, department, role);
         managerRepository.addManager(manager);
+        authenticationRepository.addUserWithRole(name, email, password, role);
         return manager;
     }
 }
