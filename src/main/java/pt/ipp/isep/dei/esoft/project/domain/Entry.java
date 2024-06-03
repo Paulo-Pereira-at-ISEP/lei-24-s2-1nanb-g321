@@ -14,7 +14,7 @@ public class Entry extends Task {
 
     public Entry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate entryDate, String status, Team team, int hour) {
         super(name, description);
-        urgencyDegree = urgencyDegree;
+        this.urgencyDegree = urgencyDegree;
         this.duration = duration;
         this.greenSpace = greenSpace;
         this.entryDate = entryDate;
@@ -23,8 +23,6 @@ public class Entry extends Task {
         this.hour = hour;
         this.status = "Planned";
     }
-
-
 
     public Entry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate date, String status, int hour) {
     this.urgencyDegree = urgencyDegree;
@@ -91,10 +89,10 @@ public class Entry extends Task {
     public String getStatus() {
         return status;
     }
+
     public void setStatus(String status) {
         this.status = status;
     }
-
 
     public Team getTeam() {
         return team;

@@ -1,16 +1,17 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.agenda;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateEntryController;
+import pt.ipp.isep.dei.esoft.project.application.controller.CreateEntryToAgendaController;
 import pt.ipp.isep.dei.esoft.project.domain.Entry;
 
 import java.util.List;
 
 public class ListAgendaUI implements Runnable{
 
-    private final CreateEntryController entryController;
+    private final CreateEntryToAgendaController entryController;
 
     public ListAgendaUI() {
-        entryController = new CreateEntryController();
+        entryController = new CreateEntryToAgendaController();
     }
 
     public void run() {
@@ -24,20 +25,27 @@ public class ListAgendaUI implements Runnable{
     private void listAgenda() {
         List<Entry> entrys = entryController.getAllEntrys();
 
-        System.out.println("Agenda:");
-        int counter = 1;
-        for (Entry entry : entrys) {
+        if (entrys.isEmpty()) {
 
-            System.out.println("[" + counter + "]   GreenSpace: " + entry.getGreenSpace().getName());
-            System.out.println("      Manager: " + entry.getGreenSpace().getManager().getName());
-            System.out.println("      Title: " + entry.getName());
-            System.out.println("      Description: " + entry.getDescription());
-            System.out.println("      Urgency Degree: " + entry.getUrgencyDegree());
-            System.out.println("      Date: " + entry.getEntryDate());
-            System.out.println("      Team: " + entry.getTeam());
-            System.out.println("      Status: " + entry.getStatus());
-            System.out.println("-------------------------");
-            counter++;
+            System.out.println("There are no entries.");
+
+        }else {
+
+            System.out.println("Agenda:");
+            int counter = 1;
+            for (Entry entry : entrys) {
+
+                System.out.println("[" + counter + "]   GreenSpace: " + entry.getGreenSpace().getName());
+                System.out.println("      Manager: " + entry.getGreenSpace().getManager().getName());
+                System.out.println("      Title: " + entry.getName());
+                System.out.println("      Description: " + entry.getDescription());
+                System.out.println("      Urgency Degree: " + entry.getUrgencyDegree());
+                System.out.println("      Date: " + entry.getEntryDate());
+                System.out.println("      Team: " + entry.getTeam());
+                System.out.println("      Status: " + entry.getStatus());
+                System.out.println("-------------------------");
+                counter++;
+            }
         }
     }
 

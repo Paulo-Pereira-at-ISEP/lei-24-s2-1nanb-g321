@@ -27,17 +27,24 @@ public class ListToDoListUI implements Runnable{
         private void listToDoList() {
             List<Entry> entrys = entryController.getAllEntrys();
 
-            System.out.println("To Do List:");
-            int counter = 1;
-            for (Entry entry : entrys) {
+            if (entrys.isEmpty()) {
 
-                System.out.println("[" + counter + "]   GreenSpace: " + entry.getGreenSpace().getName());
-                System.out.println("      Manager: " + entry.getGreenSpace().getManager().getName());
-                System.out.println("      Title: " + entry.getName());
-                System.out.println("      Description: " + entry.getDescription());
-                System.out.println("      Urgency Degree: " + entry.getUrgencyDegree());
-                System.out.println("-------------------------");
-                counter++;
+                System.out.println("There are no entries.");
+
+            }else {
+
+                System.out.println("To Do List:");
+                int counter = 1;
+                for (Entry entry : entrys) {
+
+                    System.out.println("[" + counter + "]   GreenSpace: " + entry.getGreenSpace().getName());
+                    System.out.println("      Manager: " + entry.getGreenSpace().getManager().getName());
+                    System.out.println("      Title: " + entry.getName());
+                    System.out.println("      Description: " + entry.getDescription());
+                    System.out.println("      Urgency Degree: " + entry.getUrgencyDegree());
+                    System.out.println("-------------------------");
+                    counter++;
+                }
             }
         }
 
