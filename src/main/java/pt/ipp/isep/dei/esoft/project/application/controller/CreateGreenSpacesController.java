@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
+import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
 import pt.ipp.isep.dei.esoft.project.domain.Manager;
 import pt.ipp.isep.dei.esoft.project.repository.*;
@@ -12,6 +13,7 @@ public class CreateGreenSpacesController {
         private GreenSpaceRepository greenSpaceRepository;
         private AuthenticationRepository authenticationRepository;
         private ManagerRepository managerRepository;
+        private AuthenticationController authenticationController;
 
         //Repository instances are obtained from the Repositories class
         public CreateGreenSpacesController() {
@@ -67,9 +69,8 @@ public class CreateGreenSpacesController {
             return getManagerRepository().getAllManagers();
         }
 
-        private Manager getManagerFromSession() {
-            Email email = getAuthenticationRepository().getCurrentUserSession().getUserId();
-            return new Manager(email.getEmail());
+        public List<Manager> getManagerWithRoleGSM() {
+            return managerRepository.getManagerByRole(AuthenticationController.ROLE_GSM);
         }
 
         public CreateGreenSpacesController(GreenSpaceRepository greenSpaceRepository) {

@@ -18,7 +18,7 @@ public class AddNewEntryUI implements Runnable{
     private final CreateEntryToAgendaController controller;
 
     private Entry entrys;
-    private Team team;
+    private int hour;
     private LocalDate date;
     private String status;
     public AddNewEntryUI() {
@@ -38,7 +38,7 @@ public class AddNewEntryUI implements Runnable{
     }
 
     private void submitData() {
-        Entry entry = controller.createEntry(entrys.getName(), entrys.getDescription(), entrys.getUrgencyDegree(), entrys.getDuration(), entrys.getGreenSpace(), entrys.getEntryDate(), status, team);
+        Entry entry = controller.createEntry(entrys.getName(), entrys.getDescription(), entrys.getUrgencyDegree(), entrys.getDuration(), entrys.getGreenSpace(), entrys.getEntryDate(), status, hour);
 
         if (entry != null) {
             System.out.println("\nEntry successfully added to the Agenda!");
@@ -64,18 +64,18 @@ public class AddNewEntryUI implements Runnable{
     private void requestData() {
         String input;
         entrys = displayAndSelectEntry();
-        team = displayAndSelectTeams();
         date = LocalDate.parse(requestDate());
         entrys.setEntryDate(date);
         status = requestStatus();
+        hour = requestHour();
 
 
 
         System.out.println("\n\n\n---------- Submitted Data ----------");
         System.out.printf("Entry: %s\n", entrys.getName());
-        System.out.println("Team:\n" + team);
         System.out.printf("Date: %s\n", entrys.getEntryDate());
-        System.out.println("Status: %s\n" + status);
+        System.out.printf("Hour: %s\n", printHour(hour));
+        System.out.printf("Status: %s\n", status);
 
 
     }
@@ -120,28 +120,24 @@ public class AddNewEntryUI implements Runnable{
         }
     }
 
-    private Team displayAndSelectTeams() {
-        // Retrieve the list of available jobs
-        List<Team> teams = controller.getAllTeams();
-        int listSize = teams.size();
-        int answer = -1;
+    private String printHour(int hour) {
 
-        Scanner input = new Scanner(System.in);
-        while (answer < 1 || answer > listSize) {
-            displayTeamsOptions(teams); // Display the list of available jobs
-            System.out.print("Select a team: ");
-            answer = input.nextInt(); // Prompt user to select a job
-        }
-
-        return teams.get(answer - 1); // Return the selected job
-    }
-
-    private void displayTeamsOptions(List<Team> tms) {
-        // Display the task categories as a menu with number options to select
-        int i = 1;
-        for (Team teams : tms) {
-            System.out.println("  " + i + " - " + teams.getCollaborators());
-            i++;
+        if (1 == hour){
+            return "08:00 am";
+        } else if (2 == hour) {
+            return "09:00 am";
+        } else if (3 == hour) {
+            return "10:00 am";
+        } else if (4 == hour) {
+            return  "11:00 am";
+        } else if (5 == hour) {
+            return "12:00 am";
+        } else if (6 == hour) {
+            return "14:00 pm";
+        } else if (7 == hour) {
+            return "15:00 pm;";
+        } else {
+            return "16:00 pm";
         }
     }
 
@@ -179,9 +175,47 @@ public class AddNewEntryUI implements Runnable{
                 System.out.println("Error: Invalid date format."); // Print error if there's an exception parsing the date
             }
         }
-        return input; // Return the validated employee birth date
+        return input;
+    }
+    private int requestHour() {
+            do {
+                System.out.println("Select the hour to start your task: ");
+                System.out.println("[1] - 08:00");
+                System.out.println("[2] - 09:00");
+                System.out.println("[3] - 10:00");
+                System.out.println("[4] - 11:00");
+                System.out.println("[5] - 12:00");
+                System.out.println("[6] - 14:00");
+                System.out.println("[7] - 15:00");
+                System.out.println("[8] - 16:00");
+                System.out.print("Your choice: ");
+                Scanner input = new Scanner(System.in);
+                hour = input.nextInt();
+
+                switch (hour) {
+                    case 1:
+                        return 1;
+                    case 2:
+                        return 2;
+                    case 3:
+                        return 3;
+                    case 4:
+                        return 4;
+                    case 5:
+                        return 5;
+                    case 6:
+                        return 6;
+                    case 7:
+                        return 7;
+                    case 8:
+                        return 8;
+                        default:
+                        System.out.println("Invalid choice. Please press a number between 1 and 8.");
+                }
+            } while (true);
+
+        }
     }
 
-    }
 
 

@@ -49,7 +49,7 @@ public class CreateGreenSpaceFXController {
     private void initialize() {
         classificationChoiceBox.getItems().addAll("Garden", "Medium-Sized Park", "Large-Sized Park");
 
-        List<Manager> managers = greenSpacesController.getAllManagers();
+        List<Manager> managers = greenSpacesController.getManagerWithRoleGSM();
         managerChoiceBox.setItems(FXCollections.observableArrayList(managers));
 
         managerChoiceBox.setConverter(new StringConverter<Manager>() {

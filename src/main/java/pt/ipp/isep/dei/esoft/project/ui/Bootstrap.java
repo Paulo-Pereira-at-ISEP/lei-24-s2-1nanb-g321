@@ -25,7 +25,7 @@ public class Bootstrap implements Runnable {
         addUsers();
         addTasks();
         addGreenSpace();
-        addTeam();
+        //addTeam();
     }
 /*
     private void addOrganization() {
@@ -49,6 +49,7 @@ public class Bootstrap implements Runnable {
         skillRepository.add(new Skill("Machine Operator", "Operates machines such as backhoes or tractors"));
         skillRepository.add(new Skill("Tree Pruner", "Prunes trees"));
         skillRepository.add(new Skill("Phytopharmaceutical applicator", "Applies agriculture phytopharmaceuticals to the crops"));
+        skillRepository.add(new Skill("Electrical Wiring", "Installs and repairs electrical wiring"));
 
     }
 
@@ -99,22 +100,30 @@ public class Bootstrap implements Runnable {
         CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
 
         collaboratorRepository.add(new Collaborator("Alfredo", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "alfredo@this.app", "CC", 12345678, 123456789, new Job("Gardener", "Garden maintenance"), PASSWORD ,AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Light Vehicle Driver","Drives light vehicles"));add(new Skill("Heavy Vehicle Driver","Drives heavy vehicles"));}} ));
-        collaboratorRepository.add(new Collaborator("Anacleto", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "anacleto@this.app", "CC", 12345678, 123456789, new Job("Gardener", "Garden maintenance"), PASSWORD ,AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Light Vehicle Driver","Drives light vehicles"));}} ));
+        collaboratorRepository.add(new Collaborator("Anacleto", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "anacleto@this.app", "CC", 12345678, 123456789, new Job("Gardener", "Garden maintenance"), PASSWORD ,AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Light Vehicle Driver","Drives light vehicles"));add(new Skill("Machine Operator", "Operates machines such as backhoes or tractors"));}} ));
         collaboratorRepository.add(new Collaborator("Genoveva", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "genoveva@this.app", "CC", 12345678, 123456789, new Job("Gardener", "Garden maintenance"), PASSWORD ,AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Light Vehicle Driver","Drives light vehicles"));}} ));
         collaboratorRepository.add(new Collaborator("Bianca", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "bianca@this.app", "CC", 12345678, 123456789, new Job("Gardener", "Garden maintenance"), PASSWORD ,AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Light Vehicle Driver","Drives light vehicles"));}} ));
         collaboratorRepository.add(new Collaborator("Laurindo", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "laurindo@this.app", "CC", 12345678, 123456789, new Job("Gardener", "Garden maintenance"), PASSWORD ,AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Light Vehicle Driver","Drives light vehicles"));}} ));
+        collaboratorRepository.add(new Collaborator("Beatriz", LocalDate.of(1995, 05, 12), LocalDate.of(2015, 01, 07), "Rua da paz", 987654321, "beatriz@this.app", "CC", 12345678, 123456789, new Job("Bricklayer", "Builds walls and structures by laying bricks with mortar"), PASSWORD, AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Machine Operator", "Operates machines such as backhoes or tractors"));add(new Skill("Heavy Vehicle Driver","Drives heavy vehicles"));}} ));
+        collaboratorRepository.add(new Collaborator("Helena", LocalDate.of(1995, 07, 24), LocalDate.of(2017, 01, 07), "Rua da paz", 987654321, "helena@this.app", "CC", 12345678, 123456789, new Job("Bricklayer", "Builds walls and structures by laying bricks with mortar"), PASSWORD, AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Electrical Wiring", "Installs and repairs electrical wiring"));add(new Skill("Tree Pruner", "Prunes trees"));}} ));
+        collaboratorRepository.add(new Collaborator("José", LocalDate.of(1995, 05, 12), LocalDate.of(2015, 01, 07), "Rua da paz", 987654321, "jose@this.app", "CC", 12345678, 123456789, new Job("Designer", "Creates plans and ideas for products or visuals or experiences"), PASSWORD, AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Phytopharmaceutical applicator", "Applies agriculture phytopharmaceuticals to the crops"));add(new Skill("Tree Pruner", "Prunes trees"));}} ));
+        collaboratorRepository.add(new Collaborator("Bruno", LocalDate.of(1995, 05, 12), LocalDate.of(2015, 01, 07), "Rua da paz", 987654321, "bruno@this.app", "CC", 12345678, 123456789, new Job("Budget Manager", "Plans and tracks company spending"), PASSWORD, AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Electrical Wiring", "Installs and repairs electrical wiring"));add(new Skill("Phytopharmaceutical applicator", "Applies agriculture phytopharmaceuticals to the crops"));}} ));
+        collaboratorRepository.add(new Collaborator("Joana", LocalDate.of(1995, 05, 12), LocalDate.of(2015, 01, 07), "Rua da paz", 987654321, "joana@this.app", "CC", 12345678, 123456789, new Job("Electrician", "Installs and maintains and fixes electrical systems in buildings"), PASSWORD, AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Tree Pruner", "Prunes trees"));add(new Skill("Light Vehicle Driver","Drives light vehicles"));}} ));
 
         m_Collaborators = (ArrayList<Collaborator>) collaboratorRepository.getAllCollaborators();
 
     }
-
+/*
     private void addTeam(){
         TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
         teamRepository.addTeam(new Team(m_Collaborators));
 
-
-
     }
+
+ */
+
+
+
 
     private void addUsers() {
         //TODO: add Authentication users here: should be created for each user in the organization

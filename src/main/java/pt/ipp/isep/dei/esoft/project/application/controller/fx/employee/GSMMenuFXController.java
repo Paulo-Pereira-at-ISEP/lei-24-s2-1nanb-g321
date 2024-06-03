@@ -17,9 +17,13 @@ public class GSMMenuFXController {
     private Button logoutButton;
 
     @FXML
+    private Button closeButton;
+
+    @FXML
     private void initialize() {
         greenSpacesButton.setOnAction(event -> handleGreenSpaces());
         logoutButton.setOnAction(event -> handleLogout());
+        closeButton.setOnAction(event -> handleClose());
     }
 
     private void handleGreenSpaces() {
@@ -45,5 +49,12 @@ public class GSMMenuFXController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void handleClose() {
+        // Close the current window
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
     }
 }

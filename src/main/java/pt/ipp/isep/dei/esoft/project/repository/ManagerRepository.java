@@ -35,14 +35,14 @@ public class ManagerRepository {
         return copy;
     }
     
-    public Manager getManagerByEmail(String email) {
-
+    public List<Manager> getManagerByRole(String role) {
+        List<Manager> managersWithRole = new ArrayList<>();
         for (Manager manager : managers) {
-            if (manager.getEmail().equals(email)){
-                return manager;
+            if (manager.getRole().equals(role)){
+                managersWithRole.add(manager);
             }
         }
-        return null;
+        return managersWithRole;
     }
     
     public Optional<Manager> add(Manager manager) {

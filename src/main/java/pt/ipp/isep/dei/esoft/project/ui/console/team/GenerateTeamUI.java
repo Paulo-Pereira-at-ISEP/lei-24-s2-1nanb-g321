@@ -17,6 +17,7 @@ public class GenerateTeamUI implements Runnable {
     private int teamMinSize;
     private ArrayList<Skill> skills;
     private List<Collaborator> collaborators;
+    private int iD;
 
     public GenerateTeamUI() {
         controller = new GenerateTeamController();
@@ -36,24 +37,32 @@ public class GenerateTeamUI implements Runnable {
 
     private void submitData() {
 
-        Team team = controller.generateTeam(teamMinSize, teamMaxSize, skills);
+        Team team = controller.createTeam(teamMinSize, teamMaxSize, skills);
 
         if (team != null && team.getCollaborators().size() >= teamMinSize &&team.getCollaborators().size() <= teamMaxSize && !team.getCollaborators().isEmpty()) {
             listCollaborators(team);
             String input = Utils.readLineFromConsole("\n Do you accept this team? (y/n)");
-             if(input.equalsIgnoreCase("n") || input.isEmpty()){
-                 System.out.println("A new team will be generated!\n ");
-                 Team team1 = controller.generateSecondTeam(teamMinSize, teamMaxSize, skills);
-                 listCollaborators(team1);
-                input = Utils.readLineFromConsole("\n Do you accept this team? (y/n)");
+             if(input.equalsIgnoreCase("n")){
+                 Team team1 = controller.createSecondTeam(teamMinSize, teamMaxSize, skills, team);
+                 if (team1 != null && team1.getTeamMaxSize() != 0) {
+                     System.out.println("A new team will be generated!\n ");
+                     listCollaborators(team1);
+                     input = Utils.readLineFromConsole("\n Do you accept this team? (y/n)");
 
-                 if(input.equalsIgnoreCase("y") || input.isEmpty()){
-                     System.out.println("Team successfully created!\n ");
+                     if(input.equalsIgnoreCase("y")){
+                         controller.addToRepository(team1);
+                         controller.colaboratorHasTeam(team1);
+                         System.out.println("Team successfully created!\n ");
+                     } else {
+                         System.out.println("Team not created!\n ");
+                     }
                  } else {
-                     System.out.println("Team not created!\n ");
+                     System.out.println("\nNo team was created!");
                  }
 
-             } else if(input.equalsIgnoreCase("y") || input.isEmpty()) {
+             } else if(input.equalsIgnoreCase("y")) {
+                 controller.addToRepository(team);
+                 controller.colaboratorHasTeam(team);
                  System.out.println("\nTeam successfully generated!");
              }else {
                  System.out.println("Team not created!\n ");
@@ -116,15 +125,20 @@ public class GenerateTeamUI implements Runnable {
     private void listCollaborators(Team team) {
 
         List<Collaborator> collaborators = team.getCollaborators();
+
         System.out.println("Team:");
         int counter = 1;
         for (Collaborator collaborator : collaborators) {
+            if (collaborator.getHasTeam() == true) {
+                System.out.println("A team could not be generated");
+            }else{
                 System.out.println("[" + counter + "] ");
                 System.out.println("    Name: " + collaborator.getName());
                 System.out.println("    Email: " + collaborator.getEmail());
                 System.out.println("    Skills: " + collaborator.getSkills());
                 System.out.println("-----------------------------");
                 counter++;
+            }
         }
     }
 }

@@ -1,6 +1,5 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
-import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 
 import java.util.ArrayList;
@@ -28,10 +27,20 @@ public class CollaboratorRepository {
         return isValid;
     }
     
-    public List<Collaborator> getCollaborators() {
+    public ArrayList<Collaborator> getCollaborators() {
         ArrayList<Collaborator> copy = new ArrayList<>();
         for (Collaborator collaborator : collaborators) {
             copy.add(collaborator.clone());
+        }
+        return copy;
+    }
+
+    public ArrayList<Collaborator> getCollaboratorsWithoutTeam() {
+        ArrayList<Collaborator> copy = new ArrayList<>();
+        for (Collaborator collaborator : collaborators) {
+            if(!collaborator.getHasTeam()){
+                copy.add(collaborator.clone());
+            }
         }
         return copy;
     }
@@ -64,6 +73,12 @@ public class CollaboratorRepository {
         }
 
         return newCollaborator; // Return the Optional containing the added employee or an empty Optional
+    }
+
+    public void hasTeam(Collaborator collaborator) {
+        if (collaborators.contains(collaborator)) {
+            collaborators.get(collaborators.indexOf(collaborator)).setHasTeam(true);
+        }
     }
 
 }

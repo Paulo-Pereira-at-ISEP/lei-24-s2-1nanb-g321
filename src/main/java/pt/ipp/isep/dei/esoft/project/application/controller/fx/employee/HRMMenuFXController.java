@@ -34,6 +34,9 @@ public class HRMMenuFXController {
     @FXML
     private Button logoutButton;
 
+    @FXML
+    private Button closeButton;
+
     // Inicializa o controlador, pode adicionar ações aos botões aqui
     @FXML
     private void initialize() {
@@ -44,6 +47,7 @@ public class HRMMenuFXController {
         teamButton.setOnAction(event -> handleTeam());
         tasksButton.setOnAction(event -> handleTasks());
         logoutButton.setOnAction(event -> handleLogout());
+        closeButton.setOnAction(event -> handleClose());
     }
 
     private void handleSkills() {
@@ -95,7 +99,15 @@ public class HRMMenuFXController {
     }
 
     private void handleTeam() {
-        // Lógica para redirecionar para a UI de Team
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/team/TeamMenu.fxml"));
+            Scene scene = new Scene(loader.load());
+            Stage stage = (Stage) teamButton.getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Team Menu");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private void handleTasks() {
@@ -114,5 +126,12 @@ public class HRMMenuFXController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void handleClose() {
+        // Close the current window
+        Stage stage = (Stage) closeButton.getScene().getWindow();
+        stage.close();
     }
 }

@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateSkillController;
+import pt.ipp.isep.dei.esoft.project.application.controller.fx.utils.UtilsFX;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 
 import java.io.IOException;
@@ -32,7 +33,10 @@ public class CreateSkillFXController {
     @FXML
     private void handleCreateSkill() {
         String skillName = skillNameField.getText();
+        if (UtilsFX.readOnlyLetters(skillName, "Name")) return;
+
         String skillDescription = skillDescriptionField.getText();
+        if (UtilsFX.readOnlyLetters(skillDescription, "Description")) return;
 
         Skill skill = controller.createSkill(skillName, skillDescription);
 

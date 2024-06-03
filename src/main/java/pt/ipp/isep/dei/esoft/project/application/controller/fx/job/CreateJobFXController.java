@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateJobController;
+import pt.ipp.isep.dei.esoft.project.application.controller.fx.utils.UtilsFX;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 
 import java.io.IOException;
@@ -32,16 +33,19 @@ public class CreateJobFXController {
     @FXML
     private void handleCreateJob() {
         String jobName = jobNameField.getText();
+        if (UtilsFX.readOnlyLetters(jobName, "Name")) return;
+
         String jobDescription = jobDescriptionField.getText();
+        if (UtilsFX.readOnlyLetters(jobDescription, "Description")) return;
 
         Job job = controller.createJob(jobName, jobDescription);
 
         if (job != null) {
-            showAlert(Alert.AlertType.INFORMATION, "Job Created", "Job successfully created!");
+            UtilsFX.showAlert(Alert.AlertType.INFORMATION, "Job Created", "Job successfully created!");
             jobNameField.clear();
             jobDescriptionField.clear();
         } else {
-            showAlert(Alert.AlertType.ERROR, "Job Not Created", "Job not created!");
+            UtilsFX.showAlert(Alert.AlertType.ERROR, "Job Not Created", "Job not created!");
         }
     }
 
@@ -56,13 +60,5 @@ public class CreateJobFXController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private void showAlert(Alert.AlertType alertType, String title, String message) {
-        Alert alert = new Alert(alertType);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
     }
 }
