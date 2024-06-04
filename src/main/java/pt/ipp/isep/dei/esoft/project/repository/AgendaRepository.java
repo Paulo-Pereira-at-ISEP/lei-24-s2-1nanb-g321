@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Entry;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,16 @@ public class AgendaRepository {
 
         public ArrayList<Entry> getAllEntrys() {
             return new ArrayList<>(entrys);
+        }
+        public List<Entry> getEntriesByDate(LocalDate date) {
+            List<Entry> filteredEntries = new ArrayList<>();
+            filteredEntries = getAllEntrys();
+            for (Entry entry : filteredEntries) {
+                if (date != entry.getEntryDate()){
+                    filteredEntries.remove(entry);
+                }
+            }
+        return filteredEntries;
         }
 
         private boolean validateEntry(Entry entry) {

@@ -5,9 +5,11 @@ import pt.ipp.isep.dei.esoft.project.application.controller.CreateTeamToEntryCon
 import pt.ipp.isep.dei.esoft.project.domain.Entry;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
+import pt.ipp.isep.dei.esoft.project.repository.AgendaRepository;
 
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -17,6 +19,7 @@ public class AddTeamToEntry implements Runnable {
 
     private Team team;
     private Entry entrys;
+    private AgendaRepository agendaRepository;
     public AddTeamToEntry() {
         controller = new CreateTeamToEntryController();
     }
@@ -60,8 +63,17 @@ public class AddTeamToEntry implements Runnable {
      */
     private void requestData() {
         String input;
+        agendaRepository = new AgendaRepository();
         entrys = displayAndSelectEntry();
         team = displayAndSelectTeam();
+        List<Entry> filteredEntries = agendaRepository.getEntriesByDate(entrys.getEntryDate());
+        if (!filteredEntries.isEmpty()) {
+            for (Entry entry : filteredEntries) {
+                if (entry.getTeam().equals(entrys.getTeam())) ;
+                System.out.println("You cannot book this date");
+                break;
+            }
+        }
 
 
 

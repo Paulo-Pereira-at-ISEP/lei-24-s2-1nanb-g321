@@ -97,7 +97,7 @@ public class AddNewEntryUI implements Runnable{
      */
     private Entry displayAndSelectEntry() {
         // Retrieve the list of available jobs
-        List<Entry> entry = controller.getAllEntrys();
+        List<Entry> entry = controller.getAllToDoListEntrys();
         int listSize = entry.size();
         int answer = -1;
 

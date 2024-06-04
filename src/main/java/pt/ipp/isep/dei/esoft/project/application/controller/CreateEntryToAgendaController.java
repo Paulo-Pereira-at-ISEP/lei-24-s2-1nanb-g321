@@ -98,6 +98,9 @@ public class CreateEntryToAgendaController {
         public List<Entry> getAllEntrys() {
             return agendaRepository.getEntrys();
         }
+        public List<Entry> getAllToDoListEntrys (){
+            return toDoListRepository.getEntrys();
+        }
 
         public List<Collaborator> getAllCollaborators() {
             return collaboratorRepository.getAllCollaborators();
