@@ -95,6 +95,10 @@ public class CreateEntryToAgendaController {
             this.agendaRepository = agendaRepository;
         }
 
+        public List<Entry> getToDoListEntrys() {
+            return toDoListRepository.getEntrys();
+        }
+
         public List<Entry> getAllEntrys() {
             return agendaRepository.getEntrys();
         }

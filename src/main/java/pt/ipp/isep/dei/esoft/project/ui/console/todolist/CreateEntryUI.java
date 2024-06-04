@@ -108,8 +108,8 @@ public class CreateEntryUI implements Runnable {
         Scanner input = new Scanner(System.in);
         while (answer < 1 || answer > listSize) {
             displayTasksOptions(tasks); // Display the list of available jobs
-            System.out.print("Select a task: ");
-            answer = input.nextInt(); // Prompt user to select a job
+            System.out.print("Select a Task: ");
+            answer = input.nextInt();
         }
 
         return tasks.get(answer - 1); // Return the selected job
@@ -188,7 +188,7 @@ public class CreateEntryUI implements Runnable {
         while (answer < 1 || answer > listSize) {
             displayGreenSpacesOptions(greenSpaces); // Display the list of available jobs
             System.out.print("Select a GreenSpace: ");
-            answer = input.nextInt(); // Prompt user to select a job
+            answer = input.nextInt();
         }
 
         return greenSpaces.get(answer - 1); // Return the selected job
