@@ -37,14 +37,14 @@ public class GenerateTeamUI implements Runnable {
 
     private void submitData() {
 
-        Team team = controller.createTeam(teamMinSize, teamMaxSize, skills);
+        Team team = controller.createTeam(teamMaxSize, teamMinSize, skills);
 
-        if (team != null && team.getCollaborators().size() >= teamMinSize &&team.getCollaborators().size() <= teamMaxSize && !team.getCollaborators().isEmpty()) {
+        if (team != null && !team.getCollaborators().isEmpty()) {
             listCollaborators(team);
             String input = Utils.readLineFromConsole("\n Do you accept this team? (y/n)");
              if(input.equalsIgnoreCase("n")){
-                 Team team1 = controller.createSecondTeam(teamMinSize, teamMaxSize, skills, team);
-                 if (team1 != null && team1.getTeamMaxSize() != 0) {
+                 Team team1 = controller.createSecondTeam(teamMaxSize, teamMinSize, skills, team);
+                 if (team1 != null && !team1.getCollaborators().isEmpty()) {
                      System.out.println("A new team will be generated!\n ");
                      listCollaborators(team1);
                      input = Utils.readLineFromConsole("\n Do you accept this team? (y/n)");
