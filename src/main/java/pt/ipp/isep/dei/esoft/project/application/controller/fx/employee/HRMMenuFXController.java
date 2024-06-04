@@ -1,17 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.application.controller.fx.employee;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
-import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
-
-import java.io.IOException;
+import pt.ipp.isep.dei.esoft.project.application.controller.fx.utils.UtilsFX;
 
 public class HRMMenuFXController {
-
-    private AuthenticationController authenticationController;
 
     @FXML
     private Button skillsButton;
@@ -29,9 +22,6 @@ public class HRMMenuFXController {
     private Button teamButton;
 
     @FXML
-    private Button tasksButton;
-
-    @FXML
     private Button logoutButton;
 
     @FXML
@@ -45,93 +35,36 @@ public class HRMMenuFXController {
         managerButton.setOnAction(event -> handleManager());
         collaboratorButton.setOnAction(event -> handleCollaborator());
         teamButton.setOnAction(event -> handleTeam());
-        tasksButton.setOnAction(event -> handleTasks());
         logoutButton.setOnAction(event -> handleLogout());
         closeButton.setOnAction(event -> handleClose());
     }
 
     private void handleSkills() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/skill/SkillMenu.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) skillsButton.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Skills Menu");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        UtilsFX.bottonControl("/fxml/skill/SkillMenu.fxml", skillsButton, "Skills Menu");
     }
 
     private void handleJobs() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/job/JobMenu.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) jobsButton.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Jobs Menu");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        UtilsFX.bottonControl("/fxml/job/JobMenu.fxml", jobsButton, "Jobs Menu");
     }
 
     private void handleManager() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/manager/ManagerMenu.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) managerButton.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Manager Menu");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        UtilsFX.bottonControl("/fxml/manager/ManagerMenu.fxml", managerButton, "Manager Menu");
     }
 
     private void handleCollaborator() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/collaborator/CollaboratorMenu.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) collaboratorButton.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Collaborator Menu");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        UtilsFX.bottonControl("/fxml/collaborator/CollaboratorMenu.fxml", collaboratorButton, "Collaborator Menu");
     }
 
     private void handleTeam() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/team/TeamMenu.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) teamButton.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Team Menu");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void handleTasks() {
-        // Lógica para redirecionar para a UI de Tasks
+        UtilsFX.bottonControl("/fxml/team/TeamMenu.fxml", teamButton, "Team Menu");
     }
 
     private void handleLogout() {
-
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/LoginView.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) logoutButton.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Login");
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        UtilsFX.bottonControl("/fxml/LoginView.fxml", logoutButton, "Login Menu");
     }
 
     @FXML
     private void handleClose() {
-        // Close the current window
-        Stage stage = (Stage) closeButton.getScene().getWindow();
-        stage.close();
+        UtilsFX.closeControl(closeButton);
     }
 }

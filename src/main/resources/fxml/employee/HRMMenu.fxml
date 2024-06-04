@@ -15,7 +15,6 @@
     <Button fx:id="managerButton" text="Manager" maxWidth="Infinity"/>
     <Button fx:id="collaboratorButton" text="Collaborator" maxWidth="Infinity"/>
     <Button fx:id="teamButton" text="Team" maxWidth="Infinity"/>
-    <Button fx:id="tasksButton" text="Tasks" maxWidth="Infinity"/>
     <Button fx:id="logoutButton" text="Logout" maxWidth="Infinity"/>
     <Button fx:id="closeButton" text="Close" maxWidth="Infinity"/>
 </VBox>

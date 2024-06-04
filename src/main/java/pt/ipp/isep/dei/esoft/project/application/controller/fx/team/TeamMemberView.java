@@ -1,4 +1,4 @@
-package pt.ipp.isep.dei.esoft.project.application.controller.fx.collaborator;
+package pt.ipp.isep.dei.esoft.project.application.controller.fx.team;
 
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;

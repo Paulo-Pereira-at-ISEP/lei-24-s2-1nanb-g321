@@ -1,17 +1,13 @@
 package pt.ipp.isep.dei.esoft.project.application.controller.fx.collaborator;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateSkillController;
 import pt.ipp.isep.dei.esoft.project.application.controller.fx.utils.UtilsFX;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,12 +54,12 @@ public class AssignSkillsFXController {
         newSkills.addAll(selectedSkills);
 
         collaborator.addSkill(newSkills);
-        UtilsFX.backControl("/fxml/collaborator/SelectCollaborator.fxml", saveButton, "Collaborator Menu");
+        UtilsFX.bottonControl("/fxml/collaborator/SelectCollaborator.fxml", saveButton, "Collaborator Menu");
     }
 
     @FXML
     private void handleBack() {
-        UtilsFX.backControl("/fxml/collaborator/SelectCollaborator.fxml", backButton, "Collaborator Menu");
+        UtilsFX.bottonControl("/fxml/collaborator/SelectCollaborator.fxml", backButton, "Collaborator Menu");
     }
 
 }

@@ -1,17 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.application.controller.fx.skill;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateSkillController;
 import pt.ipp.isep.dei.esoft.project.application.controller.fx.utils.UtilsFX;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
-
-import java.io.IOException;
 
 public class CreateSkillFXController {
 
@@ -51,15 +46,7 @@ public class CreateSkillFXController {
 
     @FXML
     private void handleBack() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/skill/SkillMenu.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) backButton.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Skill Menu");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        UtilsFX.bottonControl("/fxml/skill/SkillMenu.fxml", backButton, "Skill Menu");
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String message) {

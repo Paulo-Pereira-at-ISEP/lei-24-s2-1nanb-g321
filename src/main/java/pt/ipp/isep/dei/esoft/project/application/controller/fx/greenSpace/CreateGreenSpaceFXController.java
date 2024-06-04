@@ -6,11 +6,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.stage.Stage;
-import javafx.scene.Scene;
-import javafx.fxml.FXMLLoader;
-
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParsePosition;
@@ -19,6 +14,7 @@ import java.util.Locale;
 
 import javafx.util.StringConverter;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateGreenSpacesController;
+import pt.ipp.isep.dei.esoft.project.application.controller.fx.utils.UtilsFX;
 import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
 import pt.ipp.isep.dei.esoft.project.domain.Manager;
 
@@ -121,16 +117,6 @@ public class CreateGreenSpaceFXController {
 
     @FXML
     private void handleBack() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/greenSpace/GreenSpacesMenu.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) backButton.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Green Spaces Menu");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        UtilsFX.bottonControl("/fxml/greenSpace/GreenSpacesMenu.fxml", backButton, "Green Spaces Menu");
     }
-
-
 }

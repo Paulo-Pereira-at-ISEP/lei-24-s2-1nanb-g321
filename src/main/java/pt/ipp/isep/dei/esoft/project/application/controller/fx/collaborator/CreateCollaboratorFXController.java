@@ -2,10 +2,7 @@ package pt.ipp.isep.dei.esoft.project.application.controller.fx.collaborator;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateCollaboratorController;
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.application.controller.fx.utils.UtilsFX;
@@ -14,9 +11,7 @@ import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
 
-import java.io.IOException;
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -136,7 +131,7 @@ public class CreateCollaboratorFXController {
 
     @FXML
     private void handleBack() {
-        UtilsFX.backControl("/fxml/collaborator/CollaboratorMenu.fxml", backButton, "Collaborator Menu");
+        UtilsFX.bottonControl("/fxml/collaborator/CollaboratorMenu.fxml", backButton, "Collaborator Menu");
     }
 
     private void clearFields() {

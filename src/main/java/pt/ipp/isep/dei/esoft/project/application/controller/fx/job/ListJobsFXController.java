@@ -1,17 +1,13 @@
 package pt.ipp.isep.dei.esoft.project.application.controller.fx.job;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateJobController;
+import pt.ipp.isep.dei.esoft.project.application.controller.fx.utils.UtilsFX;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
-
-import java.io.IOException;
 import java.util.List;
 
 public class ListJobsFXController {
@@ -50,14 +46,6 @@ public class ListJobsFXController {
 
     @FXML
     private void handleBack() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/job/JobMenu.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) backButton.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Job Menu");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        UtilsFX.bottonControl("/fxml/job/JobMenu.fxml", backButton, "Job Menu");
     }
 }

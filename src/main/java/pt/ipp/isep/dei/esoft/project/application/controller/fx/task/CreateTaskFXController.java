@@ -1,19 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.application.controller.fx.task;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
-import pt.ipp.isep.dei.esoft.project.application.controller.CreateSkillController;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateTaskController;
 import pt.ipp.isep.dei.esoft.project.application.controller.fx.utils.UtilsFX;
-import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Task;
-
-import java.io.IOException;
 
 public class CreateTaskFXController {
 
@@ -53,7 +46,7 @@ public class CreateTaskFXController {
 
     @FXML
     private void handleBack() {
-        UtilsFX.backControl("/fxml/task/TaskMenu.fxml",backButton,"Task Menu");
+        UtilsFX.bottonControl("/fxml/task/TaskMenu.fxml",backButton,"Task Menu");
     }
 
 }

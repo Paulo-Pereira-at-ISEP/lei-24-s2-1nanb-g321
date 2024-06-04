@@ -101,11 +101,11 @@ public class UtilsFX {
         return false;
     }
 
-    public static void backControl(String fxml, Button closeButton, String title) {
+    public static void bottonControl(String fxml, Button button, String title) {
         try {
             FXMLLoader loader = new FXMLLoader(UtilsFX.class.getResource(fxml));
             Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) closeButton.getScene().getWindow();
+            Stage stage = (Stage) button.getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle(title);
         } catch (IOException e) {
@@ -120,4 +120,10 @@ public class UtilsFX {
        }
        return true;
     }
+
+    public static void closeControl(Button button) {
+        Stage stage = (Stage) button.getScene().getWindow();
+        stage.close();
+    }
+
 }

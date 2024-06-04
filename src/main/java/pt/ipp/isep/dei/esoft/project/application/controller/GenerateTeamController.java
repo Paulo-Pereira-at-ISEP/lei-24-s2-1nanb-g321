@@ -79,13 +79,13 @@ public class GenerateTeamController {
 
     public Team createTeam(int teamMaxSize, int teamMinSize, ArrayList<Skill> skills) {
 
-        ArrayList<Collaborator> team = Team.createSuperTeam(teamMaxSize, teamMinSize, skills, collaboratorRepository.getCollaboratorsWithoutTeam());
+        ArrayList<Collaborator> team = Team.createTeam(teamMaxSize, teamMinSize, skills, collaboratorRepository.getCollaboratorsWithoutTeam());
 
         return new Team(team);
     }
 
     public Team createSecondTeam(int teamMaxSize, int teamMinSize, ArrayList<Skill> skills, Team team) {
-        ArrayList<Collaborator> team2 = Team.createSuperTeam2(teamMaxSize, teamMinSize, skills, collaboratorRepository.getCollaboratorsWithoutTeam(), team);
+        ArrayList<Collaborator> team2 = Team.createOhterTeam(teamMaxSize, teamMinSize, skills, collaboratorRepository.getCollaboratorsWithoutTeam(), team);
 
         return new Team(team2);
     }

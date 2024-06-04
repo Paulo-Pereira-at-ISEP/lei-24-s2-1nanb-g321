@@ -1,12 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.application.controller.fx.task;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
-
-import java.io.IOException;
+import pt.ipp.isep.dei.esoft.project.application.controller.fx.utils.UtilsFX;
 
 public class TaskMenuFXController {
 
@@ -27,39 +23,15 @@ public class TaskMenuFXController {
     }
 
     private void handleCreateTask() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/task/CreateTask.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) createTaskButton.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Create Task");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        UtilsFX.bottonControl("/fxml/task/CreateTask.fxml", createTaskButton, "Create Task");
     }
 
     private void handleListTasks() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/task/ListTasks.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) listTasksButton.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("List Tasks");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        UtilsFX.bottonControl("/fxml/task/ListTasks.fxml", listTasksButton, "List Tasks");
     }
 
     @FXML
     private void handleBack() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/employee/GSMMenu.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) backButton.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("GSM Menu");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        UtilsFX.bottonControl("/fxml/employee/GSMMenu.fxml", backButton, "GSM Menu");
     }
 }

@@ -62,7 +62,7 @@ public class Team {
         this.collaborators = collaborators;
     }
 
-    public static ArrayList<Collaborator> createSuperTeam(int teamMaxSize, int teamMinSize, ArrayList<Skill> skills, ArrayList<Collaborator> listOfCollaborators) {
+    public static ArrayList<Collaborator> createTeam(int teamMaxSize, int teamMinSize, ArrayList<Skill> skills, ArrayList<Collaborator> listOfCollaborators) {
         // Ordenar colaboradores por habilidades necessárias (presumindo que a função sortCollaboratorBySkill está implementada)
         ArrayList<Collaborator> collaboratorSorted = sortCollaboratorBySkill(listOfCollaborators, skills);
 
@@ -106,7 +106,17 @@ public class Team {
             }
         }
 
-        // Verifica se a equipe formada atende aos requisitos após o loop
+        // Adicionar mais colaboradores se o tamanho mínimo não foi atingido
+        for (Collaborator collaborator : collaboratorSorted) {
+            if (selectedTeam.size() >= teamMinSize) {
+                break;
+            }
+            if (!selectedTeam.contains(collaborator)) {
+                selectedTeam.add(collaborator);
+            }
+        }
+
+        // Verifica se a equipe formada atende aos requisitos após adicionar colaboradores extras
         if (teamSkills.containsAll(skills) && selectedTeam.size() >= teamMinSize) {
             return selectedTeam;
         }
@@ -114,7 +124,7 @@ public class Team {
         return new ArrayList<>();
     }
 
-    public static ArrayList<Collaborator> createSuperTeam2(int teamMaxSize,int teamMinSize, ArrayList<Skill> skills, ArrayList<Collaborator> listOfCollaborators, Team team) {
+    public static ArrayList<Collaborator> createOhterTeam(int teamMaxSize, int teamMinSize, ArrayList<Skill> skills, ArrayList<Collaborator> listOfCollaborators, Team team) {
         ArrayList<Collaborator> tempTeam = listOfCollaborators;
 
         for (int i = 0; i < listOfCollaborators.size(); i++) {
@@ -125,7 +135,7 @@ public class Team {
             }
         }
 
-        return createSuperTeam(teamMaxSize, teamMinSize, skills, tempTeam);
+        return createTeam(teamMaxSize, teamMinSize, skills, tempTeam);
     }
 
     private static ArrayList<Collaborator> sortCollaboratorBySkill(List<Collaborator> listOfCollaborators, ArrayList<Skill> skills) {

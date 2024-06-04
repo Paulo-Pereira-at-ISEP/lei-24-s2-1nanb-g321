@@ -1,12 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.application.controller.fx.collaborator;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
-
-import java.io.IOException;
+import pt.ipp.isep.dei.esoft.project.application.controller.fx.utils.UtilsFX;
 
 public class CollaboratorMenuFXController {
 
@@ -31,51 +27,19 @@ public class CollaboratorMenuFXController {
     }
 
     private void handleCreateCollaborator() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/collaborator/CreateCollaborator.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) createCollaboratorButton.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Create Collaborator");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        UtilsFX.bottonControl("/fxml/collaborator/CreateCollaborator.fxml", createCollaboratorButton, "Create Collaborator");
     }
 
     private void handleListCollaborators() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/collaborator/ListCollaborators.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) listCollaboratorsButton.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("List Collaborators");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        UtilsFX.bottonControl("/fxml/collaborator/ListCollaborators.fxml", listCollaboratorsButton, "List Collaborators");
     }
 
     private void handleAssignSkills() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/collaborator/SelectCollaborator.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) assignSkillsButton.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Assign Skills Collaborators");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        UtilsFX.bottonControl("/fxml/collaborator/SelectCollaborator.fxml", assignSkillsButton, "Assign Skills Collaborators");
     }
 
     @FXML
     private void handleBack() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/employee/HRMMenu.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) backButton.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("HRM Menu");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        UtilsFX.bottonControl("/fxml/employee/HRMMenu.fxml", backButton, "HRM Menu");
     }
 }

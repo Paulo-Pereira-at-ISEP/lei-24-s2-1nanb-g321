@@ -1,10 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.application.controller.fx.team;
 
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateSkillController;
 import pt.ipp.isep.dei.esoft.project.application.controller.GenerateTeamController;
@@ -14,7 +16,9 @@ import pt.ipp.isep.dei.esoft.project.domain.Team;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CreateTeamFXController {
 
@@ -28,41 +32,88 @@ public class CreateTeamFXController {
     private TextField maxTeamField;
 
     @FXML
-    private ListView<Skill> skillListView;
+    private TableView<Skill> skillTableView;
+
+    @FXML
+    private TableColumn<Skill, String> skillColumn;
+
+    @FXML
+    private TableColumn<Skill, Void> actionColumn;
+
+    @FXML
+    private TableColumn<Skill, Integer> countColumn;
 
     @FXML
     private Button backButton;
 
-    public CreateTeamFXController() {
-        // Construtor padrão
-    }
+    private Map<Skill, Integer> selectedSkillsCount;
 
     @FXML
     private void initialize() {
         List<Skill> skills = skillController.getAllSkills();
 
-        // Adicionar todas as habilidades ao ListView
-        skillListView.setItems(FXCollections.observableArrayList(skills));
+        selectedSkillsCount = new HashMap<>();
 
-        // Permitir seleção múltipla
-        skillListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        skillColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        countColumn.setCellValueFactory(param -> {
+            Skill skill = param.getValue();
+            return new ReadOnlyObjectWrapper<>(selectedSkillsCount.getOrDefault(skill, 0));
+        });
+
+        countColumn.setCellFactory(column -> new TableCell<Skill, Integer>() {
+            @Override
+            protected void updateItem(Integer item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setText(null);
+                } else {
+                    setText(item.toString());
+                }
+            }
+        });
+
+        actionColumn.setCellFactory(param -> new TableCell<>() {
+            private final Button addButton = new Button("Add");
+
+            {
+                addButton.setOnAction(event -> {
+                    Skill skill = getTableView().getItems().get(getIndex());
+                    selectedSkillsCount.put(skill, selectedSkillsCount.getOrDefault(skill, 0) + 1);
+                    getTableView().refresh();
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(addButton);
+                }
+            }
+        });
+
+        skillTableView.setItems(FXCollections.observableArrayList(skills));
     }
 
     @FXML
     private void handleCreateTeam() {
         try {
             int maxTeam = Integer.parseInt(maxTeamField.getText());
-            if (UtilsFX.isPositive(maxTeam, "max")) return;
-
             int minTeam = Integer.parseInt(minTeamField.getText());
-            if (UtilsFX.isPositive(minTeam, "min")) return;
 
-            ArrayList<Skill> selectedSkills = new ArrayList<>(skillListView.getSelectionModel().getSelectedItems());
+            List<Skill> selectedSkills = new ArrayList<>();
+            for (Map.Entry<Skill, Integer> entry : selectedSkillsCount.entrySet()) {
+                for (int i = 0; i < entry.getValue(); i++) {
+                    selectedSkills.add(entry.getKey());
+                }
+            }
 
-            Team team = controller.createTeam(maxTeam, minTeam, selectedSkills);
+            Team team = controller.createTeam(maxTeam, minTeam, (ArrayList<Skill>) selectedSkills);
 
             if (team != null && !team.getCollaborators().isEmpty()) {
-                // Abre a nova janela para mostrar os colaboradores
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/team/ShowCollaborators.fxml"));
                 Scene scene = new Scene(loader.load());
                 Stage stage = new Stage();
@@ -74,17 +125,15 @@ public class CreateTeamFXController {
 
                 stage.showAndWait();
 
-                // Se a equipe for aceita, adicione ao repositório
                 if (showCollaboratorsController.isAccepted()) {
                     controller.addToRepository(team);
                     controller.colaboratorHasTeam(team);
                     UtilsFX.showAlert(Alert.AlertType.INFORMATION, "Team Created", "Team successfully created!");
                     clearFields();
-                } else if (showCollaboratorsController.isRejected()){
-                    Team team1 = controller.createSecondTeam(maxTeam, minTeam, selectedSkills, team);
+                } else if (showCollaboratorsController.isRejected()) {
+                    Team team1 = controller.createSecondTeam(maxTeam, minTeam, (ArrayList<Skill>) selectedSkills, team);
 
                     if (team1 != null && !team1.getCollaborators().isEmpty()) {
-
                         loader = new FXMLLoader(getClass().getResource("/fxml/team/ShowCollaborators.fxml"));
                         scene = new Scene(loader.load());
                         stage = new Stage();
@@ -120,20 +169,13 @@ public class CreateTeamFXController {
 
     @FXML
     private void handleBack() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/team/TeamMenu.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) backButton.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Team Menu");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        UtilsFX.bottonControl("/fxml/team/TeamMenu.fxml", backButton, "Team Menu");
     }
 
     private void clearFields() {
         maxTeamField.clear();
         minTeamField.clear();
-        skillListView.getSelectionModel().clearSelection();
+        selectedSkillsCount.clear();
+        skillTableView.refresh();
     }
 }

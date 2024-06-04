@@ -47,6 +47,6 @@ public class ListTasksFXController {
 
     @FXML
     private void handleBack() {
-        UtilsFX.backControl("/fxml/task/TaskMenu.fxml", backButton, "Task Menu");
+        UtilsFX.bottonControl("/fxml/task/TaskMenu.fxml", backButton, "Task Menu");
     }
 }

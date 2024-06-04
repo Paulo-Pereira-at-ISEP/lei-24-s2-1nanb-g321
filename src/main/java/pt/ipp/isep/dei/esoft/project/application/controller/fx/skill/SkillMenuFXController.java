@@ -1,12 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.application.controller.fx.skill;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
-
-import java.io.IOException;
+import pt.ipp.isep.dei.esoft.project.application.controller.fx.utils.UtilsFX;
 
 public class SkillMenuFXController {
 
@@ -27,39 +23,15 @@ public class SkillMenuFXController {
     }
 
     private void handleCreateSkill() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/skill/CreateSkill.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) createSkillButton.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Create Skill");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        UtilsFX.bottonControl("/fxml/skill/CreateSkill.fxml", createSkillButton, "Create Skill");
     }
 
     private void handleListSkills() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/skill/ListSkills.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) listSkillsButton.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("List Skills");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        UtilsFX.bottonControl("/fxml/skill/ListSkills.fxml", listSkillsButton, "List Skills");
     }
 
     @FXML
     private void handleBack() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/employee/HRMMenu.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) backButton.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("HRM Menu");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        UtilsFX.bottonControl("/fxml/employee/HRMMenu.fxml", backButton, "HRM Menu");
     }
 }

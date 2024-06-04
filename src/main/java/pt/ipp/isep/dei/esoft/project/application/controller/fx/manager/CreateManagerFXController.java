@@ -1,18 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.application.controller.fx.manager;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateManagerController;
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.application.controller.fx.utils.UtilsFX;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Manager;
-import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
-
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,13 +48,11 @@ public class CreateManagerFXController {
     private Button backButton;
 
     private final CreateManagerController managerController;
-    private final AuthenticationRepository authenticationRepository;
 
     public static final ArrayList<String> roles = new ArrayList<>(List.of(AuthenticationController.ROLE_HRM,AuthenticationController.ROLE_VFM,AuthenticationController.ROLE_QAM,AuthenticationController.ROLE_GSM));
     public static final ArrayList<String> docType = new ArrayList<>(List.of("CC", "Passport"));
 
     public CreateManagerFXController() {
-        this.authenticationRepository = new AuthenticationRepository();
         this.managerController = new CreateManagerController();
     }
 
@@ -132,7 +124,7 @@ public class CreateManagerFXController {
 
     @FXML
     private void handleBack() {
-        UtilsFX.backControl("/fxml/manager/ManagerMenu.fxml", backButton, "Manager Menu");
+        UtilsFX.bottonControl("/fxml/manager/ManagerMenu.fxml", backButton, "Manager Menu");
     }
 
     private void clearFields() {

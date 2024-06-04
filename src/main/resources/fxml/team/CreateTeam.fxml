@@ -3,7 +3,9 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.GridPane?>
 
@@ -20,7 +22,15 @@
     <TextField fx:id="minTeamField" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
     <Label text="Skills:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-    <ListView fx:id="skillListView" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+    <ScrollPane GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.columnSpan="3">
+        <TableView fx:id="skillTableView">
+            <columns>
+                <TableColumn fx:id="skillColumn" text="Skill" />
+                <TableColumn fx:id="actionColumn" text="Action" />
+                <TableColumn fx:id="countColumn" text="Count" />
+            </columns>
+        </TableView>
+    </ScrollPane>
 
     <Button text="Create Team" onAction="#handleCreateTeam" GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
     <Button fx:id="backButton" text="Back" onAction="#handleBack" GridPane.rowIndex="4" GridPane.columnIndex="0" GridPane.columnSpan="2"/>

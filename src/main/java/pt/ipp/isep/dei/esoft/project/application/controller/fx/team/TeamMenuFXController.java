@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import pt.ipp.isep.dei.esoft.project.application.controller.fx.utils.UtilsFX;
 
 import java.io.IOException;
 
@@ -27,39 +28,15 @@ public class TeamMenuFXController {
     }
 
     private void handleCreateTeam() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/team/CreateTeam.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) createTeamButton.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("Create Team");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        UtilsFX.bottonControl("/fxml/team/CreateTeam.fxml", createTeamButton, "Create Team");
     }
 
     private void handleListTeams() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/team/ListTeams.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) listTeamsButton.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("List Teams");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        UtilsFX.bottonControl("/fxml/team/ListTeams.fxml", listTeamsButton, "List Teams");
     }
 
     @FXML
     private void handleBack() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/employee/HRMMenu.fxml"));
-            Scene scene = new Scene(loader.load());
-            Stage stage = (Stage) backButton.getScene().getWindow();
-            stage.setScene(scene);
-            stage.setTitle("HRM Menu");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        UtilsFX.bottonControl("/fxml/employee/HRMMenu.fxml", backButton, "HRM Menu");
     }
 }
