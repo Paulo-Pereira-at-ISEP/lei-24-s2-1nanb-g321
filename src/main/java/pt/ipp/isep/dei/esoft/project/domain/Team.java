@@ -157,7 +157,7 @@ public class Team {
     }
 
     public String toString() {
-        return "Team Maximum Size: " + teamMaxSize + "\nTeam Minimum Size: " + teamMinSize + "\nSkills: " + skills;
+        return "Team ID: " + id + "\nSkills: " + skills;
     }
 
     public Team clone() {
