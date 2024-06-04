@@ -209,11 +209,9 @@ Agenda "1" -- "*" Task: has >
 
 
 Task "1..*" -- "1..*" GreenSpace: are performed in >
-Task "1..*" ----- "1..*" Collaborator: are assigned to <
 Task "1..*" -- "1..*" ToDoList: has <
 
-GreenSpace "1..*" -- "1..*" Manager: are managed by >
-
+GreenSpace "1..*" -- "1" Manager: are managed by >
 
 Reports "*" -- "1" Portal: are submitted >
 

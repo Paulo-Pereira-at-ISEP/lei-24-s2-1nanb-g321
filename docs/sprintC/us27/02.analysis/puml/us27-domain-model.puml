@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-left to right direction
+'left to right direction
 
 skinparam classAttributeIconSize 0
 
@@ -21,12 +21,15 @@ class Manager {
 }
 
 class GreenSpace {
-
+    name
+    classification
+    area
+    location
+    responsibleGSM
 }
 
 Manager "1" -- "1..*" GreenSpacesManager: is a >
 
-GreenSpace "1..*" --up "1..*" GreenSpacesManager: are managed by >
-
+GreenSpace "1..*" -- "1" Manager: are managed by >
 
 @enduml
