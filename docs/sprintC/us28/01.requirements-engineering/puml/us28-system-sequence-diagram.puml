@@ -7,15 +7,27 @@ title System Sequence Diagram (SSD) - US28
 
 autonumber
 
-actor "Fleet\nManager" as Employee
+actor "Collaborator" as Employee
 participant ":System" as System
 
 activate Employee
 
-    Employee -> System : asks to create a list of the vehicles that need maintenance
+    Employee -> System : asks to consult a list of tasks
     activate System
 
-        System --> Employee : selects data from the listed vehicles and presents the list
+        System --> Employee : request data (inicialDate, finalDate)
+    deactivate System
+
+    Employee -> System : types requested data
+    activate System
+
+        System --> Employee : requests confirmation
+    deactivate System
+
+    Employee -> System : confirms data
+    activate System
+
+        System --> Employee : displays list of tasks
     deactivate System
 
 @enduml
