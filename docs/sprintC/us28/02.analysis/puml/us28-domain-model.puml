@@ -3,7 +3,7 @@ skinparam monochrome true
 skinparam packageStyle rectangle
 skinparam shadowing false
 
-left to right direction
+'left to right direction
 
 skinparam classAttributeIconSize 0
 
@@ -12,39 +12,45 @@ hide methods
 
 title Domain Model
 
-class VehicleFleetManager {
+class Collaborator {
+    name
+    birthdate
+    admissionDate
+    address
+    mobileContact
+    emailContact
+    IDdocType
+    IDnumber
+    taxNumber
+    job
+    skills
+    assignedTasks
 
 }
 
-class VehicleCheckup{
-    dateOfCheckup
-    kmOfCheckup
+class Team {
+    minimumElements
+    maximumElements
+    skillsRequired
+    teamMembers
 }
 
-class Manager {
-    section
+class Task {
+    park
+    taskType
+    taskDescription
+    priority
+    status
 }
 
-class Vehicle {
-    Brand
-    Model
-    Type
-    Tare Weight
-    Gross Weight
-    Current Km
-    Register Date
-    Acquisition Date
-    Maintenance Frequency
-    Plate Number
-    Passengers Number
-    Doors Number
-    Fuel Type
-    Trailer Machines
+class Agenda {
+    plannedTasks
 }
 
-Manager "1" -- "*" Vehicle: creates/manages >
-Manager "1" --up "1..*" VehicleFleetManager: is a >
-Vehicle "1" -- "1" VehicleCheckup: is submitted to >
+Collaborator "1..*" -- "1" Team: integrates >
 
+Team "1" -- "1" Task: carry out >
+
+Agenda "1" -- "*" Task: has >
 
 @enduml
