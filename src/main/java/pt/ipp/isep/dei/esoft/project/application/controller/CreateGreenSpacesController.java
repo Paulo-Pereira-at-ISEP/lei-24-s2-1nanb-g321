@@ -81,6 +81,10 @@ public class CreateGreenSpacesController {
             return greenSpaceRepository.getGreenSpaces();
         }
 
+        public List<GreenSpace> getGreenSpacesManaged(String email) {
+        return greenSpaceRepository.getGreenSpacesManaged(email);
+    }
+
         public GreenSpace createGreenSpace(String name, double area, String classification, Manager manager ) {
 
             GreenSpace newGreenSpace = new GreenSpace(name, area, classification, manager);

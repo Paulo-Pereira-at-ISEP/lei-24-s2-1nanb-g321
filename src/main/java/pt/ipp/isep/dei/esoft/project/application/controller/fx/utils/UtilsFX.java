@@ -112,4 +112,12 @@ public class UtilsFX {
             e.printStackTrace();
         }
     }
+
+    public static boolean isPositive(int number, String message) {
+       if (number <= 0) {
+           UtilsFX.showAlert(Alert.AlertType.ERROR, "Invalid Number", "The "+message+" number of elements must be greater than 0.");
+           return false;
+       }
+       return true;
+    }
 }

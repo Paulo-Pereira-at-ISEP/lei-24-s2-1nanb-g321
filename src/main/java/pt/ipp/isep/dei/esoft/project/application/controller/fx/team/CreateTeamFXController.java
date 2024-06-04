@@ -52,7 +52,10 @@ public class CreateTeamFXController {
     private void handleCreateTeam() {
         try {
             int maxTeam = Integer.parseInt(maxTeamField.getText());
+            if (UtilsFX.isPositive(maxTeam, "max")) return;
+
             int minTeam = Integer.parseInt(minTeamField.getText());
+            if (UtilsFX.isPositive(minTeam, "min")) return;
 
             ArrayList<Skill> selectedSkills = new ArrayList<>(skillListView.getSelectionModel().getSelectedItems());
 

@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import pt.ipp.isep.dei.esoft.project.repository.AuthenticationRepository;
+import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 
 import java.io.IOException;
 
@@ -12,6 +14,9 @@ public class GreenSpacesMenuFXController {
 
     @FXML
     private Button createGreenSpaceButton;
+
+    @FXML
+    private Button listAllGreenSpaceButton;
 
     @FXML
     private Button listGreenSpaceButton;
@@ -22,6 +27,7 @@ public class GreenSpacesMenuFXController {
     @FXML
     private void initialize() {
         createGreenSpaceButton.setOnAction(event -> handleCreateGreenSpace());
+        listAllGreenSpaceButton.setOnAction(event -> handleListAllGreenSpaces());
         listGreenSpaceButton.setOnAction(event -> handleListGreenSpaces());
         backButton.setOnAction(event -> handleBack());
     }
@@ -38,13 +44,25 @@ public class GreenSpacesMenuFXController {
         }
     }
 
+    private void handleListAllGreenSpaces() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/greenSpace/ListAllGreenSpaces.fxml"));
+            Scene scene = new Scene(loader.load());
+            Stage stage = (Stage) listAllGreenSpaceButton.getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("List All Green Spaces");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void handleListGreenSpaces() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/greenSpace/ListGreenSpaces.fxml"));
             Scene scene = new Scene(loader.load());
             Stage stage = (Stage) listGreenSpaceButton.getScene().getWindow();
             stage.setScene(scene);
-            stage.setTitle("List Green Spaces");
+            stage.setTitle("List Green Spaces Managed");
         } catch (IOException e) {
             e.printStackTrace();
         }

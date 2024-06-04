@@ -14,6 +14,9 @@ public class GSMMenuFXController {
     private Button greenSpacesButton;
 
     @FXML
+    private Button tasksButton;
+
+    @FXML
     private Button logoutButton;
 
     @FXML
@@ -22,6 +25,7 @@ public class GSMMenuFXController {
     @FXML
     private void initialize() {
         greenSpacesButton.setOnAction(event -> handleGreenSpaces());
+        tasksButton.setOnAction(event -> handletasks());
         logoutButton.setOnAction(event -> handleLogout());
         closeButton.setOnAction(event -> handleClose());
     }
@@ -33,6 +37,18 @@ public class GSMMenuFXController {
             Stage stage = (Stage) greenSpacesButton.getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle("Green Spaces Menu");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void handletasks() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/task/TaskMenu.fxml"));
+            Scene scene = new Scene(loader.load());
+            Stage stage = (Stage) tasksButton.getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Tasks Menu");
         } catch (IOException e) {
             e.printStackTrace();
         }

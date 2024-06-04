@@ -23,16 +23,18 @@ public class LoginFXController {
 
     private final AuthenticationController ctrl;
 
+    public String email;
+
     public LoginFXController() {
         this.ctrl = new AuthenticationController();
     }
 
     @FXML
     private void handleLogin() {
-        String userId = emailField.getText();
+        email = emailField.getText();
         String password = passwordField.getText();
 
-        boolean success = ctrl.doLogin(userId, password);
+        boolean success = ctrl.doLogin(email, password);
 
         if (success) {
             List<UserRoleDTO> roles = ctrl.getUserRoles();
@@ -73,6 +75,13 @@ public class LoginFXController {
                 Stage stage = (Stage) emailField.getScene().getWindow();
                 stage.setScene(scene);
                 stage.setTitle("GSM Menu");
+            } else if (role.getDescription().equals(AuthenticationController.ROLE_Collaborator)) {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/employee/CollaboratorMenu.fxml"));
+                Scene scene = new Scene(loader.load());
+                Stage stage = (Stage) emailField.getScene().getWindow();
+                stage.setScene(scene);
+                stage.setTitle("Collaborator Menu");
+
             } else {
                 System.out.println("There is no UI for users with role '" + role.getDescription() + "'");
             }

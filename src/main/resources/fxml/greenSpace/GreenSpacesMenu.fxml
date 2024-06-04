@@ -9,6 +9,7 @@
     <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
 
     <Button fx:id="createGreenSpaceButton" text="Create Green Space" maxWidth="Infinity"/>
-    <Button fx:id="listGreenSpaceButton" text="List Green Spaces" maxWidth="Infinity"/>
+    <Button fx:id="listAllGreenSpaceButton" text="List All Green Spaces" maxWidth="Infinity"/>
+    <Button fx:id="listGreenSpaceButton" text="List My Green Spaces" maxWidth="Infinity"/>
     <Button fx:id="backButton" text="Back" onAction="#handleBack" maxWidth="Infinity"/>
 </VBox>

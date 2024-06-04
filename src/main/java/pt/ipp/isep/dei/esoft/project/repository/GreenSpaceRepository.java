@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.repository;
 import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
+import pt.isep.lei.esoft.auth.AuthFacade;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +38,16 @@ public class GreenSpaceRepository {
     public List<GreenSpace> getGreenSpaces() {
         //This is a defensive copy, so that the repository cannot be modified from the outside.
         return List.copyOf(greenSpaces);
+    }
+
+    public List<GreenSpace> getGreenSpacesManaged(String email) {
+        List<GreenSpace> greenSpacesManaged = new ArrayList<>();
+        for (GreenSpace greenSpace : greenSpaces) {
+            if (greenSpace.getManager().getEmail().equals(email) ) {
+                greenSpacesManaged.add(greenSpace);
+            }
+        }
+        return greenSpacesManaged;
     }
 
     public Optional<GreenSpace> add(GreenSpace greenSpace) {
