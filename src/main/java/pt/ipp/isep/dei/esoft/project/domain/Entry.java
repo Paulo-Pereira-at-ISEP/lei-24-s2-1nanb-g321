@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -13,6 +14,9 @@ public class Entry extends Task {
     private int hour;
     private Team team;
 
+    private LocalTime startTime;
+    private LocalTime endTime;
+
     public Entry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate entryDate, int hour, Team team) {
         super(name, description);
         this.urgencyDegree = urgencyDegree;
@@ -22,6 +26,8 @@ public class Entry extends Task {
         this.status = "Planned";
         this.hour = hour;
         this.team = team;
+        this.startTime = LocalTime.of(hour, 0); // Assuming start time is at the beginning of the hour
+        this.endTime = calculateEndTime();
     }
 
     public Entry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate entryDate, int hour) {
@@ -41,6 +47,27 @@ public class Entry extends Task {
         this.greenSpace = greenSpace;
         this.status = "Pending";
     }
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(LocalTime startTime) {
+        this.startTime = startTime;
+    }
+
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(LocalTime endTime) {
+        this.endTime = endTime;
+    }
+
+    // Method to calculate end time based on start time and duration
+    private LocalTime calculateEndTime() {
+        return startTime.plusHours(duration);
+    }
+
 
     public String getUrgencyDegree() {
         return urgencyDegree;

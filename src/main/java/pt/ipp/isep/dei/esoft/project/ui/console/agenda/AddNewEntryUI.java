@@ -44,8 +44,9 @@ public class AddNewEntryUI implements Runnable{
             System.out.println("\n\n\n---------- Submitted Data ----------");
             System.out.printf("Entry: %s\n", entry.getName());
             System.out.printf("Date: %s\n", entry.getEntryDate());
-            System.out.printf("Hour: %s\n", printHour(hour));
+            System.out.printf("Duration: %s\n", entry.getDuration());
             System.out.printf("Status: %s\n", entry.getStatus());
+            System.out.printf("Stating Hour: %dh\n", entry.getHour());
 
             System.out.println("\nEntry successfully added to the Agenda!");
         } else {
@@ -86,26 +87,6 @@ public class AddNewEntryUI implements Runnable{
         }
     }
 
-    private String printHour(int hour) {
-
-        if (1 == hour){
-            return "08:00 am";
-        } else if (2 == hour) {
-            return "09:00 am";
-        } else if (3 == hour) {
-            return "10:00 am";
-        } else if (4 == hour) {
-            return  "11:00 am";
-        } else if (5 == hour) {
-            return "12:00 am";
-        } else if (6 == hour) {
-            return "14:00 pm";
-        } else if (7 == hour) {
-            return "15:00 pm;";
-        } else {
-            return "16:00 pm";
-        }
-    }
 
     private CharSequence requestDate() {
         boolean validDate = false;
@@ -126,43 +107,20 @@ public class AddNewEntryUI implements Runnable{
         return input;
     }
     private int requestHour() {
-            do {
-                System.out.println("Select the hour to start your task: ");
-                System.out.println("[1] - 08:00");
-                System.out.println("[2] - 09:00");
-                System.out.println("[3] - 10:00");
-                System.out.println("[4] - 11:00");
-                System.out.println("[5] - 12:00");
-                System.out.println("[6] - 14:00");
-                System.out.println("[7] - 15:00");
-                System.out.println("[8] - 16:00");
-                System.out.print("Your choice: ");
-                Scanner input = new Scanner(System.in);
-                hour = input.nextInt();
+        Scanner input = new Scanner(System.in);
+        int hour;
+        do {
+            System.out.println("Select the hour to start your task (8-16): ");
+            System.out.print("Your choice: ");
+            hour = input.nextInt();
 
-                switch (hour) {
-                    case 1:
-                        return 1;
-                    case 2:
-                        return 2;
-                    case 3:
-                        return 3;
-                    case 4:
-                        return 4;
-                    case 5:
-                        return 5;
-                    case 6:
-                        return 6;
-                    case 7:
-                        return 7;
-                    case 8:
-                        return 8;
-                        default:
-                        System.out.println("Invalid choice. Please press a number between 1 and 8.");
-                }
-            } while (true);
+            if (hour < 8 || hour > 16) {
+                System.out.println("Invalid choice. Please enter a number between 8 and 16.");
+            }
+        } while (hour < 8 || hour > 16);
 
-        }
+        return hour;
+    }
     }
 
 

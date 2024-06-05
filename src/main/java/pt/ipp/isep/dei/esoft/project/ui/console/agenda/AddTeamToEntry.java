@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.esoft.project.application.controller.CreateTeamToEntryCon
 import pt.ipp.isep.dei.esoft.project.domain.Entry;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
 
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Scanner;
 
@@ -25,23 +26,39 @@ public class AddTeamToEntry implements Runnable {
     }
 
     private void submitData() {
+        // Get entries filtered by date
         List<Entry> entriesFiltered = controller.getEntriesByDate(entry.getEntryDate());
 
+        // Calculate start and end times for the selected entry
+        LocalTime startTime = LocalTime.of(entry.getHour(), 0); // Assuming start time is at the beginning of the hour
+        LocalTime endTime = startTime.plusHours(entry.getDuration());
+
+        // Check team availability for the specified time range
         boolean teamBooked = false;
         for (Entry e : entriesFiltered) {
-            if (e.getTeam() != null && e.getTeam().getId() == team.getId()) {
-                teamBooked = true;
-                break;
+            LocalTime eStartTime = e.getStartTime();
+            LocalTime eEndTime = e.getEndTime();
+
+            // Check if selected time range overlaps with existing entry's time range
+            if ((startTime.isAfter(eStartTime) && startTime.isBefore(eEndTime)) ||
+                    (endTime.isAfter(eStartTime) && endTime.isBefore(eEndTime)) ||
+                    (startTime.equals(eStartTime) && endTime.equals(eEndTime))) {
+                if (e.getTeam() != null && e.getTeam().getId() == team.getId()) {
+                    teamBooked = true;
+                    break;
+                }
             }
         }
 
+        // Display appropriate message based on team availability
         if (teamBooked) {
-            System.out.println("\nYou can't add that team.\n They are booked for this day.");
+            System.out.println("\nYou can't add that team. They are booked for this time range.");
         } else {
             entry.setTeam(team);
             System.out.println("\nTeam successfully added to the Entry!");
         }
     }
+
 
     private void requestData() {
         entry = displayAndSelectEntry();
