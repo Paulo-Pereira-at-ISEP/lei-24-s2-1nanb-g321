@@ -7,9 +7,6 @@ import java.util.List;
 
 public class ListToDoListUI implements Runnable{
 
-
-
-
         private final CreateEntryController entryController;
 
         public ListToDoListUI() {
@@ -21,9 +18,6 @@ public class ListToDoListUI implements Runnable{
             listToDoList();
         }
 
-        /**
-         * Lists all registered skills along with their details.
-         */
         private void listToDoList() {
             List<Entry> entrys = entryController.getAllEntrys();
 
@@ -42,10 +36,10 @@ public class ListToDoListUI implements Runnable{
                     System.out.println("      Title: " + entry.getName());
                     System.out.println("      Description: " + entry.getDescription());
                     System.out.println("      Urgency Degree: " + entry.getUrgencyDegree());
+                    System.out.println("      Duration: " + entry.getDuration() + "h");
                     System.out.println("-------------------------");
                     counter++;
                 }
             }
         }
-
     }

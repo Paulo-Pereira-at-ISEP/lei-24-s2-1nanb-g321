@@ -38,7 +38,7 @@ public class AddTeamToEntry implements Runnable {
 
     private void submitData() {
 
-        Entry entry = controller.createEntry(entrys.getName(), entrys.getDescription(), entrys.getUrgencyDegree(), entrys.getDuration(), entrys.getGreenSpace(), entrys.getEntryDate(), entrys.getStatus(), entrys.getHour(), team);
+        Entry entry = controller.createEntry(entrys.getName(), entrys.getDescription(), entrys.getUrgencyDegree(), entrys.getDuration(), entrys.getGreenSpace(), entrys.getEntryDate(), entrys.getHour(), team);
 
         if (entry != null) {
             System.out.println("\nTeam successfully added to the Entry!");
@@ -47,22 +47,7 @@ public class AddTeamToEntry implements Runnable {
         }
     }
 
-    /**
-     * Prompts the user to enter data for a new skill and allows for modification before confirmation.
-     *
-     * @implNote This method iteratively requests skill name and description from the user.
-     * It then presents the entered data for confirmation.
-     * - If confirmed ("y"), it exits the loop and indicates successful registration.
-     * - If not confirmed ("n"), it allows the user to:
-     * - Choose a data field (name or description) for modification using `requestDataModification`.
-     * - If a valid field is chosen, it calls `modifySkillData` (assumed to be available)
-     * to modify the specific data.
-     * - It allows the user to modify another field or confirm again.
-     * The loop continues until the user confirms ("y") or exits ("n").
-     * After confirmation, the skill data can be used for further processing or storage.
-     */
     private void requestData() {
-        String input;
         agendaRepository = new AgendaRepository();
         entrys = displayAndSelectEntry();
         team = displayAndSelectTeam();

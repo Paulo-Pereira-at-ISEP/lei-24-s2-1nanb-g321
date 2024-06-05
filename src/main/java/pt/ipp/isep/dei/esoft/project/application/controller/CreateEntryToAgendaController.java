@@ -102,6 +102,11 @@ public class CreateEntryToAgendaController {
         public List<Entry> getAllEntrys() {
             return agendaRepository.getEntrys();
         }
+
+        public List<Entry> getAllEntrysFromToDoList() {
+            return toDoListRepository.getAllEntrys();
+        }
+
         public List<Entry> getAllToDoListEntrys (){
             return toDoListRepository.getEntrys();
         }
@@ -119,9 +124,9 @@ public class CreateEntryToAgendaController {
             return teamRepository.getAllTeams();
         }
 
-        public Entry createEntry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate date, String status, int hour) {
+        public Entry createEntry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate date, int hour) {
 
-            Entry newEntry = new Entry(name, description, urgencyDegree, duration, greenSpace, date, status, hour);
+            Entry newEntry = new Entry(name, description, urgencyDegree, duration, greenSpace, date, hour);
 
             agendaRepository.add(newEntry);
 

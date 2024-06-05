@@ -43,7 +43,7 @@ public class Skill {
 
  */
     @Override
-    public String toString() {return name;}
+    public String toString() {return this.name;}
 
     /**
      * Clone method.

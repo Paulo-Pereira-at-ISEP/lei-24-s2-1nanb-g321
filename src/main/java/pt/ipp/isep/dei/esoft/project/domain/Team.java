@@ -167,7 +167,14 @@ public class Team {
     }
 
     public String toString() {
-        return "Team ID: " + id + "\nSkills: " + skills;
+        ArrayList<Skill> collaboratorsSkills = new ArrayList<>();
+        for (Collaborator collaborator : collaborators) {
+            for (Skill skill : collaborator.getSkills()) {
+                collaboratorsSkills.add(skill);
+            }
+        }
+
+        return this.id +" - "+ this.collaborators + "\nSkills: " + collaboratorsSkills;
     }
 
     public Team clone() {

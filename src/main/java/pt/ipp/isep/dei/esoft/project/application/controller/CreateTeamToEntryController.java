@@ -102,9 +102,9 @@ public class CreateTeamToEntryController {
         return teamRepository.getAllTeams();
     }
 
-    public Entry createEntry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate date, String status, int hour, Team team) {
+    public Entry createEntry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate date, int hour, Team team) {
 
-        Entry newEntry = new Entry(name, description, urgencyDegree, duration, greenSpace, date, status, team, hour);
+        Entry newEntry = new Entry(name, description, urgencyDegree, duration, greenSpace, date, hour, team);
 
         agendaRepository.add(newEntry);
 
