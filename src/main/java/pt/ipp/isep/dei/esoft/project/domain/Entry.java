@@ -2,6 +2,7 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Entry extends Task {
     private String  urgencyDegree;
@@ -104,6 +105,7 @@ public class Entry extends Task {
     public int getHour() {
         return hour;
     }
+
 
     public void setHour(int hour) {
         this.hour = hour;

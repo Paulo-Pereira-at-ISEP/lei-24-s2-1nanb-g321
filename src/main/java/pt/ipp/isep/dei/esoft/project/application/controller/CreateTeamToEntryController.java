@@ -85,7 +85,7 @@ public class CreateTeamToEntryController {
         this.agendaRepository = agendaRepository;
     }
 
-    public List<Entry> getAllEntrys() {
+    public List<Entry> getAllEntries() {
         return agendaRepository.getEntrys();
     }
 
@@ -101,7 +101,9 @@ public class CreateTeamToEntryController {
     public List<Team> getAllTeams() {
         return teamRepository.getAllTeams();
     }
-
+public List<Entry> getEntriesByDate(LocalDate date) {
+        return agendaRepository.getEntriesByDate(date);
+}
     public Entry createEntry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate date, int hour, Team team) {
 
         Entry newEntry = new Entry(name, description, urgencyDegree, duration, greenSpace, date, hour, team);

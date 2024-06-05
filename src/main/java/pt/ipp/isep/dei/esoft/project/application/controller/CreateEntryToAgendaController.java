@@ -123,7 +123,9 @@ public class CreateEntryToAgendaController {
         public List<Team> getAllTeams() {
             return teamRepository.getAllTeams();
         }
-
+        public void getsortedEntriesByDate() {
+        agendaRepository.sortEntriesByDate();
+        }
         public Entry createEntry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate date, int hour) {
 
             Entry newEntry = new Entry(name, description, urgencyDegree, duration, greenSpace, date, hour);

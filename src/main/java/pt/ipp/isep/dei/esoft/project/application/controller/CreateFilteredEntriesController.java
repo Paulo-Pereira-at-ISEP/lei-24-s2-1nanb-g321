@@ -83,7 +83,7 @@ public class CreateFilteredEntriesController {
             return taskRepository;
         }
         public List<Entry> getFilteredEntries(LocalDate date, LocalDate date2){
-            return agendaRepository.getEntriesBetweeTwoDates(date, date2);
+            return agendaRepository.getEntriesBetweenTwoDates(date, date2);
         }
 
         public CreateFilteredEntriesController(AgendaRepository agendaRepository) {
