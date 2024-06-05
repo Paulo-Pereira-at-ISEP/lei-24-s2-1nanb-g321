@@ -6,8 +6,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -17,7 +19,7 @@ import java.util.regex.Pattern;
  * @author Paulo Maio pam@isep.ipp.pt
  */
 public class Utils {
-
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
     static public String readLineFromConsole(String prompt) {
         try {
             System.out.print(prompt);
@@ -122,6 +124,11 @@ public class Utils {
             return list.get(value - 1);
         }
     }
+    public static String readLineFromConsole2(String prompt) {
+        System.out.print(prompt);
+        Scanner scanner = new Scanner(System.in);
+        return scanner.nextLine();
+    }
 
     static public int selectsIndex(List list) {
         String input;
@@ -208,6 +215,14 @@ public class Utils {
         // You can add further checks here for complex validation (e.g., regex)
 
         return true; // Passed basic checks, potentially valid
+    }
+    public static boolean parseDate2(String dateStr) {
+        try {
+            LocalDate.parse(dateStr, DATE_FORMATTER);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 
     /**

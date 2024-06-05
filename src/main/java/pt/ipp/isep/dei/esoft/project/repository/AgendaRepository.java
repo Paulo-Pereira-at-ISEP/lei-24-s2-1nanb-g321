@@ -34,11 +34,22 @@ public class AgendaRepository {
             }
         return filteredEntries;
         }
+    public List<Entry> getEntriesBetweeTwoDates(LocalDate date, LocalDate date2) {
+        List<Entry> filteredEntries = new ArrayList<>();
+        filteredEntries = getAllEntrys();
+        for (Entry entry : getAllEntrys()) {
+            if (entry.getEntryDate().isAfter(date) && entry.getEntryDate().isBefore(date2)){
+                filteredEntries.add(entry);
+            }
+        }
+        return filteredEntries;
+    }
 
         private boolean validateEntry(Entry entry) {
             boolean isValid = !entrys.contains(entry);
             return isValid;
         }
+
 
         /**
          * This method returns a defensive (immutable) copy of the list of skills.

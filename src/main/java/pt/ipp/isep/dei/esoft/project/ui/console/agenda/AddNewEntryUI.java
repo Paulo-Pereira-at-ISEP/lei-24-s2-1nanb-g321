@@ -38,66 +38,32 @@ public class AddNewEntryUI implements Runnable{
     }
 
     private void submitData() {
-        Entry entry = controller.createEntry(entrys.getName(), entrys.getDescription(), entrys.getUrgencyDegree(), entrys.getDuration(), entrys.getGreenSpace(), entrys.getEntryDate(), status, hour);
+        Entry entry = controller.createEntry(entrys.getName(), entrys.getDescription(), entrys.getUrgencyDegree(), entrys.getDuration(), entrys.getGreenSpace(), entrys.getEntryDate(), hour);
 
         if (entry != null) {
+            System.out.println("\n\n\n---------- Submitted Data ----------");
+            System.out.printf("Entry: %s\n", entry.getName());
+            System.out.printf("Date: %s\n", entry.getEntryDate());
+            System.out.printf("Hour: %s\n", printHour(hour));
+            System.out.printf("Status: %s\n", entry.getStatus());
+
             System.out.println("\nEntry successfully added to the Agenda!");
         } else {
             System.out.println("\nEntry not created!");
         }
     }
 
-    /**
-     * Prompts the user to enter data for a new skill and allows for modification before confirmation.
-     *
-     * @implNote This method iteratively requests skill name and description from the user.
-     * It then presents the entered data for confirmation.
-     * - If confirmed ("y"), it exits the loop and indicates successful registration.
-     * - If not confirmed ("n"), it allows the user to:
-     * - Choose a data field (name or description) for modification using `requestDataModification`.
-     * - If a valid field is chosen, it calls `modifySkillData` (assumed to be available)
-     * to modify the specific data.
-     * - It allows the user to modify another field or confirm again.
-     * The loop continues until the user confirms ("y") or exits ("n").
-     * After confirmation, the skill data can be used for further processing or storage.
-     */
     private void requestData() {
-        String input;
         entrys = displayAndSelectEntry();
         date = LocalDate.parse(requestDate());
         entrys.setEntryDate(date);
-        status = requestStatus();
         hour = requestHour();
-
-
-
-        System.out.println("\n\n\n---------- Submitted Data ----------");
-        System.out.printf("Entry: %s\n", entrys.getName());
-        System.out.printf("Date: %s\n", entrys.getEntryDate());
-        System.out.printf("Hour: %s\n", printHour(hour));
-        System.out.printf("Status: %s\n", status);
-
-
     }
 
 
-    /**
-     * Prompts the user to select a data field for modification.
-     *
-     * @return A String representing the chosen data field to modify ("Title" or "Description"),
-     * or null if the user enters an invalid choice.
-     */
-
-
-    /**
-     * Prompts the user to input a skill description and validates the input.
-     * The input is considered valid if it contains only letters.
-     *
-     * @return The validated skill description.
-     */
     private Entry displayAndSelectEntry() {
         // Retrieve the list of available jobs
-        List<Entry> entry = controller.getAllEntrys();
+        List<Entry> entry = controller.getAllEntrysFromToDoList();
         int listSize = entry.size();
         int answer = -1;
 
@@ -139,24 +105,6 @@ public class AddNewEntryUI implements Runnable{
         } else {
             return "16:00 pm";
         }
-    }
-
-    private String requestStatus() {
-        do {
-            System.out.println("Select the following status: ");
-            System.out.println("[1] - Planned");
-            System.out.print("Your choice: ");
-            Scanner input = new Scanner(System.in);
-            status = input.nextLine();
-
-            switch (status) {
-                case "1":
-                    return "Planned";
-                default:
-                    System.out.println("Invalid choice. Please press '1'.");
-            }
-        } while (true);
-
     }
 
     private CharSequence requestDate() {

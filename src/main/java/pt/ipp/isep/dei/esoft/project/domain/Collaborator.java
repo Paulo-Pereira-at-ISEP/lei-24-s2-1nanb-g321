@@ -58,4 +58,8 @@ public class Collaborator extends Employee{
     public int hashCode() {
         return Objects.hash(getName(), getEmail());
     }
+
+    public String toString() {
+        return super.getName();
+    }
 }

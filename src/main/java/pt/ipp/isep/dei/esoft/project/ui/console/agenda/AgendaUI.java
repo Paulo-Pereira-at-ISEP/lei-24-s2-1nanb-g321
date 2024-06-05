@@ -19,6 +19,8 @@ public class AgendaUI implements Runnable {
         options.add(new MenuItem("Add Entry Agenda", new AddNewEntryUI()));
         options.add(new MenuItem("List Agenda", new ListAgendaUI()));
         options.add(new MenuItem("Add Team to an Entry", new AddTeamToEntry()));
+        options.add(new MenuItem("Entries Between Two Dates", new FilterEntriesUI()));
+
 
         int option = 0;
         do {

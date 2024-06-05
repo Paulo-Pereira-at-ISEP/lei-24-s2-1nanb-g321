@@ -7,39 +7,38 @@ public class Entry extends Task {
     private String  urgencyDegree;
     private int duration;
     GreenSpace greenSpace;
-    private String status= "Planned";
-    private LocalDate entryDate = LocalDate.EPOCH;
+    private String status;
+    private LocalDate entryDate;
     private int hour;
     private Team team;
 
-    public Entry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate entryDate, String status, Team team, int hour) {
+    public Entry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate entryDate, int hour, Team team) {
         super(name, description);
         this.urgencyDegree = urgencyDegree;
         this.duration = duration;
         this.greenSpace = greenSpace;
         this.entryDate = entryDate;
-        this.status = status;
-        this.team = team;
-        this.hour = hour;
         this.status = "Planned";
+        this.hour = hour;
+        this.team = team;
     }
 
-    public Entry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate date, String status, int hour) {
-    this.urgencyDegree = urgencyDegree;
-    this.duration = duration;
-    this.greenSpace = greenSpace;
-    this.entryDate = date;
-    this.status = status;
-    this.hour = hour;
+    public Entry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate entryDate, int hour) {
+        super(name, description);
+        this.urgencyDegree = urgencyDegree;
+        this.duration = duration;
+        this.greenSpace = greenSpace;
+        this.entryDate = entryDate;
+        this.status = "Planned";
+        this.hour = hour;
     }
 
     public Entry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace) {
-    this.urgencyDegree = urgencyDegree;
-    this.duration = duration;
-    this.greenSpace = greenSpace;
-    this.entryDate = LocalDate.now();
-
-
+        super(name, description);
+        this.urgencyDegree = urgencyDegree;
+        this.duration = duration;
+        this.greenSpace = greenSpace;
+        this.status = "Pending";
     }
 
     public String getUrgencyDegree() {
@@ -47,7 +46,7 @@ public class Entry extends Task {
     }
 
     public void setUrgencyDegree(String urgencyDegree) {
-        urgencyDegree = urgencyDegree;
+        this.urgencyDegree = urgencyDegree;
     }
 
     public int getDuration() {
@@ -60,14 +59,14 @@ public class Entry extends Task {
 
     @Override
     public String toString() {
-        return   "GreenSpace= " + getGreenSpace() +"Title=" + getName() +"Description=" + getDescription() + "Entry{" +
-                "UrgencyDegree=" + urgencyDegree +
-                ", duration=" + duration +
+        return  "Entry: \nGreenSpace= " + getGreenSpace().getName() +"\nTitle=" + super.getName() +"\nDescription=" + super.getDescription() +
+                "\nUrgencyDegree=" + urgencyDegree +
+                "\nDuration=" + duration +
                 '}' ;
     }
 
     public Entry clone() {
-        return new Entry(getName(), getDescription(), urgencyDegree, duration, greenSpace, entryDate, status,team, hour);
+        return new Entry(getName(), getDescription(), urgencyDegree, duration, greenSpace, entryDate, hour, team);
     }
 
     public GreenSpace getGreenSpace() {
