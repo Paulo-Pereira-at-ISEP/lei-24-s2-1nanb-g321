@@ -4,19 +4,13 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import pt.ipp.isep.dei.esoft.project.application.controller.fx.utils.UtilsFX;
 
-public class GSMMenuFXController {
+public class CollaboratorMenuFXController {
 
     @FXML
-    private Button greenSpacesButton;
+    private Button listTasksButton;
 
     @FXML
     private Button tasksButton;
-
-    @FXML
-    private Button toDoListButton;
-
-    @FXML
-    private Button agendaButton;
 
     @FXML
     private Button logoutButton;
@@ -26,28 +20,18 @@ public class GSMMenuFXController {
 
     @FXML
     private void initialize() {
-        greenSpacesButton.setOnAction(event -> handleGreenSpaces());
+        listTasksButton.setOnAction(event -> handleListTasks());
         tasksButton.setOnAction(event -> handleTasks());
-        toDoListButton.setOnAction(event -> handleToDoList());
-        agendaButton.setOnAction(event -> handleAgenda());
         logoutButton.setOnAction(event -> handleLogout());
         closeButton.setOnAction(event -> handleClose());
     }
 
-    private void handleGreenSpaces() {
-        UtilsFX.bottonControl("/fxml/greenSpace/GreenSpacesMenu.fxml", greenSpacesButton, "Green Spaces Menu");
+    private void handleListTasks() {
+        UtilsFX.bottonControl("/fxml/task/TaskMenu.fxml", tasksButton, "List Task Menu");
     }
 
     private void handleTasks() {
         UtilsFX.bottonControl("/fxml/task/TaskMenu.fxml", tasksButton, "Task Menu");
-    }
-
-    private void handleToDoList() {
-        UtilsFX.bottonControl("/fxml/toDoList/ToDoListMenu.fxml", tasksButton, "To Do List Menu");
-    }
-
-    private void handleAgenda() {
-        UtilsFX.bottonControl("/fxml/agenda/AgendaMenu.fxml", tasksButton, "Agenda Menu");
     }
 
     private void handleLogout() {

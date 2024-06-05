@@ -50,4 +50,8 @@ public class GreenSpace {
         return new GreenSpace(this.name, this.area, this.classification, this.manager);
     }
 
+    public String toString() {
+        return this.name;
+    }
+
 }
