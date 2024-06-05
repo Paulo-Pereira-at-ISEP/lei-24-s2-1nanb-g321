@@ -19,6 +19,7 @@ public class CreateEntryUI implements Runnable {
     private int duration;
     private Task task;
     private GreenSpace greenSpace;
+    private Entry entry;
 
     public CreateEntryUI() {
         controller = new CreateEntryController();
@@ -40,6 +41,14 @@ public class CreateEntryUI implements Runnable {
         Entry entry = controller.createEntry(task, urgencyDegree, duration, greenSpace);
 
         if (entry != null) {
+            System.out.println("\n\n\n---------- Submitted Data ----------");
+            System.out.printf("GreenSpace: %s\n", greenSpace.getName());
+            System.out.printf("Title: %s\n", task.getName());
+            System.out.printf("Description: %s\n", task.getDescription());
+            System.out.println("Urgency Degree: " + urgencyDegree);
+            System.out.println("Duration: " + duration + "h");
+            System.out.println("Status: " + entry.getStatus());
+
             System.out.println("\nEntry successfully added to the ToDoList!");
         } else {
             System.out.println("\nEntry not created!");
@@ -52,12 +61,7 @@ public class CreateEntryUI implements Runnable {
         urgencyDegree = requestUrgencyDegree();
         duration = requestDuration();
 
-        System.out.println("\n\n\n---------- Submitted Data ----------");
-        System.out.printf("GreenSpace: %s\n", greenSpace.getName());
-        System.out.printf("Title: %s\n", task.getName());
-        System.out.printf("Description: %s\n", task.getDescription());
-        System.out.println("Urgency Degree: " + urgencyDegree);
-        System.out.println("Duration: " + duration + "h");
+
     }
 
     private Task displayAndSelectTasks() {
