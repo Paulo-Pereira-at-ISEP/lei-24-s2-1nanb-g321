@@ -48,8 +48,10 @@ public class AgendaRepository {
 
         return filteredEntries;
     }
-    public void sortEntriesByDate() {
-        entrys.sort(Comparator.comparing(Entry::getEntryDate));
+    public List<Entry> sortEntriesByDate(List<Entry> entryList) {
+        List<Entry> modifiableList = new ArrayList<>(entryList);
+        modifiableList.sort(Comparator.comparing(Entry::getEntryDate));
+        return modifiableList;
     }
 
         private boolean validateEntry(Entry entry) {
