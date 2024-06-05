@@ -27,7 +27,6 @@ public class HRMUI implements Runnable {
         options.add(new MenuItem("Manager", new ManagerUI()));
         options.add(new MenuItem("Collaborator", new CollaboratorUI()));
         options.add(new MenuItem("Team", new TeamUI()));
-        options.add(new MenuItem("Tasks", new TaskUI()));
 
         int option = 0;
         do {

@@ -4,6 +4,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 import pt.ipp.isep.dei.esoft.project.ui.console.GraphAnalysisUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.GreenSpaces.GreenSpacesUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.agenda.AgendaUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.tasks.TaskUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.todolist.ToDoListUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
@@ -22,6 +23,7 @@ public class GSMUI implements Runnable {
         List<MenuItem> options = new ArrayList<MenuItem>();
         options.add(new MenuItem("Graph analysis", new GraphAnalysisUI()));
         options.add(new MenuItem("Green Spaces", new GreenSpacesUI()));
+        options.add(new MenuItem("Tasks", new TaskUI()));
         options.add(new MenuItem("To Do List", new ToDoListUI()));
         options.add(new MenuItem("Agenda", new AgendaUI()));
 
