@@ -3,6 +3,7 @@ package pt.ipp.isep.dei.esoft.project.application.controller.fx.collaborator;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateSkillController;
 import pt.ipp.isep.dei.esoft.project.application.controller.fx.utils.UtilsFX;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
@@ -14,7 +15,7 @@ import java.util.List;
 public class AssignSkillsFXController {
 
     private Collaborator collaborator;
-    private CreateSkillController skillController = new CreateSkillController();
+    private final CreateSkillController skillController = new CreateSkillController();
 
     @FXML
     private ListView<Skill> skillsListView;
@@ -31,29 +32,24 @@ public class AssignSkillsFXController {
     }
 
     private void loadSkills() {
-
         List<Skill> skills = new ArrayList<>(List.copyOf(skillController.getAllSkills()));
 
         // Get the skills already possessed by the employee
         List<Skill> collaboratorSkills = collaborator.getSkills();
 
         // Remove skills that the employee already has
-        for (Skill skill : collaboratorSkills) {
-            skills.remove(skill);
-        }
+        skills.removeAll(collaboratorSkills);
+
         skillsListView.getItems().setAll(skills);
+        skillsListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
     }
 
     @FXML
     private void handleSave() {
-        List<Skill> selectedSkills = skillsListView.getSelectionModel().getSelectedItems();
-        // Add the selected skills to the collaborator and save changes to the database.
-        List<Skill> collaboratorSkills = collaborator.getSkills();
-        ArrayList<Skill> newSkills = new ArrayList<>(selectedSkills);
-        newSkills.addAll(collaboratorSkills);
-        newSkills.addAll(selectedSkills);
+        List<Skill> selectedSkills = new ArrayList<>(skillsListView.getSelectionModel().getSelectedItems());
 
-        collaborator.addSkill(newSkills);
+        // Add the selected skills to the collaborator and save changes to the database.
+        collaborator.addSkill((ArrayList<Skill>) selectedSkills);
         UtilsFX.bottonControl("/fxml/collaborator/SelectCollaborator.fxml", saveButton, "Collaborator Menu");
     }
 

@@ -26,4 +26,8 @@ public class Manager extends Employee {
     public Manager clone() {
         return new Manager(this.getName(), this.getDateOfBirth(), this.getAdmissionDate(), this.getAddress(), this.getMobile(), this.getEmail(), this.getIdDocType(), this.getDocTypeNumber(), this.getTaxPayerIdNumber(), this.getJob(), this.getPassword(), this.getRole(), this.department);
     }
+
+    public String toString() {
+        return super.getName();
+    }
 }
