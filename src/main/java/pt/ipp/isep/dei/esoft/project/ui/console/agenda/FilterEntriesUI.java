@@ -54,8 +54,8 @@ public class FilterEntriesUI implements Runnable {
         String input = "";
         while (!validDate) {
             try {
-                input = Utils.readLineFromConsole2(prompt); // Prompt user for date
-                validDate = Utils.parseDate2(input); // Validate the input date format
+                input = Utils.readLineFromConsole(prompt); // Prompt user for date
+                validDate = Utils.parseDate(input); // Validate the input date format
                 if (!validDate) {
                     System.out.println("Invalid date format (YYYY-MM-DD)."); // Print error if input date format is invalid
                 }

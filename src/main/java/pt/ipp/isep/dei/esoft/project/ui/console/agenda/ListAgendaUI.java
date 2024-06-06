@@ -7,7 +7,7 @@ import pt.ipp.isep.dei.esoft.project.domain.Team;
 
 import java.util.List;
 
-public class ListAgendaUI implements Runnable{
+public class ListAgendaUI implements Runnable {
 
     private final CreateEntryToAgendaController entryController;
 
@@ -24,19 +24,15 @@ public class ListAgendaUI implements Runnable{
      * Lists all registered skills along with their details.
      */
     private void listAgenda() {
-        List<Entry> entrys = entryController.getAllEntrys();
+        List<Entry> entries = entryController.getAllEntrys();
+        List<Entry> sortedEntries = entryController.getsortedEntriesByDate(entries);
 
-        if (entrys.isEmpty()) {
-
+        if (sortedEntries.isEmpty()) {
             System.out.println("There are no entries.");
-
-        }else {
-
+        } else {
             System.out.println("Agenda:");
             int counter = 1;
-
-            for (Entry entry : entrys) {
-
+            for (Entry entry : sortedEntries) {
                 System.out.println("[" + counter + "]   GreenSpace: " + entry.getGreenSpace().getName());
                 System.out.println("      Manager: " + entry.getGreenSpace().getManager().getName());
                 System.out.println("      Title: " + entry.getName());
@@ -44,7 +40,7 @@ public class ListAgendaUI implements Runnable{
                 System.out.println("      Urgency Degree: " + entry.getUrgencyDegree());
                 System.out.println("      Date: " + entry.getEntryDate());
                 if (entry.getTeam() != null) {
-                    System.out.println("      Team: " + entry.getTeam());
+                    System.out.println("      Team: " + entry.getTeam().getId()); // Assuming Team has a getId method
                 }
                 System.out.println("      Status: " + entry.getStatus());
                 System.out.println("-------------------------");
@@ -52,5 +48,4 @@ public class ListAgendaUI implements Runnable{
             }
         }
     }
-
 }

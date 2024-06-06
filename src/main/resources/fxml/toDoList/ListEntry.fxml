@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane fx:controller="pt.ipp.isep.dei.esoft.project.application.controller.fx.toDoList.ListEntrysFXController"
+            xmlns:fx="http://javafx.com/fxml">
+    <center>
+        <TableView fx:id="entrysTable">
+            <columns>
+                <TableColumn fx:id="greenSpaceColumn" text="Green Space"/>
+                <TableColumn fx:id="taskColumn" text="Task"/>
+                <TableColumn fx:id="urgencyColumn" text="Urgency"/>
+                <TableColumn fx:id="durationColumn" text="Duration"/>
+            </columns>
+        </TableView>
+    </center>
+    <bottom>
+        <Button fx:id="backButton" text="Back" onAction="#handleBack" BorderPane.alignment="CENTER"/>
+    </bottom>
+    <padding>
+        <Insets top="20" right="20" bottom="20" left="20"/>
+    </padding>
+</BorderPane>

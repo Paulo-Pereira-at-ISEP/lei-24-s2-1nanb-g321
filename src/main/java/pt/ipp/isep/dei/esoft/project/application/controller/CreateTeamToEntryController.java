@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 public class CreateTeamToEntryController {
@@ -85,7 +86,7 @@ public class CreateTeamToEntryController {
         this.agendaRepository = agendaRepository;
     }
 
-    public List<Entry> getAllEntrys() {
+    public List<Entry> getAllEntries() {
         return agendaRepository.getEntrys();
     }
 
@@ -101,12 +102,17 @@ public class CreateTeamToEntryController {
     public List<Team> getAllTeams() {
         return teamRepository.getAllTeams();
     }
-
+public List<Entry> getEntriesByDate(LocalDate date) {
+        return agendaRepository.getEntriesByDate(date);
+}
     public Entry createEntry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate date, int hour, Team team) {
-
+        // Create entry with start time and calculate end time
         Entry newEntry = new Entry(name, description, urgencyDegree, duration, greenSpace, date, hour, team);
+        newEntry.setStartTime(LocalTime.of(hour, 0)); // Assuming start time is at the beginning of the hour
+        newEntry.setEndTime(newEntry.getStartTime().plusHours(duration));
 
-        agendaRepository.add(newEntry);
+        // Add entry to repository
+        agendaRepository.addEntry(newEntry);
 
         return newEntry;
     }

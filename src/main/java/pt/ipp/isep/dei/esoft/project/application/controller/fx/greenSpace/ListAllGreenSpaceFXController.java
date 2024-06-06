@@ -51,7 +51,7 @@ public class ListAllGreenSpaceFXController {
         nameColumn.setMinWidth(150);
         areaColumn.setMinWidth(75);
         classificationColumn.setMinWidth(150);
-        managerColumn.setMinWidth(150); // Adjusted to a reasonable width
+        managerColumn.setMinWidth(150);
 
         listGreenSpaces();
     }

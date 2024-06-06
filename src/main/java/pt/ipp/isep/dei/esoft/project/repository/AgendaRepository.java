@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.esoft.project.domain.Entry;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,24 +26,32 @@ public class AgendaRepository {
             return new ArrayList<>(entrys);
         }
         public List<Entry> getEntriesByDate(LocalDate date) {
-            List<Entry> filteredEntries = new ArrayList<>();
-            filteredEntries = getAllEntrys();
-            for (Entry entry : filteredEntries) {
-                if (date != entry.getEntryDate()){
-                    filteredEntries.remove(entry);
+
+                List<Entry> filteredEntries = new ArrayList<>();
+                for (Entry entry : entrys) {
+                    if (date.equals(entry.getEntryDate())) {
+                        filteredEntries.add(entry);
+                    }
                 }
+                return filteredEntries;
             }
-        return filteredEntries;
-        }
-    public List<Entry> getEntriesBetweeTwoDates(LocalDate date, LocalDate date2) {
+    public List<Entry> getEntriesBetweenTwoDates(LocalDate date, LocalDate date2) {
+        List<Entry> allEntries = getAllEntrys();
         List<Entry> filteredEntries = new ArrayList<>();
-        filteredEntries = getAllEntrys();
-        for (Entry entry : getAllEntrys()) {
-            if (entry.getEntryDate().isAfter(date) && entry.getEntryDate().isBefore(date2)){
+
+        for (Entry entry : allEntries) {
+            if ((entry.getEntryDate().isAfter(date) || entry.getEntryDate().isEqual(date)) &&
+                    (entry.getEntryDate().isBefore(date2) || entry.getEntryDate().isEqual(date2))) {
                 filteredEntries.add(entry);
             }
         }
+
         return filteredEntries;
+    }
+    public List<Entry> sortEntriesByDate(List<Entry> entryList) {
+        List<Entry> modifiableList = new ArrayList<>(entryList);
+        modifiableList.sort(Comparator.comparing(Entry::getEntryDate));
+        return modifiableList;
     }
 
         private boolean validateEntry(Entry entry) {
