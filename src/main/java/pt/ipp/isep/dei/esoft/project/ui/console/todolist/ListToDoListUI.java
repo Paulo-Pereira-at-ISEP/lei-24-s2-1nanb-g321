@@ -5,31 +5,35 @@ import pt.ipp.isep.dei.esoft.project.domain.Entry;
 
 import java.util.List;
 
-public class ListToDoListUI implements Runnable{
+public class ListToDoListUI implements Runnable {
 
-        private final CreateEntryController entryController;
+    private final CreateEntryController entryController;
 
-        public ListToDoListUI() {
-            entryController = new CreateEntryController();
-        }
+    public ListToDoListUI() {
+        entryController = new CreateEntryController();
+    }
 
-        public void run() {
-            System.out.println("\n\n--- To Do List ------------------------");
-            listToDoList();
-        }
+    public void run() {
+        System.out.println("\n\n--- To Do List ------------------------");
+        listToDoList();
+    }
 
-        private void listToDoList() {
-            List<Entry> entrys = entryController.getAllEntrys();
+    private void listToDoList() {
+        List<Entry> entrys = entryController.getAllEntrys();
+        List<Entry> sortedEntries = entryController.getEntriesByUrgencyDegree(entrys);
 
+        if (sortedEntries.isEmpty()) {
+            System.out.println("There are no entries.");
+        } else {
             if (entrys.isEmpty()) {
 
                 System.out.println("There are no entries.");
 
-            }else {
+            } else {
 
                 System.out.println("To Do List:");
                 int counter = 1;
-                for (Entry entry : entrys) {
+                for (Entry entry : sortedEntries) {
 
                     System.out.println("[" + counter + "]   GreenSpace: " + entry.getGreenSpace().getName());
                     System.out.println("      Manager: " + entry.getGreenSpace().getManager().getName());
@@ -43,3 +47,4 @@ public class ListToDoListUI implements Runnable{
             }
         }
     }
+}

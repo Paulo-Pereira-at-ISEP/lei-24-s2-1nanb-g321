@@ -55,6 +55,9 @@ public class AddTeamToEntry implements Runnable {
             System.out.println("\nYou can't add that team. They are booked for this time range.");
         } else {
             entry.setTeam(team);
+            String message = "You have been assigned to a new task on this date: " + entry.getName() + "\n" + entry.getDescription()
+                    + "\n" + entry.getEntryDate() +"at" + entry.getStartTime();
+            controller.sendMessageToCollaborators(message, entry.getTeam().getCollaborators());
             System.out.println("\nTeam successfully added to the Entry!");
         }
     }

@@ -11,6 +11,7 @@ public class Team {
     private static ArrayList<Skill> skills = new ArrayList<>();
     private ArrayList<Collaborator> collaborators = new ArrayList<>();
     private final int id;
+    private List<String> memberEmails;
 
     private final TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
 
@@ -20,7 +21,6 @@ public class Team {
         this.skills = skills;
         this.id = teamRepository.getAllTeams().size() + 1;
     }
-
     public Team(ArrayList<Collaborator> collaborators) {
         this.collaborators = collaborators;
         this.id = teamRepository.getAllTeams().size() + 1;
@@ -45,6 +45,16 @@ public class Team {
     public int getId() {
         return id;
     }
+
+
+
+    public void informTeamMembers(String message) {
+        for (Collaborator collaborator : collaborators) {
+            collaborator.receiveMessage(message);
+        }
+    }
+
+
 
     public void setTeamMaxSize(int teamMaxSize) {
         this.teamMaxSize = teamMaxSize;

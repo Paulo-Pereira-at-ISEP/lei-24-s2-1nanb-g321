@@ -105,6 +105,11 @@ public class CreateTeamToEntryController {
 public List<Entry> getEntriesByDate(LocalDate date) {
         return agendaRepository.getEntriesByDate(date);
 }
+    public void sendMessageToCollaborators(String message, List<Collaborator> collaborators) {
+        for (Collaborator collaborator : collaborators) {
+            collaborator.receiveMessage(message);
+        }
+    }
     public Entry createEntry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate date, int hour, Team team) {
         // Create entry with start time and calculate end time
         Entry newEntry = new Entry(name, description, urgencyDegree, duration, greenSpace, date, hour, team);
@@ -113,6 +118,7 @@ public List<Entry> getEntriesByDate(LocalDate date) {
 
         // Add entry to repository
         agendaRepository.addEntry(newEntry);
+
 
         return newEntry;
     }

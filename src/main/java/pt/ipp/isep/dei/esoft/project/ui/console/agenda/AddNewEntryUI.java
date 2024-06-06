@@ -48,6 +48,7 @@ public class AddNewEntryUI implements Runnable{
             System.out.printf("Status: %s\n", entry.getStatus());
             System.out.printf("Stating Hour: %dh\n", entry.getHour());
 
+
             System.out.println("\nEntry successfully added to the Agenda!");
         } else {
             System.out.println("\nEntry not created!");

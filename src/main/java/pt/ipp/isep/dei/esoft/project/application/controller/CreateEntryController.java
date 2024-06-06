@@ -82,6 +82,9 @@ public class CreateEntryController {
         public List<Entry> getAllEntrys() {
             return toDoListRepository.getEntrys();
         }
+    public List<Entry> getEntriesByUrgencyDegree(List<Entry> entries) {
+        return toDoListRepository.sortEntriesByUrgencyDegree(entries);
+    }
 
         public List<Collaborator> getAllCollaborators() {
             return collaboratorRepository.getAllCollaborators();

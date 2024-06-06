@@ -46,6 +46,11 @@ public class Collaborator extends Employee{
         this.hasTeam = hasTeam;
     }
 
+    public void receiveMessage(String message) {
+        // Implement the logic to receive the message (e.g., display it)
+        System.out.println("Message received: " + message);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
