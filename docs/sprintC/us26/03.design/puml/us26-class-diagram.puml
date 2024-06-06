@@ -9,16 +9,12 @@ skinparam classAttributeIconSize 0
 
 'left to right direction
 
-class ListVehiclesWithPendingMaintenanceController {
-    -vehiclesRepository : VehiclesRepository
-
-    +ListVehiclesWithPendingMaintenanceController(vehiclesRepository)
-    + createVehiclesWithPendingMaintenanceList()
-
+class PostponeAgendaEntryController {
+    +getEntriesFromAgendaStartingFrom(currentDate, status)
 }
 
 
-class ListVehiclesWithPendingMaintenanceUI {
+class PostponeAgendaEntryUI {
     +run()
 }
 
@@ -26,72 +22,63 @@ class ListVehiclesWithPendingMaintenanceUI {
 class Repositories{
     - instance : Repositories
     - Repository : SkillRepository
-    - jobRepository : JobRepository
+    - agendaRepository : AgendaRepository
     - employeeRepository : EmployeeRepository
 
-
     + getInstance() : Repositories
-    + getSkillRepository()
-    + getJobRepository()
+    + getAgendaRepository()
     + getEmployeeRepository()
 }
 
-class VehiclesRepository{
-    +getAllVehicles() : List<vehicles>
-    +addVehiclesWithPendingMaintenanceList
+class AgendaRepository{
+
+}
+
+class VehicleRepository{
+
 }
 
 class AuthenticationRepository{
     + getEmployeeFromSession()
 }
 
+class Entry {
+
+}
+
 class Vehicle {
-    - String brand
-    - String model
-    - String type
-    - Integer tareWeight
-    - Integer grossWeight
-    - Integer currenteKm
-    - Date registerDate
-    - Date acquisitionDate
-    - Integer maintenanceFrequency
-    - String plateNumber
-    - Integer passengersNumber
-    - Integer doorsNumber
-    - String fuelType
-    - Boolean trailerMachines
-
-    +getVehicleMaintenances() : VehicleMaintenances
-}
-
-class VehicleMaintenance{
--maintenanceFrequency: Int
--currentKm: Int
-
-+validateVehicleMaintenance(lastMaintenance, maintenanceFrequency, currentKm)
 
 }
 
-class VehicleMaintenances{
-+getVehiclesWithPendingMaintenanceList(): List<VehicleMaintenance>
+class Employee {
 
 }
 
 
-ListVehiclesWithPendingMaintenanceUI "1" ..> "1" ListVehiclesWithPendingMaintenanceController
+PostponeAgendaEntryUI "1" ..> "1" PostponeAgendaEntryController
 
-Vehicle "1" --> "1" VehicleMaintenances: VehicleMaintenances
 
-VehicleMaintenances "1" --> "*" VehicleMaintenance: arrayVehicleMaintenances
+
 
 Repositories -> Repositories : instance
-Repositories "1" --> "1" VehiclesRepository
+Repositories "1" .> "1" AgendaRepository
+Repositories "1" .> "1" VehicleRepository
+Repositories "1" .> "1" AuthenticationRepository
 
-VehiclesRepository --> Vehicle
+AgendaRepository --> Entry
+VehicleRepository --> Vehicle
 
-ListVehiclesWithPendingMaintenanceController ..> VehicleMaintenances : vehicleMaintenances
-ListVehiclesWithPendingMaintenanceController ..> VehiclesRepository
-ListVehiclesWithPendingMaintenanceController "1" ..> "1" Repositories : repositories
-ListVehiclesWithPendingMaintenanceController "1" --> "1" AuthenticationRepository : getCurrentUserSession
+
+PostponeAgendaEntryController -> AgendaRepository
+PostponeAgendaEntryController -> VehicleRepository
+PostponeAgendaEntryController "1" ..> "1" Repositories : repositories
+PostponeAgendaEntryController "1" -> "1" AuthenticationRepository : getCurrentUserSession
+
+PostponeAgendaEntryController -> Employee
+
+AuthenticationRepository --> Employee
+
+Employee -> Entry
+Employee -> Vehicle
 
 @enduml
