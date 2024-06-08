@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.ui;
 
+import pt.ipp.isep.dei.esoft.project.application.controller.GenerateTeamController;
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
@@ -25,7 +26,7 @@ public class Bootstrap implements Runnable {
         addUsers();
         addTasks();
         addGreenSpace();
-        //addTeam();
+        addTeam();
     }
 /*
     private void addOrganization() {
@@ -113,16 +114,23 @@ public class Bootstrap implements Runnable {
         m_Collaborators = (ArrayList<Collaborator>) collaboratorRepository.getAllCollaborators();
 
     }
-/*
+
     private void addTeam(){
-        TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
-        teamRepository.addTeam(new Team(m_Collaborators));
+        GenerateTeamController teamController = new GenerateTeamController();
 
+        // Define skills for each team
+        ArrayList<Skill> team1Skills = new ArrayList<>() {{
+            add(new Skill("Light Vehicle Driver", "Drives light vehicles"));
+            add(new Skill("Heavy Vehicle Driver", "Drives heavy vehicles"));
+        }};
+
+        // Create teams using the TeamController
+        Team team1 = teamController.createTeam(2, 2, team1Skills);
+
+        // Add teams to the repository
+        teamController.addToRepository(team1);
+        teamController.colaboratorHasTeam(team1);
     }
-
- */
-
-
 
 
     private void addUsers() {
