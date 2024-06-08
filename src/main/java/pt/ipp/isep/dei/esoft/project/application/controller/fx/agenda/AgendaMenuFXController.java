@@ -31,7 +31,7 @@ public class AgendaMenuFXController {
     }
 
     private void handleListAgenda() {
-        UtilsFX.bottonControl("/fxml/agenda/ListAgenda.fxml", listAgendaButton, "List Agenda Entry's");
+        UtilsFX.bottonControl("/fxml/agenda/ListAgenda.fxml", listAgendaButton, "List Agenda Entries");
     }
 
     private void handleAssignEntryToTeam() {

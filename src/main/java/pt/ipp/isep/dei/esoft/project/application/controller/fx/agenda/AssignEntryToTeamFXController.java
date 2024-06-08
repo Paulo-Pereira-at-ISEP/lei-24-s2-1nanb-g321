@@ -108,7 +108,13 @@ public class AssignEntryToTeamFXController {
         Team team = teamTable.getSelectionModel().getSelectedItem();
 
         entry.setTeam(team);
-        clearFields();
+
+        if (team != null) {
+            UtilsFX.showAlert(Alert.AlertType.INFORMATION, "Team Assigned","Team successfully assigned!");
+            clearFields();
+        } else {
+            UtilsFX.showAlert(Alert.AlertType.ERROR, "Team Not Assigned","Team not assigned!");
+        }
     }
 
     @FXML

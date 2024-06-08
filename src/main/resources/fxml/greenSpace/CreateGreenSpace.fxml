@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 
 <GridPane alignment="CENTER" hgap="10" vgap="10" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="pt.ipp.isep.dei.esoft.project.application.controller.fx.greenSpace.CreateGreenSpaceFXController">
-    <padding><Insets bottom="25" left="40" right="40" top="25" /></padding>
+    <padding><Insets bottom="25" left="75" right="75" top="25" /></padding>
 
     <TextField fx:id="nameField" prefHeight="26.0" prefWidth="150.0" promptText="Name" GridPane.columnIndex="0" GridPane.rowIndex="0" />
     <TextField fx:id="areaField" promptText="Area" GridPane.columnIndex="0" GridPane.rowIndex="1" />
