@@ -67,13 +67,28 @@ public class CreateEntryUI implements Runnable {
     private Task displayAndSelectTasks() {
         List<Task> tasks = controller.getAllTasks();
         int listSize = tasks.size();
-        int answer = -1;
+
+        // Check if there are any green spaces available
+        if (listSize == 0) {
+            System.out.println("No Tasks available.");
+            return null; // or throw an exception, or return an optional, depending on your use case
+        }
 
         Scanner input = new Scanner(System.in);
+        int answer = -1;
+
         while (answer < 1 || answer > listSize) {
             displayTasksOptions(tasks);
-            System.out.print("Select a Task: ");
-            answer = input.nextInt();
+            System.out.print("Select a Task (1 to " + listSize + "): ");
+            if (input.hasNextInt()) {
+                answer = input.nextInt();
+                if (answer < 1 || answer > listSize) {
+                    System.out.println("Invalid selection. Please select a number between 1 and " + listSize + ".");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a number.");
+                input.next(); // Consume the invalid input
+            }
         }
 
         return tasks.get(answer - 1);
@@ -112,28 +127,50 @@ public class CreateEntryUI implements Runnable {
     }
 
     private int requestDuration() {
-        System.out.print("What is the duration of the entry (hours)? ");
         Scanner input = new Scanner(System.in);
-        do  {
-            duration = input.nextInt();
-            if (duration < 1) {
-                System.out.println("Invalid duration. Please enter a positive integer.\n New Duration: ");
-            }
-        } while (duration < 1);
+        int duration = -1;
 
-        return  duration;
+        while (duration < 1) {
+            System.out.print("What is the duration of the entry (hours)? ");
+            if (input.hasNextInt()) {
+                duration = input.nextInt();
+                if (duration < 1) {
+                    System.out.println("Invalid duration. Please enter a positive integer.");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a positive integer.");
+                input.next(); // Consume the invalid input
+            }
+        }
+
+        return duration;
     }
 
     private GreenSpace displayAndSelectGreenSpaces() {
         List<GreenSpace> greenSpaces = controller.getAllGreenSpaces();
         int listSize = greenSpaces.size();
-        int answer = -1;
+
+        // Check if there are any green spaces available
+        if (listSize == 0) {
+            System.out.println("No Green Spaces available.");
+            return null; // or throw an exception, or return an optional, depending on your use case
+        }
 
         Scanner input = new Scanner(System.in);
+        int answer = -1;
+
         while (answer < 1 || answer > listSize) {
             displayGreenSpacesOptions(greenSpaces);
-            System.out.print("Select a GreenSpace: ");
-            answer = input.nextInt();
+            System.out.print("Select a GreenSpace (1 to " + listSize + "): ");
+            if (input.hasNextInt()) {
+                answer = input.nextInt();
+                if (answer < 1 || answer > listSize) {
+                    System.out.println("Invalid selection. Please select a number between 1 and " + listSize + ".");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a number.");
+                input.next(); // Consume the invalid input
+            }
         }
 
         return greenSpaces.get(answer - 1);

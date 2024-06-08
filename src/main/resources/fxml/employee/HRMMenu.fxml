@@ -7,7 +7,7 @@
 <VBox fx:controller="pt.ipp.isep.dei.esoft.project.application.controller.fx.employee.HRMMenuFXController"
       alignment="CENTER" spacing="10" xmlns:fx="http://javafx.com/fxml/1">
     <padding>
-        <Insets top="25" right="25" bottom="25" left="25"/>
+        <Insets top="25" right="100" bottom="25" left="100"/>
     </padding>
 
     <Button fx:id="skillsButton" text="Skills" maxWidth="Infinity"/>
