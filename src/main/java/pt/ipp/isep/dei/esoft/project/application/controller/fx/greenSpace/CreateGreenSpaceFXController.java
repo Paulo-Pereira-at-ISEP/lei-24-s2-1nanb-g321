@@ -2,10 +2,8 @@ package pt.ipp.isep.dei.esoft.project.application.controller.fx.greenSpace;
 
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
+
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParsePosition;
@@ -100,23 +98,27 @@ public class CreateGreenSpaceFXController {
             GreenSpace greenSpace = greenSpacesController.createGreenSpace(name, area, classification, manager);
 
             if (greenSpace != null) {
-                System.out.println("Green Space successfully registered!");
-                nameField.clear();
-                areaField.clear();
-                classificationChoiceBox.setValue(null);
-                managerChoiceBox.setValue(null);
+                UtilsFX.showAlert(Alert.AlertType.INFORMATION, "Green Space created","Green Space successfully registered!");
+                clearFields();
             } else {
-                System.out.println("Green Space not registered!");
+                UtilsFX.showAlert(Alert.AlertType.ERROR, "Green Space Not Created","Green Space not registered!");
             }
         } catch (NumberFormatException e) {
-            System.out.println("Invalid area value. Please enter a valid number.");
+            UtilsFX.showAlert(Alert.AlertType.ERROR, "Green Space Not Created","Invalid area value. Please enter a valid number.");
         } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+            UtilsFX.showAlert(Alert.AlertType.ERROR, "Green Space Not Created",e.getMessage());
         }
     }
 
     @FXML
     private void handleBack() {
         UtilsFX.bottonControl("/fxml/greenSpace/GreenSpacesMenu.fxml", backButton, "Green Spaces Menu");
+    }
+
+    private void clearFields(){
+        nameField.clear();
+        areaField.clear();
+        classificationChoiceBox.setValue(null);
+        managerChoiceBox.setValue(null);
     }
 }

@@ -1,45 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.GridPane?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<GridPane fx:controller="pt.ipp.isep.dei.esoft.project.application.controller.fx.agenda.AssignEntryToTeamFXController"
-          xmlns:fx="http://javafx.com/fxml"
-          alignment="CENTER" hgap="10" vgap="10">
+<GridPane alignment="CENTER" hgap="10" vgap="10" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.application.controller.fx.agenda.AssignEntryToTeamFXController">
     <padding>
-        <Insets top="20" right="10" bottom="20" left="10"/>
+        <Insets bottom="20" left="10" right="10" top="20" />
     </padding>
 
     <!-- Tabela de Entradas -->
-    <TableView fx:id="entriesTable" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="3">
+    <TableView fx:id="entriesTable" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="0">
         <columns>
-            <TableColumn fx:id="greenSpaceColumn" text="Green Space"/>
-            <TableColumn fx:id="taskColumn" text="Task"/>
-            <TableColumn fx:id="urgencyColumn" text="Urgency"/>
-            <TableColumn fx:id="statusColumn" text="Status"/>
-            <TableColumn fx:id="dateColumn" text="Date"/>
-            <TableColumn fx:id="startTimeColumn" text="Start"/>
-            <TableColumn fx:id="endTimeColumn" text="End"/>
+            <TableColumn fx:id="greenSpaceColumn" text="Green Space" />
+            <TableColumn fx:id="taskColumn" text="Task" />
+            <TableColumn fx:id="urgencyColumn" text="Urgency" />
+            <TableColumn fx:id="statusColumn" text="Status" />
+            <TableColumn fx:id="dateColumn" text="Date" />
+            <TableColumn fx:id="startTimeColumn" text="Start" />
+            <TableColumn fx:id="endTimeColumn" text="End" />
         </columns>
     </TableView>
 
     <!-- Tabela de Entradas -->
-    <TableView fx:id="teamTable" GridPane.rowIndex="1" GridPane.columnIndex="0" GridPane.columnSpan="3">
+    <TableView fx:id="teamTable" GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="1">
         <columns>
-            <TableColumn fx:id="idTeamColumn" text="ID"/>
-            <TableColumn fx:id="collaboratorColumn" text="Collaborators"/>
-            <TableColumn fx:id="skillsColumn" text="Skills"/>
+            <TableColumn fx:id="idTeamColumn" text="ID" />
+            <TableColumn fx:id="collaboratorColumn" text="Collaborators" />
+            <TableColumn fx:id="skillsColumn" text="Skills" />
         </columns>
     </TableView>
 
 
-    <!-- Botão de Voltar -->
-    <Button text="Add New Entry" onAction="#handleAssignEntryToTeam" GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.halignment="CENTER"/>
+    <!-- Botão de Adicionar -->
+    <Button onAction="#handleAssignEntryToTeam" prefHeight="25.0" prefWidth="96.0" text="Add New Entry" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
 
     <!-- Botão de Voltar -->
-    <Button fx:id="backButton" text="Back" onAction="#handleBack" GridPane.rowIndex="2" GridPane.columnIndex="2" GridPane.halignment="CENTER"/>
+    <Button fx:id="backButton" layoutX="191.0" layoutY="850.0" onAction="#handleBack" text="Back" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints maxWidth="240.0" minWidth="93.0" prefWidth="151.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
 
 </GridPane>

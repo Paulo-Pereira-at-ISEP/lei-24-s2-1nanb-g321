@@ -62,8 +62,15 @@ public class CreateEntryFXController {
 
         try {
             int duration = Integer.parseInt(durationText);
+
             Entry entry = entryController.createEntry(task, urgency, duration, greenSpace);
-            clearFields();
+
+            if (entry != null) {
+                UtilsFX.showAlert(Alert.AlertType.INFORMATION, "Entry created","Entry successfully created!");
+                clearFields();
+            } else {
+                UtilsFX.showAlert(Alert.AlertType.ERROR, "Entry Not Created","Entry not created!");
+            }
         } catch (NumberFormatException e) {
             UtilsFX.showAlert(Alert.AlertType.ERROR,"Error", "Duration must be a valid number");
         }
