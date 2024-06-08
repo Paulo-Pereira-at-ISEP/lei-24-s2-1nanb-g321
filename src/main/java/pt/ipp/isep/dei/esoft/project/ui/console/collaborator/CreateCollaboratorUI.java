@@ -157,6 +157,7 @@ public class CreateCollaboratorUI implements Runnable {
             case "9":
                 return "taxPayerIdNumber"; // Modify taxPayerIdNumber
             default:
+                System.out.println("Invalid choice. Please enter a number between 1 and 9.");
                 return null;
             }
     }

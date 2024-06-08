@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:controller="pt.ipp.isep.dei.esoft.project.application.controller.fx.agenda.AgendaMenuFXController"
+      alignment="CENTER" spacing="10" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets top="25" right="25" bottom="25" left="25"/>
+    </padding>
+
+    <Button fx:id="addNewEntryButton" text="Add New Entry to Agenda" maxWidth="Infinity"/>
+    <Button fx:id="listAgendaButton" text="List Agenda" maxWidth="Infinity"/>
+    <Button fx:id="assignEntryToTeamButton" text="Assign Entry to Team" maxWidth="Infinity"/>
+    <Button fx:id="backButton" text="Back" onAction="#handleBack" maxWidth="Infinity"/>
+</VBox>

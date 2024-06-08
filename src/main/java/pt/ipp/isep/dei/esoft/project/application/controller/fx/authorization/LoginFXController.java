@@ -3,10 +3,12 @@ package pt.ipp.isep.dei.esoft.project.application.controller.fx.authorization;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
+import pt.ipp.isep.dei.esoft.project.application.controller.fx.utils.UtilsFX;
 import pt.isep.lei.esoft.auth.mappers.dto.UserRoleDTO;
 
 import java.io.IOException;
@@ -49,7 +51,8 @@ public class LoginFXController {
                 }
             }
         } else {
-            System.out.println("Invalid UserId and/or Password.");
+            UtilsFX.showAlert(Alert.AlertType.INFORMATION, "Invalid Login", "Invalid Email and/or Password!");
+            System.out.println("Invalid Email and/or Password.");
         }
     }
 
