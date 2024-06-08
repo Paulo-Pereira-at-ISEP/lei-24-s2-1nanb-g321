@@ -38,7 +38,7 @@ public class AddNewEntryUI implements Runnable {
     }
 
     private void submitData() {
-        if (controller.getAllEntrysFromToDoList().isEmpty()) {
+        if (controller.getAllToDoListEntrys().isEmpty()) {
             System.out.println("You need to create an entry first");
         } else {
             Entry entry = controller.createEntry(entrys.getName(), entrys.getDescription(), entrys.getUrgencyDegree(), entrys.getDuration(), entrys.getGreenSpace(), entrys.getEntryDate(), hour);
