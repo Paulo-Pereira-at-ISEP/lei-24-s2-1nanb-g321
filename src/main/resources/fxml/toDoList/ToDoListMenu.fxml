@@ -6,7 +6,7 @@
 
 <VBox fx:controller="pt.ipp.isep.dei.esoft.project.application.controller.fx.toDoList.ToDoListFXController"
       alignment="CENTER" spacing="10" xmlns:fx="http://javafx.com/fxml/1">
-    <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+    <padding><Insets top="25" right="80" bottom="25" left="80"/></padding>
 
     <Button fx:id="createEntryButton" text="Create Entry" maxWidth="Infinity"/>
     <Button fx:id="listEntryButton" text="List Entry's" maxWidth="Infinity"/>

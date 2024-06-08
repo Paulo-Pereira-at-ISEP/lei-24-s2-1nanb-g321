@@ -21,7 +21,7 @@
         </font>
     </Text>
 
-    <Text text="Bem-vindo! Por favor, faça login." GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
+    <Text text="Welcome! Please log in." GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
         <font>
             <Font size="16"/>
         </font>
@@ -33,13 +33,15 @@
     <Label text="Password:" GridPane.rowIndex="3"/>
     <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
 
-    <Button text="Login" onAction="#handleLogin" GridPane.columnIndex="1" GridPane.rowIndex="4" GridPane.halignment="RIGHT"/>
+    <Button text="Login" onAction="#handleLogin" GridPane.columnSpan="2" GridPane.rowIndex="4" GridPane.halignment="CENTER"/>
 
-    <Text text="Se precisar de ajuda, contate o suporte." GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6">
+    <Text text="If you need help, contact support." GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5">
         <font>
             <Font size="12"/>
         </font>
     </Text>
+
+    <Button fx:id="closeButton" text="Close" onAction="#handleClose" GridPane.columnSpan="2" GridPane.rowIndex="6" GridPane.halignment="CENTER"/>
 
     <columnConstraints>
         <ColumnConstraints/>

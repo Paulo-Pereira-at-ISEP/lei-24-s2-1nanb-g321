@@ -22,16 +22,12 @@ public class GSMMenuFXController {
     private Button logoutButton;
 
     @FXML
-    private Button closeButton;
-
-    @FXML
     private void initialize() {
         greenSpacesButton.setOnAction(event -> handleGreenSpaces());
         tasksButton.setOnAction(event -> handleTasks());
         toDoListButton.setOnAction(event -> handleToDoList());
         agendaButton.setOnAction(event -> handleAgenda());
         logoutButton.setOnAction(event -> handleLogout());
-        closeButton.setOnAction(event -> handleClose());
     }
 
     private void handleGreenSpaces() {
@@ -52,10 +48,5 @@ public class GSMMenuFXController {
 
     private void handleLogout() {
         UtilsFX.bottonControl("/fxml/LoginView.fxml", logoutButton, "Login Menu");
-    }
-
-    @FXML
-    private void handleClose() {
-        UtilsFX.closeControl(closeButton);
     }
 }

@@ -6,12 +6,11 @@
 
 <VBox fx:controller="pt.ipp.isep.dei.esoft.project.application.controller.fx.employee.GSMMenuFXController"
       alignment="CENTER" spacing="10" xmlns:fx="http://javafx.com/fxml/1">
-    <padding><Insets top="25" right="25" bottom="25" left="25"/></padding>
+    <padding><Insets top="25" right="100" bottom="25" left="100"/></padding>
 
     <Button fx:id="greenSpacesButton" text="Green Spaces" maxWidth="Infinity"/>
     <Button fx:id="tasksButton" text="Tasks" maxWidth="Infinity"/>
     <Button fx:id="toDoListButton" text="To Do List" maxWidth="Infinity"/>
     <Button fx:id="agendaButton" text="Agenda" maxWidth="Infinity"/>
     <Button fx:id="logoutButton" text="Logout" maxWidth="Infinity"/>
-    <Button fx:id="closeButton" text="Close" maxWidth="Infinity"/>
 </VBox>

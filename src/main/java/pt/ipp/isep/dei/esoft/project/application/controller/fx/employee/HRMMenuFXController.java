@@ -24,9 +24,6 @@ public class HRMMenuFXController {
     @FXML
     private Button logoutButton;
 
-    @FXML
-    private Button closeButton;
-
     // Inicializa o controlador, pode adicionar ações aos botões aqui
     @FXML
     private void initialize() {
@@ -36,7 +33,6 @@ public class HRMMenuFXController {
         collaboratorButton.setOnAction(event -> handleCollaborator());
         teamButton.setOnAction(event -> handleTeam());
         logoutButton.setOnAction(event -> handleLogout());
-        closeButton.setOnAction(event -> handleClose());
     }
 
     private void handleSkills() {
@@ -61,10 +57,5 @@ public class HRMMenuFXController {
 
     private void handleLogout() {
         UtilsFX.bottonControl("/fxml/LoginView.fxml", logoutButton, "Login Menu");
-    }
-
-    @FXML
-    private void handleClose() {
-        UtilsFX.closeControl(closeButton);
     }
 }

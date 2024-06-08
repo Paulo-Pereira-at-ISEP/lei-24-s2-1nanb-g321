@@ -4,7 +4,6 @@ import pt.ipp.isep.dei.esoft.project.application.controller.authorization.Authen
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,18 +13,18 @@ public class Bootstrap implements Runnable {
 
     List<Manager> m_Managers = new ArrayList<>();
     ArrayList<Collaborator> m_Collaborators = new ArrayList<>();
-    private  String PASSWORD = "admin";
+    private static String PASSWORD = "admin";
 
     //Add some task categories to the repository as bootstrap
     public void run() {
         //addOrganization();
-        //addSkills();
-        //addJobs();
+        addSkills();
+        addJobs();
         addManager();
         addCollaborator();
         addUsers();
-        //addTasks();
-        //addGreenSpace();
+        addTasks();
+        addGreenSpace();
         //addTeam();
     }
 /*
@@ -38,10 +37,12 @@ public class Bootstrap implements Runnable {
         organizationRepository.add(organization);
     }
 
+ */
+
+
 
     private void addSkills() {
         SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
-
 
         skillRepository.add(new Skill("Light Vehicle Driver", "Drives light vehicles"));
         skillRepository.add(new Skill("Heavy Vehicle Driver", "Drives heavy vehicles"));
@@ -50,9 +51,7 @@ public class Bootstrap implements Runnable {
         skillRepository.add(new Skill("Phytopharmaceutical applicator", "Applies agriculture phytopharmaceuticals to the crops"));
         skillRepository.add(new Skill("Electrical Wiring", "Installs and repairs electrical wiring"));
 
-
     }
-
 
     private void addJobs() {
         JobRepository jobRepository = Repositories.getInstance().getJobRepository();
@@ -62,7 +61,6 @@ public class Bootstrap implements Runnable {
         jobRepository.add(new Job("Gardener", "Maintains the gardens"));
         jobRepository.add(new Job("Electrician", "Installs and maintains and fixes electrical systems in buildings"));
         jobRepository.add(new Job("Bricklayer", "Builds walls and structures by laying bricks with mortar"));
-
 
     }
 
@@ -74,7 +72,6 @@ public class Bootstrap implements Runnable {
         taskRepository.add(new Task("Weeding", "Remove unwanted plants that can crowd out desired vegetation"));
         taskRepository.add(new Task("Trail Maintenance", "Clears fallen branches, repair paths, or build new ones"));
 
-
     }
 
     private void addGreenSpace(){
@@ -85,8 +82,6 @@ public class Bootstrap implements Runnable {
         greenSpaceRepository.add(new GreenSpace("Parque Assombrado", 5000, "Medium-Sized Park", m_Managers.get(4)));
 
     }
-
-  */
 
     private void addManager() {
         ManagerRepository managerRepository = Repositories.getInstance().getManagerRepository();
@@ -103,7 +98,7 @@ public class Bootstrap implements Runnable {
 
     private void addCollaborator() {
         CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
-/*
+
         collaboratorRepository.add(new Collaborator("Alfredo", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "alfredo@this.app", "CC", 12345678, 123456789, new Job("Gardener", "Garden maintenance"), PASSWORD ,AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Light Vehicle Driver","Drives light vehicles"));add(new Skill("Heavy Vehicle Driver","Drives heavy vehicles"));}} ));
         collaboratorRepository.add(new Collaborator("Anacleto", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "anacleto@this.app", "CC", 12345678, 123456789, new Job("Gardener", "Garden maintenance"), PASSWORD ,AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Light Vehicle Driver","Drives light vehicles"));add(new Skill("Machine Operator", "Operates machines such as backhoes or tractors"));}} ));
         collaboratorRepository.add(new Collaborator("Genoveva", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "genoveva@this.app", "CC", 12345678, 123456789, new Job("Gardener", "Garden maintenance"), PASSWORD ,AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Light Vehicle Driver","Drives light vehicles"));}} ));
@@ -114,7 +109,7 @@ public class Bootstrap implements Runnable {
         collaboratorRepository.add(new Collaborator("José", LocalDate.of(1995, 05, 12), LocalDate.of(2015, 01, 07), "Rua da paz", 987654321, "jose@this.app", "CC", 12345678, 123456789, new Job("Designer", "Creates plans and ideas for products or visuals or experiences"), PASSWORD, AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Phytopharmaceutical applicator", "Applies agriculture phytopharmaceuticals to the crops"));add(new Skill("Tree Pruner", "Prunes trees"));}} ));
         collaboratorRepository.add(new Collaborator("Bruno", LocalDate.of(1995, 05, 12), LocalDate.of(2015, 01, 07), "Rua da paz", 987654321, "bruno@this.app", "CC", 12345678, 123456789, new Job("Budget Manager", "Plans and tracks company spending"), PASSWORD, AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Electrical Wiring", "Installs and repairs electrical wiring"));add(new Skill("Phytopharmaceutical applicator", "Applies agriculture phytopharmaceuticals to the crops"));}} ));
         collaboratorRepository.add(new Collaborator("Joana", LocalDate.of(1995, 05, 12), LocalDate.of(2015, 01, 07), "Rua da paz", 987654321, "joana@this.app", "CC", 12345678, 123456789, new Job("Electrician", "Installs and maintains and fixes electrical systems in buildings"), PASSWORD, AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Tree Pruner", "Prunes trees"));add(new Skill("Light Vehicle Driver","Drives light vehicles"));}} ));
-*/
+
         m_Collaborators = (ArrayList<Collaborator>) collaboratorRepository.getAllCollaborators();
 
     }
@@ -123,7 +118,10 @@ public class Bootstrap implements Runnable {
         TeamRepository teamRepository = Repositories.getInstance().getTeamRepository();
         teamRepository.addTeam(new Team(m_Collaborators));
 
-*/
+    }
+
+ */
+
 
 
 

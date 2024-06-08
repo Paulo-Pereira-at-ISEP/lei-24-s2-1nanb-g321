@@ -74,7 +74,22 @@ public class CreateGreenSpacesUI implements Runnable {
 
     private double requestArea() {
         double number = 0;
-        number = Utils.readDoubleFromConsole("Green Space Area: "); // Prompt user for green space area
+        boolean valid = false;
+
+        while (!valid) {
+            try {
+                String input = Utils.readLineFromConsole("Green Space Area: "); // Prompt user for green space area
+                assert input != null;
+                number = Double.parseDouble(input);
+                if (Utils.isValidInputInt(input)) {
+                    valid = true; // Input is valid, exit the loop
+                } else {
+                    System.out.print("Green Space Area must only contain numbers.\n"); // Print error message if input is invalid
+                }
+            } catch (NumberFormatException e) {
+                System.out.print("Invalid input. Please enter a valid number.\n"); // Handle non-numeric input
+            }
+        }
 
         return number; // Return the validated green space area
     }
