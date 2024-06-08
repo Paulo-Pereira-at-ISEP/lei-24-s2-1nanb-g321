@@ -6,27 +6,29 @@
 
 _**Note that SSD - Alternative One is adopted.**_
 
-| Interaction ID                                        | Question: Which class is responsible for...      | Answer                                   | Justification (with patterns)                                     |
-|:------------------------------------------------------|:-------------------------------------------------|:-----------------------------------------|:------------------------------------------------------------------|
-| Step 1: Asks to list vehicle's in need for a check-up | ... instantiating the class that handles the UI? | ListVehiclesPendingMaintenanceUI         | Pure Fabrication                                                  |
-|                                                       | ... coordinating the US?                         | ListVehiclesPendingMaintenanceController | Controller                                                        |
-|                                                       | ... obtaining the registered vehicles?           | Repositories,VehicleRepository           | Information Expert, Pure Fabrication                              |
-|                                                       | ... obtaining the vehicle to be validated?       | Vehicle                                  | Information Expert (knows all its attributes)                     |
-|                                                       | ... validating if the vehicle needs check-up?    | Maintenances                             | GRASP, Low Coupling, Promotion of Collections to Software Classes |
-| Step 2: shows vehicle's in need for a check-up        | ... displaying vehicle's in need for a check-up? | ListVehiclesPendingMaintenanceUI         | Pure Fabrication                                                  |
+| Interaction ID                                            | Question: Which class is responsible for...      | Answer                      | Justification (with patterns)            |
+|:----------------------------------------------------------|:-------------------------------------------------|:----------------------------|:-----------------------------------------|
+| Step 1: asks for a list of the green spaces managed by me | ... instantiating the class that handles the UI? | ListMyGreenSpacesUI         | Pure Fabrication                         |
+|                                                           | ... coordinating the US?                         | CreateGreenSpacesController | Controller                               |
+|                                                           | ... knowing the user using the system?           | UserSession                 | IE: cf. A&A component documentation.     |
+|                                                           |                                                  | Organization                | IE: knows/has its own Employees          |
+|                                                           |                                                  | Employee                    | IE: knows its own data (e.g. email)      |
+|                                                           | ... obtaining the green spaces list?             | GreenSpacesRepository       | Information Expert, Protected Variations |
+| Step 2: presents a list of all green spaces managed by me | ... displaying vehicle's in need for a check-up? | ListMyGreenSpacesUI         | Pure Fabrication                         |
 
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
-* Vehicle
-* VehicleMaintenance
+* Organization
+* Manager
+* GreenSpace
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
-* ListVehiclesPendingMaintenanceUI  
-* ListVehiclesPendingMaintenanceController
-* VehicleRepository
+* ListMyGreenSpacesUI  
+* CreateGreenSpacesController
+* GreenSpaceRepository
 
 
 ## 3.2. Sequence Diagram (SD)

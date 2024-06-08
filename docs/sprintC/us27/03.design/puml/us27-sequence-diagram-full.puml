@@ -6,18 +6,17 @@ skinparam shadowing false
 autonumber
 
 'hide footbox
-actor "Vehicle Fleet Manager" as VFM
-participant ":ListVehiclesPendingMaintenanceUI" as UI
-participant ":ListVehiclesPendingMaintenanceController" as controller
+actor "Green Spaces Manager" as GSM
+participant ":ListMyGreenSpacesUI" as UI
+participant ":CreateGreenSpacesController" as controller
 participant ":Repositories" as singleton
 participant "repositories\n:Repositories" as rep
-participant "vehicleRepository\n:vehicleRepository" as vehicleRepository
 participant "authenticationRepository\n:AuthenticationRepository" as AUTH_REPO
 participant "userSession\n:UserSession" as USR_SESSION
-participant ":Vehicle" as vehicle
-participant ":VehicleMaintenance" as VehicleMaintenance
+participant "greenSpacesRepository\n:greenSpacesRepository" as greenSpacesRepository
+participant ":GreenSpace" as greenSpace
 
-note right of VFM
+note right of GSM
     - The user is already logged in at this step.
     - Authentication sequence is explained in
     a sequence excerpt.
@@ -28,15 +27,15 @@ note right of singleton
     in use
 end note
 
-activate VFM
+activate GSM
 
-        VFM -> UI :asks to list vehicle's in need for a check-up
+        GSM -> UI : asks for a list of the green spaces managed by me
 
         activate UI
 
             UI -> controller** : create
 
-            UI -> controller : asks for a list of the vehicles pending maintenance
+            UI -> controller : asks for a list of the green spaces managed by me
             activate controller
 
                 controller -> singleton : getInstance()
@@ -59,54 +58,28 @@ activate VFM
 
                 deactivate singleton
 
-                controller -> rep : getVehicleRepository()
+                controller -> rep : getGreenSpacesRepository()
                 activate rep
 
-                    rep --> controller: vehicleRepository
+                    rep --> controller: greenSpacesRepository
                 deactivate rep
 
-                controller -> vehicleRepository : getAllVehicles()
-                activate vehicleRepository
+                controller -> greenSpacesRepository : getGreenSpacesManaged()
+                activate greenSpacesRepository
 
-                    vehicleRepository --> controller : vehicles
-                deactivate vehicleRepository
+                ref over greenSpacesRepository : SortAlgoritm()
 
-                loop for each vehicle
+                    greenSpacesRepository --> controller : myGreenSpacesList
+                deactivate greenSpacesRepository
 
-                controller -> vehicle: getMaintenanceFrequency()
-                activate vehicle
 
-                vehicle --> controller: MaintenanceFrequency
-                deactivate vehicle
 
-                controller -> vehicle: getLastMaintenance()
-                activate vehicle
-
-                vehicle --> controller: lastMaintenance
-                deactivate vehicle
-
-                controller -> vehicle: getCurrentKm()
-                activate vehicle
-
-                vehicle --> controller: currentKm
-                deactivate vehicle
-
-                controller -> VehicleMaintenance: vehicleMaintenance(MaintenanceFrequency, lastMaintenance)
-                activate VehicleMaintenance
-
-                VehicleMaintenance --> VehicleMaintenance: validateVehicleMaintenance
-
-                VehicleMaintenance --> controller: vehiclesMaintenance
-                deactivate VehicleMaintenance
-
-                end
-
-                controller --> UI : vehiclesWithPendingMaintenanceList
+                controller --> UI : myGreenSpacesList
             deactivate controller
 
-            UI --> VFM : shows vehicles that need Maintenance
+            UI --> GSM : shows Green Spaces managed by me
         deactivate UI
 
-deactivate VFM
+deactivate GSM
 
 @enduml

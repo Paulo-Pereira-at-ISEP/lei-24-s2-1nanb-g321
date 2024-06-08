@@ -9,89 +9,80 @@ skinparam classAttributeIconSize 0
 
 'left to right direction
 
-class ListVehiclesWithPendingMaintenanceController {
-    -vehiclesRepository : VehiclesRepository
-
-    +ListVehiclesWithPendingMaintenanceController(vehiclesRepository)
-    + createVehiclesWithPendingMaintenanceList()
-
-}
-
-
-class ListVehiclesWithPendingMaintenanceUI {
+class ListMyGreenSpacesUI {
     +run()
 }
 
+class CreateGreenSpacesController {
+    - greenSpacesRepository:GreenSpacesRepository
+    - authenticationRepository:AuthenticationRepository
 
-class Repositories{
-    - instance : Repositories
-    - Repository : SkillRepository
-    - jobRepository : JobRepository
-    - employeeRepository : EmployeeRepository
-
-
-    + getInstance() : Repositories
-    + getSkillRepository()
-    + getJobRepository()
-    + getEmployeeRepository()
+    - getEmployeeFromSession()
+    + getGreenSpacesManaged(String email)
 }
 
-class VehiclesRepository{
-    +getAllVehicles() : List<vehicles>
-    +addVehiclesWithPendingMaintenanceList
+class Manager{
+    -name:String
+    -birthdate:Date
+    -admissionDate:Date
+    -address
+    -mobileContact:String
+    -emailContact:String
+    -IDdocType:String
+    -IDnumber:String
+    -taxNumber:String
+    -job:Job
+
+    +Manager (String nome,LocalDate dateOfBirth,\nLocalDate admissionDate, String morada, int telemovel,\nString email, String idDocType, int docTypeNumber,\nint taxPayerIdNumber, String role, Job job)
+}
+
+class Repositories{
+    - instance: Repositories
+    - managerRepository: ManagerRepository
+    - authenticationRepository: AuthenticationRepository
+    - greenSpacesRepository: GreenSpacesRepository
+
+    + getInstance()
+    + getManagerRepository()
+    + getAuthenticationRepository()
+    + getGreenSpacesRepository()
+}
+
+class GreenSpacesRepository{
+    + getAllGreenSpaces()
+    + getGreenSpacesManaged(String email)
+    + validateGreenSpace(GreenSpace)
+    + addGreenSpace(GreenSpace)
 }
 
 class AuthenticationRepository{
     + getEmployeeFromSession()
 }
 
-class Vehicle {
-    - String brand
-    - String model
-    - String type
-    - Integer tareWeight
-    - Integer grossWeight
-    - Integer currenteKm
-    - Date registerDate
-    - Date acquisitionDate
-    - Integer maintenanceFrequency
-    - String plateNumber
-    - Integer passengersNumber
-    - Integer doorsNumber
-    - String fuelType
-    - Boolean trailerMachines
+class GreenSpace {
+    - String name
+    - double area
+    - String classification
+    - Employee manager
 
-    +getVehicleMaintenances() : VehicleMaintenances
+    + GreenSpace(String name, double area, String classification, Employee manager)
 }
 
-class VehicleMaintenance{
--maintenanceFrequency: Int
--currentKm: Int
-
-+validateVehicleMaintenance(lastMaintenance, maintenanceFrequency, currentKm)
-
+interface SortAlgoritm {
 }
 
-class VehicleMaintenances{
-+getVehiclesWithPendingMaintenanceList(): List<VehicleMaintenance>
+ListMyGreenSpacesUI "1" ..> "1" CreateGreenSpacesController
 
-}
-
-
-ListVehiclesWithPendingMaintenanceUI "1" ..> "1" ListVehiclesWithPendingMaintenanceController
-
-Vehicle "1" --> "1" VehicleMaintenances: VehicleMaintenances
-
-VehicleMaintenances "1" --> "*" VehicleMaintenance: arrayVehicleMaintenances
+CreateGreenSpacesController "1" --> "1" Repositories : getInstance
+CreateGreenSpacesController --> Manager : listMyGreenSpaces
 
 Repositories -> Repositories : instance
-Repositories "1" --> "1" VehiclesRepository
+Repositories "1" ..> "1" GreenSpacesRepository : create
+Repositories "1" --> "1" AuthenticationRepository : getCurrentUserSession
 
-VehiclesRepository --> Vehicle
+GreenSpacesRepository --> GreenSpace : have
+GreenSpacesRepository --> SortAlgoritm : sortList
 
-ListVehiclesWithPendingMaintenanceController ..> VehicleMaintenances : vehicleMaintenances
-ListVehiclesWithPendingMaintenanceController ..> VehiclesRepository
-ListVehiclesWithPendingMaintenanceController "1" ..> "1" Repositories : repositories
-ListVehiclesWithPendingMaintenanceController "1" --> "1" AuthenticationRepository : getCurrentUserSession
+Manager --> Repositories : listMyGreenSpaces
 
 @enduml
