@@ -12,10 +12,10 @@ participant ":System" as System
 
 activate Employee
 
-    Employee -> System : asks to create a list of the green spaces
+    Employee -> System : asks for a list of the green spaces managed by me
     activate System
 
-        System --> Employee : selects data from all green spaces and presents the list
+        System --> Employee : presents a list of all green spaces managed by me
     deactivate System
 
 @enduml
