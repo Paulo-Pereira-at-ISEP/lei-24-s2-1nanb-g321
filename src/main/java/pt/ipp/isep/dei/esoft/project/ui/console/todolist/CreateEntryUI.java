@@ -114,7 +114,13 @@ public class CreateEntryUI implements Runnable {
     private int requestDuration() {
         System.out.print("What is the duration of the entry (hours)? ");
         Scanner input = new Scanner(System.in);
-        duration = input.nextInt();
+        do  {
+            duration = input.nextInt();
+            if (duration < 1) {
+                System.out.println("Invalid duration. Please enter a positive integer.\n New Duration: ");
+            }
+        } while (duration < 1);
+
         return  duration;
     }
 

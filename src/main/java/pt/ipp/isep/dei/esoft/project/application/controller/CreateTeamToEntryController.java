@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.*;
+import pt.ipp.isep.dei.esoft.project.domain.emailServices.EmailService;
+import pt.ipp.isep.dei.esoft.project.domain.emailServices.EmailServiceFactory;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.time.LocalDate;
@@ -105,6 +107,9 @@ public class CreateTeamToEntryController {
 public List<Entry> getEntriesByDate(LocalDate date) {
         return agendaRepository.getEntriesByDate(date);
 }
+    private EmailService emailService;
+
+
     public void sendMessageToCollaborators(String message, List<Collaborator> collaborators) {
         for (Collaborator collaborator : collaborators) {
             collaborator.receiveMessage(message);
@@ -115,6 +120,8 @@ public List<Entry> getEntriesByDate(LocalDate date) {
         Entry newEntry = new Entry(name, description, urgencyDegree, duration, greenSpace, date, hour, team);
         newEntry.setStartTime(LocalTime.of(hour, 0)); // Assuming start time is at the beginning of the hour
         newEntry.setEndTime(newEntry.getStartTime().plusHours(duration));
+        this.emailService = EmailServiceFactory.getEmailService();
+
 
         // Add entry to repository
         agendaRepository.addEntry(newEntry);

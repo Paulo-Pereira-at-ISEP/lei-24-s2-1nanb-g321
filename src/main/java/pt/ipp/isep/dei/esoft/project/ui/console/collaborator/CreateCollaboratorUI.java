@@ -137,29 +137,21 @@ public class CreateCollaboratorUI implements Runnable {
         System.out.println("9. Tax Payer ID Number");
 
         String choice = Utils.readLineFromConsole("Enter your choice (1-9): ");
-        switch (choice) {
-            case "1":
-                return "name"; // Modify name
-            case "2":
-                return "dateOfBirth"; // Modify dateOfBirth
-            case "3":
-                return "admissionDate"; // Modify admissionDate
-            case "4":
-                return "address"; // Modify address
-            case "5":
-                return "mobile"; // Modify mobile
-            case "6":
-                return "email"; // Modify email
-            case "7":
-                return "idDocType"; // Modify idDocType
-            case "8":
-                return "docTypeNumber"; // Modify docTypeNumber
-            case "9":
-                return "taxPayerIdNumber"; // Modify taxPayerIdNumber
-            default:
+        return switch (choice) {
+            case "1" -> "name"; // Modify name
+            case "2" -> "dateOfBirth"; // Modify dateOfBirth
+            case "3" -> "admissionDate"; // Modify admissionDate
+            case "4" -> "address"; // Modify address
+            case "5" -> "mobile"; // Modify mobile
+            case "6" -> "email"; // Modify email
+            case "7" -> "idDocType"; // Modify idDocType
+            case "8" -> "docTypeNumber"; // Modify docTypeNumber
+            case "9" -> "taxPayerIdNumber"; // Modify taxPayerIdNumber
+            default -> {
                 System.out.println("Invalid choice. Please enter a number between 1 and 9.");
-                return null;
-        }
+                yield null;
+            }
+        };
     }
 
     private void modifyEmployeeData(String dataToModify) {
