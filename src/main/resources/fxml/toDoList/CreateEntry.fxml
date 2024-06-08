@@ -27,7 +27,7 @@
     <ComboBox fx:id="urgencyComboBox" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
 
     <!-- Duration Field -->
-    <Label text="Duration:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+    <Label text="Duration (in hours):" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
     <TextField fx:id="durationField" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
 
     <!-- Create Entry Button -->
