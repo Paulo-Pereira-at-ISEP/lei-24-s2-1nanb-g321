@@ -43,62 +43,62 @@ public class Bootstrap implements Runnable {
 
     private void addSkills() {
         SkillRepository skillRepository = Repositories.getInstance().getSkillRepository();
-
+/*
         skillRepository.add(new Skill("Light Vehicle Driver", "Drives light vehicles"));
         skillRepository.add(new Skill("Heavy Vehicle Driver", "Drives heavy vehicles"));
         skillRepository.add(new Skill("Machine Operator", "Operates machines such as backhoes or tractors"));
         skillRepository.add(new Skill("Tree Pruner", "Prunes trees"));
         skillRepository.add(new Skill("Phytopharmaceutical applicator", "Applies agriculture phytopharmaceuticals to the crops"));
         skillRepository.add(new Skill("Electrical Wiring", "Installs and repairs electrical wiring"));
-
+*/
     }
 
     private void addJobs() {
         JobRepository jobRepository = Repositories.getInstance().getJobRepository();
-
+/*
         jobRepository.add(new Job("Designer", "Creates plans and ideas for products or visuals or experiences"));
         jobRepository.add(new Job("Budget Manager", "Plans and tracks company spending"));
         jobRepository.add(new Job("Gardener", "Maintains the gardens"));
         jobRepository.add(new Job("Electrician", "Installs and maintains and fixes electrical systems in buildings"));
         jobRepository.add(new Job("Bricklayer", "Builds walls and structures by laying bricks with mortar"));
-
+*/
     }
 
     private void addTasks(){
         TaskRepository taskRepository = Repositories.getInstance().getTaskRepository();
-
+    /*
         taskRepository.add(new Task("Cut Grass", "Cuts grass with a machine"));
         taskRepository.add(new Task("Trash Collection", "Picks up litter and debris to keep the green space clean"));
         taskRepository.add(new Task("Weeding", "Remove unwanted plants that can crowd out desired vegetation"));
         taskRepository.add(new Task("Trail Maintenance", "Clears fallen branches, repair paths, or build new ones"));
-
+*/
     }
 
     private void addGreenSpace(){
         GreenSpaceRepository greenSpaceRepository = Repositories.getInstance().getGreenSpaceRepository();
-
+        /*
         greenSpaceRepository.add(new GreenSpace("Avioso", 20000, "Large-Sized Park", m_Managers.get(2)));
         greenSpaceRepository.add(new GreenSpace("Parque Mágico", 200, "Garden", m_Managers.get(4)));
         greenSpaceRepository.add(new GreenSpace("Parque Assombrado", 5000, "Medium-Sized Park", m_Managers.get(4)));
-
+*/
     }
 
     private void addManager() {
         ManagerRepository managerRepository = Repositories.getInstance().getManagerRepository();
-
+        /*
         managerRepository.add(new Manager("HRM", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "hrm@this.app", "CC", 12345678, 123456789, new Job("Manager HR", "Human Resources"), PASSWORD, AuthenticationController.ROLE_HRM,"HRM"));
         managerRepository.add(new Manager("VFM", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "vfm@this.app", "CC", 12345678, 123456789, new Job("Manager VF", "Vehicle Fleet"),PASSWORD, AuthenticationController.ROLE_VFM, "VFM"));
         managerRepository.add(new Manager("GSM_1", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "gsm@this.app", "CC", 12345678, 123456789, new Job("Manager GS", "Green Spaces"),PASSWORD, AuthenticationController.ROLE_GSM, "GSM"));
         managerRepository.add(new Manager("QAM", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "qam@this.app", "CC", 12345678, 123456789, new Job("Manager QA", "Software Quality Assessment Team"),PASSWORD, AuthenticationController.ROLE_QAM, "QAM"));
         managerRepository.add(new Manager("GSM_2", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "gsm2@this.app", "CC", 12345678, 123456789, new Job("Manager GS", "Green Spaces"),PASSWORD, AuthenticationController.ROLE_GSM, "GSM"));
-
+        */
         m_Managers = managerRepository.getAllManagers();
 
     }
 
     private void addCollaborator() {
         CollaboratorRepository collaboratorRepository = Repositories.getInstance().getCollaboratorRepository();
-
+        /*
         collaboratorRepository.add(new Collaborator("Alfredo", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "alfredo@this.app", "CC", 12345678, 123456789, new Job("Gardener", "Garden maintenance"), PASSWORD ,AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Light Vehicle Driver","Drives light vehicles"));add(new Skill("Heavy Vehicle Driver","Drives heavy vehicles"));}} ));
         collaboratorRepository.add(new Collaborator("Anacleto", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "anacleto@this.app", "CC", 12345678, 123456789, new Job("Gardener", "Garden maintenance"), PASSWORD ,AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Light Vehicle Driver","Drives light vehicles"));add(new Skill("Machine Operator", "Operates machines such as backhoes or tractors"));}} ));
         collaboratorRepository.add(new Collaborator("Genoveva", LocalDate.of(2000, 12, 04), LocalDate.of(2008, 10, 02), "Rua da casa", 912345678, "genoveva@this.app", "CC", 12345678, 123456789, new Job("Gardener", "Garden maintenance"), PASSWORD ,AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Light Vehicle Driver","Drives light vehicles"));}} ));
@@ -109,7 +109,7 @@ public class Bootstrap implements Runnable {
         collaboratorRepository.add(new Collaborator("José", LocalDate.of(1995, 05, 12), LocalDate.of(2015, 01, 07), "Rua da paz", 987654321, "jose@this.app", "CC", 12345678, 123456789, new Job("Designer", "Creates plans and ideas for products or visuals or experiences"), PASSWORD, AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Phytopharmaceutical applicator", "Applies agriculture phytopharmaceuticals to the crops"));add(new Skill("Tree Pruner", "Prunes trees"));}} ));
         collaboratorRepository.add(new Collaborator("Bruno", LocalDate.of(1995, 05, 12), LocalDate.of(2015, 01, 07), "Rua da paz", 987654321, "bruno@this.app", "CC", 12345678, 123456789, new Job("Budget Manager", "Plans and tracks company spending"), PASSWORD, AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Electrical Wiring", "Installs and repairs electrical wiring"));add(new Skill("Phytopharmaceutical applicator", "Applies agriculture phytopharmaceuticals to the crops"));}} ));
         collaboratorRepository.add(new Collaborator("Joana", LocalDate.of(1995, 05, 12), LocalDate.of(2015, 01, 07), "Rua da paz", 987654321, "joana@this.app", "CC", 12345678, 123456789, new Job("Electrician", "Installs and maintains and fixes electrical systems in buildings"), PASSWORD, AuthenticationController.ROLE_Collaborator, new ArrayList<>(){{add(new Skill("Tree Pruner", "Prunes trees"));add(new Skill("Light Vehicle Driver","Drives light vehicles"));}} ));
-
+*/
         m_Collaborators = (ArrayList<Collaborator>) collaboratorRepository.getAllCollaborators();
 
     }
