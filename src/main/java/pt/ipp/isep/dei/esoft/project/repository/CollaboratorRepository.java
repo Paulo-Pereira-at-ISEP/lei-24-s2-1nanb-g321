@@ -1,7 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
+import pt.ipp.isep.dei.esoft.project.domain.Skill;
+import pt.ipp.isep.dei.esoft.project.repository.Utils.Serialize;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -11,11 +14,25 @@ public class CollaboratorRepository {
     private List<Collaborator> collaborators;
 
     public CollaboratorRepository() {
-        this.collaborators = new ArrayList<>();
+
+        List<Collaborator> result = Serialize.deserialize(Serialize.FOLDER_PATH + File.separator + "collaborators.ser");
+        if(result == null){
+            this.collaborators = new ArrayList<>();
+        }else{
+            this.collaborators = result;
+        }
     }
+    public void serialize(){
+        Serialize.serialize(collaborators,Serialize.FOLDER_PATH + File.separator + "collaborators.ser");}
 
     public void addCollaborator(Collaborator collaborator) {
-        collaborators.add(collaborator);
+        if (collaborator == null) {
+            throw new NullPointerException("Collaborator cannot be null");
+        }
+        if (validateCollaborator(collaborator)) {
+            collaborators.add(collaborator);
+            serialize();
+        }
     }
 
     public List<Collaborator> getAllCollaborators() {
@@ -57,22 +74,19 @@ public class CollaboratorRepository {
     
     public Optional<Collaborator> add(Collaborator collaborator) {
 
-        Optional<Collaborator> newCollaborator = Optional.empty(); // Initialize an empty Optional
-        boolean operationSuccess = false;
+        if (collaborator == null) {
+            throw new NullPointerException("Collaborator cannot be null");
+        }
 
-        // Validate the employee
         if (validateCollaborator(collaborator)) {
-            // If validation succeeds, create a clone of the employee and attempt to add it to the list
-            newCollaborator = Optional.of(collaborator.clone());
-            operationSuccess = collaborators.add(newCollaborator.get());
+            Collaborator clonedCollaborator = collaborator.clone();
+            if (collaborators.add(clonedCollaborator)) {
+                serialize();
+                return Optional.of(clonedCollaborator);
+            }
         }
 
-        // If the operation was not successful, return an empty Optional
-        if (!operationSuccess) {
-            newCollaborator = Optional.empty();
-        }
-
-        return newCollaborator; // Return the Optional containing the added employee or an empty Optional
+        return Optional.empty();
     }
 
     public void hasTeam(Collaborator collaborator) {

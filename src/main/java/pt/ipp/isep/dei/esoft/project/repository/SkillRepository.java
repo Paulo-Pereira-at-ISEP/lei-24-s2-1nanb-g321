@@ -1,21 +1,43 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
+import pt.ipp.isep.dei.esoft.project.repository.Utils.Serialize;
+import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
+import javax.swing.plaf.synth.SynthOptionPaneUI;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class SkillRepository {
+public class SkillRepository  implements Serializable {
+     // Skill
+
 
     private final List<Skill> skills;
 
     public SkillRepository() {
-        this.skills = new ArrayList<>();
+
+        List<Skill> result = Serialize.deserialize(Serialize.FOLDER_PATH + File.separator +"skills.ser");
+        if(result == null){
+            this.skills = new ArrayList<>();
+        }else{
+            this.skills = result;
+        }
     }
+    public void serialize(){
+        Serialize.serialize(skills,Serialize.FOLDER_PATH + File.separator +"skills.ser");}
+
+
 
     public void addSkill(Skill skill) {
-        skills.add(skill);
+        if (skill == null) {
+            throw new NullPointerException("Skill cannot be null");
+        }
+        if (validateSkill(skill)) {
+            skills.add(skill);
+            serialize();
+        }
     }
 
     public ArrayList<Skill> getAllSkills() {
@@ -56,19 +78,18 @@ public class SkillRepository {
      */
     public Optional<Skill> add(Skill skill) {
 
-        Optional<Skill> newSkill = Optional.empty();
-        boolean operationSuccess = false;
+        if (skill == null) {
+            throw new NullPointerException("Skill cannot be null");
+        }
 
         if (validateSkill(skill)) {
-            newSkill = Optional.of(skill.clone());
-            operationSuccess = skills.add(newSkill.get());
+            Skill clonedSkill = skill.clone();
+            if (skills.add(clonedSkill)) {
+                serialize();
+                return Optional.of(clonedSkill);
+            }
         }
 
-        if (!operationSuccess) {
-            newSkill = Optional.empty();
-        }
-
-        return newSkill;
-
+        return Optional.empty();
     }
 }

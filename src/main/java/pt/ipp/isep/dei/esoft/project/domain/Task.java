@@ -1,8 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Task {
+public class Task implements Serializable {
+    private static final long serialVersionUID = -2198104427632195287L;
     private String name;
     private String description;
 

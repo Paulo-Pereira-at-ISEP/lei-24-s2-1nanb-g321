@@ -3,22 +3,41 @@ package pt.ipp.isep.dei.esoft.project.repository;
 import pt.ipp.isep.dei.esoft.project.domain.GreenSpace;
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
+import pt.ipp.isep.dei.esoft.project.domain.Task;
+import pt.ipp.isep.dei.esoft.project.repository.Utils.Serialize;
 import pt.isep.lei.esoft.auth.AuthFacade;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class GreenSpaceRepository {
+    private static final long serialVersionUID = 2454184235920533583L;
+
 
     private final List<GreenSpace> greenSpaces;
 
     public GreenSpaceRepository() {
-        this.greenSpaces = new ArrayList<>();
+
+        List<GreenSpace> result = Serialize.deserialize(Serialize.FOLDER_PATH + File.separator +"greenspaces.ser");
+        if(result == null){
+            this.greenSpaces = new ArrayList<>();
+        }else{
+            this.greenSpaces = result;
+        }
     }
+    public void serialize(){
+        Serialize.serialize(greenSpaces,Serialize.FOLDER_PATH + File.separator +"greenspaces.ser");}
 
     public void addGreenSpace(GreenSpace greenSpace) {
-        greenSpaces.add(greenSpace);
+        if (greenSpace == null) {
+            throw new NullPointerException("GreenSpace cannot be null");
+        }
+        if (validateGreenSpace(greenSpace)) {
+            greenSpaces.add(greenSpace);
+            serialize();
+        }
     }
 
     public List<GreenSpace> getAllGreenSpaces() {
@@ -52,19 +71,18 @@ public class GreenSpaceRepository {
 
     public Optional<GreenSpace> add(GreenSpace greenSpace) {
 
-        Optional<GreenSpace> newGreenSpace = Optional.empty();
-        boolean operationSuccess = false;
+        if (greenSpace == null) {
+            throw new NullPointerException("GreenSpace cannot be null");
+        }
 
         if (validateGreenSpace(greenSpace)) {
-            newGreenSpace = Optional.of(greenSpace.clone());
-            operationSuccess = greenSpaces.add(newGreenSpace.get());
+            GreenSpace clonedGreenSpace = greenSpace.clone();
+            if (greenSpaces.add(clonedGreenSpace)) {
+                serialize();
+                return Optional.of(clonedGreenSpace);
+            }
         }
 
-        if (!operationSuccess) {
-            newGreenSpace = Optional.empty();
-        }
-
-        return newGreenSpace;
-
+        return Optional.empty();
     }
 }

@@ -1,8 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Job {
+public class Job implements Serializable {
+    private static final long serialVersionUID = 123456789L;
     private String name;
     private String description;
 

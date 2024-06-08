@@ -1,8 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Manager extends Employee {
+public class Manager extends Employee implements Serializable {
+    private static final long serialVersionUID = 123456789L;
     private String department;
 
 

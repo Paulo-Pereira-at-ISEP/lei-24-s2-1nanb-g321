@@ -1,7 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Entry;
+import pt.ipp.isep.dei.esoft.project.domain.Task;
+import pt.ipp.isep.dei.esoft.project.repository.Utils.Serialize;
 
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -14,12 +17,26 @@ public class AgendaRepository {
 
     private final List<Entry> entrys;
 
-        public AgendaRepository() {
+    public AgendaRepository() {
+
+        List<Entry> result = Serialize.deserialize(Serialize.FOLDER_PATH + File.separator +"AgendaEntrys.ser");
+        if(result == null){
             this.entrys = new ArrayList<>();
+        }else{
+            this.entrys = result;
         }
+    }
+    public void serialize(){
+        Serialize.serialize(entrys,Serialize.FOLDER_PATH + File.separator +"AgendaEntrys.ser");}
 
         public void addEntry(Entry entry) {
-            entrys.add(entry);
+            if (entry == null) {
+                throw new NullPointerException("Entry cannot be null");
+            }
+            if (validateEntry(entry)) {
+                entrys.add(entry);
+                serialize();
+            }
         }
 
         public ArrayList<Entry> getAllEntrys() {
@@ -73,20 +90,19 @@ public class AgendaRepository {
 
         public Optional<Entry> add(Entry entry) {
 
-            Optional<Entry> newEntry = Optional.empty();
-            boolean operationSuccess = false;
+            if (entry == null) {
+                throw new NullPointerException("Entry cannot be null");
+            }
 
             if (validateEntry(entry)) {
-                newEntry = Optional.of(entry.clone());
-                operationSuccess = entrys.add(newEntry.get());
+                Entry clonedEntry = entry.clone();
+                if (entrys.add(clonedEntry)) {
+                    serialize();
+                    return Optional.of(clonedEntry);
+                }
             }
 
-            if (!operationSuccess) {
-                newEntry = Optional.empty();
-            }
-
-            return newEntry;
-
+            return Optional.empty();
         }
     }
 

@@ -1,6 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-public class GreenSpace {
+import java.io.Serializable;
+
+public class GreenSpace implements Serializable {
+    private static final long serialVersionUID = 123456789L;
     private String name;
     private double area;
     private String classification;

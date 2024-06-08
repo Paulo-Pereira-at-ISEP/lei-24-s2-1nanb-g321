@@ -2,9 +2,11 @@ package pt.ipp.isep.dei.esoft.project.domain;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.authorization.AuthenticationController;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public abstract class Employee {
+public abstract class Employee implements Serializable {
+    private static final long serialVersionUID = 3701784396277771062L;
     private static final String PASSWORD_DEFAULT = "admin";
 
     private String name;

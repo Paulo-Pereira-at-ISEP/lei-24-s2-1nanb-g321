@@ -2,21 +2,38 @@ package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
 import pt.ipp.isep.dei.esoft.project.domain.Task;
+import pt.ipp.isep.dei.esoft.project.repository.Utils.Serialize;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class TaskRepository {
+    private static final long serialVersionUID = -2198104427632195287L; // Skill
 
     private final List<Task> tasks;
 
     public TaskRepository() {
-        this.tasks = new ArrayList<>();
+
+        List<Task> result = Serialize.deserialize(Serialize.FOLDER_PATH + File.separator +"tasks.ser");
+        if(result == null){
+            this.tasks = new ArrayList<>();
+        }else{
+            this.tasks = result;
+        }
     }
+    public void serialize(){
+        Serialize.serialize(tasks,Serialize.FOLDER_PATH + File.separator +"tasks.ser");}
 
     public void addTask(Task task) {
-        tasks.add(task);
+        if (task == null) {
+            throw new NullPointerException("Task cannot be null");
+        }
+        if (validateTask(task)) {
+            tasks.add(task);
+            serialize();
+        }
     }
 
     public ArrayList<Task> getAllTasks() {
@@ -34,6 +51,7 @@ public class TaskRepository {
      * @return The list of skills.
      */
     public List<Task> tasks() {
+
         //This is a defensive copy, so that the repository cannot be modified from the outside.
         return List.copyOf(tasks);
     }
@@ -42,19 +60,18 @@ public class TaskRepository {
 
     public Optional<Task> add(Task task) {
 
-        Optional<Task> newTask = Optional.empty();
-        boolean operationSuccess = false;
+        if (task == null) {
+            throw new NullPointerException("Task cannot be null");
+        }
 
         if (validateTask(task)) {
-            newTask = Optional.of(task.clone());
-            operationSuccess = tasks.add(newTask.get());
+            Task clonedTask = task.clone();
+            if (tasks.add(clonedTask)) {
+                serialize();
+                return Optional.of(clonedTask);
+            }
         }
 
-        if (!operationSuccess) {
-            newTask = Optional.empty();
-        }
-
-        return newTask;
-
+        return Optional.empty();
     }
 }

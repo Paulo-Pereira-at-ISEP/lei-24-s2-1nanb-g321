@@ -2,7 +2,7 @@ package pt.ipp.isep.dei.esoft.project.ui.console.agenda;
 
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateFilteredEntriesController;
 import pt.ipp.isep.dei.esoft.project.domain.Entry;
-import pt.ipp.isep.dei.esoft.project.ui.Bootstrap;
+//import pt.ipp.isep.dei.esoft.project.ui.Bootstrap;
 import pt.ipp.isep.dei.esoft.project.ui.console.menu.MenuItem;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 

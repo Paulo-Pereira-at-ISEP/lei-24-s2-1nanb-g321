@@ -1,10 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Collaborator extends Employee{
+public class Collaborator extends Employee implements Serializable {
+
     private ArrayList<Skill> skills;
     private boolean hasTeam;
 
@@ -15,6 +17,7 @@ public class Collaborator extends Employee{
     }
 
     public ArrayList<Skill> getSkills() {
+        // Creating a deep copy of the skills list to avoid unintentional changes
         ArrayList<Skill> copy = new ArrayList<>();
         for (Skill skill : skills) {
             copy.add(skill.clone());
@@ -27,7 +30,6 @@ public class Collaborator extends Employee{
     }
 
     public void addSkill(ArrayList<Skill> skills) {
-
         for (Skill s : skills){
             if (!this.skills.contains(s))
                 this.skills.add(s);
@@ -35,6 +37,7 @@ public class Collaborator extends Employee{
     }
 
     public Collaborator clone() {
+        // Creating a deep copy of the Collaborator object
         return new Collaborator(this.getName(), this.getDateOfBirth(), this.getAdmissionDate(), this.getAddress(), this.getMobile(), this.getEmail(), this.getIdDocType(), this.getDocTypeNumber(), this.getTaxPayerIdNumber(), this.getJob(), this.getPassword(), this.getRole(), this.skills);
     }
 

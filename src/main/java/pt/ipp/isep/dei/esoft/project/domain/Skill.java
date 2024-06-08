@@ -1,8 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Skill {
+public class Skill implements Serializable {
+    private static final long serialVersionUID = -6212549765225570048L;
     private String name;
     private String description;
 

@@ -1,31 +1,48 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
+import pt.ipp.isep.dei.esoft.project.domain.Task;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
+import pt.ipp.isep.dei.esoft.project.repository.Utils.Serialize;
 
+import java.io.File;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class TeamRepository{
+public class TeamRepository implements Serializable {
 
     private final List<Team> teams;
 
     public TeamRepository() {
-        this.teams = new ArrayList<>();
+
+        List<Team> deserializedTeams = Serialize.deserialize(Serialize.FOLDER_PATH + File.separator +"teams.ser");
+        if (deserializedTeams == null) {
+            this.teams = new ArrayList<>();
+        } else {
+            this.teams = deserializedTeams;
+        }
     }
+    public void serialize(){
+        Serialize.serialize(teams,Serialize.FOLDER_PATH + File.separator +"teams.ser");}
 
     public void addTeam(Team team) {
-        teams.add(team);
+        if (team == null) {
+            throw new NullPointerException("Team cannot be null");
+        }
+        if (validateTeam(team)) {
+            teams.add(team);
+            serialize();
+        }
     }
 
     public List<Team> getAllTeams() {
         return new ArrayList<>(teams);
     }
 
-    private boolean validateTeam(ArrayList<Collaborator> collaborators) {
-        boolean isValid = !teams.contains(collaborators);
-        return isValid;
+    private boolean validateTeam(Team team) {
+        return !teams.contains(team);
     }
 
 
@@ -36,18 +53,17 @@ public class TeamRepository{
 
     public Optional<Team> add(ArrayList<Collaborator> collaborators) {
 
-        Optional<Team> newTeam = Optional.empty();
-        boolean operationSuccess = false;
-
-        if (validateTeam(collaborators)) {
-            newTeam = Optional.of((Team) collaborators.clone());
-            operationSuccess = teams.add(newTeam.get());
+        if (collaborators == null) {
+            throw new NullPointerException("Collaborators cannot be null");
         }
-
-        if (!operationSuccess) {
-            newTeam = Optional.empty();
+        Team newTeam = new Team(collaborators);
+        if (validateTeam(newTeam)) {
+            Team clonedTeam = newTeam.clone();
+            if (teams.add(newTeam)) {
+                serialize();
+                return Optional.of(newTeam);
+            }
         }
-
-        return newTeam;
+        return Optional.empty();
     }
 }

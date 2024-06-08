@@ -1,8 +1,9 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class VehicleMaintenance {
+public class VehicleMaintenance implements Serializable {
 
     private Date date;
     private int  kmsOfVehicle;

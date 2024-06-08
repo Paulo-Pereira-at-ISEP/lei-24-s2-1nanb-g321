@@ -2,7 +2,9 @@ package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Job;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
+import pt.ipp.isep.dei.esoft.project.repository.Utils.Serialize;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -12,11 +14,25 @@ public class JobRepository {
     private final List<Job> jobs;
 
     public JobRepository() {
-        this.jobs = new ArrayList<>();
+
+        List<Job> result = Serialize.deserialize(Serialize.FOLDER_PATH + File.separator +"jobs.ser");
+        if(result == null){
+            this.jobs = new ArrayList<>();
+        }else{
+            this.jobs = result;
+        }
     }
+    public void serialize(){
+        Serialize.serialize(jobs,Serialize.FOLDER_PATH + File.separator +"jobs.ser");}
 
     public void addJob(Job job) {
-        jobs.add(job);
+        if (job == null) {
+            throw new NullPointerException("Job cannot be null");
+        }
+        if (validateJob(job)) {
+            jobs.add(job);
+            serialize();
+        }
     }
 
     public List<Job> getAllJobs() {
@@ -55,19 +71,18 @@ public class JobRepository {
      */
     public Optional<Job> add(Job job) {
 
-        Optional<Job> newJob = Optional.empty();
-        boolean operationSuccess = false;
+        if (job == null) {
+            throw new NullPointerException("Job cannot be null");
+        }
 
         if (validateJob(job)) {
-            newJob = Optional.of(job.clone());
-            operationSuccess = jobs.add(newJob.get());
+            Job clonedJob = job.clone();
+            if (jobs.add(clonedJob)) {
+                serialize();
+                return Optional.of(clonedJob);
+            }
         }
 
-        if (!operationSuccess) {
-            newJob = Optional.empty();
-        }
-
-        return newJob;
-
+        return Optional.empty();
     }
 }

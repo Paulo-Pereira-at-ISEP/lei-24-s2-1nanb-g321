@@ -3,9 +3,11 @@ package pt.ipp.isep.dei.esoft.project.domain;
 import pt.ipp.isep.dei.esoft.project.repository.Repositories;
 import pt.ipp.isep.dei.esoft.project.repository.TeamRepository;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Team {
+public class Team implements Serializable {
+    private static final long serialVersionUID = -7370042437499887697L;
     private int teamMaxSize;
     private int teamMinSize;
     private static ArrayList<Skill> skills = new ArrayList<>();

@@ -1,7 +1,10 @@
 package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Manager;
+import pt.ipp.isep.dei.esoft.project.domain.Task;
+import pt.ipp.isep.dei.esoft.project.repository.Utils.Serialize;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -11,11 +14,25 @@ public class ManagerRepository {
     private List<Manager> managers;
 
     public ManagerRepository() {
-        this.managers = new ArrayList<>();
+
+        List<Manager> result = Serialize.deserialize(Serialize.FOLDER_PATH + File.separator +"managers.ser");
+        if(result == null){
+            this.managers= new ArrayList<>();
+        }else{
+            this.managers = result;
+        }
     }
+    public void serialize(){
+        Serialize.serialize(managers,Serialize.FOLDER_PATH + File.separator +"managers.ser");}
 
     public void addManager(Manager manager) {
-        managers.add(manager);
+        if (manager == null) {
+            throw new NullPointerException("Manager cannot be null");
+        }
+        if (validateManager(manager)) {
+            managers.add(manager);
+            serialize();
+        }
     }
 
     public List<Manager> getAllManagers() {
@@ -47,22 +64,24 @@ public class ManagerRepository {
     
     public Optional<Manager> add(Manager manager) {
 
-        Optional<Manager> newManager = Optional.empty(); // Initialize an empty Optional
+        if (manager == null) {
+            throw new NullPointerException("Manager cannot be null");
+        }
+
+        Optional<Manager> newManager = Optional.empty();
         boolean operationSuccess = false;
 
-        // Validate the employee
         if (validateManager(manager)) {
-            // If validation succeeds, create a clone of the employee and attempt to add it to the list
             newManager = Optional.of(manager.clone());
             operationSuccess = managers.add(newManager.get());
         }
 
-        // If the operation was not successful, return an empty Optional
         if (!operationSuccess) {
             newManager = Optional.empty();
         }
 
-        return newManager; // Return the Optional containing the added employee or an empty Optional
+        serialize();
+        return newManager;
     }
 
 

@@ -2,7 +2,10 @@ package pt.ipp.isep.dei.esoft.project.repository;
 
 import pt.ipp.isep.dei.esoft.project.domain.Entry;
 import pt.ipp.isep.dei.esoft.project.domain.Skill;
+import pt.ipp.isep.dei.esoft.project.domain.Task;
+import pt.ipp.isep.dei.esoft.project.repository.Utils.Serialize;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -13,12 +16,26 @@ public class ToDoListRepository {
 
         private final List<Entry> entrys;
 
-        public ToDoListRepository() {
+    public ToDoListRepository() {
+
+        List<Entry> result = Serialize.deserialize(Serialize.FOLDER_PATH + File.separator +"entrys.ser");
+        if(result == null){
             this.entrys = new ArrayList<>();
+        }else{
+            this.entrys = result;
         }
+    }
+    public void serialize(){
+        Serialize.serialize(entrys,Serialize.FOLDER_PATH + File.separator +"entrys.ser");}
 
         public void addEntry(Entry entry) {
-            entrys.add(entry);
+            if (entry == null) {
+                throw new NullPointerException("Entry cannot be null");
+            }
+            if (validateEntry(entry)) {
+                entrys.add(entry);
+                serialize();
+            }
         }
 
         public ArrayList<Entry> getAllEntrys() {
@@ -73,6 +90,10 @@ public class ToDoListRepository {
 
         public Optional<Entry> add(Entry entry) {
 
+            if (entry == null) {
+                throw new NullPointerException("Entry cannot be null");
+            }
+
             Optional<Entry> newEntry = Optional.empty();
             boolean operationSuccess = false;
 
@@ -84,9 +105,8 @@ public class ToDoListRepository {
             if (!operationSuccess) {
                 newEntry = Optional.empty();
             }
-
+            serialize();
             return newEntry;
-
         }
     }
 
