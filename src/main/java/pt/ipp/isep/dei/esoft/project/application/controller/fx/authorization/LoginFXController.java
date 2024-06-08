@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -23,12 +24,25 @@ public class LoginFXController {
     @FXML
     private PasswordField passwordField;
 
+    @FXML
+    private Button closeButton;
+
     private final AuthenticationController ctrl;
 
     public String email;
 
     public LoginFXController() {
         this.ctrl = new AuthenticationController();
+    }
+
+    @FXML
+    private void initialize() {
+        closeButton.setOnAction(event -> handleClose());
+    }
+
+    @FXML
+    private void handleClose() {
+        UtilsFX.closeControl(closeButton);
     }
 
     @FXML

@@ -17,14 +17,10 @@ public class CollaboratorMenuFXController {
     private Button logoutButton;
 
     @FXML
-    private Button closeButton;
-
-    @FXML
     private void initialize() {
         listTasksButton.setOnAction(event -> handleListTasks());
         tasksButton.setOnAction(event -> handleTasks());
         logoutButton.setOnAction(event -> handleLogout());
-        closeButton.setOnAction(event -> handleClose());
     }
 
     private void handleListTasks() {
@@ -39,8 +35,4 @@ public class CollaboratorMenuFXController {
         UtilsFX.bottonControl("/fxml/LoginView.fxml", logoutButton, "Login Menu");
     }
 
-    @FXML
-    private void handleClose() {
-        UtilsFX.closeControl(closeButton);
-    }
 }
