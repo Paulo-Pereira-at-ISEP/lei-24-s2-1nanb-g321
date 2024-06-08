@@ -1,0 +1,28 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+left to right direction
+
+skinparam classAttributeIconSize 0
+
+hide circle
+hide methods
+
+title Domain Model
+
+class GreenSpaceManagerManager {
+
+}
+
+class Manager {
+    section
+}
+
+Manager "1" --up "1..*" GreenSpaceManagerManager: is a >
+Team "1" -- "1" Task: carry out >
+Agenda "1" -- "*" Task: has >
+Manager "1" -- "*" Agenda: manages >
+
+@enduml

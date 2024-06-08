@@ -1,4 +1,4 @@
-# US08 - As a VFM, I want the system to produce a list (report) of vehicles needing maintenance.
+# US22 - As a GSM, I want to add a new entry in the Agenda.
 
 ## 3. Design - User Story Realization 
 
