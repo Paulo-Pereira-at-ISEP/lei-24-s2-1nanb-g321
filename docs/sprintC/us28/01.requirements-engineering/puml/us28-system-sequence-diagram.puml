@@ -12,7 +12,7 @@ participant ":System" as System
 
 activate Employee
 
-    Employee -> System : asks to consult a list of tasks
+    Employee -> System : asks to consult a list of tasks assigned to me
     activate System
 
         System --> Employee : request data (inicialDate, finalDate)
@@ -24,7 +24,7 @@ activate Employee
         System --> Employee : requests confirmation
     deactivate System
 
-    Employee -> System : confirms data
+    Employee -> System : confirms data and request list
     activate System
 
         System --> Employee : displays list of tasks
