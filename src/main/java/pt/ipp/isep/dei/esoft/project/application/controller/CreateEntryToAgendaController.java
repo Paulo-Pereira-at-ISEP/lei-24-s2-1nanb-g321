@@ -95,29 +95,34 @@ public class CreateEntryToAgendaController {
             this.agendaRepository = agendaRepository;
         }
 
-        public List<Entry> getAllEntrys() {
+        public List<Entry> getAllEntries() {
             return agendaRepository.getEntrys();
         }
 
-        public List<Entry> getAllToDoListEntrys (){
+        public List<Entry> getAllToDoListEntries(){
             return toDoListRepository.getEntrys();
         }
 
         public List<Collaborator> getAllCollaborators() {
             return collaboratorRepository.getAllCollaborators();
         }
+
         public List<Task> getAllTasks() {
             return taskRepository.getAllTasks();
         }
+
         public List<GreenSpace> getAllGreenSpaces() {
             return greenSpaceRepository.getAllGreenSpaces();
         }
+
         public List<Team> getAllTeams() {
             return teamRepository.getAllTeams();
         }
-        public List<Entry> getsortedEntriesByDate(List<Entry> sortedEntries) {
-        return agendaRepository.sortEntriesByDate(sortedEntries);
+
+        public List<Entry> getSortedEntriesByDate(List<Entry> sortedEntries) {
+            return agendaRepository.sortEntriesByDate(sortedEntries);
         }
+
         public Entry createEntry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate date, int hour) {
 
             Entry newEntry = new Entry(name, description, urgencyDegree, duration, greenSpace, date, hour);

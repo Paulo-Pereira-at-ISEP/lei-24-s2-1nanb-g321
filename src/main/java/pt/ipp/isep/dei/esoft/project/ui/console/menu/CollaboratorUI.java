@@ -1,6 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
 import pt.ipp.isep.dei.esoft.project.ui.console.*;
+import pt.ipp.isep.dei.esoft.project.ui.console.agenda.ListMyAgendaUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class CollaboratorUI implements Runnable {
 
     public void run() {
         List<MenuItem> options = new ArrayList<MenuItem>();
-        options.add(new MenuItem("View task", new ShowTextUI("You have chosen Option 1.")));
+        options.add(new MenuItem("List My Agenda", new ListMyAgendaUI()));
 
         int option = 0;
         do {

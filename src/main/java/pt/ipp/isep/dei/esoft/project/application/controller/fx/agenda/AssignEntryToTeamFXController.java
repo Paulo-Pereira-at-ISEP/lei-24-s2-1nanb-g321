@@ -98,7 +98,7 @@ public class AssignEntryToTeamFXController {
     }
 
     private void listEntryFromToDoList() {
-        List<Entry> entries = entryController.getAllEntrys();
+        List<Entry> entries = entryController.getAllEntries();
         entriesTable.getItems().setAll(entries);
     }
 

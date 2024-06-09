@@ -1,9 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.ui.console.agenda;
 
-import pt.ipp.isep.dei.esoft.project.application.controller.CreateEntryController;
 import pt.ipp.isep.dei.esoft.project.application.controller.CreateEntryToAgendaController;
 import pt.ipp.isep.dei.esoft.project.domain.Entry;
-import pt.ipp.isep.dei.esoft.project.domain.Team;
 
 import java.util.List;
 
@@ -24,8 +22,8 @@ public class ListAgendaUI implements Runnable {
      * Lists all registered skills along with their details.
      */
     private void listAgenda() {
-        List<Entry> entries = entryController.getAllEntrys();
-        List<Entry> sortedEntries = entryController.getsortedEntriesByDate(entries);
+        List<Entry> entries = entryController.getAllEntries();
+        List<Entry> sortedEntries = entryController.getSortedEntriesByDate(entries);
 
         if (sortedEntries.isEmpty()) {
             System.out.println("There are no entries.");

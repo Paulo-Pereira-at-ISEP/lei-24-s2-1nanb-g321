@@ -4,7 +4,6 @@ import pt.ipp.isep.dei.esoft.project.application.controller.CreateEntryToAgendaC
 import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
@@ -38,7 +37,7 @@ public class AddNewEntryUI implements Runnable {
     }
 
     private void submitData() {
-        if (controller.getAllToDoListEntrys().isEmpty()) {
+        if (controller.getAllToDoListEntries().isEmpty()) {
             System.out.println("You need to create an entry first");
         } else {
             Entry entry = controller.createEntry(entrys.getName(), entrys.getDescription(), entrys.getUrgencyDegree(), entrys.getDuration(), entrys.getGreenSpace(), entrys.getEntryDate(), hour);
@@ -70,7 +69,7 @@ public class AddNewEntryUI implements Runnable {
 
     private Entry displayAndSelectEntry() {
         // Retrieve the list of available entries
-        List<Entry> entry = controller.getAllToDoListEntrys();
+        List<Entry> entry = controller.getAllToDoListEntries();
         int listSize = entry.size();
 
         if (listSize == 0) {

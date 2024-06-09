@@ -91,10 +91,11 @@ public class ListAllMyAgendaFXController {
     }
 
     private void listEntryFromToDoList() {
-        List<Entry> entries = entryController.getAllEntrys();
+        List<Entry> entries = entryController.getAllEntries();
+        List<Entry> sortedEntries = entryController.getSortedEntriesByDate(entries);
         List<Entry> myEntries = new ArrayList<>();
 
-        for (Entry entry : entries) {
+        for (Entry entry : sortedEntries) {
             if (entry.getTeam() != null){
                 for (Collaborator collaborator : entry.getTeam().getCollaborators()) {
                     if (Objects.equals(collaborator.getEmail(), ApplicationSession.getInstance().getCurrentSession().getUserEmail())){
@@ -120,7 +121,7 @@ public class ListAllMyAgendaFXController {
             return;
         }
 
-        List<Entry> entries = entryController.getAllEntrys();
+        List<Entry> entries = entryController.getAllEntries();
         List<Entry> myEntries = new ArrayList<>();
 
         for (Entry entry : entries) {

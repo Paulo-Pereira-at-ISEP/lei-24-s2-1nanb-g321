@@ -60,7 +60,7 @@ public class AddNewEntryFXController {
     }
 
     private void listEntryFromToDoList() {
-        List<Entry> entries = entryController.getAllToDoListEntrys();
+        List<Entry> entries = entryController.getAllToDoListEntries();
         entriesTable.getItems().setAll(entries);
     }
 
