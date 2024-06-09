@@ -79,7 +79,11 @@ class Team{
     +Team (List<employees> employees)
 }
 
+SkillRepository --> "1" Employee
+
 EmployeeRepository --> "1" Employee
+
+TeamRepository --> "1" Employee
 
 GenerateTeamUI "1" ..> "1" GenerateTeamController
 

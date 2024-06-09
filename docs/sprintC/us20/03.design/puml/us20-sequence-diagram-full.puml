@@ -1,0 +1,132 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+
+actor "Green Space Manager" as GSM
+participant ": CreateGreenSpaceUI" as UI
+participant ": CreateGreenSpaceController" as CTRL
+participant ": Repositories" as ORG_SINGLETON
+participant "repositories\n: Repositories" as ORG_INSTANCE
+participant "greenSpaceRepository:\nGreenSpaceRepository" as GREENSPACE_REPO_INSTANCE
+participant "employee\n: Employee" as MNGR
+participant "authenticationRepository\n:AuthenticationRepository" as AUTH_REPO
+participant "userSession\n:UserSessoin" as USR_SESSION
+participant ": GreenSpace" as GREENSPACE
+
+
+note right of GSM
+    - The user is already logged in at this step.
+    - Authentication sequence is explained in
+    a sequence excerpt.
+end note
+
+note right of ORG_SINGLETON
+    - Singleton is
+    in use
+end note
+
+
+activate GSM
+
+        GSM -> UI : asks to create a new GreenSpace
+
+        activate UI
+            'create CTRL
+            UI -> CTRL** : create
+
+            UI --> GSM : requestData (greenSpaceName, greenSpaceArea, greenSpaceClassification, manager)
+        deactivate UI
+
+        GSM -> UI : types requested data
+
+        activate UI
+
+            UI -> UI : validateGreenSpaceData(greenSpaceName, greenSpaceArea, greenSpaceClassification, manager)
+
+            deactivate CTRL
+
+            UI --> GSM : shows Green Space data and requests confirmation
+
+        deactivate UI
+
+            GSM -> UI : confirms data
+
+        activate UI
+
+            UI -> CTRL : createGreenSpace(greenSpaceName, greenSpaceArea, greenSpaceClassification, manager)
+
+
+            activate CTRL
+
+                CTRL -> ORG_SINGLETON : getInstance()
+
+                activate ORG_SINGLETON
+
+                    ORG_SINGLETON --> CTRL : repositories
+
+                deactivate ORG_SINGLETON
+
+                CTRL -> ORG_SINGLETON : getEmployeeFromSession()
+
+                                note right of CTRL
+                                    - This method is explained
+                                     in detail in an excerpt
+                                     sequence diagram.
+                                end note
+
+                activate ORG_SINGLETON
+
+                ORG_SINGLETON --> CTRL : employee
+
+                deactivate ORG_SINGLETON
+
+                CTRL --> ORG_INSTANCE : getGreenSpaceRepository()
+
+                activate ORG_INSTANCE
+
+                ORG_INSTANCE --> CTRL : greenSpaceRepository
+
+                deactivate ORG_INSTANCE
+
+                CTRL -> MNGR : createGreenSpace(greenSpaceName, greenSpaceArea, greenSpaceClassification, manager)
+
+                activate MNGR
+
+                MNGR -> GREENSPACE : GreenSpace(greenSpaceName, greenSpaceArea, greenSpaceClassification, manager)
+
+                activate GREENSPACE
+
+                GREENSPACE --> MNGR : newGreenSpace
+
+                deactivate GREENSPACE
+
+                MNGR --> CTRL : newGreenSpace
+
+                deactivate MNGR
+
+                CTRL -> GREENSPACE_REPO_INSTANCE : addGreenSpace(greenSpace)
+
+                activate GREENSPACE_REPO_INSTANCE
+
+                GREENSPACE_REPO_INSTANCE -> GREENSPACE_REPO_INSTANCE : validateGreenSpace()
+
+                GREENSPACE_REPO_INSTANCE --> CTRL : newGreenSpace
+
+                deactivate GREENSPACE_REPO_INSTANCE
+
+            CTRL --> UI : newGreenSpace
+
+        deactivate CTRL
+
+        UI -> GSM : displays operation success
+
+    deactivate UI
+
+deactivate GSM
+
+@enduml

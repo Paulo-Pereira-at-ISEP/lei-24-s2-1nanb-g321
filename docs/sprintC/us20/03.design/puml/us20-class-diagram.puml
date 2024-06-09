@@ -1,0 +1,100 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+Package Controller <<Folder>>{
+class CreateGreenSpaceController {
+    -getEmployeeFromSession()
+    + CreateGreenSpaceController(greenSpaceRepository)
+    + createGreenSpace(greenSpaceName, greenSpaceArea)
+}
+}
+
+Package UI <<Folder>>{
+class CreateGreenSpaceUI {
+    +run()
+    +requestData(greenSpaceName, greenSpaceArea, greenSpaceClassification, manager)
+    +submitData()
+    +requestGreenSpaceArea()
+    +requestGreenSpaceName()
+    +requestGreenSpaceClassification()
+    +requestManager()
+}
+}
+
+Package Repository <<Folder>>{
+class Repositories{
+    - instance:Repositories
+    - greenSpaceRepository:GreenSpaceRepository
+    - employeeRepository:EmployeeRepository
+    - authenticationRepository:AuthenticationRepository
+
+
+    + getInstance()
+    + getGreenSpaceRepository()
+    + getEmployeeRepository()
+    + getAuthenticationRepository()
+}
+
+class GreenSpaceRepository{
+    + getGreenSpaces()
+    + validateGreenSpace(newGreenSpace)
+    + addGreenSpace(newGreenSpace)
+}
+
+class AuthenticationRepository{
+    + getEmployeeFromSession()
+}
+}
+
+Package Domain <<Folder>>{
+class Employee{
+    -name:String
+    -birthdate:Date
+    -admissionDate:Date
+    -address
+    -mobileContact:String
+    -emailContact:String
+    -IDdocType:String
+    -IDnumber:String
+    -taxNumber:String
+    -job:Job
+
+    +Employee (String nome,LocalDate dateOfBirth,\nLocalDate admissionDate, String morada, int telemovel,\nString email, String idDocType, int docTypeNumber,\nint taxPayerIdNumber, String role, Job job)
+}
+
+class GreenSpace {
+    -greenSpaceName:String
+    -greenSpaceArea:Double
+    -greenSpaceClassification:String
+    -manager:Employee
+
+    +GreenSpace(greenSpaceName, greenSpaceArea, greenSpaceClassification, manager)
+    +validateGreenSpaceData(greenSpaceName, greenSpaceArea, greenSpaceClassification, manager)
+}
+}
+
+CreateGreenSpaceUI "1" ..> "1" CreateGreenSpaceController
+
+Repositories --> "1" GreenSpaceRepository
+Repositories -> Repositories : instance
+
+GreenSpaceRepository "1" --> "1" Employee
+
+AuthenticationRepository "1" --> "1" Employee
+
+CreateGreenSpaceController "1" ..> "1" Repositories : getInstance
+CreateGreenSpaceController ..> Employee : createGreenSpace
+CreateGreenSpaceController "1" --> "1" AuthenticationRepository : getCurrentUserSession
+CreateGreenSpaceController ..> GreenSpaceRepository: addGreenSpace
+
+Employee "1" --> "*" GreenSpace : createNewGreenSpace
+
+@enduml

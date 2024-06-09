@@ -1,0 +1,112 @@
+@startuml
+'skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+'skinparam linetype orto
+
+skinparam classAttributeIconSize 0
+
+'left to right direction
+
+Package UI <<Folder>>{
+class CreateEntryUI{
+    +run()
+    +requestData (greenSpace, task, \nurgency degree, approximate expected duration)
+    +submitData()
+    +requestGreenSpace()
+    +requestTask()
+    +requestUrgencyDegree()
+    +requestDuration()
+}
+}
+
+Package Controller <<Folder>>{
+class CreateEntryController{
+    + getEmployeeFromSession()
+    + CreateEntryController(toDoListRepository)
+    + createEntry( greenSpace, task, \nurgencyDegree, approximateExpectedDuration)
+}
+}
+
+Package Repository <<Folder>>{
+class Repositories{
+    - instance : Repositories
+    - greenSpaceRepository : GreenSpaceRepository
+    - taskRepository : TaskRepository
+    - toDoListRepository : ToDoListRepository
+    - employeeRepository : EmployeeRepository
+    - authenticationRepository : AuthenticationRepository
+
+    + getInstance()
+    + getGreenSpaceRepository()
+    + getTaskRepository()
+    + getToDoListRepository()
+    + getEmployeeRepository()
+    + getAuthenticationRepository()
+}
+
+class GreenSpaceRepository{
+    +getAllGreenSpaces() : greenSpaces
+}
+
+class TaskRepository{
+    +getAllTasks() : tasks
+}
+
+class ToDoListRepository{
+    +addEntry(entry)
+}
+
+class AuthenticationRepository{
+    + getEmployeeFromSession()
+}
+}
+
+Package Domain <<Folder>>{
+class Employee{
+    -name: String
+    -birthdate: Date
+    -admissionDate: Date
+    -address
+    -mobileContact: String
+    -emailContact: String
+    -IDdocType: String
+    -IDnumber: String
+    -taxNumber: String
+    -job: Job
+
+    +Employee (String nome,LocalDate dateOfBirth,\nLocalDate admissionDate, String morada, int telemovel,\nString email, String idDocType, int docTypeNumber,\nint taxPayerIdNumber, String role, Job job)
+}
+
+class Entry{
+    -greenSpace: GreenSpace
+    -task: Task
+    -urgencyDegree: int
+    -approximateExpectedDuration: int
+
+    +Entry ( GreenSpace greenSpace, Task task,\n int urgencyDegree, int approximateExpectedDuration)
+}
+}
+
+CreateEntryUI "1" ..> "1" CreateEntryController
+
+Repositories -> Repositories : instance
+Repositories --> "1" GreenSpaceRepository
+Repositories --> "1" TaskRepository
+Repositories --> "1" ToDoListRepository
+
+GreenSpaceRepository "1" --> "1" Entry
+TaskRepository  "1" --> "1" Entry
+ToDoListRepository "1" --> "1" Entry
+
+Employee "1" --> "*" Entry
+
+AuthenticationRepository "1" --> "1" Employee
+
+CreateEntryController ..> ToDoListRepository : addEntry
+CreateEntryController "1" ..> "1" Repositories : repositories
+CreateEntryController "1" --> "1" AuthenticationRepository : getCurrentUserSession
+CreateEntryController ..> Employee : createEntry
+
+@enduml

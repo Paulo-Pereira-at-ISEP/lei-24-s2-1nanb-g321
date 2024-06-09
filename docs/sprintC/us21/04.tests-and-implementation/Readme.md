@@ -1,63 +1,76 @@
-# US08 - As a VFM, I want the system to produce a list (report) of vehicles needing maintenance.
+# US21 - As a GSM, I want to add a new entry to the To-Do List.
 
 ## 4. Tests 
 
-**Test 1:** Check that it is not possible to create an instance of the Task class with null values. 
+**Test 1:** Check if a valid entry can be successfully added to the to-do list repository.
 
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureNullIsNotAllowed() {
-		Task instance = new Task(null, null, null, null, null, null, null);
-	}
-	
+	@Test
+    public void testAddEntry_ValidEntry_SuccessfullyAdded() {
+        // Arrange
+        Entry entry = createTestEntry();
 
-**Test 2:** Check that it is not possible to create an instance of the Task class with a reference containing less than five chars - AC2. 
+        // Act
+        toDoListRepository.addEntry(entry);
 
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureReferenceMeetsAC2() {
-		Category cat = new Category(10, "Category 10");
-		
-		Task instance = new Task("Ab1", "Task Description", "Informal Data", "Technical Data", 3, 3780, cat);
-	}
+        // Assert
+        assertTrue(toDoListRepository.getAllEntrys().contains(entry));
+    }
+
+**Test 2:** Checks if when a null entry is attempted to be added to the to-do list repository, a NullPointerException is thrown, as expected.
+
+    @Test
+    public void testAddEntry_NullEntry_ExceptionThrown() {
+        // Act & Assert
+        assertThrows(NullPointerException.class, () -> toDoListRepository.addEntry(null));
+    }
+
+**Test 3:** Check that the sortEntriesByUrgencyDegree() method of the ToDoListRepository sorts a list of entries based on their urgency degree correctly.
+
+	@Test
+    public void testSortEntriesByUrgencyDegree_EntryListSortedByUrgencyDegree() {
+        // Arrange
+        List<Entry> unsortedEntries = createUnsortedEntries();
+
+        // Act
+        List<Entry> sortedEntries = toDoListRepository.sortEntriesByUrgencyDegree(unsortedEntries);
+
+        // Assert
+        assertEquals(3, sortedEntries.size());
+        assertEquals("High", sortedEntries.get(0).getUrgencyDegree());
+        assertEquals("Medium", sortedEntries.get(1).getUrgencyDegree());
+        assertEquals("Low", sortedEntries.get(2).getUrgencyDegree());
+    }
+
 
 _It is also recommended to organize this content by subsections._ 
 
 
 ## 5. Construction (Implementation)
 
-### Class CreateTaskController 
+### Class Entry
 
 ```java
-public Task createTask(String reference, String description, String informalDescription, String technicalDescription,
-                       Integer duration, Double cost, String taskCategoryDescription) {
-
-	TaskCategory taskCategory = getTaskCategoryByDescription(taskCategoryDescription);
-
-	Employee employee = getEmployeeFromSession();
-	Organization organization = getOrganizationRepository().getOrganizationByEmployee(employee);
-
-	newTask = organization.createTask(reference, description, informalDescription, technicalDescription, duration,
-                                      cost,taskCategory, employee);
-    
-	return newTask;
+    public Entry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace) {
+    super(name, description);
+    this.urgencyDegree = urgencyDegree;
+    this.duration = duration;
+    this.greenSpace = greenSpace;
+    this.status = "Pending";
 }
 ```
 
-### Class Organization
+### Class CreateEntryController 
 
 ```java
-public Optional<Task> createTask(String reference, String description, String informalDescription,
-                                 String technicalDescription, Integer duration, Double cost, TaskCategory taskCategory,
-                                 Employee employee) {
-    
-    Task task = new Task(reference, description, informalDescription, technicalDescription, duration, cost,
-                         taskCategory, employee);
+    public Entry createEntry(Task task, String urgencyDegree, int duration, GreenSpace greenSpace) {
 
-    addTask(task);
-        
-    return task;
+    Entry newEntry = new Entry(task.getName(), task.getDescription(), urgencyDegree, duration, greenSpace);
+
+    toDoListRepository.add(newEntry);
+
+    return newEntry;
 }
 ```
-
 
 ## 6. Integration and Demo 
 
