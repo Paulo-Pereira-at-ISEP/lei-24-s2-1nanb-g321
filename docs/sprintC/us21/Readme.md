@@ -1,4 +1,4 @@
-# US08 -  As a VFM, I want to list the vehicles needing the check-up.
+# US21 - As a GSM, I want to add a new entry to the To-Do List.
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 

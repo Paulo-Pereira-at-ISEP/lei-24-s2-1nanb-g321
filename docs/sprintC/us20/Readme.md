@@ -1,4 +1,4 @@
-# US08 -  As a VFM, I want to list the vehicles needing the check-up.
+# US20 - As a Green Space Manager (GSM), I want to register a green space (garden, medium-sized park or large-sized park) and its respective area.
 
 [Requirements Engineering](01.requirements-engineering/Readme.md)
 
