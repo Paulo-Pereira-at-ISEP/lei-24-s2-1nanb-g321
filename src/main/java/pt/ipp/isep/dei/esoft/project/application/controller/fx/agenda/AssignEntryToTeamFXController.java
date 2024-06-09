@@ -1,5 +1,6 @@
 package pt.ipp.isep.dei.esoft.project.application.controller.fx.agenda;
 
+import javafx.beans.property.ReadOnlyStringWrapper;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -8,7 +9,10 @@ import pt.ipp.isep.dei.esoft.project.application.controller.GenerateTeamControll
 import pt.ipp.isep.dei.esoft.project.application.controller.fx.utils.UtilsFX;
 import pt.ipp.isep.dei.esoft.project.domain.Entry;
 import pt.ipp.isep.dei.esoft.project.domain.Team;
+import pt.ipp.isep.dei.esoft.project.domain.Skill;
 
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class AssignEntryToTeamFXController {
@@ -40,8 +44,6 @@ public class AssignEntryToTeamFXController {
     @FXML
     private TableColumn<Entry, String> endTimeColumn;
 
-
-
     @FXML
     private TableView<Team> teamTable;
 
@@ -69,25 +71,36 @@ public class AssignEntryToTeamFXController {
 
         entriesTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        greenSpaceColumn.setMinWidth(150);
-        taskColumn.setMinWidth(150);
-        urgencyColumn.setMinWidth(150);
-        statusColumn.setMinWidth(150);
-        dateColumn.setMinWidth(150);
-        startTimeColumn.setMinWidth(100);
-        endTimeColumn.setMinWidth(100);
+        greenSpaceColumn.setMinWidth(240);
+        taskColumn.setMinWidth(240);
+        urgencyColumn.setMinWidth(20);
+        statusColumn.setMinWidth(20);
+        dateColumn.setMinWidth(40);
+        startTimeColumn.setMinWidth(20);
+        endTimeColumn.setMinWidth(20);
 
-        listEntryFromToDoList();
+        listEntryFromAgenda();
 
         idTeamColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
         collaboratorColumn.setCellValueFactory(new PropertyValueFactory<>("collaborators"));
-        skillsColumn.setCellValueFactory(new PropertyValueFactory<>("skills"));
+        skillsColumn.setCellValueFactory(team -> {
+            Team t = team.getValue();
+            List<String> skills = new ArrayList<>();
+            for (var collaborator : t.getCollaborators()) {
+                for (Skill skill : collaborator.getSkills()) {
+                    if (!skills.contains(skill.getName())) {
+                        skills.add(skill.getName());
+                    }
+                }
+            }
+            return new ReadOnlyStringWrapper(String.join(", ", skills));
+        });
 
         teamTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        idTeamColumn.setMinWidth(50);
-        collaboratorColumn.setMinWidth(250);
-        skillsColumn.setMinWidth(700);
+        idTeamColumn.setMinWidth(10);
+        collaboratorColumn.setMinWidth(230);
+        skillsColumn.setMinWidth(450);
 
         listTeams();
     }
@@ -97,9 +110,15 @@ public class AssignEntryToTeamFXController {
         teamTable.getItems().setAll(teams);
     }
 
-    private void listEntryFromToDoList() {
+    private void listEntryFromAgenda() {
         List<Entry> entries = entryController.getAllEntries();
-        entriesTable.getItems().setAll(entries);
+        List<Entry> entriesWithoutTeam = new ArrayList<>();
+        for (Entry entry : entries) {
+            if (entry.getTeam() == null) {
+                entriesWithoutTeam.add(entry);
+            }
+        }
+        entriesTable.getItems().setAll(entriesWithoutTeam);
     }
 
     @FXML
@@ -107,14 +126,38 @@ public class AssignEntryToTeamFXController {
         Entry entry = entriesTable.getSelectionModel().getSelectedItem();
         Team team = teamTable.getSelectionModel().getSelectedItem();
 
-        entry.setTeam(team);
+        if (team == null || entry == null) {
+            UtilsFX.showAlert(Alert.AlertType.ERROR, "Selection Error", "Please select both an entry and a team!");
+            return;
+        }
 
-        if (team != null) {
-            UtilsFX.showAlert(Alert.AlertType.INFORMATION, "Team Assigned","Team successfully assigned!");
+        List<Entry> entriesByTeam = entryController.getEntriesByTeam(team);
+
+        if (isTeamAvailable(entriesByTeam, entry)) {
+            entry.setTeam(team);
+            UtilsFX.showAlert(Alert.AlertType.INFORMATION, "Team Assigned", "Team successfully assigned!");
             clearFields();
         } else {
-            UtilsFX.showAlert(Alert.AlertType.ERROR, "Team Not Assigned","Team not assigned!");
+            UtilsFX.showAlert(Alert.AlertType.ERROR, "Team Not Available", "The selected team is not available at the given time!");
         }
+    }
+
+    private boolean isTeamAvailable(List<Entry> entriesByTeam, Entry newEntry) {
+        LocalTime newEntryStartTime = newEntry.getStartTime();
+        LocalTime newEntryEndTime = newEntry.getEndTime();
+
+        for (Entry entry : entriesByTeam) {
+            if (entry.getEntryDate().equals(newEntry.getEntryDate())) {
+                LocalTime entryStartTime = entry.getStartTime();
+                LocalTime entryEndTime = entry.getEndTime();
+
+                if ((newEntryStartTime.isBefore(entryEndTime) && newEntryEndTime.isAfter(entryStartTime)) ||
+                        (newEntryStartTime.equals(entryStartTime) && newEntryEndTime.equals(entryEndTime))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     @FXML
@@ -125,6 +168,6 @@ public class AssignEntryToTeamFXController {
     private void clearFields() {
         entriesTable.getSelectionModel().clearSelection();
         teamTable.getSelectionModel().clearSelection();
+        listEntryFromAgenda();
     }
 }
-

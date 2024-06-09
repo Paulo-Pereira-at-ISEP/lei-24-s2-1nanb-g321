@@ -61,13 +61,13 @@ public class ListAgendaFXController {
 
         greenSpaceColumn.setMinWidth(150);
         taskColumn.setMinWidth(150);
-        urgencyColumn.setMinWidth(150);
-        durationColumn.setMinWidth(150);
-        startTimeColumn.setMinWidth(150);
-        endTimeColumn.setMinWidth(150);
-        dateColumn.setMinWidth(150);
-        statusColumn.setMinWidth(150);
-        teamColumn.setMinWidth(150);
+        urgencyColumn.setMinWidth(20);
+        durationColumn.setMinWidth(20);
+        startTimeColumn.setMinWidth(20);
+        endTimeColumn.setMinWidth(20);
+        dateColumn.setMinWidth(40);
+        statusColumn.setMinWidth(20);
+        teamColumn.setMinWidth(450);
 
         listEntryFromToDoList();
     }

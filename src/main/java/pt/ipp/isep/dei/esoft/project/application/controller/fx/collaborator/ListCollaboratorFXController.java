@@ -45,7 +45,7 @@ public class ListCollaboratorFXController {
         nameColumn.setMinWidth(150);
         emailColumn.setMinWidth(200);
         jobColumn.setMinWidth(150);
-        skillColumn.setMinWidth(300);
+        skillColumn.setMinWidth(450);
 
         listCollaborators();
     }

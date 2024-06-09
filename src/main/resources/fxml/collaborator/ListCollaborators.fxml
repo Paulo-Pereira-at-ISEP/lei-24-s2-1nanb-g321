@@ -6,7 +6,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.application.controller.fx.collaborator.ListCollaboratorFXController">
     <center>
-        <TableView fx:id="collaboratorsTable" prefWidth="322.0">
+        <TableView fx:id="collaboratorsTable">
             <columns>
                 <TableColumn fx:id="nameColumn" text="Name" />
                 <TableColumn fx:id="emailColumn" text="Email" />

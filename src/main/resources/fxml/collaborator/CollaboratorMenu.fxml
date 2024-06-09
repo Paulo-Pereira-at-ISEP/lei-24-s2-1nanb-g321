@@ -4,9 +4,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" prefHeight="180.0" prefWidth="289.0" spacing="10" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.application.controller.fx.collaborator.CollaboratorMenuFXController">
+<VBox alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" spacing="10" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.application.controller.fx.collaborator.CollaboratorMenuFXController">
     <padding>
-        <Insets bottom="25.0" left="60.0" right="60.0" top="25.0" />
+        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
     </padding>
 
     <Button fx:id="createCollaboratorButton" maxWidth="Infinity" text="Create Collaborator" />
