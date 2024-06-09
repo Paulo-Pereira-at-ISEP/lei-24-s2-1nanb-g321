@@ -47,7 +47,7 @@ public class LoginFXController {
 
     @FXML
     private void handleLogin() {
-        email = emailField.getText();
+        email = emailField.getText().toLowerCase();
         String password = passwordField.getText();
 
         boolean success = ctrl.doLogin(email, password);

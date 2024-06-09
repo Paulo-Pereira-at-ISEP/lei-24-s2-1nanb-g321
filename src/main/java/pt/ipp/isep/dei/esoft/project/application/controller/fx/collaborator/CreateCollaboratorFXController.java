@@ -100,7 +100,7 @@ public class CreateCollaboratorFXController {
             String address = addressField.getText();
             int mobile = Integer.parseInt(mobileField.getText());
 
-            String email = emailField.getText();
+            String email = emailField.getText().toLowerCase();
             if (UtilsFX.checkEmail(email)) return;
 
             String idDocType = idDocTypeComboBox.getValue();
