@@ -8,90 +8,107 @@ skinparam linetype polyline
 skinparam classAttributeIconSize 0
 
 'left to right direction
+Package Controller <<Folder>>{
+    class RecordTaskCompletionController {
+        + getEntriesFromAgendaStartingFrom(currentDate, status="Planned")
+        + recordTaskAsCompleted(selectedEntry)
 
-class ListVehiclesWithPendingMaintenanceController {
-    -vehiclesRepository : VehiclesRepository
+    }
+}
 
-    +ListVehiclesWithPendingMaintenanceController(vehiclesRepository)
-    + createVehiclesWithPendingMaintenanceList()
+Package UI <<Folder>>{
+    class RecordTaskCompletionUI {
+        +run()
+    }
+}
 
+Package RepositoriesPkg <<Folder>>{
+    class Repositories{
+        - instance : Repositories
+        - Repository : SkillRepository
+        - jobRepository : JobRepository
+        - employeeRepository : EmployeeRepository
+
+
+        + getInstance() : Repositories
+        + getSkillRepository()
+        + getJobRepository()
+        + getCollaboratorRepository()
+        + getAgendaRepository()
+    }
+
+    class AgendaRepository{
+        + getEntriesFromAgendaStartingFrom(currentDate, status)
+        + getEntriesFromAgendaPriorTo(currentDate, status)
+    }
+
+
+
+    class CollaboratorRepository{
+
+
+        + getAll()
+    }
+
+    class AuthenticationRepository{
+
+        + getAll()
+    }
+}
+
+Package Domain <<Folder>>{
+    class Entry {
+        - String name
+        - String description
+        - String urgencyDegree
+        - int duration
+        - GreenSpace greenSpace
+        - String status
+        - LocalDate entryDate
+        - int hour
+        + Entry(String name, String description, String urgencyDegree,\n int duration, GreenSpace greenSpace, LocalDate date, int hour)
+
+    }
+
+    class Collaborator{
+        -name:String
+        -birthdate:Date
+        -admissionDate:Date
+        -address
+        -mobileContact:String
+        -emailContact:String
+        -IDdocType:String
+        -IDnumber:String
+        -taxNumber:String
+        -job:Job
+        -skills:Skill
+        -teams:Team
+
+        +Collaborator (String nome,LocalDate dateOfBirth,\nLocalDate admissionDate, String morada, int telemovel,\nString email, String idDocType, int docTypeNumber,\nint taxPayerIdNumber, String role, Job job, List<Skill> skills,\n List<Team> teams)
+
+        + recordTaskAsCompleted(selectedEntry, employee))
+    }
 }
 
 
-class ListVehiclesWithPendingMaintenanceUI {
-    +run()
-}
+RecordTaskCompletionUI "1" ..> "1" RecordTaskCompletionController
 
 
-class Repositories{
-    - instance : Repositories
-    - Repository : SkillRepository
-    - jobRepository : JobRepository
-    - employeeRepository : EmployeeRepository
+AuthenticationRepository -> Collaborator
 
 
-    + getInstance() : Repositories
-    + getSkillRepository()
-    + getJobRepository()
-    + getEmployeeRepository()
-}
+Repositories --> Repositories : instance
+Repositories"1" -->"1" AuthenticationRepository
+Repositories "1" --> "1" AgendaRepository
+Repositories"1" -->"1" CollaboratorRepository
+CollaboratorRepository"1" -->"*" Collaborator
 
-class VehiclesRepository{
-    +getAllVehicles() : List<vehicles>
-    +addVehiclesWithPendingMaintenanceList
-}
+AgendaRepository"1" ->"*" Entry
+Collaborator -> Entry
 
-class AuthenticationRepository{
-    + getEmployeeFromSession()
-}
-
-class Vehicle {
-    - String brand
-    - String model
-    - String type
-    - Integer tareWeight
-    - Integer grossWeight
-    - Integer currenteKm
-    - Date registerDate
-    - Date acquisitionDate
-    - Integer maintenanceFrequency
-    - String plateNumber
-    - Integer passengersNumber
-    - Integer doorsNumber
-    - String fuelType
-    - Boolean trailerMachines
-
-    +getVehicleMaintenances() : VehicleMaintenances
-}
-
-class VehicleMaintenance{
--maintenanceFrequency: Int
--currentKm: Int
-
-+validateVehicleMaintenance(lastMaintenance, maintenanceFrequency, currentKm)
-
-}
-
-class VehicleMaintenances{
-+getVehiclesWithPendingMaintenanceList(): List<VehicleMaintenance>
-
-}
-
-
-ListVehiclesWithPendingMaintenanceUI "1" ..> "1" ListVehiclesWithPendingMaintenanceController
-
-Vehicle "1" --> "1" VehicleMaintenances: VehicleMaintenances
-
-VehicleMaintenances "1" --> "*" VehicleMaintenance: arrayVehicleMaintenances
-
-Repositories -> Repositories : instance
-Repositories "1" --> "1" VehiclesRepository
-
-VehiclesRepository --> Vehicle
-
-ListVehiclesWithPendingMaintenanceController ..> VehicleMaintenances : vehicleMaintenances
-ListVehiclesWithPendingMaintenanceController ..> VehiclesRepository
-ListVehiclesWithPendingMaintenanceController "1" ..> "1" Repositories : repositories
-ListVehiclesWithPendingMaintenanceController "1" --> "1" AuthenticationRepository : getCurrentUserSession
+RecordTaskCompletionController -> CollaboratorRepository
+RecordTaskCompletionController -> AgendaRepository
+RecordTaskCompletionController "1" ..> "1" Repositories : repositories
+RecordTaskCompletionController "1" --> "1" AuthenticationRepository : getCurrentUserSession
 
 @enduml

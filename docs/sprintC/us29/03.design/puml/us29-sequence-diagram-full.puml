@@ -14,7 +14,7 @@ participant "repositories\n:Repositories" as rep
 participant "agendaRepository\n:AgendaRepository" as agendaRepository
 participant "authenticationRepository\n:AuthenticationRepository" as AUTH_REPO
 participant "userSession\n:UserSession" as USR_SESSION
-participant "employee\n: Employee" as CLBTR
+participant "collaborator\n: Collaborator" as CLBTR
 participant ":Entry" as entry
 
 
@@ -66,7 +66,7 @@ activate USR
                     rep --> controller: agendaRepository
                 deactivate rep
 
-                controller -> agendaRepository : getEntriesFromAgendaPriorTo(currentDate, satus="Planned")
+                controller -> agendaRepository : getEntriesFromAgendaPriorTo(currentDate, status="Planned")
 
 
                 activate agendaRepository
@@ -115,16 +115,10 @@ activate USR
 
                     activate CLBTR
 
-
-                        CLBTR -> CLBTR : validateCollaboratorDispachedToTask(selectedEntry,employee)
-
-                        note right CLBTR
-                        mudar a sequência abaixo para um split SD
-                        end note
-
                         CLBTR -> entry :setStatus(selectedEntry, "Done")
 
                         activate entry
+
                             entry --> CLBTR : alteredEntry
 
                         deactivate entry
