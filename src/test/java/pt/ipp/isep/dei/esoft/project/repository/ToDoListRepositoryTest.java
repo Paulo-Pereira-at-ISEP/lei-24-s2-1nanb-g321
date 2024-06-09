@@ -32,7 +32,7 @@ public class ToDoListRepositoryTest {
         toDoListRepository.addEntry(entry);
 
         // Assert
-        assertTrue(toDoListRepository.getAllEntrys().contains(entry));
+        assertTrue(toDoListRepository.getAllEntries().contains(entry));
     }
 
     @Test
