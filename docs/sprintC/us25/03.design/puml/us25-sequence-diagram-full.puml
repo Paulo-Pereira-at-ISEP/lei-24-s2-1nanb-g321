@@ -103,13 +103,6 @@ activate GSM
 
                     activate MGR
 
-
-                        MGR -> MGR : cancelEntry(selectedEntry)
-
-                        note right MGR
-                        mudar a sequência abaixo para um split SD
-                        end note
-
                         MGR -> entry :setStatus(clonnedEntry, "Planned")
 
                         activate entry

@@ -24,7 +24,7 @@ _**Note that SSD - Alternative One is adopted.**_
 |                | ... temporarily keeping the input data?                                                  | RecordTaskCompletionUI         | Before passing the data to the PostponeAgendaEntryController for further coordination (Pure Fabrication)                                                           |
 |                | ... validating  input data format locally?                                               | RecordTaskCompletionUI         | Should be responsible for validating the input data format (Information Expert)                                                                                    |
 |                | ... coordinating the US?                                                                 | RecordTaskCompletionController | Ensures decoupling between the UI layer and the Domain layer. (Controller, Low coupling, High Cohesion)                                                            |
-|                | ... record the task completion?                                                          | Employee                       | In the domain model the Employee, as a GSM, is the responsible for managing the Agenda as well as it's Entries. (Information Expert)                               |
+|                | ... record the task completion?                                                          | Collaborator                   | In the domain model the Collaborator is the responsible for record the completions of tasks. (Information Expert)                                                  |
 |                | ... knowing the required data to record the completion of an Entry?                      | Entry                          | Knows its own data (Information Expert)                                                                                                                            |
 | Step 6         | ... informing the operation success?                                                     | RecordTaskCompletionUI         | Interaction with the user (Pure Fabrication)                                                                                                                       |
 
@@ -34,12 +34,13 @@ _**Note that SSD - Alternative One is adopted.**_
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
 * Agenda
-* Employee
 * Collaborator
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
-* 
+* RecordTaskCompletionUI
+* RecordTaskCompletionController
+* AgendaRepository
 
 
 ## 3.2. Sequence Diagram (SD)

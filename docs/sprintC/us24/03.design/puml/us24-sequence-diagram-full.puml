@@ -113,13 +113,6 @@ activate GSM
 
                     activate MGR
 
-
-                        MGR -> MGR : validateNoCollaboratorAlreadyDispached(selectedEntry,\n selectedDateHour, futureEntriesFilteredByDate)
-
-                        note right MGR
-                        mudar a sequência abaixo para um split SD
-                        end note
-
                         MGR -> entry :setStatus(selectedEntry, "Postponed")
 
                         activate entry

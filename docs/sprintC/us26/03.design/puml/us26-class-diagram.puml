@@ -8,52 +8,102 @@ skinparam linetype polyline
 skinparam classAttributeIconSize 0
 
 'left to right direction
-
-class PostponeAgendaEntryController {
-    +getEntriesFromAgendaStartingFrom(currentDate, status)
+Package Controller <<Folder>>{
+    class PostponeAgendaEntryController {
+        + getEntriesFromAgendaStartingFrom(currentDate, status)
+        + getAvailableVehiclesWithinTime(selectedEntry)
+    }
+}
+Package UI <<Folder>>{
+    class PostponeAgendaEntryUI {
+        +run()
+    }
 }
 
 
-class PostponeAgendaEntryUI {
-    +run()
+Package RepositoriesPkg <<Folder>>{
+    class Repositories{
+        - instance : Repositories
+        - Repository : SkillRepository
+        - agendaRepository : AgendaRepository
+        - employeeRepository : EmployeeRepository
+
+        + getInstance() : Repositories
+        + getAgendaRepository()
+        + getEmployeeRepository()
+    }
+
+    class AgendaRepository{
+        + getEntriesFromAgendaStartingFrom(currentDate, status)
+        + getEntriesFromAgendaPriorTo(currentDate, status)
+
+    }
+
+    class EmployeeRepository {
+
+        + getEmployees()
+        + validateEmployee(newEmployee)
+        + addEmployees(newEmployee)
+    }
+
+    class VehicleRepository{
+        + getVehicles()
+        + validateVehicle(newVehicle)
+        + addVehicle(newVehicle)
+    }
+
+    class AuthenticationRepository{
+        + getEmployeeFromSession()
+    }
 }
 
+Package Domain <<Folder>>{
+    class Entry {
+        - String name
+        - String description
+        - String urgencyDegree
+        - int duration
+        - GreenSpace greenSpace
+        - String status
+        - LocalDate entryDate
+        - int hour
+        + Entry(String name, String description, String urgencyDegree,\n int duration, GreenSpace greenSpace, LocalDate date, int hour)
+    }
 
-class Repositories{
-    - instance : Repositories
-    - Repository : SkillRepository
-    - agendaRepository : AgendaRepository
-    - employeeRepository : EmployeeRepository
+    class Vehicle {
+    - String brand
+        - String model
+        - String type
+        - Integer tareWeight
+        - Integer grossWeight
+        - Integer currenteKm
+        - Date registerDate
+        - Date acquisitionDate
+        - Integer maintenanceFrequency
+        - String plateNumber
+        - Integer passengersNumber
+        - Integer doorsNumber
+        - String fuelType
+        - Boolean trailerMachines
 
-    + getInstance() : Repositories
-    + getAgendaRepository()
-    + getEmployeeRepository()
+        + Vehicle(brand, model, type, tare weight,\n gross weight, current km,register date, \nacquisition date, maintenance frequency, \nplate number, passengers number,\ndoors number, fuel type, trailer machines)
+    }
+
+    class Employee {
+        -name:String
+        -birthdate:Date
+        -admissionDate:Date
+        -address
+        -mobileContact:String
+        -emailContact:String
+        -IDdocType:String
+        -IDnumber:String
+        -taxNumber:String
+        -job:Job
+
+        +Employee (String nome,LocalDate dateOfBirth,\nLocalDate admissionDate, String morada, int telemovel,\nString email, String idDocType, int docTypeNumber,\nint taxPayerIdNumber, String role, Job job)
+    }
 }
-
-class AgendaRepository{
-
-}
-
-class VehicleRepository{
-
-}
-
-class AuthenticationRepository{
-    + getEmployeeFromSession()
-}
-
-class Entry {
-
-}
-
-class Vehicle {
-
-}
-
-class Employee {
-
-}
-
 
 PostponeAgendaEntryUI "1" ..> "1" PostponeAgendaEntryController
 
@@ -64,9 +114,11 @@ Repositories -> Repositories : instance
 Repositories "1" .> "1" AgendaRepository
 Repositories "1" .> "1" VehicleRepository
 Repositories "1" .> "1" AuthenticationRepository
+Repositories "1" -> "1" EmployeeRepository
 
-AgendaRepository --> Entry
-VehicleRepository --> Vehicle
+EmployeeRepository "1" -> "*" Employee
+AgendaRepository"1" --> "*"Entry
+VehicleRepository"1" --> "*"Vehicle
 
 
 PostponeAgendaEntryController -> AgendaRepository
