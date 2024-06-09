@@ -2,7 +2,7 @@
 
 ## 4. Tests 
 
-**Test 1:** Check that it is not possible to create an instance of the Task class with null values. 
+**Test 1:** Checks if the isCompleted boolean of the entry object has been set to true, indicating that the entry has been successfully marked as completed.
 
 	@Test
     public void testMarkEntryAsCompleted_Success() {
@@ -15,8 +15,7 @@
     }
 	
 
-**Test 2:** Check that it is not possible to create an instance of the Task class with a reference containing less than five chars - AC2. 
-
+**Test 2:** Checks if the isCompleted flag of the entry object remains false. Since the entry is not found in the repository, it should not be marked as completed.
 	@Test
     public void testMarkEntryAsCompleted_EntryNotFound() {
         when(AgendaRepository.getEntryById(anyString())).thenReturn(null);
