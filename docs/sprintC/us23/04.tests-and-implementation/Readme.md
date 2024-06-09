@@ -1,5 +1,4 @@
-# US08 - As a VFM, I want the system to produce a list (report) of vehicles needing maintenance.
-
+# US23 - As a GSM, I want to assign a Team to an entry in the Agenda
 ## 4. Tests
 
 **Test 1:** Verifies that a valid entry can be successfully added to the ToDoListRepository.
