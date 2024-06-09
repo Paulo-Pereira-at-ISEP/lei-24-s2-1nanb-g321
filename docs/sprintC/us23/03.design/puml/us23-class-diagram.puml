@@ -22,6 +22,8 @@ class CreateTeamToEntryUI {
     }
 }
 
+interface SendEmail {
+}
 
 Package Domain <<Folder>>{
 class Entry {
@@ -82,6 +84,8 @@ Repositorie "1" --> "1" TeamRepository : teamRepository
 Repositorie "1" --> "1" AgendaRepository : agendaRepository
 Repositorie "1" --> "1" AuthenticationRepository : teamRepository
 TeamRepository "1" --> Entry
+Employee --> SendEmail
+AgendaRepository --> SendEmail : sendEmail
 
 
 CreateTeamToEntryController ..> Entry
