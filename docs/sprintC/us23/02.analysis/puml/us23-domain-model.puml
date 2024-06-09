@@ -15,14 +15,18 @@ title Domain Model
 class GreenSpaceManagerManager {
 
 }
+class Entry{
+}
 
 class Manager {
     section
 }
 
 Manager "1" --up "1..*" GreenSpaceManagerManager: is a >
-Team "1" -- "1" Task: carry out >
+Team "1" -- "1" Entry: carry out >
 Agenda "1" -- "*" Task: has >
 Manager "1" -- "*" Agenda: manages >
+Manager "1" -- "*" Team: manages >
+Entry "1*" -- "1*" Task: has >
 
 @enduml

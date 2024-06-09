@@ -69,7 +69,7 @@ class AgendaRepository {
 }
 }
 
-CreateTeamToEntryController "1"..-> "1" AuthenticationRepository : getCurrentUserSession
+CreateTeamToEntryController "1"--> "1" AuthenticationRepository : getCurrentUserSession
 CreateTeamToEntryController ..> Employee
 AgendaRepository --> Entry
 AuthenticationRepository --> Employee
@@ -80,6 +80,9 @@ CreateTeamToEntryController ..> Repositorie : gets repositories
 Repositorie --> Repositorie : instance
 Repositorie "1" --> "1" TeamRepository : teamRepository
 Repositorie "1" --> "1" AgendaRepository : agendaRepository
+Repositorie "1" --> "1" AuthenticationRepository : teamRepository
+TeamRepository "1" --> Entry
+
 
 CreateTeamToEntryController ..> Entry
 
