@@ -18,12 +18,18 @@ class GreenSpacesManager{
 class Manager {
 }
 
-class ToDoList {
-pendingTasks
+
+class GreenSpace {
+    name
+    classification
+    area
+    location
+    responsibleGSM
 }
 
-Manager "1" -- "*" ToDoList: manages >
-Manager "1" --up "1..*" GreenSpacesManager: is a >
+
+Manager "1" -- "1..*" GreenSpacesManager: is a >
+GreenSpace "1..*" -- "1" Manager: are managed by >
 
 
 @enduml

@@ -14,10 +14,10 @@ participant "userSession\n:UserSessoin" as USR_SESSION
 
 
 
-autonumber 6
+autonumber 11
 -> PLAT : getEmployeeFromSession()
 
-autonumber 6.1
+autonumber 11.1
 
 activate PLAT
     PLAT -> PLAT : getAuthenticationRepository()
@@ -40,7 +40,7 @@ activate PLAT
 
     group Get Employee
 
-    autonumber 7
+    autonumber 12
 
  <-- PLAT: employee
 deactivate PLAT

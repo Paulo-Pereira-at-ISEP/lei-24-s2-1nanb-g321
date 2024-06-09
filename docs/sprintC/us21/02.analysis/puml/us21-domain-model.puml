@@ -13,15 +13,34 @@ hide methods
 title Domain Model
 
 class GreenSpaceManager {
-
 }
 
 class Manager {
     section
 }
 
-Manager "1" -- "*" Vehicle: creates/manages >
+class ToDoList{
+    pendingTasks
+}
+
+class Entry{
+    greenSpace
+    task
+    urgencyDegree
+    approximateExpectedDuration
+}
+
+class Task {
+    park
+    taskType
+    taskDescription
+    priority
+    status
+}
+
+Manager "1" -- "*" Task: creates >
+Manager "1" -- "*" ToDoList: manages >
 Manager "1" --up "1..*" GreenSpaceManager: is a >
-
-
+Entry "1..*" -- "1..*" ToDoList: has <
+Task "1..*" -- "1..*" Entry
 @enduml

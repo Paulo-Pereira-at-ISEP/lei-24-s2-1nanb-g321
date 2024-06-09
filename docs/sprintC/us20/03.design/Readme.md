@@ -1,32 +1,43 @@
-# US08 - As a VFM, I want the system to produce a list (report) of vehicles needing maintenance.
+# US20 - As a Green Space Manager (GSM), I want to register a green space (garden, medium-sized park or large-sized park) and its respective area.
 
 ## 3. Design - User Story Realization 
 
 ### 3.1. Rationale
 
-_**Note that SSD - Alternative One is adopted.**_
-
-| Interaction ID                                        | Question: Which class is responsible for...      | Answer                                   | Justification (with patterns)                                     |
-|:------------------------------------------------------|:-------------------------------------------------|:-----------------------------------------|:------------------------------------------------------------------|
-| Step 1: Asks to list vehicle's in need for a check-up | ... instantiating the class that handles the UI? | ListVehiclesPendingMaintenanceUI         | Pure Fabrication                                                  |
-|                                                       | ... coordinating the US?                         | ListVehiclesPendingMaintenanceController | Controller                                                        |
-|                                                       | ... obtaining the registered vehicles?           | Repositories,VehicleRepository           | Information Expert, Pure Fabrication                              |
-|                                                       | ... obtaining the vehicle to be validated?       | Vehicle                                  | Information Expert (knows all its attributes)                     |
-|                                                       | ... validating if the vehicle needs check-up?    | Maintenances                             | GRASP, Low Coupling, Promotion of Collections to Software Classes |
-| Step 2: shows vehicle's in need for a check-up        | ... displaying vehicle's in need for a check-up? | ListVehiclesPendingMaintenanceUI         | Pure Fabrication                                                  |
+| Interaction ID | Question: Which class is responsible for...                 | Answer                     | Justification (with patterns)           |
+|:---------------|:------------------------------------------------------------|:---------------------------|:----------------------------------------|
+| Step 1         | ... interacting with the actor?                             | CreateGreenSpaceUI         | Pure Fabrication                        |
+|                | ... instantiating the class that handles the UI?            | CreateGreenSpaceUI         | Pure Fabrication                        |
+|                | ... instantiating the controller?                           | CreateGreenSpaceUI         | Pure Fabrication                        |
+|                | ... coordinating the US?                                    | CreateGreenSpaceController | Controller                              |
+| Step 2         | ... requesting the data needed to register the green space? | CreateGreenSpaceUI         | Pure Fabrication                        |
+| Step 3         | ... display the form for the actor to input data?           | CreateGreenSpaceUI         | Pure Fabrication                        |
+|                | ... temporarily keeping the input data?                     | CreateGreenSpaceUI         | Pure Fabrication                        |
+|                | ... validating input data format locally?                   | CreateGreenSpaceUI         | Information Expert                      |
+| Step 4         | ... showing the selected data and requesting confirmation?  | CreateGreenSpaceUI         | Pure Fabrication                        |
+| Step 5         | ... display the form for the actor to input data?           | CreateGreenSpaceUI         | Pure Fabrication                        |
+|                | ... temporarily keeping the input data?                     | CreateGreenSpaceUI         | Pure Fabrication                        |
+|                | ... validating input data format locally?                   | CreateGreenSpaceUI         | Information Expert                      |
+|                | ... creating a green space?                                 | Employee                   | Information Expert                      |
+|                | ... coordinating the US?                                    | CreateGreenSpaceController | Controller, Low coupling, High Cohesion |
+|                | ... guaranteeing that only one instance is available?       | repositories               | singleton                               |
+|                | ... organize the repositories of the current app?           | Repositories               | Pure Fabrication                        |
+|                | ... know the current logged in user?                        | UserSession                | Pure Fabrication, Information Expert    |
+|                | ... knowing the required data to register a Green Space?    | GreenSpace                 | Information Expert                      |
+|                | ... adding the new Green Space to the collection?           | GreenSpaceRepository       | Information Expert, Pure Fabrication    |
+| Step 6         | ... informing the operation success?                        | CreateGreenSpaceUI         | Pure Fabrication                        |
 
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
-* Vehicle
-* VehicleMaintenance
+* GreenSpace
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
-* ListVehiclesPendingMaintenanceUI  
-* ListVehiclesPendingMaintenanceController
-* VehicleRepository
+* CreateGreenSpaceUI  
+* CreateGreenSpaceController
+* GreenSpaceRepository
 
 
 ## 3.2. Sequence Diagram (SD)
@@ -36,7 +47,7 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
-![Sequence Diagram - Full](svg/us08-sequence-diagram-full.svg)
+![Sequence Diagram - Full](svg/us20-sequence-diagram-full.svg)
 
 ### Split Diagrams
 
@@ -46,8 +57,8 @@ It uses Interaction Occurrence (a.k.a. Interaction Use).
 
 **Get Employee**
 
-![Sequence Diagram - Partial - Get Employee](svg/us08-sequence-diagram-partial-get-employee.svg)
+![Sequence Diagram - Partial - Get Employee](svg/us20-sequence-diagram-partial-get-employee.svg)
 
 ## 3.3. Class Diagram (CD)
 
-![Class Diagram](svg/us08-class-diagram.svg)
+![Class Diagram](svg/us20-class-diagram.svg)

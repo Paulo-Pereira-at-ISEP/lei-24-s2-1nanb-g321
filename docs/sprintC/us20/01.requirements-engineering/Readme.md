@@ -5,6 +5,7 @@
 ### 1.1. User Story Description
 
 As a Green Space Manager (GSM), you can register new green spaces under your care, including gardens, medium-sized parks or large parks. You can specify the type of green space and record its total area, ensuring a comprehensive inventory for optimized management.
+
 ### 1.2. Customer Specifications and Clarifications
 
 **From the specifications document:**

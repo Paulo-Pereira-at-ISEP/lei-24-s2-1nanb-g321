@@ -1,0 +1,164 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+
+actor "Green Space Manager" as GSM
+participant ": CreateEntryUI" as UI
+participant ": CreateEntryController" as CTRL
+participant ": Repositories" as ORG_SINGLETON
+participant "repositories\n: Repositories" as ORG_INSTANCE
+participant "greenSpaceRepository:\nGreenSpaceRepository" as GREENSPACE_REPO
+participant "taskRepository\n: TaskRepository" as TASK_REPO
+participant "toDoListRepository\n ToDoListRepository" as TODOLIST_REPO
+participant "employee\n: Employee" as MNGR
+participant "authenticationRepository\n:AuthenticationRepository" as AUTH_REPO
+participant "userSession\n:UserSessoin" as USR_SESSION
+participant ": Entry" as ENTRY
+
+
+note right of GSM
+    - The user is already logged in at this step.
+    - Authentication sequence is explained in
+    a sequence excerpt.
+end note
+
+note right of ORG_SINGLETON
+    - Singleton is
+    in use
+end note
+
+
+activate GSM
+
+        GSM -> UI : asks to add an entry to the To Do List
+
+        activate UI
+            'create CTRL
+        UI -> CTRL** : create
+
+        UI -> CTRL : getAllGreenSpaces()
+        activate CTRL
+
+        CTRL -> ORG_SINGLETON : getInstance()
+        activate ORG_SINGLETON
+
+        ORG_SINGLETON --> CTRL: repositories
+        deactivate ORG_SINGLETON
+
+        CTRL -> ORG_SINGLETON : getEmployeeFromSession()
+
+        note right of CTRL
+        - This method is explained
+        in detail in an excerpt
+        sequence diagram.
+        end note
+
+        activate ORG_SINGLETON
+
+        ORG_SINGLETON --> CTRL : employee
+
+        deactivate ORG_SINGLETON
+
+        CTRL -> ORG_INSTANCE : getGreenSpaceRepository()
+        activate ORG_INSTANCE
+
+        ORG_INSTANCE --> CTRL: greenSpaceRepository
+        deactivate ORG_INSTANCE
+
+        CTRL -> GREENSPACE_REPO : getAllGreenSpaces()
+        activate GREENSPACE_REPO
+
+        GREENSPACE_REPO --> CTRL : greenSpaces
+
+        deactivate GREENSPACE_REPO
+
+        CTRL --> UI : greenSpaces
+        deactivate CTRL
+
+        UI --> CTRL : getAllTasks()
+        activate CTRL
+
+        CTRL -> ORG_INSTANCE : getTaskRepository()
+        activate ORG_INSTANCE
+
+        ORG_INSTANCE --> CTRL : taskRepository
+        deactivate ORG_INSTANCE
+
+        CTRL -> TASK_REPO : getAllTasks()
+        activate TASK_REPO
+
+        TASK_REPO --> CTRL : tasks
+
+        deactivate TASK_REPO
+
+        CTRL --> UI : tasks
+
+        deactivate CTRL
+
+        UI --> GSM : requestData (greenSpace, task, urgency degree, approximate expected duration)
+
+        deactivate UI
+
+        GSM -> UI : types requested data
+
+        activate UI
+
+            UI -> UI : validatesEntryData(greenSpace, task, urgency degree, approximate expected duration)
+
+            deactivate CTRL
+
+            UI --> GSM : shows entry data and requests confirmation
+
+        deactivate UI
+
+            GSM -> UI : confirms data
+
+        activate UI
+
+            UI -> CTRL : createEntry(greenSpace, task, urgency degree, approximate expected duration)
+
+
+        activate CTRL
+
+                CTRL -> MNGR : createEntry(greenSpace, task, urgency degree, approximate expected duration)
+
+                activate MNGR
+
+                MNGR -> ENTRY : entry(greenSpace, task, urgency degree, approximate expected duration)
+
+                activate ENTRY
+
+                ENTRY --> MNGR : newEntry
+
+                deactivate ENTRY
+
+                MNGR --> CTRL : newEntry
+
+                deactivate MNGR
+
+                CTRL -> TODOLIST_REPO : addEntry(entry)
+
+                activate TODOLIST_REPO
+
+                TODOLIST_REPO -> TODOLIST_REPO : validateEntry()
+
+                TODOLIST_REPO --> CTRL : newEntry
+
+                deactivate TODOLIST_REPO
+
+            CTRL --> UI : newEntry
+
+        deactivate CTRL
+
+        UI -> GSM : displays operation success
+
+    deactivate UI
+
+deactivate GSM
+
+@enduml
