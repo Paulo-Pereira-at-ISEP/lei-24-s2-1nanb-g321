@@ -9,6 +9,7 @@ n/a
 ### Class CreateEntryToAgendaController 
 
 ```java
+
 public List<Entry> getAllEntries() {
     return agendaRepository.getEntrys();
 }
