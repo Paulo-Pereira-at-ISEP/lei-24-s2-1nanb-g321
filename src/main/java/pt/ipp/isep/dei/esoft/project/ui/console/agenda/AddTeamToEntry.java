@@ -27,23 +27,20 @@ public class AddTeamToEntry implements Runnable {
     }
 
     private void submitData() {
-        // Get entries filtered by date
+
         if (controller.getAllEntries().isEmpty()) {
             System.out.println("You need to Create an entry first");
         } else {
             List<Entry> entriesFiltered = controller.getEntriesByDate(entry.getEntryDate());
 
-            // Calculate start and end times for the selected entry
-            LocalTime startTime = LocalTime.of(entry.getHour(), 0); // Assuming start time is at the beginning of the hour
+            LocalTime startTime = LocalTime.of(entry.getHour(), 0);
             LocalTime endTime = startTime.plusHours(entry.getDuration());
 
-            // Check team availability for the specified time range
             boolean teamBooked = false;
             for (Entry e : entriesFiltered) {
                 LocalTime eStartTime = e.getStartTime();
                 LocalTime eEndTime = e.getEndTime();
 
-                // Check if selected time range overlaps with existing entry's time range
                 if ((startTime.isAfter(eStartTime) && startTime.isBefore(eEndTime)) ||
                         (endTime.isAfter(eStartTime) && endTime.isBefore(eEndTime)) ||
                         (startTime.equals(eStartTime) && endTime.equals(eEndTime))) {
@@ -54,20 +51,15 @@ public class AddTeamToEntry implements Runnable {
                 }
             }
 
-            // Display appropriate message based on team availability
             if (teamBooked) {
                 System.out.println("\nYou can't add that team. They are booked for this time range.");
             } else {
-
                 entry.setTeam(team);
-                String message = "You have been assigned to a new task on this date: " + entry.getName() + "\n" + entry.getDescription()
-                        + "\n" + entry.getEntryDate() + "at" + entry.getStartTime();
-                controller.sendMessageToCollaborators(message, entry.getTeam().getCollaborators());
+                controller.sendMessageToCollaborators(team, entry.getName());
                 System.out.println("\nTeam successfully added to the Entry!");
             }
         }
     }
-
 
     private void requestData() {
         AgendaUI agendaUI = new AgendaUI();
@@ -78,13 +70,12 @@ public class AddTeamToEntry implements Runnable {
         } else if (controller.getAllTeams().isEmpty()) {
             System.out.println("The HRM have not created any teams");
             agendaUI.run();
-        }else {
+        } else {
             team = displayAndSelectTeam();
         }
     }
 
     private Team displayAndSelectTeam() {
-        // Retrieve the list of available entries
         List<Team> teams = controller.getAllTeams();
         int listSize = teams.size();
 
@@ -96,23 +87,22 @@ public class AddTeamToEntry implements Runnable {
         int answer = -1;
         Scanner input = new Scanner(System.in);
         while (answer < 1 || answer > listSize) {
-            displayTeamsOptions(teams); // Display the list of available teams
+            displayTeamsOptions(teams);
             System.out.print("Select a Team: ");
 
             try {
-                answer = input.nextInt(); // Prompt user to select an entry
+                answer = input.nextInt();
                 if (answer < 1 || answer > listSize) {
                     System.out.println("Invalid selection. Please try again.");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input. Please enter a number.");
-                input.next(); // Clear the invalid input
+                input.next();
             }
         }
 
         return teams.get(answer - 1);
     }
-
 
     private void displayTeamsOptions(List<Team> teams) {
         int i = 1;
@@ -123,33 +113,32 @@ public class AddTeamToEntry implements Runnable {
     }
 
     private Entry displayAndSelectEntry() {
-        // Retrieve the list of available entries
         List<Entry> entry = controller.getAllEntries();
         int listSize = entry.size();
 
         if (listSize == 0) {
             System.out.println("No entries available.");
-            return null; // or handle appropriately
+            return null;
         }
 
         int answer = -1;
         Scanner input = new Scanner(System.in);
         while (answer < 1 || answer > listSize) {
-            displayEntriesOptions(entry); // Display the list of available entries
+            displayEntriesOptions(entry);
             System.out.print("Select an entry: ");
 
             try {
-                answer = input.nextInt(); // Prompt user to select an entry
+                answer = input.nextInt();
                 if (answer < 1 || answer > listSize) {
                     System.out.println("Invalid selection. Please try again.");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Invalid input. Please enter a number.");
-                input.next(); // Clear the invalid input
+                input.next();
             }
         }
 
-        return entry.get(answer - 1); // Return the selected entry
+        return entry.get(answer - 1);
     }
 
     private void displayEntriesOptions(List<Entry> entries) {

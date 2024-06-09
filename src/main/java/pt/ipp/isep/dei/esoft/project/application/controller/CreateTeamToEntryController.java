@@ -1,8 +1,7 @@
 package pt.ipp.isep.dei.esoft.project.application.controller;
 
 import pt.ipp.isep.dei.esoft.project.domain.*;
-import pt.ipp.isep.dei.esoft.project.domain.emailServices.EmailService;
-import pt.ipp.isep.dei.esoft.project.domain.emailServices.EmailServiceFactory;
+
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.time.LocalDate;
@@ -30,8 +29,8 @@ public class CreateTeamToEntryController {
 
     //Allows receiving the repositories as parameters for testing purposes
     public CreateTeamToEntryController(CollaboratorRepository collaboratorRepository,
-                                         ToDoListRepository toDoListRepository,TaskRepository taskRepository ,
-                                         AuthenticationRepository authenticationRepository, TeamRepository teamRepository,AgendaRepository agendaRepository ,GreenSpaceRepository greenSpaceRepository) {
+                                       ToDoListRepository toDoListRepository, TaskRepository taskRepository,
+                                       AuthenticationRepository authenticationRepository, TeamRepository teamRepository, AgendaRepository agendaRepository, GreenSpaceRepository greenSpaceRepository) {
         this.authenticationRepository = authenticationRepository;
         this.collaboratorRepository = collaboratorRepository;
         this.taskRepository = taskRepository;
@@ -47,6 +46,7 @@ public class CreateTeamToEntryController {
         }
         return teamRepository;
     }
+
     private AgendaRepository getAgendaRepository() {
         if (agendaRepository == null) {
             Repositories repositories = Repositories.getInstance();
@@ -54,6 +54,7 @@ public class CreateTeamToEntryController {
         }
         return agendaRepository;
     }
+
     private GreenSpaceRepository getGreenSpacesRepository() {
         if (greenSpaceRepository == null) {
             Repositories repositories = Repositories.getInstance();
@@ -61,6 +62,7 @@ public class CreateTeamToEntryController {
         }
         return greenSpaceRepository;
     }
+
     private CollaboratorRepository getCollaboratorRepository() {
         if (collaboratorRepository == null) {
             Repositories repositories = Repositories.getInstance();
@@ -76,6 +78,7 @@ public class CreateTeamToEntryController {
         }
         return authenticationRepository;
     }
+
     private TaskRepository getTaskRepository() {
         if (taskRepository == null) {
             Repositories repositories = Repositories.getInstance();
@@ -95,32 +98,32 @@ public class CreateTeamToEntryController {
     public List<Collaborator> getAllCollaborators() {
         return collaboratorRepository.getAllCollaborators();
     }
+
     public List<Task> getAllTasks() {
         return taskRepository.getAllTasks();
     }
+
     public List<GreenSpace> getAllGreenSpaces() {
         return greenSpaceRepository.getAllGreenSpaces();
     }
+
     public List<Team> getAllTeams() {
         return teamRepository.getAllTeams();
     }
-public List<Entry> getEntriesByDate(LocalDate date) {
+
+    public List<Entry> getEntriesByDate(LocalDate date) {
         return agendaRepository.getEntriesByDate(date);
-}
-    private EmailService emailService;
-
-
-    public void sendMessageToCollaborators(String message, List<Collaborator> collaborators) {
-        for (Collaborator collaborator : collaborators) {
-            collaborator.receiveMessage(message);
-        }
     }
+
+    public void sendMessageToCollaborators(Team team, String entryName) {
+        teamRepository.assignTeamToAgendaEntry(team, entryName);
+    }
+
     public Entry createEntry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate date, int hour, Team team) {
         // Create entry with start time and calculate end time
         Entry newEntry = new Entry(name, description, urgencyDegree, duration, greenSpace, date, hour, team);
         newEntry.setStartTime(LocalTime.of(hour, 0)); // Assuming start time is at the beginning of the hour
         newEntry.setEndTime(newEntry.getStartTime().plusHours(duration));
-        this.emailService = EmailServiceFactory.getEmailService();
 
 
         // Add entry to repository
@@ -130,5 +133,7 @@ public List<Entry> getEntriesByDate(LocalDate date) {
         return newEntry;
     }
 }
+
+
 
 
