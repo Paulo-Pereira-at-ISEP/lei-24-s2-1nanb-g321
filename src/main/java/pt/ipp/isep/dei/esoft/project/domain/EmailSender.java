@@ -1,10 +1,12 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
+import java.awt.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Serializable;
 
-public class EmailSender {
+public class EmailSender implements Serializable {
 
     private EmailConfig config;
 

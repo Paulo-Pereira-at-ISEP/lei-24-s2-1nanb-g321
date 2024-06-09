@@ -80,6 +80,7 @@ public class TeamRepository implements Serializable {
         // ...
 
         // Notify all team members
+
         messageService.sendMessageToAllTeamMembers(team, "You have been assigned to a new agenda entry: " + agendaEntry + " on this date: ");
     }
 

@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-public class MessageService {
+import java.io.Serializable;
+
+public class MessageService implements Serializable {
 
     private EmailSender emailSender;
 

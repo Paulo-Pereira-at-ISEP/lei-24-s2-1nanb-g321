@@ -1,6 +1,8 @@
 package pt.ipp.isep.dei.esoft.project.domain;
 
-public class EmailConfig {
+import java.io.Serializable;
+
+public class EmailConfig implements Serializable {
             private String serviceProvider;
             private String username;
             private String password;
