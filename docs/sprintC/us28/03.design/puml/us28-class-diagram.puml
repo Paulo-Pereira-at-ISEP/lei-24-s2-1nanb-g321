@@ -9,10 +9,13 @@ skinparam classAttributeIconSize 0
 
 'left to right direction
 
+Package UI <<Folder>>{
 class ListMyAgendaUI {
     +run()
 }
+}
 
+Package Controller <<Folder>>{
 class CreateEntryToAgendaController {
     - agendaRepository : AgendaRepository
     - authenticationRepository:AuthenticationRepository
@@ -21,7 +24,35 @@ class CreateEntryToAgendaController {
     + getAllEntries()
     + getSortedEntriesByDate(List<Entry> sortedEntries)
 }
+}
 
+Package Repository <<Folder>>{
+class Repositories{
+    - instance: Repositories
+    - authenticationRepository: AuthenticationRepository
+    - collaboratorRepository: CollaboratorRepository
+    - greenSpacesRepository: GreenSpacesRepository
+
+    + getInstance()
+    + getAuthenticationRepository()
+    + getCollaboratorRepository()
+    + getGreenSpacesRepository()
+}
+}
+
+Package Repository <<Folder>>{
+class AgendaRepository{
+    +getAllEntries() : List<Entry>
+}
+}
+
+Package Repository <<Folder>>{
+class AuthenticationRepository{
+    + getEmployeeFromSession()
+}
+}
+
+Package Domain <<Folder>>{
 class Collaborator{
     -name:String
     -birthdate:Date
@@ -37,27 +68,9 @@ class Collaborator{
 
     +Collaborator (String nome,LocalDate dateOfBirth,\nLocalDate admissionDate, String morada, int telemovel,\nString email, String idDocType, int docTypeNumber,\nint taxPayerIdNumber, String role, Job job, ArrayList<Skill> skills)
 }
-
-class Repositories{
-    - instance: Repositories
-    - authenticationRepository: AuthenticationRepository
-    - collaboratorRepository: CollaboratorRepository
-    - greenSpacesRepository: GreenSpacesRepository
-
-    + getInstance()
-    + getAuthenticationRepository()
-    + getCollaboratorRepository()
-    + getGreenSpacesRepository()
 }
 
-class AgendaRepository{
-    +getAllEntries() : List<Entry>
-}
-
-class AuthenticationRepository{
-    + getEmployeeFromSession()
-}
-
+Package Domain <<Folder>>{
 class Entry {
     - String name
     - String description
@@ -74,12 +87,14 @@ class Entry {
 
     + Entry(String name, String description, \nString urgencyDegree, int duration, \nGreenSpace greenSpace, LocalDate entryDate, \nint hour, Team team)
 }
-
+}
 
 ListMyAgendaUI "1" ..> "1" CreateEntryToAgendaController
 
 CreateEntryToAgendaController "1" --> "1" Repositories : getInstance
-CreateEntryToAgendaController --> Collaborator : listMyAgenda
+CreateEntryToAgendaController --> AgendaRepository : agendaRepository
+CreateEntryToAgendaController --> AuthenticationRepository : authenticationRepository
+CreateEntryToAgendaController --> Collaborator
 
 Repositories -> Repositories : instance
 Repositories "1" ..> "1" AgendaRepository : create
@@ -87,6 +102,6 @@ Repositories "1" --> "1" AuthenticationRepository : getCurrentUserSession
 
 AgendaRepository --> Entry : have
 
-Collaborator --> Repositories : listMyAgenda
+Collaborator --> Entry
 
 @enduml

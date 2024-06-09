@@ -92,7 +92,7 @@ public class CreateTeamToEntryController {
     }
 
     public List<Entry> getAllEntries() {
-        return agendaRepository.getEntrys();
+        return agendaRepository.getEntries();
     }
 
     public List<Collaborator> getAllCollaborators() {

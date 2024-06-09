@@ -9,10 +9,13 @@ skinparam classAttributeIconSize 0
 
 'left to right direction
 
+Package UI <<Folder>>{
 class ListMyGreenSpacesUI {
     +run()
 }
+}
 
+Package Controller <<Folder>>{
 class CreateGreenSpacesController {
     - greenSpacesRepository:GreenSpacesRepository
     - authenticationRepository:AuthenticationRepository
@@ -20,7 +23,50 @@ class CreateGreenSpacesController {
     - getEmployeeFromSession()
     + getGreenSpacesManaged(String email)
 }
+}
 
+
+Package Repository <<Folder>>{
+class Repositories{
+    - instance: Repositories
+    - authenticationRepository: AuthenticationRepository
+    - managerRepository: ManagerRepository
+    - greenSpacesRepository: GreenSpacesRepository
+
+    + getInstance()
+    + getAuthenticationRepository()
+    + getManagerRepository()
+    + getGreenSpacesRepository()
+}
+}
+
+Package Repository <<Folder>>{
+class GreenSpacesRepository{
+    + getAllGreenSpaces()
+    + getGreenSpacesManaged(String email)
+    + validateGreenSpace(GreenSpace)
+    + addGreenSpace(GreenSpace)
+}
+}
+
+Package Repository <<Folder>>{
+class AuthenticationRepository{
+    + getEmployeeFromSession()
+}
+}
+
+Package Domain <<Folder>>{
+class GreenSpace {
+    - String name
+    - double area
+    - String classification
+    - Employee manager
+
+    + GreenSpace(String name, double area, String classification, Employee manager)
+}
+}
+
+Package Domain <<Folder>>{
 class Manager{
     -name:String
     -birthdate:Date
@@ -35,37 +81,6 @@ class Manager{
 
     +Manager (String nome,LocalDate dateOfBirth,\nLocalDate admissionDate, String morada, int telemovel,\nString email, String idDocType, int docTypeNumber,\nint taxPayerIdNumber, String role, Job job)
 }
-
-class Repositories{
-    - instance: Repositories
-    - authenticationRepository: AuthenticationRepository
-    - managerRepository: ManagerRepository
-    - greenSpacesRepository: GreenSpacesRepository
-
-    + getInstance()
-    + getAuthenticationRepository()
-    + getManagerRepository()
-    + getGreenSpacesRepository()
-}
-
-class GreenSpacesRepository{
-    + getAllGreenSpaces()
-    + getGreenSpacesManaged(String email)
-    + validateGreenSpace(GreenSpace)
-    + addGreenSpace(GreenSpace)
-}
-
-class AuthenticationRepository{
-    + getEmployeeFromSession()
-}
-
-class GreenSpace {
-    - String name
-    - double area
-    - String classification
-    - Employee manager
-
-    + GreenSpace(String name, double area, String classification, Employee manager)
 }
 
 interface SortAlgoritm {
@@ -74,15 +89,20 @@ interface SortAlgoritm {
 ListMyGreenSpacesUI "1" ..> "1" CreateGreenSpacesController
 
 CreateGreenSpacesController "1" --> "1" Repositories : getInstance
-CreateGreenSpacesController --> Manager : listMyGreenSpaces
+CreateGreenSpacesController --> GreenSpacesRepository : greenSpacesRepository
+CreateGreenSpacesController --> AuthenticationRepository : authenticationRepository
+CreateGreenSpacesController --> Manager
 
 Repositories -> Repositories : instance
 Repositories "1" ..> "1" GreenSpacesRepository : create
 Repositories "1" --> "1" AuthenticationRepository : getCurrentUserSession
 
+AuthenticationRepository --> Manager : getCurrentUserSession
+
 GreenSpacesRepository --> GreenSpace : have
 GreenSpacesRepository --> SortAlgoritm : sortList
 
-Manager --> Repositories : listMyGreenSpaces
+Manager --> GreenSpace
+Manager --> SortAlgoritm
 
 @enduml

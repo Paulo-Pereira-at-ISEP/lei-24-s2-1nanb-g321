@@ -2,7 +2,20 @@
 
 ## 4. Tests 
 
-n/a
+**Test 1**
+
+    @Test
+    public void testToString() {
+        // Given
+        Entry entry = new Entry("Meeting", "Project meeting", "High", 2, new GreenSpace("Park", 1000,"garden", new Manager("gsm1@this.app")), LocalDate.now(), 10);
+
+        // When
+        String result = entry.toString();
+
+        // Then
+        String expected = "Entry: \nGreenSpace= Park\nTitle=Meeting\nDescription=Project meeting\nUrgencyDegree=High\nDuration=2";
+        assertEquals(expected, result);
+    }
 
 ## 5. Construction (Implementation)
 

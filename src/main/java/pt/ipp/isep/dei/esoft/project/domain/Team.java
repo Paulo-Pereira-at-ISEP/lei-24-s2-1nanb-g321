@@ -136,7 +136,7 @@ public class Team implements Serializable {
         return new ArrayList<>();
     }
 
-    public static ArrayList<Collaborator> createOhterTeam(int teamMaxSize, int teamMinSize, ArrayList<Skill> skills, ArrayList<Collaborator> listOfCollaborators, Team team) {
+    public static ArrayList<Collaborator> createOtherTeam(int teamMaxSize, int teamMinSize, ArrayList<Skill> skills, ArrayList<Collaborator> listOfCollaborators, Team team) {
         ArrayList<Collaborator> tempTeam = listOfCollaborators;
 
         for (int i = 0; i < listOfCollaborators.size(); i++) {

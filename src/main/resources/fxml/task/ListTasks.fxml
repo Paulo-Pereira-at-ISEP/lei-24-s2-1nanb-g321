@@ -9,19 +9,19 @@
 
     <TableView fx:id="tasksTable" GridPane.columnSpan="2" GridPane.rowIndex="0">
         <columns>
-            <TableColumn fx:id="nameColumn" prefWidth="125.0" text="Name" />
-            <TableColumn fx:id="descriptionColumn" prefWidth="122.0" text="Description" />
+            <TableColumn fx:id="nameColumn" prefWidth="200" text="Name" />
+            <TableColumn fx:id="descriptionColumn" prefWidth="450" text="Description" />
         </columns>
     </TableView>
 
     <Button fx:id="backButton" onAction="#handleBack" text="Back" GridPane.columnSpan="2" GridPane.rowIndex="1" />
-   <ScrollBar GridPane.columnIndex="1" GridPane.valignment="BOTTOM" />
-   <columnConstraints>
-      <ColumnConstraints maxWidth="124.99999999999999" minWidth="104.99999999999999" prefWidth="114.99999999999999" />
-      <ColumnConstraints maxWidth="133.0" minWidth="113.0" prefWidth="123.0" />
-   </columnConstraints>
-   <rowConstraints>
-      <RowConstraints />
-      <RowConstraints />
-   </rowConstraints>
+
+    <columnConstraints>
+        <ColumnConstraints />
+        <ColumnConstraints />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints />
+        <RowConstraints />
+    </rowConstraints>
 </GridPane>

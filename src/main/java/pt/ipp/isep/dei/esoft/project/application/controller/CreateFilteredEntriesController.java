@@ -91,7 +91,7 @@ public class CreateFilteredEntriesController {
         }
 
         public List<Entry> getAllEntrys() {
-            return agendaRepository.getEntrys();
+            return agendaRepository.getEntries();
         }
 
         public List<Collaborator> getAllCollaborators() {
