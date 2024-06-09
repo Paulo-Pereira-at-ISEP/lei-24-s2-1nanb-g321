@@ -12,6 +12,6 @@
 
     <Button fx:id="addNewEntryButton" text="Add New Entry to Agenda" maxWidth="Infinity"/>
     <Button fx:id="listAgendaButton" text="List Agenda" maxWidth="Infinity"/>
-    <Button fx:id="assignEntryToTeamButton" text="Assign Entry to Team" maxWidth="Infinity"/>
+    <Button fx:id="assignEntryToTeamButton" text="Assign Team To Entry" maxWidth="Infinity"/>
     <Button fx:id="backButton" text="Back" onAction="#handleBack" maxWidth="Infinity"/>
 </VBox>
