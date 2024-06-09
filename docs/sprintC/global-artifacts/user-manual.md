@@ -15,6 +15,7 @@
 - ### [Troubleshooting](#trouble)
 
 # <a id="glossary"></a> Glossary
+[top](#top)
 
 **Terms, Expressions and Acronyms (TEA) must be organized alphabetically.**
 
@@ -142,14 +143,14 @@ _(Complete according to the provided example)_
 ## <a id="feat"></a> Features
 [top](#top)
 
-![Main Menu](user-manual-multimedia/MainMenu.png)
+![Main Menu](user-manual-multimedia/Login.png)
 
 In the Main Menu is where the user can login to get access to the rest of the features.
 
 ## I. Human Resources Manager Features
 [top](#top)
 
-![HRMLogin](user-manual-multimedia/HRMLogin.png)
+![HRMmenu](user-manual-multimedia/HRMmenu.png)
 
 Each user must be logged in to have access to each role's options.
 
@@ -157,17 +158,21 @@ Each user must be logged in to have access to each role's options.
 
 **Access:**
 
-![CreateSkill](user-manual-multimedia/CreateSkill.png)
+Choose button Skill from the HRM MENU.
 
-Choose option number 1 (1 - Create Skill) from the HRM MENU.
+![SkillMenu](user-manual-multimedia/SkillMenu.png)
+
+Choose button Create Skill from the Skill Menu.
 
 **Registration Process:**
 
-![CreateSkillProcess](user-manual-multimedia/CreateSkillProcess.png)
+![CreateSkill](user-manual-multimedia/CreateSkill.png)
 
 Enter the skill name (e.g., Project Management, Software Development).
 
 Provide a detailed description of the skill.
+
+Press button Create Skill.
 
 If followed correctly skill will be successfully created!
 
@@ -175,13 +180,15 @@ If followed correctly skill will be successfully created!
 
 **Access:**
 
-![ListSkills](user-manual-multimedia/ListSkills.png)
+Choose button Skill from the HRM MENU.
 
-Choose option number 2 (2 - List Skills) from the HRM MENU.
+![SkillMenu](user-manual-multimedia/SkillMenu.png)
+
+Choose button List Skills from the Skill Menu.
 
 **Viewing List:**
 
-![ListSkillsPresented](user-manual-multimedia/ListSkillsPresented.png)
+![ListSkills](user-manual-multimedia/ListSkills.png)
 
 A list with all skills available and their descriptions will be presented.
 
@@ -189,17 +196,21 @@ A list with all skills available and their descriptions will be presented.
 
 **Access:**
 
-![CreateJob](user-manual-multimedia/CreateJob.png)
+Choose button Job from the HRM MENU.
 
-Choose option number 3 (3 - Create Job) from the HRM MENU.
+![JobsMenu](user-manual-multimedia/JobsMenu.png)
+
+Choose button List Skills from the Job Menu.
 
 **Registration Process:**
 
-![CreateJobProcess](user-manual-multimedia/CreateJobProcess.png)
+![CreateJob](user-manual-multimedia/CreateJob.png)
 
 Enter the job title (e.g., Marketing Manager, Software Engineer).
 
 Provide a detailed description of the job.
+
+Choose button Create Job.
 
 If followed correctly job will be successfully created!
 
@@ -209,11 +220,9 @@ If followed correctly job will be successfully created!
 
 ![ListJobs](user-manual-multimedia/ListJobs.png)
 
-Choose option number 4 (4 - List Job) from the HRM MENU.
+Choose button named Skill from the HRM MENU.
 
 **Viewing List:**
-
-![ListJobsPresented](user-manual-multimedia/ListJobsPresented.png)
 
 A list with all jobs available and their descriptions will be presented.
 
@@ -221,13 +230,15 @@ A list with all jobs available and their descriptions will be presented.
 
 **Access:**
 
-![RegisterCollaborator](user-manual-multimedia/RegisterCollaborator.png)
+Choose button Collaborator from the HRM MENU.
 
-Choose option number 5 (5 - Create Job) from the HRM MENU.
+![CollaboratorMenu](user-manual-multimedia/CollaboratorMenu.png)
+
+Choose button Create Collaborator from the Collaborator Menu.
 
 **Registration Process:**
 
-![RegisterCollaboratorProcess](user-manual-multimedia/RegisterCollaboratorProcess.png)
+![CreateCollaborator](user-manual-multimedia/CreateCollaborator.png)
 
 Enter the employee's details (name, contact information, etc.).
 
@@ -235,19 +246,23 @@ Select the job to be attributed from the list.
 
 Select the skills to be attributed from the list.
 
+Choose button Create.
+
 If followed correctly collaborator will be successfully registered!
 
 ### 6. List Collaborator
 
 **Access:**
 
-![ListCollaborators](user-manual-multimedia/ListCollaborators.png)
+Choose button Collaborator from the HRM MENU.
 
-Choose option number 6 (6 - List Collaborator) from the HRM MENU.
+![CollaboratorMenu](user-manual-multimedia/CollaboratorMenu.png)
+
+Choose button List Collaborator from the Collaborator Menu.
 
 **Viewing List:**
 
-![ListCollaboratorsPresented](user-manual-multimedia/ListCollaboratorsPresented.png)
+![ListCollaborators](user-manual-multimedia/ListCollaborators.png)
 
 A list with all collaborators available and their information will be presented.
 
@@ -255,13 +270,15 @@ A list with all collaborators available and their information will be presented.
 
 **Access:**
 
-![AssignSkillsToCollaborator](user-manual-multimedia/AssignSkillsToCollaborator.png)
+Choose button Collaborator from the HRM MENU.
 
-Choose option number 7 (7 - Assign one or more skills to a collaborator) from the HRM MENU.
+![CollaboratorMenu](user-manual-multimedia/CollaboratorMenu.png)
+
+Choose button Assign Skills to Collaborator from the Collaborator Menu.
 
 **Assigning Skills:**
 
-![AssignSkillsToCollaboratorProcess](user-manual-multimedia/AssignSkillsToCollaboratorProcess.png)
+![AssignSkillsCollaborators](user-manual-multimedia/AssignSkillsCollaborators.png)
 
 Choose the desired collaborator.
 
@@ -271,27 +288,28 @@ If followed correctly collaborator will get the desired skills on his profile!
 
 ### 8. Generate Team Proposal Automatically
 
-
 **Access:**
 
-![GenerateTeamProposal](user-manual-multimedia/GenerateTeamProposal.png)
+Choose button Team from the HRM Menu.
 
-Choose option number 8 (8 - Generate a team proposal) from the HRM MENU.
+![TeamMenu](user-manual-multimedia/TeamMenu.png)
+
+Choose button Create Team from the Team Menu.
 
 **Generating Proposal:**
 
-![GenerateTeamProposalProccess](user-manual-multimedia/GenerateTeamProposalProccess.png)
+![CreateTeam](user-manual-multimedia/CreateTeam.png)
 
 Enter the team details (Team Maximum Size, Team Minimum Size).
 
 Choose desired skills that the employees of the team need to have.
 
+Choose button Create Team.
+
 If followed correctly and there were available employess with the desired skills the team will be successfully generated and the employees on the team will be displyed along with their information.
 
-## II. Vehicle and Equipment Fleet Manager Features
+## II. Vehicle and Equipment Fleet Manager Features (Not developed in PPROG)
 [top](#top)
-
-![VFMLogin](user-manual-multimedia/VFMLogin.png)
 
 Each user must be logged in to have access to each role's options.
 
@@ -299,9 +317,7 @@ Each user must be logged in to have access to each role's options.
 
 **Access:**
 
-![RegisterVehicle](user-manual-multimedia/RegisterVehicle.png)
-
-Choose option number 1 (1 - Create Vehicle) from the VFM MENU.
+Not developed.
 
 **Registration Process:**
 
@@ -311,9 +327,7 @@ Not developed.
 
 **Access:**
 
-![RegisterVehicleMaintenance](user-manual-multimedia/RegisterVehicleMaintenance.png)
-
-Choose option number 2 (2 - Register Maintenance of Vehicle) from the VFM MENU.
+Not developed.
 
 **Registration Process:**
 
@@ -323,13 +337,217 @@ Not developed.
 
 **Access:**
 
-![ListVehiclesWithPendingMaintenances](user-manual-multimedia/ListVehiclesWithPendingMaintenances.png)
-
-Choose option number 3 (3 - List Vehicle who needs Maintenance) from the VFM MENU.
+Not developed.
 
 **Viewing List:**
 
 Not developed.
+
+## III. Green Spaces Manager Features
+[top](#top)
+
+![GSMMenu](user-manual-multimedia/GSMmenu.png)
+
+Each user must be logged in to have access to each role's options.
+
+### 1. Create Green Space
+
+**Access:**
+
+Choose button Green Spaces from the GSM Menu.
+
+![GreenSpacesMenu](user-manual-multimedia/GreenSpacesMenu.png)
+
+Choose button Create Green Space from the Green Spaces Menu.
+
+**Registration Process:**
+
+![CreateGreenSpace](user-manual-multimedia/CreateGreenSpace.png)
+
+Enter the green space details.
+
+Choose button Submit.
+
+If followed correctly green space will be successfully created!
+
+### 2. List All Green Spaces
+
+**Access:**
+
+Choose button Green Spaces from the GSM Menu.
+
+![GreenSpacesMenu](user-manual-multimedia/GreenSpacesMenu.png)
+
+Choose button List All Green Spaces from the Green Spaces Menu.
+
+**Registration Process:**
+
+![ListAllGreenSpaces](user-manual-multimedia/ListAllGreenSpaces.png)
+
+A list with all Green Spaces available and their information will be presented.
+
+### 3. List My Green Space
+
+**Access:**
+
+Choose button Green Spaces from the GSM Menu.
+
+![GreenSpacesMenu](user-manual-multimedia/GreenSpacesMenu.png)
+
+Choose button List My Green Space from the Green Spaces Menu.
+
+**Registration Process:**
+
+![ListMyGreenSpaces](user-manual-multimedia/ListAllGreenSpaces.png)
+
+A list with my Green Spaces and their information will be presented.
+
+### 4. Create Task
+
+**Access:**
+
+Choose button Task from the GSM Menu.
+
+![TaskMenu](user-manual-multimedia/TaskMenu.png)
+
+Choose button Create Task from the Green Spaces Menu.
+
+**Registration Process:**
+
+![CreateTask](user-manual-multimedia/CreateTask.png)
+
+Enter the Task details.
+
+Choose button Create Task.
+
+If followed correctly task will be successfully created!
+
+### 5. List Task
+
+**Access:**
+
+Choose button Task from the GSM Menu.
+
+![TaskMenu](user-manual-multimedia/TaskMenu.png)
+
+Choose button List Task from the Task Menu.
+
+**Registration Process:**
+
+![ListTasks](user-manual-multimedia/ListTasks.png)
+
+A list with tasks available and their information will be presented.
+
+### 6. Create Entry
+
+**Access:**
+
+Choose button To Do List from the GSM Menu.
+
+![ToDoListMenu](user-manual-multimedia/ToDoListMenu.png)
+
+Choose button Create Entry from the To Do List Menu.
+
+**Registration Process:**
+
+![CreateEntry](user-manual-multimedia/CreateEntry.png)
+
+Enter the Entry details.
+
+Choose button Create Entry.
+
+If followed correctly entry will be successfully created!
+
+### 7. List Task
+
+**Access:**
+
+Choose button To Do List from the GSM Menu.
+
+![ToDoListMenu](user-manual-multimedia/ToDoListMenu.png)
+
+Choose button List Entries from the To Do List Menu.
+
+**Registration Process:**
+
+![ListEntries](user-manual-multimedia/ListEntries.png)
+
+A list with entries available and their information will be presented.
+
+### 8. Add New Entry To Agenda
+
+**Access:**
+
+Choose button Agenda from the GSM Menu.
+
+![AgendaMenu](user-manual-multimedia/AgendaMenu.png)
+
+Choose button Add New Entry To Agenda from the Agenda Menu.
+
+**Registration Process:**
+
+![AddNewEntryAgenda](user-manual-multimedia/AddNewEntryAgenda.png)
+
+Enter the Entry details.
+
+Choose button Add New Entry.
+
+If followed correctly Entry will be successfully created!
+
+### 9. List Agenda
+
+**Access:**
+
+Choose button Agenda from the GSM Menu.
+
+![AgendaMenu](user-manual-multimedia/AgendaMenu.png)
+
+Choose button List Agenda from the Agenda Menu.
+
+**Registration Process:**
+
+![ListAgendaEntries](user-manual-multimedia/ListAgendaEntries.png)
+
+A list with Entries available and their information will be presented.
+
+### 9. Assign Team To Entry
+
+**Access:**
+
+Choose button Agenda from the GSM Menu.
+
+![AgendaMenu](user-manual-multimedia/AgendaMenu.png)
+
+Choose button Assign Team To Entry from the Agenda Menu.
+
+**Registration Process:**
+
+![AssignTeamToEntry](user-manual-multimedia/AssignTeamToEntry.png)
+
+Choose the Entry.
+
+Choose the Team.
+
+Choose button Assign Team.
+
+## IIII. Collaborator Features
+[top](#top)
+
+Each user must be logged in to have access to each role's options.
+
+### 1. List My Tasks
+
+**Access:**
+
+![CollaboratorsMenu](user-manual-multimedia/CollaboratorsMenu.png)
+
+Choose button List Tasks from the Collaborators Menu.
+
+**Registration Process:**
+
+![ListMyTasksMenu](user-manual-multimedia/ListMyTasksMenu.png)
+
+A list with all My Tasks available and their information will be presented.
 
 ## <a id="faq"></a> Frequently Asked Questions (FAQ)
 [top](#top)
