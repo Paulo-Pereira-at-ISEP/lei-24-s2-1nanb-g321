@@ -17,7 +17,7 @@
     assertEquals(entry.getEntryDate(), newDate); 
     }
 
-**Test 1:** Check if the UI handles the exception appropriately.
+**Test 2:** Check if the UI handles the exception appropriately.
 
 	@Test
     public void testPostponeEntry_EntryNotFound() throws Exception {
