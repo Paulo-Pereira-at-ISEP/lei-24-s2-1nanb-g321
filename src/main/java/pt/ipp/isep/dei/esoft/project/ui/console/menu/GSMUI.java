@@ -26,6 +26,8 @@ public class GSMUI implements Runnable {
         options.add(new MenuItem("Tasks", new TaskUI()));
         options.add(new MenuItem("To Do List", new ToDoListUI()));
         options.add(new MenuItem("Agenda", new AgendaUI()));
+        options.add(new MenuItem("Evac sign routes (US17)", new AgendaUI()));
+        options.add(new MenuItem("Evac sign routes (US18)", new AgendaUI()));
 
         int option = 0;
         do {
