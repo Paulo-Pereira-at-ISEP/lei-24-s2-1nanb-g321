@@ -15,14 +15,14 @@ activate Employee
     Employee -> System : asks to add an entry to the agenda
     activate System
 
-    System --> Employee : shows list of parks managed by the GSM
-    Employee -> System : selects a park
-    System --> Employee : shows list of task from the to-do list
-    Employee -> System : selects a task
-    System --> Employee : Asks to select an urgency degree
-    Employee -> System : selects urgency degree
-    System --> Employee : asks to type the duration
-    Employee -> System : types duration
+    System --> Employee : shows list of entries and asks to select one
+    Employee -> System : selects an entry
+    System --> Employee : asks to select a date
+    Employee -> System : select date
+    System --> Employee : asks to select a starting hour
+    Employee -> System : sects starting hour
+    System --> Employee : shows data and asks for confirmation
+    Employee -> System : confirms data
     System --> Employee : display success message
 
    deactivate System

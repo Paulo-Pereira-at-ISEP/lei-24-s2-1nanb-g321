@@ -6,107 +6,117 @@ skinparam shadowing false
 autonumber
 
 'hide footbox
-actor "Vehicle Fleet Manager" as VFM
-participant ":ListVehiclesPendingMaintenanceUI" as UI
-participant ":ListVehiclesPendingMaintenanceController" as controller
+
+actor "Green Spaces Manager" as GSM
+participant ":CreateEntryUI" as UI
+participant ":CreateEntryController" as controller
 participant ":Repositories" as singleton
 participant "repositories\n:Repositories" as rep
-participant "vehicleRepository\n:vehicleRepository" as vehicleRepository
+participant "AgendaRepository\n:AgendaRepository" as agendaRep
+participant "toDoListRepository\n:ToDoListRepository" as toDoListRep
 participant "authenticationRepository\n:AuthenticationRepository" as AUTH_REPO
 participant "userSession\n:UserSession" as USR_SESSION
-participant ":Vehicle" as vehicle
-participant ":VehicleMaintenance" as VehicleMaintenance
+participant ":Manager" as manager
+participant ":Entry" as Entry
 
-note right of VFM
-    - The user is already logged in at this step.
-    - Authentication sequence is explained in
-    a sequence excerpt.
-end note
+
 
 note right of singleton
     - Singleton is
     in use
 end note
 
-activate VFM
+        activate GSM
 
-        VFM -> UI :asks to list vehicle's in need for a check-up
-
+        GSM -> UI : asks to add an entry to the agenda
         activate UI
+            'create controller
+        UI -> controller** : create
+        activate controller
 
-            UI -> controller** : create
+        controller-> singleton : getInstance()
+        activate singleton
 
-            UI -> controller : asks for a list of the vehicles pending maintenance
-            activate controller
+        singleton --> controller : repositories
+        deactivate singleton
 
-                controller -> singleton : getInstance()
-                activate singleton
+        controller -> singleton : getManagerFromSession()
 
-                    singleton --> controller: repositories
-                deactivate singleton
 
-                controller -> singleton : getEmployeeFromSession()
+        activate singleton
 
-                note right of controller
-                    - This method is explained
-                    in detail in an excerpt
-                    sequence diagram.
-                end note
+        singleton --> controller : manager
 
-                activate singleton
+        deactivate singleton
 
-                singleton --> controller : employee
 
-                deactivate singleton
 
-                controller -> rep : getVehicleRepository()
-                activate rep
 
-                    rep --> controller: vehicleRepository
-                deactivate rep
+        controller -> rep : getTodoListRepository()
+        activate rep
 
-                controller -> vehicleRepository : getAllVehicles()
-                activate vehicleRepository
+        rep --> controller : toDoListRep
+        deactivate rep
 
-                    vehicleRepository --> controller : vehicles
-                deactivate vehicleRepository
+        controller -> toDoListRep : getAllEntries()
+        activate toDoListRep
 
-                loop for each vehicle
+        toDoListRep --> controller : entries
+        deactivate toDoListRep
 
-                controller -> vehicle: getMaintenanceFrequency()
-                activate vehicle
 
-                vehicle --> controller: MaintenanceFrequency
-                deactivate vehicle
+        controller --> UI : entries
+        deactivate controller
 
-                controller -> vehicle: getLastMaintenance()
-                activate vehicle
+        UI --> GSM : shows list of entries and asks to select one
 
-                vehicle --> controller: lastMaintenance
-                deactivate vehicle
 
-                controller -> vehicle: getCurrentKm()
-                activate vehicle
+        GSM -> UI : selects entry
 
-                vehicle --> controller: currentKm
-                deactivate vehicle
+        UI --> GSM: asks to select a date
+        UI -> UI : validates date
+        GSM -> UI : select date for entry
 
-                controller -> VehicleMaintenance: vehicleMaintenance(MaintenanceFrequency, lastMaintenance)
-                activate VehicleMaintenance
+        UI --> GSM : asks to type the starting hour
+        UI -> UI : Validates the starting hour
+        GSM -> UI : types starting hour
 
-                VehicleMaintenance --> VehicleMaintenance: validateVehicleMaintenance
 
-                VehicleMaintenance --> controller: vehiclesMaintenance
-                deactivate VehicleMaintenance
 
-                end
 
-                controller --> UI : vehiclesWithPendingMaintenanceList
-            deactivate controller
+        UI --> GSM : shows data
 
-            UI --> VFM : shows vehicles that need Maintenance
+                UI -> controller : asks to add new entry
+                deactivate UI
+                activate controller
+
+                controller -> Entry : addNewEntry()
+                activate Entry
+                Entry -> Entry : validates
+                Entry --> controller : newEntry
+                deactivate Entry
+
+                controller --> UI : newEntry
+                activate UI
+
+                UI --> GSM : asks for confirmation
+                GSM -> UI : confirms data
+
+                UI -> controller : add new Entry
+                controller -> agendaRep : addNewEntryToAgenda()
+                activate agendaRep
+
+                agendaRep -> controller: newEntryToAgenda
+                deactivate agendaRep
+                controller --> UI : newEntryToAgenda
+                deactivate controller
+                UI -> GSM : displays success message
+
+                UI --> HRM : shows success message
+
+
         deactivate UI
 
-deactivate VFM
+        deactivate GSM
 
 @enduml

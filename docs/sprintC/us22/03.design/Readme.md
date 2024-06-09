@@ -6,34 +6,30 @@
 
 _**Note that SSD - Alternative One is adopted.**_
 
-| Interaction ID                                 | Question: Which class is responsible for...      | Answer                                   | Justification (with patterns)                                     |
-|:-----------------------------------------------|:-------------------------------------------------|:-----------------------------------------|:------------------------------------------------------------------|
-| Step 1: shows list of parks managed by the GSM | ... instantiating the class that handles the UI? | ListVehiclesPendingMaintenanceUI         | Pure Fabrication                                                  |
-|                                                | ... coordinating the US?                         | ListVehiclesPendingMaintenanceController | Controller                                                        |
-|                                                | ... obtaining the registered vehicles?           | Repositories,VehicleRepository           | Information Expert, Pure Fabrication                              |
-|                                                | ... obtaining the vehicle to be validated?       | Vehicle                                  | Information Expert (knows all its attributes)                     |
-|                                                | ... validating if the vehicle needs check-up?    | Maintenances                             | GRASP, Low Coupling, Promotion of Collections to Software Classes |
-| Step 2: selects a park                         | ... displaying vehicle's in need for a check-up? | ListVehiclesPendingMaintenanceUI         | Pure Fabrication                                                  |
-| Step 3: shows list of task from the to-do list | ... displaying vehicle's in need for a check-up? | ListVehiclesPendingMaintenanceUI         | Pure Fabrication                                                  |
-| Step 4: selects a task                         | ... displaying vehicle's in need for a check-up? | ListVehiclesPendingMaintenanceUI         | Pure Fabrication                                                  |
-| Step 5: Asks to select the urgency degree      | ... displaying vehicle's in need for a check-up? | ListVehiclesPendingMaintenanceUI         | Pure Fabrication                                                  |
-| Step 6: selects an urgency degree              | ... displaying vehicle's in need for a check-up? | ListVehiclesPendingMaintenanceUI         | Pure Fabrication                                                  |
-| Step 7: asks to type the duration of the task  | ... displaying vehicle's in need for a check-up? | ListVehiclesPendingMaintenanceUI         | Pure Fabrication                                                  |
-| Step 8: types duration                         | ... displaying vehicle's in need for a check-up? | ListVehiclesPendingMaintenanceUI         | Pure Fabrication                                                  |
-| Step 9: display success message                | ... displaying vehicle's in need for a check-up? | ListVehiclesPendingMaintenanceUI         | Pure Fabrication                                                  |
+| Interaction ID                                      | Question: Which class is responsible for...               | Answer                | Justification (with patterns) |
+|:----------------------------------------------------|:----------------------------------------------------------|:----------------------|:------------------------------|
+| Step 1: asks to add an entry to the agenda          | ... instantiating the class that handles the UI?          | CreateEntryUI         | Pure Fabrication              |
+|                                                     | ... coordinating the US?                                  | CreateEntryController | Controller                    |
+|                                                     | ... guaranteeing that only one instance is available?     | repositories          | singleton                     |
+|                                                     | ... instantiation of repositories?                        | CreateEntryController | Controller                    |
+| Step 2: shows list of entries and ask to select one | ... getting the list of entries?                          | ToDoListRepository    | Information Expert            |
+|                                                     | ... ask for the actor to select data?                     | CreateEntryUI         | Pure Fabrication              |
+| Step 3: asks to select a date                       | ... ask for the actor to select data?                     | CreateEntryUI         | Information Expert            |
+| Step 5: asks to select an urgency degree            | ... ask for the actor to select data?                     | CreateEntryUi         | Pure Fabrication              |
+| Step 6: asks to type the duration                   | ... ask for the actor to type data?                       | CreateEntryUI         | Pure Fabrication              |
+| Step 7: shows data and asks for confirmation        | ... validating data before adding entry (mandatory data)? | Entry                 | Information Expert            |
+|                                                     | ... adding an Entry and validating data?                  | AgendaRepository      | Information Expert            |
+| Step 7: display success message                     | ... informing the operation success?                      | CreateEntryUI         | Pure Fabrication              |
 
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
-* Vehicle
-* VehicleMaintenance
+* Entry
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
-* ListVehiclesPendingMaintenanceUI  
-* ListVehiclesPendingMaintenanceController
-* VehicleRepository
+* AgendaRepository
 
 
 ## 3.2. Sequence Diagram (SD)
@@ -43,7 +39,7 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
-![Sequence Diagram - Full](svg/us08-sequence-diagram-full.svg)
+![Sequence Diagram - Full](svg/us22-sequence-diagram-full.svg)
 
 ### Split Diagrams
 
