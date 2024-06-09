@@ -1,0 +1,140 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+actor "Green Spaces Manager" as GSM
+participant ":CreateAddTeamToEntryUI" as UI
+participant ":CreateAddTeamToEntryController" as controller
+participant ":Repositories" as singleton
+participant "repositories\n:Repositories" as rep
+participant "AgendaRepository\n:AgendaRepository" as agendaRep
+participant "authenticationRepository\n:AuthenticationRepository" as AUTH_REPO
+participant "userSession\n:UserSession" as USR_SESSION
+participant ":Manager" as manager
+participant ":Entry" as Entry
+
+note right of singleton
+    - Singleton is
+    in use
+end note
+
+activate GSM
+
+GSM -> UI : asks to add a team to an entry in the agenda
+activate UI
+
+UI -> controller : create
+activate controller
+
+controller -> singleton : getInstance()
+activate singleton
+
+singleton --> controller : repositories
+deactivate singleton
+
+controller -> singleton : getManagerFromSession()
+activate singleton
+
+singleton --> controller : manager
+deactivate singleton
+
+controller -> rep : getAgendaRepository()
+activate rep
+
+rep --> controller : agendaRep
+deactivate rep
+
+controller -> agendaRep : getAllEntries()
+activate agendaRep
+
+agendaRep --> controller : entries
+deactivate agendaRep
+
+controller --> UI : entries
+deactivate controller
+
+UI --> GSM : shows list of entries and asks to select one
+
+GSM -> UI : selects entry
+
+UI --> GSM : asks to select a team
+GSM -> UI : selects team
+
+UI --> controller : team selected
+deactivate UI
+activate controller
+
+controller -> Entry : addNewTeamToEntry(selectedTeam)
+activate Entry
+
+Entry -> Entry : validates
+Entry --> controller : newTeamToEntry
+deactivate Entry
+
+controller --> UI : newTeamToEntry
+activate UI
+
+controller -> rep : getTeamRepository()
+activate rep
+
+rep --> controller : teamRep
+deactivate rep
+
+controller -> teamRep : validateTeam(selectedTeam)
+activate teamRep
+
+teamRep --> controller : validationResult
+deactivate teamRep
+
+alt Team is available
+    controller --> UI : valid team
+    UI --> GSM : display data and asks for confirmation
+    GSM -> UI : confirms data
+    UI -> controller : add new Entry
+    controller -> agendaRep : addNewTeamToEntry()
+    activate agendaRep
+    agendaRep -> controller : newTeamToEntry
+    deactivate agendaRep
+    controller --> UI : newTeamToEntry
+
+    UI -> GSM : displays success message
+end
+
+alt Team is not available
+    controller --> UI : team not valid (already assigned in that time range)
+    deactivate controller
+    UI --> GSM : team not valid (already assigned in that time range)
+    UI --> GSM : ask the GSM to select another team
+    loop
+        GSM -> UI : selects team
+        UI --> controller : team selected
+        activate controller
+        controller -> teamRep : validateTeam(selectedTeam)
+        activate teamRep
+        teamRep --> controller : validationResult
+        deactivate teamRep
+
+        alt Team is available
+            controller --> UI : valid team
+            UI --> GSM : display data and asks for confirmation
+            GSM -> UI : confirms data
+            UI -> controller : add new Entry
+            controller -> agendaRep : addNewTeamToEntry()
+            activate agendaRep
+            agendaRep -> controller : newTeamToEntry
+            deactivate agendaRep
+            controller --> UI : newTeamToEntry
+            deactivate controller
+            UI -> GSM : displays success message
+            break
+        end
+    end
+end
+
+deactivate UI
+deactivate GSM
+
+@enduml

@@ -12,17 +12,28 @@ participant ":System" as System
 
 activate Employee
 
-    Employee -> System : asks to add an entry to the agenda
+    Employee -> System : asks to add a team to an entry
     activate System
 
-    System --> Employee : shows list of tasks in the agenda
-    Employee -> System  : selects a task
-    System --> Employee : shows list of teams available
-    Employee -> System  : selects a team
-    System --> Employee : asks for the duration of task
-    Employee -> System  : selects duration
-    System --> Employee : display success message with data selected
+   System-->Employee: Show list of entries in the agenda
 
-   deactivate System
+       Employee -> System: Selects an entry
+
+       System --> Employee: Show list of teams created
+
+       Employee -> System: Selects a team
+
+
+       Alt Team available
+           System --> Employee: Team assignment successful
+           System -> Employee: Display success message with data selected
+       End
+       Alt Team unavailable
+           System -> Employee: Team cannot be assigned (Already assigned in that hour range)
+           Employee --> System: Select another team or exit
+           System -> Employee : Displays operation confirmation message
+
+       End
+       deactivate System
 
 @enduml

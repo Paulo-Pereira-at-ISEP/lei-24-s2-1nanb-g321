@@ -1,65 +1,112 @@
 # US08 - As a VFM, I want the system to produce a list (report) of vehicles needing maintenance.
 
-## 4. Tests 
+## 4. Tests
 
-**Test 1:** Check that it is not possible to create an instance of the Task class with null values. 
+**Test 1:** Check if a valid entry can be successfully added to the to-do list repository.
 
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureNullIsNotAllowed() {
-		Task instance = new Task(null, null, null, null, null, null, null);
-	}
+	@Test
+    public void testAddEntry_ValidEntry_SuccessfullyAdded() {
+        // Arrange
+        Entry entry = createTestEntry();
+
+        // Act
+        toDoListRepository.addEntry(entry);
+
+        // Assert
+        assertTrue(toDoListRepository.getAllEntrys().contains(entry));
+    }
+
+**Test 2:** Checks if when a null entry is attempted to be added to the to-do list repository, a NullPointerException is thrown, as expected.
 	
+    @Test
+    public void testAddEntry_NullEntry_ExceptionThrown() {
+        // Act & Assert
+        assertThrows(NullPointerException.class, () -> toDoListRepository.addEntry(null));
+    }
 
-**Test 2:** Check that it is not possible to create an instance of the Task class with a reference containing less than five chars - AC2. 
+**Test 3:** Check that the sortEntriesByUrgencyDegree() method of the ToDoListRepository sorts a list of entries based on their urgency degree correctly.
 
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureReferenceMeetsAC2() {
-		Category cat = new Category(10, "Category 10");
-		
-		Task instance = new Task("Ab1", "Task Description", "Informal Data", "Technical Data", 3, 3780, cat);
-	}
+	@Test
+    public void testSortEntriesByUrgencyDegree_EntryListSortedByUrgencyDegree() {
+        // Arrange
+        List<Entry> unsortedEntries = createUnsortedEntries();
 
-_It is also recommended to organize this content by subsections._ 
+        // Act
+        List<Entry> sortedEntries = toDoListRepository.sortEntriesByUrgencyDegree(unsortedEntries);
+
+        // Assert
+        assertEquals(3, sortedEntries.size());
+        assertEquals("High", sortedEntries.get(0).getUrgencyDegree());
+        assertEquals("Medium", sortedEntries.get(1).getUrgencyDegree());
+        assertEquals("Low", sortedEntries.get(2).getUrgencyDegree());
+    }
+
 
 
 ## 5. Construction (Implementation)
 
-### Class CreateTaskController 
+### Class Entry
+
+
+
+### Class Entry
 
 ```java
-public Task createTask(String reference, String description, String informalDescription, String technicalDescription,
-                       Integer duration, Double cost, String taskCategoryDescription) {
-
-	TaskCategory taskCategory = getTaskCategoryByDescription(taskCategoryDescription);
-
-	Employee employee = getEmployeeFromSession();
-	Organization organization = getOrganizationRepository().getOrganizationByEmployee(employee);
-
-	newTask = organization.createTask(reference, description, informalDescription, technicalDescription, duration,
-                                      cost,taskCategory, employee);
-    
-	return newTask;
+ public Entry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate entryDate, int hour, Team team) {
+    super(name, description);
+    this.urgencyDegree = urgencyDegree;
+    this.duration = duration;
+    this.greenSpace = greenSpace;
+    this.entryDate = entryDate;
+    this.status = "Planned";
+    this.hour = hour;
+    this.team = team;
+    this.startTime = LocalTime.of(hour, 0); // Assuming start time is at the beginning of the hour
+    this.endTime = calculateEndTime();
 }
 ```
 
-### Class Organization
+### Class CreateTeamToEntryController
 
 ```java
-public Optional<Task> createTask(String reference, String description, String informalDescription,
-                                 String technicalDescription, Integer duration, Double cost, TaskCategory taskCategory,
-                                 Employee employee) {
-    
-    Task task = new Task(reference, description, informalDescription, technicalDescription, duration, cost,
-                         taskCategory, employee);
+public Entry createEntry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate date, int hour, Team team) {
+    // Create entry with start time and calculate end time
+    Entry newEntry = new Entry(name, description, urgencyDegree, duration, greenSpace, date, hour, team);
+    newEntry.setStartTime(LocalTime.of(hour, 0)); // Assuming start time is at the beginning of the hour
+    newEntry.setEndTime(newEntry.getStartTime().plusHours(duration));
 
-    addTask(task);
-        
-    return task;
+
+    // Add entry to repository
+    agendaRepository.addEntry(newEntry);
+
+
+    return newEntry;
+}
+```
+
+### Class CreateTeamToEntryRepository
+
+```java
+public Optional<Entry> add(Entry entry) {
+
+    if (entry == null) {
+        throw new NullPointerException("Entry cannot be null");
+    }
+
+    if (validateEntry(entry)) {
+        Entry clonedEntry = entry.clone();
+        if (entrys.add(clonedEntry)) {
+            serialize();
+            return Optional.of(clonedEntry);
+        }
+    }
+
+    return Optional.empty();
 }
 ```
 
 
-## 6. Integration and Demo 
+## 6. Integration and Demo
 
 * A new option on the Employee menu options was added.
 

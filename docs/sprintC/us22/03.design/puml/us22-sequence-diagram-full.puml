@@ -8,7 +8,7 @@ autonumber
 'hide footbox
 
 actor "Green Spaces Manager" as GSM
-participant ":CreateEntryUI" as UI
+participant ":CreateEntryToAgendaUI" as UI
 participant ":CreateEntryController" as controller
 participant ":Repositories" as singleton
 participant "repositories\n:Repositories" as rep
@@ -112,7 +112,7 @@ end note
                 deactivate controller
                 UI -> GSM : displays success message
 
-                UI --> HRM : shows success message
+
 
 
         deactivate UI

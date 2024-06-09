@@ -91,12 +91,28 @@ public class Entry extends Task implements Serializable {
     public String toString() {
         return  "Entry: \nGreenSpace= " + getGreenSpace().getName() +"\nTitle=" + super.getName() +"\nDescription=" + super.getDescription() +
                 "\nUrgencyDegree=" + urgencyDegree +
-                "\nDuration=" + duration +
-                '}' ;
+                "\nDuration=" + duration  ;
     }
 
     public Entry clone() {
         return new Entry(getName(), getDescription(), urgencyDegree, duration, greenSpace, entryDate, hour, team);
+    }
+
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
+        Entry entry = (Entry) obj;
+        return getName().equals(entry.getName()) &&
+                getDescription().equals(entry.getDescription()) &&
+                getUrgencyDegree().equals(entry.getUrgencyDegree()) &&
+                getDuration() == entry.getDuration() &&
+                getGreenSpace().equals(entry.getGreenSpace()) &&
+                getEntryDate().equals(entry.getEntryDate()) &&
+                getHour() == entry.getHour();
     }
 
     public GreenSpace getGreenSpace() {

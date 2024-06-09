@@ -1,19 +1,24 @@
-# US08 - As a VFM, I want the system to produce a list (report) of vehicles needing maintenance.
+# US23 - As a GSM, I want to assign a Team to an entry in the Agenda
 
 ## 3. Design - User Story Realization 
 
-### 3.1. Rationale
 
 _**Note that SSD - Alternative One is adopted.**_
 
-| Interaction ID                                        | Question: Which class is responsible for...      | Answer                                   | Justification (with patterns)                                     |
-|:------------------------------------------------------|:-------------------------------------------------|:-----------------------------------------|:------------------------------------------------------------------|
-| Step 1: Asks to list vehicle's in need for a check-up | ... instantiating the class that handles the UI? | ListVehiclesPendingMaintenanceUI         | Pure Fabrication                                                  |
-|                                                       | ... coordinating the US?                         | ListVehiclesPendingMaintenanceController | Controller                                                        |
-|                                                       | ... obtaining the registered vehicles?           | Repositories,VehicleRepository           | Information Expert, Pure Fabrication                              |
-|                                                       | ... obtaining the vehicle to be validated?       | Vehicle                                  | Information Expert (knows all its attributes)                     |
-|                                                       | ... validating if the vehicle needs check-up?    | Maintenances                             | GRASP, Low Coupling, Promotion of Collections to Software Classes |
-| Step 2: shows vehicle's in need for a check-up        | ... displaying vehicle's in need for a check-up? | ListVehiclesPendingMaintenanceUI         | Pure Fabrication                                                  |
+| Interaction ID                                      | Question: Which class is responsible for...               | Answer                | Justification (with patterns) |
+|:----------------------------------------------------|:----------------------------------------------------------|:----------------------|:------------------------------|
+| Step 1: asks to select a team to an entry           | ... instantiating the class that handles the UI?          | CreateEntryUI         | Pure Fabrication              |
+|                                                     | ... coordinating the US?                                  | CreateEntryController | Controller                    |
+|                                                     | ... guaranteeing that only one instance is available?     | repositories          | singleton                     |
+|                                                     | ... instantiation of repositories?                        | CreateEntryController | Controller                    |
+| Step 2: shows list of entries and ask to select one | ... getting the list of entries?                          | ToDoListRepository    | Information Expert            |
+|                                                     | ... ask for the actor to select data?                     | CreateEntryUI         | Pure Fabrication              |
+| Step 3: asks to select a date                       | ... ask for the actor to select data?                     | CreateEntryUI         | Information Expert            |
+| Step 5: asks to select an urgency degree            | ... ask for the actor to select data?                     | CreateEntryUi         | Pure Fabrication              |
+| Step 6: asks to type the duration                   | ... ask for the actor to type data?                       | CreateEntryUI         | Pure Fabrication              |
+| Step 7: shows data and asks for confirmation        | ... validating data before adding entry (mandatory data)? | Entry                 | Information Expert            |
+|                                                     | ... adding an Entry and validating data?                  | AgendaRepository      | Information Expert            |
+| Step 7: display success message                     | ... informing the operation success?                      | CreateEntryUI         | Pure Fabrication              |
 
 ### Systematization ##
 
@@ -36,18 +41,9 @@ Other software classes (i.e. Pure Fabrication) identified:
 
 This diagram shows the full sequence of interactions between the classes involved in the realization of this user story.
 
-![Sequence Diagram - Full](svg/us08-sequence-diagram-full.svg)
+![Sequence Diagram - Full](svg/us23-sequence-diagram-full.svg)
 
-### Split Diagrams
-
-The following diagram shows the same sequence of interactions between the classes involved in the realization of this user story, but it is split in partial diagrams to better illustrate the interactions between the classes.
-
-It uses Interaction Occurrence (a.k.a. Interaction Use).
-
-**Get Employee**
-
-![Sequence Diagram - Partial - Get Employee](svg/us08-sequence-diagram-partial-get-employee.svg)
 
 ## 3.3. Class Diagram (CD)
 
-![Class Diagram](svg/us08-class-diagram.svg)
+![Class Diagram](svg/us23-class-diagram.svg)

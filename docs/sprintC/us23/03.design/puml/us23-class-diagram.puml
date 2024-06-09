@@ -1,0 +1,74 @@
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+skinparam linetype polyline
+skinparam classAttributeIconSize 0
+
+Package Controller <<Folder>>{
+class CreateTeamToEntryController {
+    - teamRepository : TeamRepository
+    - agendaRepository : AgendaRepository
+    + createEntry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate date, int hour, Team team)
+}
+}
+Package UI <<Folder>>{
+class CreateTeamToEntryUI {
+    + run()
+    + requestData()
+    + submitData()
+    + requestEntries()
+    + requestTeam()
+    }
+}
+
+
+Package Domain <<Folder>>{
+class Entry {
+    - String name
+    - String description
+    - String urgencyDegree
+    - int duration
+    - GreenSpace greenSpace
+    - String status
+    - LocalDate entryDate
+    - int hour
+    - Team team
+    - LocalTime startTime;
+    - LocalTime endTime;
+    + Entry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate date, int hour)
+
+}
+}
+Package Repositories <<Folder>>{
+class Repositorie {
+    - Repositories()
+    + getInstance() : Repositories
+    + getTeamRepository() : TeamRepository
+    + getAgendaRepository() : AgendaRepository
+}
+}
+Package Repositories <<Folder>>{
+class TeamRepository {
+    + getAllTeams() : List<Team>
+}
+}
+
+Package Repositories <<Folder>>{
+class AgendaRepository {
+    + getAllEntriesToAgenda() : List<Entry>
+    + addNewEntry()
+}
+}
+
+CreateTeamToEntryUI "1" --> "1" CreateTeamToEntryController : uses
+CreateTeamToEntryController ..> Repositorie : gets repositories
+Repositorie --> Repositorie : instance
+Repositorie "1" --> "1" TeamRepository : teamRepository
+Repositorie "1" --> "1" AgendaRepository : agendaRepository
+
+CreateTeamToEntryController ..> Entry : create new entry
+Entry --> CreateTeamToEntryController : newEntry
+CreateTeamToEntryController ..> AgendaRepository : add neWntry
+
+@enduml
