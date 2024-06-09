@@ -4,29 +4,32 @@
 
 ### 3.1. Rationale
 
-_**Note that SSD - Alternative One is adopted.**_
-
-| Interaction ID                                        | Question: Which class is responsible for...      | Answer                                   | Justification (with patterns)                                     |
-|:------------------------------------------------------|:-------------------------------------------------|:-----------------------------------------|:------------------------------------------------------------------|
-| Step 1: Asks to list vehicle's in need for a check-up | ... instantiating the class that handles the UI? | ListVehiclesPendingMaintenanceUI         | Pure Fabrication                                                  |
-|                                                       | ... coordinating the US?                         | ListVehiclesPendingMaintenanceController | Controller                                                        |
-|                                                       | ... obtaining the registered vehicles?           | Repositories,VehicleRepository           | Information Expert, Pure Fabrication                              |
-|                                                       | ... obtaining the vehicle to be validated?       | Vehicle                                  | Information Expert (knows all its attributes)                     |
-|                                                       | ... validating if the vehicle needs check-up?    | Maintenances                             | GRASP, Low Coupling, Promotion of Collections to Software Classes |
-| Step 2: shows vehicle's in need for a check-up        | ... displaying vehicle's in need for a check-up? | ListVehiclesPendingMaintenanceUI         | Pure Fabrication                                                  |
+| Interaction ID                                         | Question: Which class is responsible for...           | Answer                                   | Justification (with patterns)                                     |
+|:-------------------------------------------------------|:------------------------------------------------------|:-----------------------------------------|:------------------------------------------------------------------|
+| Step 1: asks to consult a list of tasks assigned to me | ... instantiating the class that handles the UI?      | ListMyAgendaUI                           | Pure Fabrication                                                  |
+|                                                        | ... coordinating the US?                              | CreateEntryToAgendaController            | Controller                                                        |
+|                                                        | ... knowing the user using the system?                | UserSession                              | IE: cf. A&A component documentation.                              |
+|                                                        |                                                       | Organization                             | IE: knows/has its own Employees                                   |
+|                                                        |                                                       | Employee                                 | IE: knows its own data (e.g. email)                               |
+| Step 2: request data (inicialDate, finalDate)          | ... display the form for the actor to input data?     | ListMyAgendaUI                           | Pure Fabrication                                                  |
+| Step 3: types requested data                           | ... validating the inputted data?                     | ListMyAgendaUI                           | Pure Fabrication                                                  |
+|                                                        | ... temporarily keeping the input data?               | ListMyAgendaUI                           | Pure Fabrication                                                  |
+| Step 4: requests confirmation                          | ... displaying all the information before submitting? | ListMyAgendaUI                           | Pure Fabrication                                                  |
+| Step 5: confirms data and request list                 | ... coordinating the US?                              | ListVehiclesPendingMaintenanceController | Controller                                                        |
+|                                                        | ... obtaining the registered entries?                 | Repositories,AgendaRepository            | Information Expert, Pure Fabrication                              |
+| Step 6: displays list of tasks                         | ... informing the operation success?                  | ListMyAgendaUI                           | Pure Fabrication                                                  |
 
 ### Systematization ##
 
 According to the taken rationale, the conceptual classes promoted to software classes are: 
 
-* Vehicle
-* VehicleMaintenance
+* Entry
 
 Other software classes (i.e. Pure Fabrication) identified: 
 
-* ListVehiclesPendingMaintenanceUI  
-* ListVehiclesPendingMaintenanceController
-* VehicleRepository
+* ListMyAgendaUI  
+* CreateEntryToAgendaController
+* AgendaRepository
 
 
 ## 3.2. Sequence Diagram (SD)

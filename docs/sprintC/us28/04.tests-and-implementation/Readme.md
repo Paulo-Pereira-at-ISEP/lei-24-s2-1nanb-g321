@@ -2,66 +2,44 @@
 
 ## 4. Tests 
 
-**Test 1:** Check that it is not possible to create an instance of the Task class with null values. 
-
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureNullIsNotAllowed() {
-		Task instance = new Task(null, null, null, null, null, null, null);
-	}
-	
-
-**Test 2:** Check that it is not possible to create an instance of the Task class with a reference containing less than five chars - AC2. 
-
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureReferenceMeetsAC2() {
-		Category cat = new Category(10, "Category 10");
-		
-		Task instance = new Task("Ab1", "Task Description", "Informal Data", "Technical Data", 3, 3780, cat);
-	}
-
-_It is also recommended to organize this content by subsections._ 
-
+n/a
 
 ## 5. Construction (Implementation)
 
-### Class CreateTaskController 
+### Class CreateEntryToAgendaController 
 
 ```java
-public Task createTask(String reference, String description, String informalDescription, String technicalDescription,
-                       Integer duration, Double cost, String taskCategoryDescription) {
+public List<Entry> getAllEntries() {
+    return agendaRepository.getEntrys();
+}
 
-	TaskCategory taskCategory = getTaskCategoryByDescription(taskCategoryDescription);
-
-	Employee employee = getEmployeeFromSession();
-	Organization organization = getOrganizationRepository().getOrganizationByEmployee(employee);
-
-	newTask = organization.createTask(reference, description, informalDescription, technicalDescription, duration,
-                                      cost,taskCategory, employee);
-    
-	return newTask;
+public List<Entry> getSortedEntriesByDate(List<Entry> sortedEntries) {
+    return agendaRepository.sortEntriesByDate(sortedEntries);
 }
 ```
 
-### Class Organization
+### Class AgendaRepository
 
 ```java
-public Optional<Task> createTask(String reference, String description, String informalDescription,
-                                 String technicalDescription, Integer duration, Double cost, TaskCategory taskCategory,
-                                 Employee employee) {
-    
-    Task task = new Task(reference, description, informalDescription, technicalDescription, duration, cost,
-                         taskCategory, employee);
+public ArrayList<Entry> getAllEntrys() {
+    return new ArrayList<>(entrys);
+}
+public List<Entry> getEntriesByDate(LocalDate date) {
 
-    addTask(task);
-        
-    return task;
+    List<Entry> filteredEntries = new ArrayList<>();
+    for (Entry entry : entrys) {
+        if (date.equals(entry.getEntryDate())) {
+            filteredEntries.add(entry);
+        }
+    }
+    return filteredEntries;
 }
 ```
 
 
 ## 6. Integration and Demo 
 
-* A new option on the Employee menu options was added.
+* A new option on the Collaorator menu options was added.
 
 * For demo purposes some tasks are bootstrapped while system starts.
 

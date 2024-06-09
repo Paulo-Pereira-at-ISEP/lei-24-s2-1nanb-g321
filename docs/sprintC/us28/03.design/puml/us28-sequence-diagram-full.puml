@@ -6,107 +6,229 @@ skinparam shadowing false
 autonumber
 
 'hide footbox
-actor "Vehicle Fleet Manager" as VFM
-participant ":ListVehiclesPendingMaintenanceUI" as UI
-participant ":ListVehiclesPendingMaintenanceController" as controller
-participant ":Repositories" as singleton
-participant "repositories\n:Repositories" as rep
-participant "vehicleRepository\n:vehicleRepository" as vehicleRepository
+
+actor "Collaborator" as COLLAB
+participant ": ListMyAgendaUI" as UI
+participant ": CreateEntryToAgendaController" as CTRL
+participant ": Repositories" as ORG_SINGLETON
+participant "repositories\n: Repositories" as ORG_INSTANCE
 participant "authenticationRepository\n:AuthenticationRepository" as AUTH_REPO
 participant "userSession\n:UserSession" as USR_SESSION
-participant ":Vehicle" as vehicle
-participant ":VehicleMaintenance" as VehicleMaintenance
+participant "employee\n:Employee" as EMPLOYEE
+participant "agendaRepository\n:AgendaRepository" as AGENDA_REPO_INSTANCE
+participant "entry\n:Entry" as ENTRY
 
-note right of VFM
+
+note right of COLLAB
     - The user is already logged in at this step.
     - Authentication sequence is explained in
     a sequence excerpt.
 end note
 
-note right of singleton
+note right of ORG_SINGLETON
     - Singleton is
     in use
 end note
 
-activate VFM
 
-        VFM -> UI :asks to list vehicle's in need for a check-up
+activate COLLAB
+
+        COLLAB -> UI : asks to consult a list of tasks
 
         activate UI
 
-            UI -> controller** : create
 
-            UI -> controller : asks for a list of the vehicles pending maintenance
-            activate controller
+              UI --> COLLAB : request Data (inicialDate, finalDate)
 
-                controller -> singleton : getInstance()
-                activate singleton
-
-                    singleton --> controller: repositories
-                deactivate singleton
-
-                controller -> singleton : getEmployeeFromSession()
-
-                note right of controller
-                    - This method is explained
-                    in detail in an excerpt
-                    sequence diagram.
-                end note
-
-                activate singleton
-
-                singleton --> controller : employee
-
-                deactivate singleton
-
-                controller -> rep : getVehicleRepository()
-                activate rep
-
-                    rep --> controller: vehicleRepository
-                deactivate rep
-
-                controller -> vehicleRepository : getAllVehicles()
-                activate vehicleRepository
-
-                    vehicleRepository --> controller : vehicles
-                deactivate vehicleRepository
-
-                loop for each vehicle
-
-                controller -> vehicle: getMaintenanceFrequency()
-                activate vehicle
-
-                vehicle --> controller: MaintenanceFrequency
-                deactivate vehicle
-
-                controller -> vehicle: getLastMaintenance()
-                activate vehicle
-
-                vehicle --> controller: lastMaintenance
-                deactivate vehicle
-
-                controller -> vehicle: getCurrentKm()
-                activate vehicle
-
-                vehicle --> controller: currentKm
-                deactivate vehicle
-
-                controller -> VehicleMaintenance: vehicleMaintenance(MaintenanceFrequency, lastMaintenance)
-                activate VehicleMaintenance
-
-                VehicleMaintenance --> VehicleMaintenance: validateVehicleMaintenance
-
-                VehicleMaintenance --> controller: vehiclesMaintenance
-                deactivate VehicleMaintenance
-
-                end
-
-                controller --> UI : vehiclesWithPendingMaintenanceList
-            deactivate controller
-
-            UI --> VFM : shows vehicles that need Maintenance
         deactivate UI
 
-deactivate VFM
+        COLLAB -> UI : types requested data
+
+            activate UI
+
+                UI --> COLLAB : requests confirmation
+            deactivate UI
+
+            COLLAB -> UI : confirms data
+
+
+        activate UI
+
+            'create CTRL
+            UI -> CTRL** : create
+
+            UI -> CTRL : listEntryFromAgenda
+
+            activate CTRL
+
+                CTRL -> ORG_SINGLETON : getInstance()
+
+                    activate ORG_SINGLETON
+
+                    ORG_SINGLETON --> CTRL : repositories
+
+                deactivate ORG_SINGLETON
+
+                CTRL -> ORG_INSTANCE : getEmployeeFromSession()
+
+                    note right of CTRL
+                        - This method is explained
+                        in detail in an excerpt
+                        sequence diagram.
+                    end note
+
+                    activate ORG_INSTANCE
+
+                    ORG_INSTANCE --> CTRL : employee
+
+                    deactivate ORG_INSTANCE
+
+                        CTRL -> EMPLOYEE : getAllEntries(employee)
+
+                        activate EMPLOYEE
+
+                        EMPLOYEE -> AGENDA_REPO_INSTANCE : getAllEntries(employee)
+
+                            activate AGENDA_REPO_INSTANCE
+
+                            AGENDA_REPO_INSTANCE --> EMPLOYEE : myEntriesList
+
+                        deactivate AGENDA_REPO_INSTANCE
+
+                        EMPLOYEE --> CTRL : myEntriesList
+
+                    deactivate EMPLOYEE
+
+                deactivate ORG_INSTANCE
+
+            CTRL --> UI : myEntriesList
+
+        UI --> COLLAB : shows entries from agenda
+
+        deactivate UI
+
+deactivate COLLAB
+
+@enduml
+
+@startuml
+skinparam monochrome true
+skinparam packageStyle rectangle
+skinparam shadowing false
+
+autonumber
+
+'hide footbox
+
+actor "Collaborator" as COLLAB
+participant ": ListMyAgendaUI" as UI
+participant ": CreateEntryToAgendaController" as CTRL
+participant ": Repositories" as ORG_SINGLETON
+participant "repositories\n: Repositories" as ORG_INSTANCE
+participant "authenticationRepository\n:AuthenticationRepository" as AUTH_REPO
+participant "userSession\n:UserSession" as USR_SESSION
+participant "employee\n:Employee" as EMPLOYEE
+participant "agendaRepository\n:AgendaRepository" as AGENDA_REPO_INSTANCE
+participant "entry\n:Entry" as ENTRY
+
+
+note right of COLLAB
+    - The user is already logged in at this step.
+    - Authentication sequence is explained in
+    a sequence excerpt.
+end note
+
+note right of ORG_SINGLETON
+    - Singleton is
+    in use
+end note
+
+
+activate COLLAB
+
+        COLLAB -> UI : asks to consult a list of tasks assigned to me
+
+        activate UI
+
+            'create CTRL
+            UI -> CTRL** : create
+
+            UI -> CTRL : listEntryFromAgenda
+
+            activate CTRL
+
+                CTRL -> ORG_SINGLETON : getInstance()
+
+                activate ORG_SINGLETON
+
+                    ORG_SINGLETON --> CTRL : repositories
+
+                deactivate ORG_SINGLETON
+
+                CTRL -> ORG_INSTANCE : getEmployeeFromSession()
+
+                    note right of CTRL
+                        - This method is explained
+                        in detail in an excerpt
+                        sequence diagram.
+                    end note
+
+                    activate ORG_INSTANCE
+
+                    ORG_INSTANCE --> CTRL : employee
+
+                deactivate ORG_INSTANCE
+
+                CTRL --> UI : request Data
+
+            deactivate CTRL
+
+            UI --> COLLAB : request Data (inicialDate, finalDate)
+
+        deactivate UI
+
+        COLLAB -> UI : types requested data
+
+        activate UI
+
+            UI --> COLLAB : requests confirmation
+
+        deactivate UI
+
+        COLLAB -> UI : confirms data and request list
+
+        activate UI
+
+            UI -> CTRL : getAllEntries(employee)
+
+            activate CTRL
+
+                CTRL -> EMPLOYEE : getAllEntries(employee)
+
+                activate EMPLOYEE
+
+                    EMPLOYEE -> AGENDA_REPO_INSTANCE : getAllEntries(employee)
+
+                    activate AGENDA_REPO_INSTANCE
+
+                        AGENDA_REPO_INSTANCE --> EMPLOYEE : myEntriesList
+
+                    deactivate AGENDA_REPO_INSTANCE
+
+                    EMPLOYEE --> CTRL : myEntriesList
+
+                deactivate EMPLOYEE
+
+            deactivate ORG_INSTANCE
+
+            CTRL --> UI : myEntriesList
+
+        deactivate CTRL
+
+        UI --> COLLAB : shows entries from agenda
+
+        deactivate UI
+
+deactivate COLLAB
 
 @enduml

@@ -9,89 +9,84 @@ skinparam classAttributeIconSize 0
 
 'left to right direction
 
-class ListVehiclesWithPendingMaintenanceController {
-    -vehiclesRepository : VehiclesRepository
-
-    +ListVehiclesWithPendingMaintenanceController(vehiclesRepository)
-    + createVehiclesWithPendingMaintenanceList()
-
-}
-
-
-class ListVehiclesWithPendingMaintenanceUI {
+class ListMyAgendaUI {
     +run()
 }
 
+class CreateEntryToAgendaController {
+    - agendaRepository : AgendaRepository
+    - authenticationRepository:AuthenticationRepository
 
-class Repositories{
-    - instance : Repositories
-    - Repository : SkillRepository
-    - jobRepository : JobRepository
-    - employeeRepository : EmployeeRepository
-
-
-    + getInstance() : Repositories
-    + getSkillRepository()
-    + getJobRepository()
-    + getEmployeeRepository()
+    - getEmployeeFromSession()
+    + getAllEntries()
+    + getSortedEntriesByDate(List<Entry> sortedEntries)
 }
 
-class VehiclesRepository{
-    +getAllVehicles() : List<vehicles>
-    +addVehiclesWithPendingMaintenanceList
+class Collaborator{
+    -name:String
+    -birthdate:Date
+    -admissionDate:Date
+    -address
+    -mobileContact:String
+    -emailContact:String
+    -IDdocType:String
+    -IDnumber:String
+    -taxNumber:String
+    -job:Job
+    -skills:ArrayList<Skill>
+
+    +Collaborator (String nome,LocalDate dateOfBirth,\nLocalDate admissionDate, String morada, int telemovel,\nString email, String idDocType, int docTypeNumber,\nint taxPayerIdNumber, String role, Job job, ArrayList<Skill> skills)
+}
+
+class Repositories{
+    - instance: Repositories
+    - authenticationRepository: AuthenticationRepository
+    - collaboratorRepository: CollaboratorRepository
+    - greenSpacesRepository: GreenSpacesRepository
+
+    + getInstance()
+    + getAuthenticationRepository()
+    + getCollaboratorRepository()
+    + getGreenSpacesRepository()
+}
+
+class AgendaRepository{
+    +getAllEntries() : List<Entry>
 }
 
 class AuthenticationRepository{
     + getEmployeeFromSession()
 }
 
-class Vehicle {
-    - String brand
-    - String model
-    - String type
-    - Integer tareWeight
-    - Integer grossWeight
-    - Integer currenteKm
-    - Date registerDate
-    - Date acquisitionDate
-    - Integer maintenanceFrequency
-    - String plateNumber
-    - Integer passengersNumber
-    - Integer doorsNumber
-    - String fuelType
-    - Boolean trailerMachines
+class Entry {
+    - String name
+    - String description
+    - String urgencyDegree
+    - int duration
+    - String classification
+    - GreenSpace greenSpace
+    - String status
+    - LocalDate entryDate
+    - int hour
+    - LocalTime startTime
+    - LocalTime endTime
+    - Team team
 
-    +getVehicleMaintenances() : VehicleMaintenances
-}
-
-class VehicleMaintenance{
--maintenanceFrequency: Int
--currentKm: Int
-
-+validateVehicleMaintenance(lastMaintenance, maintenanceFrequency, currentKm)
-
-}
-
-class VehicleMaintenances{
-+getVehiclesWithPendingMaintenanceList(): List<VehicleMaintenance>
-
+    + Entry(String name, String description, \nString urgencyDegree, int duration, \nGreenSpace greenSpace, LocalDate entryDate, \nint hour, Team team)
 }
 
 
-ListVehiclesWithPendingMaintenanceUI "1" ..> "1" ListVehiclesWithPendingMaintenanceController
+ListMyAgendaUI "1" ..> "1" CreateEntryToAgendaController
 
-Vehicle "1" --> "1" VehicleMaintenances: VehicleMaintenances
-
-VehicleMaintenances "1" --> "*" VehicleMaintenance: arrayVehicleMaintenances
+CreateEntryToAgendaController "1" --> "1" Repositories : getInstance
+CreateEntryToAgendaController --> Collaborator : listMyAgenda
 
 Repositories -> Repositories : instance
-Repositories "1" --> "1" VehiclesRepository
+Repositories "1" ..> "1" AgendaRepository : create
+Repositories "1" --> "1" AuthenticationRepository : getCurrentUserSession
 
-VehiclesRepository --> Vehicle
+AgendaRepository --> Entry : have
 
-ListVehiclesWithPendingMaintenanceController ..> VehicleMaintenances : vehicleMaintenances
-ListVehiclesWithPendingMaintenanceController ..> VehiclesRepository
-ListVehiclesWithPendingMaintenanceController "1" ..> "1" Repositories : repositories
-ListVehiclesWithPendingMaintenanceController "1" --> "1" AuthenticationRepository : getCurrentUserSession
+Collaborator --> Repositories : listMyAgenda
 
 @enduml
