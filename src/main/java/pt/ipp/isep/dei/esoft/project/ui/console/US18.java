@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 
-public class US18 {
+public class US18 implements Runnable{
     static final String MATRIX_STR = "datasets/us18_matrix.csv";
     static final String POINTS_STR = "datasets/us18_points_names.csv";
     private static final String DIJKSTRA_US18_FILENAME = "dijkstra_us18";
