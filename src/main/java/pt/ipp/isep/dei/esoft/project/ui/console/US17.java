@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Scanner;
 
 
-public class US17 {
+public class US17 implements Runnable{
 
     static final String MATRIX_STR = "datasets/us17_matrix.csv";
     static final String POINTS_STR = "datasets/us17_points_names.csv";

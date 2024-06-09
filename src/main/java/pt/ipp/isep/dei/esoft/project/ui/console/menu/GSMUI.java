@@ -3,6 +3,8 @@ package pt.ipp.isep.dei.esoft.project.ui.console.menu;
 
 import pt.ipp.isep.dei.esoft.project.ui.console.GraphAnalysisUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.GreenSpaces.GreenSpacesUI;
+import pt.ipp.isep.dei.esoft.project.ui.console.US17;
+import pt.ipp.isep.dei.esoft.project.ui.console.US18;
 import pt.ipp.isep.dei.esoft.project.ui.console.agenda.AgendaUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.tasks.TaskUI;
 import pt.ipp.isep.dei.esoft.project.ui.console.todolist.ToDoListUI;
@@ -26,8 +28,8 @@ public class GSMUI implements Runnable {
         options.add(new MenuItem("Tasks", new TaskUI()));
         options.add(new MenuItem("To Do List", new ToDoListUI()));
         options.add(new MenuItem("Agenda", new AgendaUI()));
-        options.add(new MenuItem("Evac sign routes (US17)", new AgendaUI()));
-        options.add(new MenuItem("Evac sign routes (US18)", new AgendaUI()));
+        options.add(new MenuItem("Evac sign routes (US17)", new US17()));
+        options.add(new MenuItem("Evac sign routes (US18)", new US18()));
 
         int option = 0;
         do {
