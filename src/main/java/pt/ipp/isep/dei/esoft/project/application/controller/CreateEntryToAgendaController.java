@@ -97,11 +97,11 @@ public class CreateEntryToAgendaController {
         }
 
         public List<Entry> getAllEntries() {
-            return agendaRepository.getEntrys();
+            return agendaRepository.getEntries();
         }
 
         public List<Entry> getAllToDoListEntries(){
-            return toDoListRepository.getEntrys();
+            return toDoListRepository.getEntries();
         }
 
         public List<Collaborator> getAllCollaborators() {

@@ -48,7 +48,7 @@ public class AgendaRepositoryTest {
             agendaRepository.addEntry(entry);
 
             // Then
-            assertTrue(agendaRepository.getAllEntrys().contains(entry));
+            assertTrue(agendaRepository.getAllEntries().contains(entry));
         }
 
         @Test
@@ -106,7 +106,7 @@ public class AgendaRepositoryTest {
             collaborators.add(collaborator);
             LocalDate date = LocalDate.now();
 
-            // Given
+
             LocalDate startDate = LocalDate.now();
             LocalDate endDate = startDate.plusDays(7);
             Entry entry1 = new Entry("Meeting", "Project meeting", "High", 2, new GreenSpace("Park", 2000,"garden", new Manager("gsm1@this.app")), date, 10, new Team(collaborators));
@@ -114,10 +114,10 @@ public class AgendaRepositoryTest {
             agendaRepository.addEntry(entry1);
             agendaRepository.addEntry(entry2);
 
-            // When
+
             List<Entry> filteredEntries = agendaRepository.getEntriesBetweenTwoDates(startDate, endDate);
 
-            // Then
+
             assertEquals(2, filteredEntries.size());
         }
 

@@ -80,7 +80,7 @@ public class CreateEntryController {
         }
 
         public List<Entry> getAllEntrys() {
-            return toDoListRepository.getEntrys();
+            return toDoListRepository.getEntries();
         }
     public List<Entry> getEntriesByUrgencyDegree(List<Entry> entries) {
         return toDoListRepository.sortEntriesByUrgencyDegree(entries);

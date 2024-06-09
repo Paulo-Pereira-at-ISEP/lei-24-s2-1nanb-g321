@@ -12,7 +12,6 @@ public class GreenSpacesRepositoryTest {
     public void testGreenSpaceRepository_Constructor() {
         GreenSpaceRepository repository = new GreenSpaceRepository();
 
-        // Verify the list is either loaded from serialization or initialized as empty
         List<GreenSpace> greenSpaces = repository.getGreenSpaces();
         assertTrue(greenSpaces.isEmpty() || !greenSpaces.isEmpty()); // Empty or contains deserialized data
     }

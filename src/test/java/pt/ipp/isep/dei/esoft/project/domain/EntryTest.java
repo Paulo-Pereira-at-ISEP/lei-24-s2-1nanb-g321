@@ -33,7 +33,7 @@ public class EntryTest {
         skills.add(skill);
 
         LocalTime startTime = LocalTime.of(10, 0); // Start time at 10:00
-        int duration = 2; // Duration of 2 hours
+        int duration = 2;
         Collaborator collaborator = new Collaborator(name, dateOfBirth, admissionDate, address, mobile, email, idDocType, docTypeNumber, taxPayerIdNumber, job, password, role, skills);
         ArrayList<Collaborator> collaborators = new ArrayList<>();
         collaborators.add(collaborator);
@@ -43,24 +43,21 @@ public class EntryTest {
         entry.setStartTime(startTime);
         LocalTime endTime = entry.getEndTime();
 
-        // Then
+
         assertEquals(LocalTime.of(12, 0), endTime); // Expected end time is 12:00 (2 hours after start time)
     }
 
 
     @Test
     public void testToString() {
-        // Given
+
         Entry entry = new Entry("Meeting", "Project meeting", "High", 2, new GreenSpace("Park", 1000,"garden", new Manager("gsm1@this.app")), LocalDate.now(), 10);
 
-        // When
         String result = entry.toString();
 
-        // Then
         String expected = "Entry: \nGreenSpace= Park\nTitle=Meeting\nDescription=Project meeting\nUrgencyDegree=High\nDuration=2";
         assertEquals(expected, result);
     }
 
-    // You can add more test cases to cover other methods and edge cases
 }
 
