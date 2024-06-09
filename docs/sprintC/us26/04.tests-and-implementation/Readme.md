@@ -1,65 +1,94 @@
-# US08 - As a VFM, I want the system to produce a list (report) of vehicles needing maintenance.
+# US26 - As a GSM, I want to assign one or more vehicles to an entry in the Agenda.
 
-## 4. Tests 
 
-**Test 1:** Check that it is not possible to create an instance of the Task class with null values. 
+## 4. Tests
 
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureNullIsNotAllowed() {
-		Task instance = new Task(null, null, null, null, null, null, null);
-	}
-	
+**Test 1:** Asserts that the vehicle is present in the list of vehicles for the entry.
 
-**Test 2:** Check that it is not possible to create an instance of the Task class with a reference containing less than five chars - AC2. 
+	 @Test
+    public void testAssignVehicleToEntry() {
+        agendaRepository.assignVehicleToEntry(entry.getId(), vehicle);
+        assertTrue(entry.getVehicles().contains(vehicle));
+    }
 
-	@Test(expected = IllegalArgumentException.class)
-		public void ensureReferenceMeetsAC2() {
-		Category cat = new Category(10, "Category 10");
-		
-		Task instance = new Task("Ab1", "Task Description", "Informal Data", "Technical Data", 3, 3780, cat);
-	}
+**Test 2:** Asserts that the entry is present and matches the added entry.
 
-_It is also recommended to organize this content by subsections._ 
+	 @Test
+    public void testGetEntryById() {
+        assertTrue(agendaRepository.getEntryById(entry.getId()).isPresent());
+    }
+
+}
+
 
 
 ## 5. Construction (Implementation)
 
-### Class CreateTaskController 
+### Class Entry
+
+
+
+### Class Entry
 
 ```java
-public Task createTask(String reference, String description, String informalDescription, String technicalDescription,
-                       Integer duration, Double cost, String taskCategoryDescription) {
+public class Entry {
+    private List<Vehicle> vehicles;
 
-	TaskCategory taskCategory = getTaskCategoryByDescription(taskCategoryDescription);
+    public Entry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate entryDate, int hour, Team team) {
+        super(name, description);
+        this.urgencyDegree = urgencyDegree;
+        this.duration = duration;
+        this.greenSpace = greenSpace;
+        this.entryDate = entryDate;
+        this.status = "Planned";
+        this.hour = hour;
+        this.team = team;
+        this.startTime = LocalTime.of(hour, 0); // Assuming start time is at the beginning of the hour
+        this.endTime = calculateEndTime();
+        this.vehicles = new ArrayList<>();
+    }
+}
 
-	Employee employee = getEmployeeFromSession();
-	Organization organization = getOrganizationRepository().getOrganizationByEmployee(employee);
+public void addVehicle(Vehicle vehicle) {
+    this.vehicles.add(vehicle);
+}
 
-	newTask = organization.createTask(reference, description, informalDescription, technicalDescription, duration,
-                                      cost,taskCategory, employee);
-    
-	return newTask;
+
+public List<Vehicle> getVehicles() {
+    return this.vehicles;
 }
 ```
 
-### Class Organization
+
+### Class CreateAddVehicleToEntryController
 
 ```java
-public Optional<Task> createTask(String reference, String description, String informalDescription,
-                                 String technicalDescription, Integer duration, Double cost, TaskCategory taskCategory,
-                                 Employee employee) {
-    
-    Task task = new Task(reference, description, informalDescription, technicalDescription, duration, cost,
-                         taskCategory, employee);
 
-    addTask(task);
-        
-    return task;
+public void assignVehicleToEntry(String entryId, Vehicle vehicle) {
+    Entry entry = agendaRepository.getEntryById(entryId);
+    if (entry != null) {
+        entry.addVehicle(vehicle);
+        agendaRepository.updateEntry(entry);
+    }
+}
+
+
+```
+
+
+### Class CreateAgendaRepository
+
+```java
+public void assignVehicleToEntry(String entryId, Vehicle vehicle) {
+    Entry entry = entryMap.get(entryId);
+    if (entry != null) {
+        entry.addVehicle(vehicle);
+    }
 }
 ```
 
 
-## 6. Integration and Demo 
+## 6. Integration and Demo
 
 * A new option on the Employee menu options was added.
 

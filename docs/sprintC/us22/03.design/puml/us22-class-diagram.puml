@@ -51,6 +51,11 @@ class ToDoListRepository {
     + getAllEntries() : List<Entry>
 }
 }
+Package Repositories <<Folder>>{
+class AuthenticationRepository{
+    + getEmployeeFromSession()
+}
+}
 
 Package Repositories <<Folder>>{
 class AgendaRepository {
@@ -58,15 +63,26 @@ class AgendaRepository {
     + addNewEntry()
 }
 }
+Package Domain <<Folder>>{
+class Employee {
+}
+}
 
 CreateEntryToAgendaUI "1" --> "1" CreateEntryToAgendaController : uses
 CreateEntryToAgendaController ..> Repositorie : gets repositories
 Repositorie --> Repositorie : instance
+Repositorie --> AuthenticationRepository : authenticationRepository
+
 Repositorie "1" --> "1" ToDoListRepository : toDoListRepository
 Repositorie "1" --> "1" AgendaRepository : agendaRepository
+CreateEntryToAgendaController "1" --> "1" AuthenticationRepository : getCurrentUserSession
 
-CreateEntryToAgendaController ..> Entry : create new entry
-Entry --> CreateEntryToAgendaController : newEntry
+CreateEntryToAgendaController ..> Entry
+AuthenticationRepository --> Employee
+AgendaRepository --> Entry
+
+Employee -> Entry
+
 CreateEntryToAgendaController ..> AgendaRepository : add newEntry
 
 @enduml

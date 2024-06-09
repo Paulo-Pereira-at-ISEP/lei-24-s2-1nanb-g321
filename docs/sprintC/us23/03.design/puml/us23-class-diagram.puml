@@ -53,7 +53,15 @@ class TeamRepository {
     + getAllTeams() : List<Team>
 }
 }
-
+Package Repositories <<Folder>>{
+class AuthenticationRepository{
+    + getEmployeeFromSession()
+}
+}
+Package Domain <<Folder>>{
+class Employee {
+}
+}
 Package Repositories <<Folder>>{
 class AgendaRepository {
     + getAllEntriesToAgenda() : List<Entry>
@@ -61,14 +69,20 @@ class AgendaRepository {
 }
 }
 
+CreateTeamToEntryController "1"..-> "1" AuthenticationRepository : getCurrentUserSession
+CreateTeamToEntryController ..> Employee
+AgendaRepository --> Entry
+AuthenticationRepository --> Employee
+
+Employee -> Entry
 CreateTeamToEntryUI "1" --> "1" CreateTeamToEntryController : uses
 CreateTeamToEntryController ..> Repositorie : gets repositories
 Repositorie --> Repositorie : instance
 Repositorie "1" --> "1" TeamRepository : teamRepository
 Repositorie "1" --> "1" AgendaRepository : agendaRepository
 
-CreateTeamToEntryController ..> Entry : create new entry
-Entry --> CreateTeamToEntryController : newEntry
+CreateTeamToEntryController ..> Entry
+
 CreateTeamToEntryController ..> AgendaRepository : add neWntry
 
 @enduml
