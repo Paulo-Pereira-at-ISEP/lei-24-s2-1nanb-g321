@@ -38,13 +38,13 @@ class Manager{
 
 class Repositories{
     - instance: Repositories
-    - managerRepository: ManagerRepository
     - authenticationRepository: AuthenticationRepository
+    - managerRepository: ManagerRepository
     - greenSpacesRepository: GreenSpacesRepository
 
     + getInstance()
-    + getManagerRepository()
     + getAuthenticationRepository()
+    + getManagerRepository()
     + getGreenSpacesRepository()
 }
 

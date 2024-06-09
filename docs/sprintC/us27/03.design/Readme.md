@@ -14,7 +14,7 @@ _**Note that SSD - Alternative One is adopted.**_
 |                                                           |                                                  | Organization                | IE: knows/has its own Employees          |
 |                                                           |                                                  | Employee                    | IE: knows its own data (e.g. email)      |
 |                                                           | ... obtaining the green spaces list?             | GreenSpacesRepository       | Information Expert, Protected Variations |
-| Step 2: presents a list of all green spaces managed by me | ... displaying vehicle's in need for a check-up? | ListMyGreenSpacesUI         | Pure Fabrication                         |
+| Step 2: presents a list of all green spaces managed by me | ... displaying green spaces managed by me?       | ListMyGreenSpacesUI         | Pure Fabrication                         |
 
 ### Systematization ##
 
