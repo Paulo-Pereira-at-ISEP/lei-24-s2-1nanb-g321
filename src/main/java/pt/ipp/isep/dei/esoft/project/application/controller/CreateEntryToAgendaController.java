@@ -4,6 +4,7 @@ import pt.ipp.isep.dei.esoft.project.domain.*;
 import pt.ipp.isep.dei.esoft.project.repository.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CreateEntryToAgendaController {
@@ -122,6 +123,16 @@ public class CreateEntryToAgendaController {
         public List<Entry> getSortedEntriesByDate(List<Entry> sortedEntries) {
             return agendaRepository.sortEntriesByDate(sortedEntries);
         }
+
+    public List<Entry> getEntriesByTeam(Team team) {
+        List<Entry> entriesByTeam = new ArrayList<>();
+        for (Entry entry : getAllEntries()) {
+            if (team.equals(entry.getTeam())) {
+                entriesByTeam.add(entry);
+            }
+        }
+        return entriesByTeam;
+    }
 
         public Entry createEntry(String name, String description, String urgencyDegree, int duration, GreenSpace greenSpace, LocalDate date, int hour) {
 

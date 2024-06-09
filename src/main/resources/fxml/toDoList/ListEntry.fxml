@@ -16,7 +16,7 @@
         </TableView>
     </center>
     <bottom>
-        <Button fx:id="backButton" onAction="#handleBack" prefWidth="41.0" text="Back" BorderPane.alignment="CENTER">
+        <Button fx:id="backButton" onAction="#handleBack" prefWidth="75" text="Back" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets top="20.0" />
          </BorderPane.margin></Button>

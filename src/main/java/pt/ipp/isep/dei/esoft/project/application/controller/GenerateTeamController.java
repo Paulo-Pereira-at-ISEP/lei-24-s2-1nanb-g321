@@ -85,7 +85,7 @@ public class GenerateTeamController {
     }
 
     public Team createSecondTeam(int teamMaxSize, int teamMinSize, ArrayList<Skill> skills, Team team) {
-        ArrayList<Collaborator> team2 = Team.createOhterTeam(teamMaxSize, teamMinSize, skills, collaboratorRepository.getCollaboratorsWithoutTeam(), team);
+        ArrayList<Collaborator> team2 = Team.createOtherTeam(teamMaxSize, teamMinSize, skills, collaboratorRepository.getCollaboratorsWithoutTeam(), team);
 
         return new Team(team2);
     }

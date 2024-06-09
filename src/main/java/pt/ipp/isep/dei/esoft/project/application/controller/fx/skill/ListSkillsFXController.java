@@ -35,7 +35,7 @@ public class ListSkillsFXController {
         skillsTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
         nameColumn.setMinWidth(150);
-        descriptionColumn.setMinWidth(300);
+        descriptionColumn.setMinWidth(450);
 
         listSkills();
     }

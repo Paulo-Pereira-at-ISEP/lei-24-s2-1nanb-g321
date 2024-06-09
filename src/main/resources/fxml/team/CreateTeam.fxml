@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane alignment="CENTER" hgap="10" prefHeight="592.0" prefWidth="568.0" vgap="10" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.application.controller.fx.team.CreateTeamFXController">
+<GridPane alignment="CENTER" maxHeight="Infinity" maxWidth="Infinity" vgap="10" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pt.ipp.isep.dei.esoft.project.application.controller.fx.team.CreateTeamFXController">
     <padding>
         <Insets bottom="25" left="100" right="100" top="25" />
     </padding>
@@ -17,11 +17,11 @@
 
     <Label text="Skills:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
     <ScrollPane GridPane.columnIndex="0" GridPane.columnSpan="3" GridPane.rowIndex="2">
-        <TableView fx:id="skillTableView" prefHeight="400.0" prefWidth="355.0">
+        <TableView fx:id="skillTableView" prefHeight="400.0" prefWidth="410">
             <columns>
-                <TableColumn fx:id="skillColumn" prefWidth="250" text="Skill" />
+                <TableColumn fx:id="skillColumn" prefWidth="300" text="Skill" />
                 <TableColumn fx:id="actionColumn" prefWidth="50" text="Action" />
-                <TableColumn fx:id="countColumn" minWidth="0.0" prefWidth="54.0" text="Count" />
+                <TableColumn fx:id="countColumn" prefWidth="54.0" text="Count" />
             </columns>
         </TableView>
     </ScrollPane>

@@ -33,7 +33,7 @@
     <Button text="Clear Filter" onAction="#handleClearFilterButtonAction" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
     <!-- Tabela de Entradas -->
-    <TableView fx:id="entriesTable" GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="3">
+    <TableView fx:id="entriesTable" GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.columnSpan="4">
         <columns>
             <TableColumn fx:id="greenSpaceColumn" text="Green Space"/>
             <TableColumn fx:id="taskColumn" text="Task"/>

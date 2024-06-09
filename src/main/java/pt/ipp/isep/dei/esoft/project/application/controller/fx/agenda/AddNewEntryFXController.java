@@ -50,10 +50,10 @@ public class AddNewEntryFXController {
 
         entriesTable.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
 
-        greenSpaceColumn.setMinWidth(150);
-        taskColumn.setMinWidth(200);
-        urgencyColumn.setMinWidth(150);
-        durationColumn.setMinWidth(300);
+        greenSpaceColumn.setMinWidth(200);
+        taskColumn.setMinWidth(300);
+        urgencyColumn.setMinWidth(30);
+        durationColumn.setMinWidth(30);
 
         listEntryFromToDoList();
         hourComboBox.getItems().addAll(hours);
