@@ -14,6 +14,7 @@ import java.util.List;
 public class AddNewEntryFXController {
 
     private final CreateEntryToAgendaController entryController = new CreateEntryToAgendaController();
+
     public static final ArrayList<String> hours = new ArrayList<>(List.of("8", "9","10","11","12","13","14","15","16"));
 
     @FXML
@@ -72,18 +73,21 @@ public class AddNewEntryFXController {
         if (entry == null || date == null || hour == null) {
             // Mostrar mensagem de erro ao usuário
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Erro");
-            alert.setHeaderText("Entrada não válida");
-            alert.setContentText("Por favor, selecione uma entrada, data e hora.");
+            alert.setTitle("Error");
+            alert.setHeaderText("Invalid Entry");
+            alert.setContentText("Please, select an entry, date and hour.");
             alert.showAndWait();
             return;
+        }else{
+            UtilsFX.showAlert(Alert.AlertType.INFORMATION, "Entry Added","Entry successfully added to Agenda!");
+            clearFields();
         }
+
         entry.setEntryDate(date);
         entry.setHour(Integer.parseInt(hour));
 
         entryController.createEntry(entry.getName(), entry.getDescription(), entry.getUrgencyDegree(), entry.getDuration(), entry.getGreenSpace(), entry.getEntryDate(), entry.getHour());
 
-        clearFields();
     }
 
     @FXML

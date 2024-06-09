@@ -55,18 +55,17 @@ public class LoginFXController {
         if (success) {
             List<UserRoleDTO> roles = ctrl.getUserRoles();
             if (roles == null || roles.isEmpty()) {
-                System.out.println("No role assigned to user.");
+                UtilsFX.showAlert(Alert.AlertType.INFORMATION, "No Role Assigned", "No role assigned to user.");
             } else {
                 UserRoleDTO role = selectsRole(roles);
                 if (!Objects.isNull(role)) {
                     redirectToRoleUI(role);
                 } else {
-                    System.out.println("No role selected.");
+                    UtilsFX.showAlert(Alert.AlertType.INFORMATION, "No Role Selected", "No role selected.");
                 }
             }
         } else {
             UtilsFX.showAlert(Alert.AlertType.INFORMATION, "Invalid Login", "Invalid Email and/or Password!");
-            System.out.println("Invalid Email and/or Password.");
         }
     }
 
