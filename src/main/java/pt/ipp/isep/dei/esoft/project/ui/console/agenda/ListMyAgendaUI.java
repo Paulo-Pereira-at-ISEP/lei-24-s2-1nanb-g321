@@ -4,8 +4,10 @@ import pt.ipp.isep.dei.esoft.project.application.controller.CreateEntryToAgendaC
 import pt.ipp.isep.dei.esoft.project.application.session.ApplicationSession;
 import pt.ipp.isep.dei.esoft.project.domain.Collaborator;
 import pt.ipp.isep.dei.esoft.project.domain.Entry;
+import pt.ipp.isep.dei.esoft.project.ui.console.utils.Utils;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -23,15 +25,15 @@ public class ListMyAgendaUI implements Runnable {
     public void run() {
         System.out.println("\n\n--- Agenda ------------------------");
 
-        //submitData();
+        requestData();
 
         listMyAgenda();
     }
 
-    private void submitData() {
+    private void requestData() {
+        startDate = LocalDate.parse(requestDate("Start"));
 
-
-
+        endDate = LocalDate.parse(requestDate("End"));
     }
 
     /**
@@ -44,19 +46,22 @@ public class ListMyAgendaUI implements Runnable {
         List<Entry> myEntries = new ArrayList<>();
 
         for (Entry entry : sortedEntries) {
-            if (entry.getTeam() != null){
-                for (Collaborator collaborator : entry.getTeam().getCollaborators()) {
-                    if (Objects.equals(collaborator.getEmail(), ApplicationSession.getInstance().getCurrentSession().getUserEmail())){
-                        myEntries.add(entry);
+            LocalDate entryDate = entry.getEntryDate();
+            if (entryDate.isEqual(startDate) || entryDate.isEqual(endDate) || (entryDate.isAfter(startDate) && entryDate.isBefore(endDate))) {
+                if (entry.getTeam() != null){
+                    for (Collaborator collaborator : entry.getTeam().getCollaborators()) {
+                        if (Objects.equals(collaborator.getEmail(), ApplicationSession.getInstance().getCurrentSession().getUserEmail())){
+                            myEntries.add(entry);
+                        }
                     }
                 }
             }
         }
 
         if (myEntries.isEmpty()) {
-            System.out.println("There are no entries.");
+            System.out.println("There are no entries within the specified period.");
         } else {
-            System.out.println("Agenda:");
+            System.out.println("Agenda for the specified period:");
             int counter = 1;
             for (Entry entry : myEntries) {
                 System.out.println("[" + counter + "]   GreenSpace: " + entry.getGreenSpace().getName());
@@ -73,5 +78,22 @@ public class ListMyAgendaUI implements Runnable {
                 counter++;
             }
         }
+    }
+
+    private String requestDate(String string) {
+        boolean validDate = false;
+        String inputDate = "";
+        while (!validDate) {
+            try {
+                inputDate = (Utils.readLineFromConsole(string + "Date (YYYY-MM-DD): ")); // Prompt user for admission date
+                validDate = Utils.parseDate(inputDate); // Validate the input date format
+                if (!validDate) {
+                    System.out.println("Invalid date format (YYYY-MM-DD)."); // Print error if input date format is invalid
+                }
+            } catch (DateTimeParseException e) {
+                System.out.println("Error: Invalid date format."); // Print error if there's an exception parsing the date
+            }
+        }
+        return inputDate; // Return the validated employee admission date
     }
 }
