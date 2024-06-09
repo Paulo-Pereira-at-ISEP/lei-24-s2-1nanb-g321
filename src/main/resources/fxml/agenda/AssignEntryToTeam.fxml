@@ -31,9 +31,8 @@
         </columns>
     </TableView>
 
-
     <!-- Botão de Adicionar -->
-    <Button onAction="#handleAssignEntryToTeam" prefHeight="25.0" prefWidth="96.0" text="Add New Entry" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
+    <Button onAction="#handleAssignEntryToTeam" prefHeight="25.0" prefWidth="96.0" text="Assign Team" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
 
     <!-- Botão de Voltar -->
     <Button fx:id="backButton" layoutX="191.0" layoutY="850.0" onAction="#handleBack" text="Back" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" />
