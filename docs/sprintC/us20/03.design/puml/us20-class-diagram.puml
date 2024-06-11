@@ -85,6 +85,7 @@ CreateGreenSpaceUI "1" ..> "1" CreateGreenSpaceController
 
 Repositories --> "1" GreenSpaceRepository
 Repositories -> Repositories : instance
+Repositories -> AuthenticationRepository
 
 GreenSpaceRepository "1" --> "1" Employee
 
@@ -92,8 +93,6 @@ AuthenticationRepository "1" --> "1" Employee
 
 CreateGreenSpaceController "1" ..> "1" Repositories : getInstance
 CreateGreenSpaceController ..> Employee : createGreenSpace
-CreateGreenSpaceController "1" --> "1" AuthenticationRepository : getCurrentUserSession
-CreateGreenSpaceController ..> GreenSpaceRepository: addGreenSpace
 
 Employee "1" --> "*" GreenSpace : createNewGreenSpace
 
