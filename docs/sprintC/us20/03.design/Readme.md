@@ -18,7 +18,7 @@
 | Step 5         | ... display the form for the actor to input data?           | CreateGreenSpaceUI         | Pure Fabrication                        |
 |                | ... temporarily keeping the input data?                     | CreateGreenSpaceUI         | Pure Fabrication                        |
 |                | ... validating input data format locally?                   | CreateGreenSpaceUI         | Information Expert                      |
-|                | ... creating a green space?                                 | Employee                   | Information Expert                      |
+|                | ... creating a green space?                                 | Employee                   | Creator, Information Expert             |
 |                | ... coordinating the US?                                    | CreateGreenSpaceController | Controller, Low coupling, High Cohesion |
 |                | ... guaranteeing that only one instance is available?       | repositories               | singleton                               |
 |                | ... organize the repositories of the current app?           | Repositories               | Pure Fabrication                        |

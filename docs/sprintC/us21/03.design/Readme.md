@@ -23,7 +23,7 @@
 | Step 5         | ... display the form for the actor to input data?              | CreateEntryUI         | Pure Fabrication                        |
 |                | ... temporarily keeping the input data?                        | CreateEntryUI         | Pure Fabrication                        |
 |                | ... validating input data format locally?                      | CreateEntryUI         | Information Expert                      |
-|                | ... adding an entry to the ToDoList?                           | Employee              | Information Expert                      |
+|                | ... adding an entry to the ToDoList?                           | Employee              | Creator, Information Expert             |
 |                | ... coordinating the US?                                       | CreateEntryController | Controller, Low coupling, High Cohesion |
 |                | ... knowing the required data to add an entry to the ToDoList? | Entry                 | Information Expert                      |
 |                | ... adding the new entry to the collection?                    | ToDoListRepository    | Information Expert, Pure Fabrication    |

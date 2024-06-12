@@ -95,18 +95,17 @@ Repositories -> Repositories : instance
 Repositories --> "1" GreenSpaceRepository
 Repositories --> "1" TaskRepository
 Repositories --> "1" ToDoListRepository
+Repositories -> AuthenticationRepository
 
-GreenSpaceRepository "1" --> "1" Entry
-TaskRepository  "1" --> "1" Entry
-ToDoListRepository "1" --> "1" Entry
+GreenSpaceRepository "1" --> "1" Employee
+TaskRepository  "1" --> "1" Employee
+ToDoListRepository "1" --> "1" Employee
 
 Employee "1" --> "*" Entry
 
 AuthenticationRepository "1" --> "1" Employee
 
-CreateEntryController ..> ToDoListRepository : addEntry
 CreateEntryController "1" ..> "1" Repositories : repositories
-CreateEntryController "1" --> "1" AuthenticationRepository : getCurrentUserSession
 CreateEntryController ..> Employee : createEntry
 
 @enduml

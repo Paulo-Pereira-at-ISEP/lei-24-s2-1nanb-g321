@@ -19,6 +19,9 @@ class Manager {
     section
 }
 
+class Employee {
+}
+
 class ToDoList{
     pendingTasks
 }
@@ -38,6 +41,7 @@ class Task {
     status
 }
 
+Manager "1..*" -- "1..*" Employee: is a >
 Manager "1" -- "*" Task: creates >
 Manager "1" -- "*" ToDoList: manages >
 Manager "1" --up "1..*" GreenSpaceManager: is a >
